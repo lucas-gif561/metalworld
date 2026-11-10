@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/projectiles/granada.gd" id="1_gra"]
+[ext_resource type="Texture2D" path="res://assets/sprites/projeteis/bola.png" id="2_tex"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/estouro_granada.tscn" id="3_est"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/ProjetilBoss.tscn" id="4_bala"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gra"]
+radius = 14.0
+
+[node name="Granada" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_gra")
+cena_particulas = ExtResource("3_est")
+cena_bala = ExtResource("4_bala")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.55, 0.1, 1)
+scale = Vector2(7, 7)
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gra")

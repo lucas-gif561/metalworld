@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://12h0p56rypk6"]
+
+[ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://scenes/player/player.tscn" id="1_k2fmo"]
+[ext_resource type="Script" uid="uid://dqwep2au7svfk" path="res://scripts/main.gd" id="1_l3cfh"]
+[ext_resource type="Texture2D" uid="uid://wyje6x10trew" path="res://assets/backgrounds/Arenas Urbanas Sob a Lua.png" id="2_6q06x"]
+[ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://scenes/enemies/inimigo.tscn" id="5_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://dh5fwt2atm5of" path="res://scenes/enemies/inimigo_grande.tscn" id="6_hujxm"]
+[ext_resource type="Script" uid="uid://c2r13nvu5ypje" path="res://scripts/systems/enemy_manager.gd" id="6_ow5a4"]
+[ext_resource type="PackedScene" uid="uid://bns8j4jm6robf" path="res://scenes/enemies/inimigo_rapido.tscn" id="7_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://bo0smysfkbbbw" path="res://scenes/enemies/inimigo_atirador.tscn" id="8_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://dltkylafufj17" path="res://scenes/objects/Portal.tscn" id="9_b1x3f"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="30_hud"]
+
+[node name="Main" type="Node2D" unique_id=322226560]
+y_sort_enabled = true
+script = ExtResource("1_l3cfh")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1117690434]
+z_index = -1
+position = Vector2(1622.5001, 215.99998)
+scale = Vector2(1.4986188, 1.1933701)
+texture = ExtResource("2_6q06x")
+
+[node name="Portal" parent="." unique_id=1925924290 instance=ExtResource("9_b1x3f")]
+position = Vector2(3110, 461)
+
+[node name="Player" parent="." unique_id=1357147288 instance=ExtResource("1_k2fmo")]
+position = Vector2(124, 424)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1393342290]
+position = Vector2(576, 324)
+
+[node name="Spawns" type="Node2D" parent="." unique_id=31427098]
+
+[node name="Arena1" type="Node2D" parent="Spawns" unique_id=1680864440]
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena1" unique_id=1371033652]
+
+[node name="Ponto1" type="Node2D" parent="Spawns/Arena1/Onda1" unique_id=1049145897]
+position = Vector2(1203, 395)
+
+[node name="Ponto2" type="Node2D" parent="Spawns/Arena1/Onda1" unique_id=1583691589]
+position = Vector2(1204, 495)
+
+[node name="Ponto3" type="Node2D" parent="Spawns/Arena1/Onda1" unique_id=1746425679]
+position = Vector2(1279, 463)
+
+[node name="Ponto4" type="Node2D" parent="Spawns/Arena1/Onda1" unique_id=848187716]
+position = Vector2(1198, 577)
+
+[node name="Onda2" type="Node2D" parent="Spawns/Arena1" unique_id=594765321]
+
+[node name="Ponto1" type="Node2D" parent="Spawns/Arena1/Onda2" unique_id=896063183]
+position = Vector2(-84, 409)
+
+[node name="Ponto2" type="Node2D" parent="Spawns/Arena1/Onda2" unique_id=485288298]
+position = Vector2(-80, 506)
+
+[node name="Ponto3" type="Node2D" parent="Spawns/Arena1/Onda2" unique_id=1174825459]
+position = Vector2(1279, 463)
+
+[node name="Ponto4" type="Node2D" parent="Spawns/Arena1/Onda2" unique_id=279321679]
+position = Vector2(1198, 577)
+
+[node name="Arena2" type="Node2D" parent="Spawns" unique_id=196938411]
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena2" unique_id=2022743521]
+
+[node name="Ponto1" type="Node2D" parent="Spawns/Arena2/Onda1" unique_id=809964112]
+position = Vector2(2318, 369)
+
+[node name="Ponto2" type="Node2D" parent="Spawns/Arena2/Onda1" unique_id=958393027]
+position = Vector2(2348, 508)
+
+[node name="Ponto3" type="Node2D" parent="Spawns/Arena2/Onda1" unique_id=1708826546]
+position = Vector2(923, 545)
+
+[node name="Ponto4" type="Node2D" parent="Spawns/Arena2/Onda1" unique_id=1357527123]
+position = Vector2(857, 386)
+
+[node name="Onda2" type="Node2D" parent="Spawns/Arena2" unique_id=19479986]
+
+[node name="Ponto1" type="Node2D" parent="Spawns/Arena2/Onda2" unique_id=1679391376]
+position = Vector2(2320, 402)
+
+[node name="Ponto2" type="Node2D" parent="Spawns/Arena2/Onda2" unique_id=125707530]
+position = Vector2(940, 472)
+
+[node name="Ponto3" type="Node2D" parent="Spawns/Arena2/Onda2" unique_id=1478496746]
+position = Vector2(2331, 470)
+
+[node name="Ponto4" type="Node2D" parent="Spawns/Arena2/Onda2" unique_id=608243441]
+position = Vector2(959, 412)
+
+[node name="Arena3" type="Node2D" parent="Spawns" unique_id=1180077061]
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena3" unique_id=1760018789]
+
+[node name="Ponto1" type="Node2D" parent="Spawns/Arena3/Onda1" unique_id=1834504222]
+position = Vector2(3294, 530)
+
+[node name="Ponto2" type="Node2D" parent="Spawns/Arena3/Onda1" unique_id=1352774010]
+position = Vector2(3286, 346)
+
+[node name="Ponto3" type="Node2D" parent="Spawns/Arena3/Onda1" unique_id=170055630]
+position = Vector2(1938, 500)
+
+[node name="Ponto4" type="Node2D" parent="Spawns/Arena3/Onda1" unique_id=1545605864]
+position = Vector2(1925, 337)
+
+[node name="Onda2" type="Node2D" parent="Spawns/Arena3" unique_id=1452550229]
+
+[node name="Ponto1" type="Node2D" parent="Spawns/Arena3/Onda2" unique_id=264818682]
+position = Vector2(1859, 371)
+
+[node name="Ponto2" type="Node2D" parent="Spawns/Arena3/Onda2" unique_id=131656599]
+position = Vector2(1855, 457)
+
+[node name="Ponto3" type="Node2D" parent="Spawns/Arena3/Onda2" unique_id=1372435535]
+position = Vector2(3310, 458)
+
+[node name="Ponto4" type="Node2D" parent="Spawns/Arena3/Onda2" unique_id=652139223]
+position = Vector2(3346, 433)
+
+[node name="EnemyManager" type="Node2D" parent="." unique_id=278920186]
+script = ExtResource("6_ow5a4")
+cena_inimigo = ExtResource("5_yyfjg")
+cena_inimigo_rapido = ExtResource("7_yyfjg")
+cena_inimigo_grande = ExtResource("6_hujxm")
+cena_inimigo_atirador = ExtResource("8_yyfjg")
+
+[node name="PortalSpawn" type="Node2D" parent="." unique_id=1404435575]
+
+[node name="HudJogo" parent="." unique_id=880012347 instance=ExtResource("30_hud")]

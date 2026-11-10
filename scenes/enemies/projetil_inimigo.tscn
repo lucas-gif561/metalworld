@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d3licugsc1aio"]
+
+[ext_resource type="Script" uid="uid://c8o4qip5f2oa3" path="res://scripts/projectiles/projetil_inimigo.gd" id="1_eyhbw"]
+[ext_resource type="Texture2D" path="res://assets/sprites/projeteis/bola_longa.png" id="5_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf7sd"]
+size = Vector2(12, 18)
+
+[node name="ProjetilInimigo" type="Area2D" unique_id=1746438533]
+collision_layer = 8
+script = ExtResource("1_eyhbw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1148980457]
+modulate = Color(1, 0.25, 0.25, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("5_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=478726971]
+shape = SubResource("RectangleShape2D_qf7sd")

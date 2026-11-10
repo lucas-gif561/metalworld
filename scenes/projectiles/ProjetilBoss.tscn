@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cohoo1yja2qtv"]
+
+[ext_resource type="Script" uid="uid://chw61mx30n3kj" path="res://scripts/projectiles/projetilBoss.gd" id="1_1f60h"]
+[ext_resource type="Texture2D" path="res://assets/sprites/projeteis/bola.png" id="1_ianji"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ec6vt"]
+
+[node name="ProjetilBoss" type="Area2D" unique_id=1211641959]
+script = ExtResource("1_1f60h")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1562710718]
+modulate = Color(1, 0.3, 0.85, 1)
+scale = Vector2(5, 5)
+texture = ExtResource("1_ianji")
+
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=105424822]
+shape = SubResource("CircleShape2D_ec6vt")

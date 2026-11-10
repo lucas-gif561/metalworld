@@ -1,0 +1,220 @@
+[gd_scene format=3 uid="uid://bgb1735o3sdg4"]
+
+[ext_resource type="Texture2D" uid="uid://be8d45abhogdi" path="res://assets/backgrounds/Arena Neon de Batalha Pixelada.png" id="1_6tvee"]
+[ext_resource type="Script" uid="uid://cefx3gl0nkig5" path="res://scripts/bosses/BossFight.gd" id="1_df7gq"]
+[ext_resource type="PackedScene" uid="uid://davnwkwebe4qc" path="res://scenes/bosses/boss.tscn" id="2_df7gq"]
+[ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://scenes/player/player.tscn" id="3_8xsta"]
+[ext_resource type="PackedScene" uid="uid://cohoo1yja2qtv" path="res://scenes/projectiles/ProjetilBoss.tscn" id="4_8xsta"]
+[ext_resource type="PackedScene" uid="uid://ce5l8vsahldl3" path="res://scenes/projectiles/ataqueAreaBoss.tscn" id="4_78twr"]
+[ext_resource type="Script" uid="uid://k8878xklui2l" path="res://scripts/objects/riffHUD.gd" id="7_xtdbn"]
+[ext_resource type="PackedScene" uid="uid://cf87sdp8j1wv6" path="res://scenes/objects/NotaRiff.tscn" id="8_mi726"]
+[ext_resource type="Texture2D" uid="uid://1jplyjeqfurg" path="res://assets/sprites/ui/tecla_baixo_apagada.png" id="20_baixo"]
+[ext_resource type="Texture2D" uid="uid://be0oe3vr4a7vm" path="res://assets/sprites/ui/tecla_cima_apagada.png" id="20_cima"]
+[ext_resource type="Texture2D" uid="uid://oyrmveyxex3v" path="res://assets/sprites/ui/tecla_direita_apagada.png" id="20_direita"]
+[ext_resource type="Texture2D" uid="uid://cwcrkx0s13a8l" path="res://assets/sprites/ui/tecla_esquerda_apagada.png" id="20_esquerda"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="30_hud"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/granada.tscn" id="40_gra"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/inimigo_drone.tscn" id="41_dro"]
+[ext_resource type="PackedScene" path="res://scenes/bosses/runa.tscn" id="42_run"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/particulas_boss.tscn" id="43_par"]
+[ext_resource type="PackedScene" path="res://scenes/ui/cabo_de_forca.tscn" id="44_cabo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vyw2r"]
+radius = 108.0
+height = 296.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mi726"]
+size = Vector2(1222, 133.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8l2qr"]
+size = Vector2(1212, 91)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lj0mq"]
+size = Vector2(53, 723)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rk34g"]
+size = Vector2(75, 728.5)
+
+[node name="Bossfight" type="Node2D" unique_id=1072854072]
+script = ExtResource("1_df7gq")
+
+[node name="Arena" type="Node2D" parent="." unique_id=1638769874]
+metadata/_edit_group_ = true
+
+[node name="BackGround" type="Sprite2D" parent="Arena" unique_id=1230644980]
+position = Vector2(574.80566, 321.99997)
+scale = Vector2(0.6950055, 0.6950053)
+texture = ExtResource("1_6tvee")
+
+[node name="BarreiraPalco" type="StaticBody2D" parent="Arena" unique_id=1220937588]
+position = Vector2(576, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/BarreiraPalco" unique_id=940301841]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_vyw2r")
+
+[node name="Boss" parent="Arena" unique_id=647068640 node_paths=PackedStringArray("jogador") instance=ExtResource("2_df7gq")]
+position = Vector2(576, 160)
+cena_ataque_area = ExtResource("4_78twr")
+cena_projetil = ExtResource("4_8xsta")
+cena_granada = ExtResource("40_gra")
+cena_capanga = ExtResource("41_dro")
+cena_runa = ExtResource("42_run")
+cena_particulas = ExtResource("43_par")
+jogador = NodePath("../../Player")
+
+[node name="SpawnPlayer" type="Marker2D" parent="Arena" unique_id=126301520]
+position = Vector2(576, 528)
+
+[node name="Paredes" type="Node2D" parent="Arena" unique_id=1339352095]
+
+[node name="ParedeSuperior" type="StaticBody2D" parent="Arena/Paredes" unique_id=1488684478]
+position = Vector2(568, -24)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeSuperior" unique_id=536414275]
+position = Vector2(0, 38.25)
+shape = SubResource("RectangleShape2D_mi726")
+
+[node name="ParedeInferior" type="StaticBody2D" parent="Arena/Paredes" unique_id=1440596223]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeInferior" unique_id=981719831]
+position = Vector2(574, 649.5)
+shape = SubResource("RectangleShape2D_8l2qr")
+
+[node name="ParedeEsquerda" type="StaticBody2D" parent="Arena/Paredes" unique_id=1163257233]
+position = Vector2(-24, 328)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeEsquerda" unique_id=1554902316]
+shape = SubResource("RectangleShape2D_lj0mq")
+
+[node name="ParedeDireita" type="StaticBody2D" parent="Arena/Paredes" unique_id=1145410349]
+position = Vector2(1187, 312)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeDireita" unique_id=1515332814]
+shape = SubResource("RectangleShape2D_rk34g")
+
+[node name="Player" parent="." unique_id=1357147288 instance=ExtResource("3_8xsta")]
+position = Vector2(577, 523)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1912905334]
+
+[node name="BossHealthBar" type="ProgressBar" parent="HUD" unique_id=817409153]
+modulate = Color(1, 0.3, 0.72, 1)
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 1142.0
+offset_bottom = 35.0
+value = 100.0
+show_percentage = false
+
+[node name="CaboDeForca" parent="HUD" unique_id=880012348 instance=ExtResource("44_cabo")]
+
+[node name="RiffHUD" type="Control" parent="HUD" unique_id=948874030 node_paths=PackedStringArray("boss")]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = -226.0
+offset_right = -56.0
+offset_bottom = 178.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("7_xtdbn")
+cena_nota = ExtResource("8_mi726")
+boss = NodePath("../../Arena/Boss")
+
+[node name="NotasContainer" type="Control" parent="HUD/RiffHUD" unique_id=1075832888]
+anchors_preset = 0
+offset_top = 80.0
+offset_right = 240.0
+offset_bottom = 320.0
+
+[node name="TrilhaCima" type="ColorRect" parent="HUD/RiffHUD/NotasContainer" unique_id=85741866]
+layout_mode = 0
+offset_right = 57.0
+offset_bottom = 300.0
+color = Color(0.1882353, 0.14117648, 0.32156864, 1)
+
+[node name="TrilhaBaixo" type="ColorRect" parent="HUD/RiffHUD/NotasContainer" unique_id=2142767410]
+layout_mode = 0
+offset_left = 61.0
+offset_right = 118.0
+offset_bottom = 300.0
+color = Color(0.1882353, 0.14117648, 0.32156864, 1)
+
+[node name="TrilhaEsquerda" type="ColorRect" parent="HUD/RiffHUD/NotasContainer" unique_id=448193803]
+layout_mode = 0
+offset_left = 122.0
+offset_right = 179.0
+offset_bottom = 300.0
+color = Color(0.1882353, 0.14117648, 0.32156864, 1)
+
+[node name="TrilhaDireita" type="ColorRect" parent="HUD/RiffHUD/NotasContainer" unique_id=2124801904]
+layout_mode = 0
+offset_left = 183.0
+offset_right = 240.0
+offset_bottom = 300.0
+color = Color(0.1882353, 0.14117648, 0.32156864, 1)
+
+[node name="LinhaAcerto" type="ColorRect" parent="HUD/RiffHUD/NotasContainer" unique_id=1694231651]
+layout_mode = 0
+offset_top = 274.0
+offset_right = 240.0
+offset_bottom = 278.0
+color = Color(1, 0.3019608, 0.72156864, 1)
+
+[node name="IndicadorCima" type="TextureRect" parent="HUD/RiffHUD/NotasContainer" unique_id=1562985078]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 260.0
+offset_right = 106.0
+offset_bottom = 292.0
+texture = ExtResource("20_cima")
+expand_mode = 1
+
+[node name="IndicadorBaixo" type="TextureRect" parent="HUD/RiffHUD/NotasContainer" unique_id=1960229845]
+layout_mode = 0
+offset_left = 135.0
+offset_top = 260.0
+offset_right = 167.0
+offset_bottom = 292.0
+texture = ExtResource("20_baixo")
+expand_mode = 1
+
+[node name="IndicadorEsquerda" type="TextureRect" parent="HUD/RiffHUD/NotasContainer" unique_id=1070303815]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 260.0
+offset_right = 45.0
+offset_bottom = 292.0
+texture = ExtResource("20_esquerda")
+expand_mode = 1
+
+[node name="IndicadorDireita" type="TextureRect" parent="HUD/RiffHUD/NotasContainer" unique_id=562682541]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 260.0
+offset_right = 228.0
+offset_bottom = 292.0
+texture = ExtResource("20_direita")
+expand_mode = 1
+
+[node name="LabelFeedback" type="Label" parent="HUD/RiffHUD" unique_id=880012345]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 240.0
+offset_bottom = 75.0
+pivot_offset = Vector2(120, 22)
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HudJogo" parent="." unique_id=880012346 instance=ExtResource("30_hud")]
+deslocamento_vida = Vector2(0, 34)

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cf87sdp8j1wv6"]
+
+[ext_resource type="Script" uid="uid://cgvelyo8jbp7o" path="res://scripts/objects/notaRiff.gd" id="1_iaox1"]
+
+[node name="NotaRiff" type="Control" unique_id=131494386]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_iaox1")
+
+[node name="Seta" type="TextureRect" parent="." unique_id=560068207]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+expand_mode = 1

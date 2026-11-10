@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dqlqnehxlyabn"]
+
+[ext_resource type="Script" uid="uid://h742f1h38f1i" path="res://scripts/player/player.gd" id="1_8afob"]
+[ext_resource type="PackedScene" uid="uid://b1nrm84wi1ec4" path="res://scenes/projectiles/projetil.tscn" id="2_dovo2"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/dylan/dylan.tres" id="3_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qf7sd"]
+size = Vector2(44, 68)
+
+[node name="Player" type="CharacterBody2D" unique_id=1357147288 groups=["jogador"]]
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_8afob")
+cena_projetil = ExtResource("2_dovo2")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=918612811]
+scale = Vector2(2.5, 2.5)
+sprite_frames = ExtResource("3_frames")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(11, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728486600]
+shape = SubResource("RectangleShape2D_qf7sd")
+
+[node name="TimerTiro" type="Timer" parent="." unique_id=1169419672]
+wait_time = 0.3
+one_shot = true
+
+[node name="TimerInvencibilidade" type="Timer" parent="." unique_id=1526781898]
+one_shot = true

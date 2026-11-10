@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b1nrm84wi1ec4"]
+
+[ext_resource type="Script" uid="uid://bjtj537foin6g" path="res://scripts/projectiles/projetil.gd" id="1_u6xj5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/projeteis/bola_longa.png" id="5_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikrja"]
+size = Vector2(12, 18)
+
+[node name="Projetil" type="Area2D" unique_id=774967532]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_u6xj5")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=736602798]
+shape = SubResource("RectangleShape2D_ikrja")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1065205366]
+modulate = Color(1, 0.85, 0.2, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("5_tex")
