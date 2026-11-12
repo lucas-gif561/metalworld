@@ -21,7 +21,6 @@ func _ready():
 	largura_tela = get_viewport_rect().size.x / camera.zoom.x
 	altura_tela = get_viewport_rect().size.y / camera.zoom.y
 
-	Audio.tocar_musica("ruas")
 	hud.conectar_jogador(player)
 	player.morreu.connect(_ao_jogador_morrer)
 	enemy_manager.onda_iniciada.connect(_ao_iniciar_onda)
@@ -38,7 +37,6 @@ func _ao_concluir_arena():
 
 
 func _ao_jogador_morrer():
-	Audio.parar_musica()
 	hud.mostrar_fim("GAME OVER", "Pressione R para tentar de novo", Color(1, 0.25, 0.25))
 
 

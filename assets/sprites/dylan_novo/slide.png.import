@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbca6qyxjm5o7"
-path="res://.godot/imported/idle.png-0684191aefdfacbfc23af69be93ede0c.ctex"
+uid="uid://d30jnxa6ea0iw"
+path="res://.godot/imported/slide.png-934865875be52beb59105a9347ccd76c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/inimigos/drone/idle.png"
-dest_files=["res://.godot/imported/idle.png-0684191aefdfacbfc23af69be93ede0c.ctex"]
+source_file="res://assets/sprites/dylan_novo/slide.png"
+dest_files=["res://.godot/imported/slide.png-934865875be52beb59105a9347ccd76c.ctex"]
 
 [params]
 

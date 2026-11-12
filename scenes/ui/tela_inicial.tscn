@@ -61,10 +61,10 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "WASD  mover
-ESPAÇO  atirar
-SHIFT  dodge (gasta stamina)
+J  atirar
+K  dodge (gasta stamina)
 E  entrar no portal
-R  Modo Riff
+ESPAÇO  Modo Riff
 SETAS  tocar as notas
 R  reiniciar depois do fim"
 horizontal_alignment = 1

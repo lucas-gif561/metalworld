@@ -9,7 +9,6 @@ extends Area2D
 func _ready() -> void:
 	
 	queue_redraw()
-	$AnimatedSprite2D.speed_scale = 1.5 / tempo_aviso
 	await get_tree().create_timer(tempo_aviso).timeout
 	
 	for corpo in get_overlapping_bodies():
@@ -21,8 +20,8 @@ func _ready() -> void:
 	pass # Replace with function body.
 	
 func _draw():
-	draw_circle(Vector2.ZERO, raio, Color(1.0, 0.0, 0.0, 0.165))
-	draw_arc(Vector2.ZERO, raio, 0, TAU, 64, Color(1.0, 0.0, 0.0, 0.231), 2.0)
+	draw_circle(Vector2.ZERO, raio, Color(1, 0, 0, 0.35))
+	draw_arc(Vector2.ZERO, raio, 0, TAU, 64, Color.RED, 2.0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

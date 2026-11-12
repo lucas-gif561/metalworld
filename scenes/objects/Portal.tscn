@@ -19,7 +19,8 @@ scale = Vector2(2, 2)
 sprite_frames = ExtResource("2_4fid7")
 animation = &"portal"
 autoplay = "portal"
-frame_progress = 0.41129455
+offset = Vector2(0, 0)
+
 
 [node name="LabelInteracao" type="Label" parent="." unique_id=2024915069]
 visible = false

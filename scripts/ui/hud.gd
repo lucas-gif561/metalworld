@@ -29,13 +29,6 @@ func conectar_jogador(jogador) -> void:
 	_atualizar_stamina(jogador.stamina, jogador.stamina_maxima)
 
 
-# Na luta do boss a vida fica no cabo de força; aqui sobra só a stamina
-func usar_cabo_de_forca() -> void:
-	barra_vida.hide()
-	texto_vida.hide()
-	barra_stamina.position.y = 0.0
-
-
 func _atualizar_stamina(atual, maxima) -> void:
 	barra_stamina.max_value = maxima
 	barra_stamina.value = atual

@@ -74,7 +74,6 @@ func receber_dano(valor):
 	if vida <= 0:
 		morrer()
 	else:
-		Audio.tocar("dano_inimigo")
 		_tocar_acao("hurt")
 		sprite.modulate = Color(1, 0.4, 0.4)
 		create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.2)
@@ -84,7 +83,6 @@ func morrer():
 	morto = true
 	velocity = Vector2.ZERO
 	$CollisionShape2D.set_deferred("disabled", true)
-	Audio.tocar("morte_inimigo")
 	_tocar_acao("death")
 	await sprite.animation_finished
 	queue_free()

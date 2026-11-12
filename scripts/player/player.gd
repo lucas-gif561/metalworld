@@ -3,7 +3,6 @@ extends CharacterBody2D
 signal vida_alterada(atual, maxima)
 signal morreu
 signal stamina_alterada(atual, maxima)
-signal dano_sofrido(valor)
 
 const CAMADA_NORMAL = 1
 const MASCARA_NORMAL = 3
@@ -39,6 +38,8 @@ var espera_stamina = 0.0
 var esquivando = false
 var tempo_dodge = 0.0
 var direcao_dodge = Vector2.RIGHT
+var escala_base = 2.5
+var offset_base = Vector2.ZERO
 
 
 func _ready():
@@ -46,6 +47,22 @@ func _ready():
 	stamina = stamina_maxima
 	timer_tiro.wait_time = intervalo_tiro
 	sprite.animation_finished.connect(_ao_terminar_animacao)
+	escala_base = abs(sprite.scale.y)
+	offset_base = sprite.offset
+	sprite.animation_changed.connect(_ajustar_visual)
+	sprite.sprite_frames_changed.connect(_ajustar_visual)
+	_ajustar_visual()
+
+
+# Animações desenhadas em outro tamanho guardam escala e offset próprios no SpriteFrames
+# (metadado "ajustes_animacao"), para o Dylan ter sempre a mesma altura na tela
+func _ajustar_visual() -> void:
+	var ajustes = sprite.sprite_frames.get_meta("ajustes_animacao", {})
+	var ajuste = ajustes.get(String(sprite.animation), null)
+	var escala = ajuste.escala if ajuste else escala_base
+	var lado = -1.0 if sprite.scale.x < 0 else 1.0
+	sprite.scale = Vector2(escala * lado, escala)
+	sprite.offset = ajuste.offset if ajuste else offset_base
 
 
 func _physics_process(delta):
@@ -105,7 +122,6 @@ func _iniciar_dodge(direcao):
 	# Sem camada, balas e inimigos não detectam o jogador
 	collision_layer = 0
 	collision_mask = MASCARA_DODGE
-	Audio.tocar("dodge")
 	_tocar_acao("dodge")
 
 
@@ -178,33 +194,21 @@ func atirar():
 
 	projetil.global_position = global_position + Vector2(40 * direcao_olhar, 0)
 	_tocar_acao(_animacao_ataque(velocity))
-	Audio.tocar("tiro_dylan")
 
 
 func receber_dano(dano):
 	if vida <= 0 or invencivel or esquivando or not timer_invencibilidade.is_stopped():
 		return
 
-	var vida_antes = vida
 	vida = max(vida - dano, 0)
 	vida_alterada.emit(vida, vida_maxima)
-	dano_sofrido.emit(vida_antes - vida)
 
 	if vida <= 0:
 		morrer()
 	else:
 		timer_invencibilidade.start()
-		Audio.tocar("dano_dylan")
 		_tocar_acao("hurt")
 		_piscar()
-
-
-func curar(valor):
-	if vida <= 0:
-		return
-
-	vida = min(vida + valor, vida_maxima)
-	vida_alterada.emit(vida, vida_maxima)
 
 
 func _piscar():
@@ -222,6 +226,5 @@ func morrer():
 	if tween_dano:
 		tween_dano.kill()
 	sprite.modulate = Color.WHITE
-	Audio.tocar("morte_dylan", 0.0)
 	_tocar_acao("death")
 	morreu.emit()

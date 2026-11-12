@@ -3,9 +3,9 @@ extends Control
 signal perdida
 
 const SETAS = [
-	preload("res://assets/sprites/ui/tecla_esquerda.png"),
 	preload("res://assets/sprites/ui/tecla_cima.png"),
 	preload("res://assets/sprites/ui/tecla_baixo.png"),
+	preload("res://assets/sprites/ui/tecla_esquerda.png"),
 	preload("res://assets/sprites/ui/tecla_direita.png"),
 ]
 
@@ -15,7 +15,6 @@ const SETAS = [
 
 var coluna: int = 0
 var acertada = false
-var maldita = false
 
 
 func _ready() -> void:
@@ -31,6 +30,5 @@ func _process(delta: float) -> void:
 
 	if position.y >= 290 and not acertada:
 		acertada = true
-		if not maldita:
-			perdida.emit()
+		perdida.emit()
 		queue_free()

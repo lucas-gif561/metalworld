@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfpmidqm4xhj"
-path="res://.godot/imported/death.png-0ff2e7c3d770897bfc93a869bc94ce9c.ctex"
+uid="uid://b8fxx1rn4oigw"
+path="res://.godot/imported/run.png-0d7db78ab0711312c74793daea1d1cc1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/inimigos/drone/death.png"
-dest_files=["res://.godot/imported/death.png-0ff2e7c3d770897bfc93a869bc94ce9c.ctex"]
+source_file="res://assets/sprites/dylan_novo/run.png"
+dest_files=["res://.godot/imported/run.png-0d7db78ab0711312c74793daea1d1cc1.ctex"]
 
 [params]
 

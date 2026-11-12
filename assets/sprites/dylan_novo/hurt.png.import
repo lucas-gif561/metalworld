@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2nbhmpukrhkn"
-path="res://.godot/imported/hurt.png-7d91ad049b9c86c3f39b0cab384854e1.ctex"
+uid="uid://da8xprea8lsg3"
+path="res://.godot/imported/hurt.png-ca5b54edf5ddb67d3bd82adc95cdc35d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/inimigos/drone/hurt.png"
-dest_files=["res://.godot/imported/hurt.png-7d91ad049b9c86c3f39b0cab384854e1.ctex"]
+source_file="res://assets/sprites/dylan_novo/hurt.png"
+dest_files=["res://.godot/imported/hurt.png-ca5b54edf5ddb67d3bd82adc95cdc35d.ctex"]
 
 [params]
 

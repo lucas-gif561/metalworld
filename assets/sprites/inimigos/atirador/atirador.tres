@@ -1,54 +1,10 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://dcjcqs6bk4fan"]
+[gd_resource type="SpriteFrames" format=3]
 
-[ext_resource type="Texture2D" uid="uid://c6euj2ju66sir" path="res://assets/sprites/inimigos/atirador/idle.png" id="1_tex"]
-[ext_resource type="Texture2D" uid="uid://ck5iyuq5wwrwq" path="res://assets/sprites/inimigos/atirador/walk.png" id="2_tex"]
-[ext_resource type="Texture2D" uid="uid://qw33m81iriqw" path="res://assets/sprites/inimigos/atirador/attack.png" id="3_tex"]
-[ext_resource type="Texture2D" uid="uid://b5krpk6ffh526" path="res://assets/sprites/inimigos/atirador/hurt.png" id="4_tex"]
-[ext_resource type="Texture2D" uid="uid://boqcvsqhujxbt" path="res://assets/sprites/inimigos/atirador/death.png" id="5_tex"]
-
-[sub_resource type="AtlasTexture" id="at_10"]
-atlas = ExtResource("3_tex")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_11"]
-atlas = ExtResource("3_tex")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_12"]
-atlas = ExtResource("3_tex")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_15"]
-atlas = ExtResource("5_tex")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_16"]
-atlas = ExtResource("5_tex")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_17"]
-atlas = ExtResource("5_tex")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_18"]
-atlas = ExtResource("5_tex")
-region = Rect2(144, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_19"]
-atlas = ExtResource("5_tex")
-region = Rect2(192, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_20"]
-atlas = ExtResource("5_tex")
-region = Rect2(240, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_13"]
-atlas = ExtResource("4_tex")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="at_14"]
-atlas = ExtResource("4_tex")
-region = Rect2(48, 0, 48, 48)
+[ext_resource type="Texture2D" path="res://assets/sprites/inimigos/atirador/idle.png" id="1_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/inimigos/atirador/walk.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/inimigos/atirador/attack.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/inimigos/atirador/hurt.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/inimigos/atirador/death.png" id="5_tex"]
 
 [sub_resource type="AtlasTexture" id="at_0"]
 atlas = ExtResource("1_tex")
@@ -90,56 +46,52 @@ region = Rect2(192, 0, 48, 48)
 atlas = ExtResource("2_tex")
 region = Rect2(240, 0, 48, 48)
 
+[sub_resource type="AtlasTexture" id="at_10"]
+atlas = ExtResource("3_tex")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_11"]
+atlas = ExtResource("3_tex")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_12"]
+atlas = ExtResource("3_tex")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_13"]
+atlas = ExtResource("4_tex")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_14"]
+atlas = ExtResource("4_tex")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_15"]
+atlas = ExtResource("5_tex")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_16"]
+atlas = ExtResource("5_tex")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_17"]
+atlas = ExtResource("5_tex")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_18"]
+atlas = ExtResource("5_tex")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_19"]
+atlas = ExtResource("5_tex")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="at_20"]
+atlas = ExtResource("5_tex")
+region = Rect2(240, 0, 48, 48)
+
 [resource]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("at_10")
-}, {
-"duration": 1.0,
-"texture": SubResource("at_11")
-}, {
-"duration": 1.0,
-"texture": SubResource("at_12")
-}],
-"loop": 0,
-"name": &"attack",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("at_15")
-}, {
-"duration": 1.0,
-"texture": SubResource("at_16")
-}, {
-"duration": 1.0,
-"texture": SubResource("at_17")
-}, {
-"duration": 1.0,
-"texture": SubResource("at_18")
-}, {
-"duration": 1.0,
-"texture": SubResource("at_19")
-}, {
-"duration": 1.0,
-"texture": SubResource("at_20")
-}],
-"loop": 0,
-"name": &"death",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("at_13")
-}, {
-"duration": 1.0,
-"texture": SubResource("at_14")
-}],
-"loop": 0,
-"name": &"hurt",
-"speed": 10.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("at_0")
@@ -153,7 +105,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("at_3")
 }],
-"loop": 1,
+"loop": true,
 "name": &"idle",
 "speed": 6.0
 }, {
@@ -176,7 +128,55 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("at_9")
 }],
-"loop": 1,
+"loop": true,
 "name": &"walk",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("at_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("at_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("at_12")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("at_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("at_14")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("at_15")
+}, {
+"duration": 1.0,
+"texture": SubResource("at_16")
+}, {
+"duration": 1.0,
+"texture": SubResource("at_17")
+}, {
+"duration": 1.0,
+"texture": SubResource("at_18")
+}, {
+"duration": 1.0,
+"texture": SubResource("at_19")
+}, {
+"duration": 1.0,
+"texture": SubResource("at_20")
+}],
+"loop": false,
+"name": &"death",
 "speed": 10.0
 }]

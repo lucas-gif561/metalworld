@@ -17,7 +17,6 @@ func _ready():
 
 func ativar_portal():
 	ativado = true
-	Audio.tocar("portal", 0.0)
 	show()
 	monitoring = true
 

@@ -16,15 +16,6 @@ Arquivos: `assets/sprites/dylan/`, `assets/sprites/inimigos/`, `assets/sprites/p
 > Atenção: a licença da CraftPix proíbe redistribuir os arquivos de arte originais.
 > Não publique essas pastas em um repositório público.
 
-## Áudio
-
-**Heavy Dungeon** e **Heavy Boss Battle 1**, por MintoDog: <https://opengameart.org/node/181405> e <https://opengameart.org/node/183631>
-Licença: CC0 (domínio público).
-Arquivos: `assets/audio/musica/`
-
-Efeitos sonoros gerados com **Bfxr**, de increpare: <https://www.bfxr.net/>
-Arquivos: `assets/audio/sfx/`
-
 ## Interface
 
 **Input Prompts Pixel 16×**, por Kenney: <https://kenney.nl/assets/input-prompts-pixel>

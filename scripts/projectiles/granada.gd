@@ -12,8 +12,6 @@ const QUANTIDADE_BALAS = 8
 var direcao: Vector2 = Vector2.RIGHT
 var dano: int = 3
 var estourou = false
-var alcance: float = INF
-var percorrido: float = 0.0
 
 
 func _ready() -> void:
@@ -22,9 +20,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	global_position += direcao * velocidade * delta
-	percorrido += velocidade * delta
 
-	if percorrido >= alcance or not get_tree().current_scene.limites_arena().has_point(global_position):
+	if not get_tree().current_scene.limites_arena().has_point(global_position):
 		estourar(global_position, distancia_saida_balas)
 
 
@@ -40,7 +37,6 @@ func estourar(centro: Vector2, distancia_saida: float) -> void:
 		return
 
 	estourou = true
-	Audio.tocar("granada")
 
 	var cena_atual = get_tree().current_scene
 

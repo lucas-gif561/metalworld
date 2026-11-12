@@ -52,5 +52,4 @@ func atirar():
 	get_tree().current_scene.add_child(projetil)
 
 	projetil.global_position = global_position + Vector2(45 * direcao, 0)
-	Audio.tocar("tiro_inimigo")
 	_tocar_acao("attack")

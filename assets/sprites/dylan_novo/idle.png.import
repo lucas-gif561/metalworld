@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://klyqdh6ao8rt"
-path="res://.godot/imported/attack.png-b09abc44a77ef14e302965bc002529c4.ctex"
+uid="uid://b5f3qwbxdmfy"
+path="res://.godot/imported/idle.png-aed13101f8d468f340b07f02c016bf3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/inimigos/drone/attack.png"
-dest_files=["res://.godot/imported/attack.png-b09abc44a77ef14e302965bc002529c4.ctex"]
+source_file="res://assets/sprites/dylan_novo/idle.png"
+dest_files=["res://.godot/imported/idle.png-aed13101f8d468f340b07f02c016bf3c.ctex"]
 
 [params]
 

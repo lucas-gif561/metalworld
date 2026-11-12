@@ -2,7 +2,6 @@
 
 [ext_resource type="SpriteFrames" path="res://assets/sprites/boss/boss.tres" id="1_dplu8"]
 [ext_resource type="Script" uid="uid://7gibm27uqoor" path="res://scripts/bosses/boss.gd" id="1_rdia2"]
-[ext_resource type="Texture2D" path="res://assets/sprites/ui/tecla_r.png" id="10_tec"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ec6vt"]
 
@@ -21,12 +20,3 @@ offset = Vector2(1, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=192669440]
 shape = SubResource("RectangleShape2D_ec6vt")
-
-[node name="SinalRiff" type="Node2D" parent="."]
-visible = false
-z_index = 5
-position = Vector2(0, -112)
-
-[node name="Tecla" type="Sprite2D" parent="SinalRiff"]
-scale = Vector2(3, 3)
-texture = ExtResource("10_tec")

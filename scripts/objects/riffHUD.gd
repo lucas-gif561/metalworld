@@ -1,8 +1,7 @@
 extends Control
 
 @export var cena_nota: PackedScene
-@export var bpm: float = 150.0
-@export var offset_batida: float = 0.516
+@export var bpm: float = 120.0
 @export var boss: Node2D
 
 @onready var notas_container = $NotasContainer
@@ -11,15 +10,7 @@ extends Control
 const COR_PERFECT = Color(0.35, 0.9, 1.0)
 const COR_GOOD = Color(0.5, 1.0, 0.5)
 const COR_MISS = Color(1.0, 0.3, 0.3)
-const COR_DESAFINO = Color(0.75, 0.5, 1.0)
-const COR_MALDITA = Color(1.0, 0.15, 0.15)
-const COR_ESCUDO = Color(0.5, 0.8, 1.0)
 
-@export var chance_nota_maldita: float = 0.15
-
-var viagem_nota: float = 0.0
-var modo_desafino = ""
-var desafino_id: int = 0
 var tocando = false
 var posicao_acerto: float = 260.0
 var janela_perfect: float = 12.0
@@ -32,10 +23,6 @@ func iniciar_riff():
 	if tocando:
 		return
 
-	var modelo = cena_nota.instantiate()
-	viagem_nota = (posicao_acerto + 30.0) / modelo.velocidade
-	modelo.free()
-
 	tocando = true
 	geracao_id += 1
 	gerar_notas(geracao_id)
@@ -43,8 +30,6 @@ func iniciar_riff():
 
 func parar_riff():
 	tocando = false
-	desafino_id += 1
-	modo_desafino = ""
 	label_feedback.text = ""
 
 	for nota in notas_container.get_children():
@@ -54,64 +39,17 @@ func parar_riff():
 
 func gerar_notas(id):
 	while tocando and id == geracao_id:
-		await get_tree().create_timer(_tempo_ate_proxima_nota()).timeout
-
-		if not tocando or id != geracao_id:
-			return
+		var nota = cena_nota.instantiate()
+		notas_container.add_child(nota)
 
 		var coluna = randi_range(0, 3)
-		var pista = _escolher_pista(coluna, -1)
-		var maldita = boss.nota_maldita_disponivel() and randf() < chance_nota_maldita
 
-		_criar_nota(coluna, pista, maldita)
+		nota.coluna = coluna
+		nota.atualizar_seta()
+		nota.position = Vector2(coluna * 61 + 13, -30)
+		nota.perdida.connect(_mostrar_feedback.bind("MISS", COR_MISS))
 
-		if maldita:
-			# A nota vermelha sempre vem com uma normal, para garantir um acerto possível
-			var outras_teclas = [0, 1, 2, 3]
-			outras_teclas.erase(coluna)
-			var coluna_par = outras_teclas.pick_random()
-			_criar_nota(coluna_par, _escolher_pista(coluna_par, pista), false)
-
-
-func _escolher_pista(coluna: int, pista_ocupada: int) -> int:
-	if modo_desafino != "trocadas":
-		return coluna
-
-	# A seta continua indicando a tecla, mas desce em outra pista
-	var pistas = [0, 1, 2, 3]
-	pistas.erase(coluna)
-	pistas.erase(pista_ocupada)
-	return pistas.pick_random()
-
-
-func _criar_nota(coluna: int, pista: int, maldita: bool) -> void:
-	var nota = cena_nota.instantiate()
-	notas_container.add_child(nota)
-
-	if modo_desafino != "":
-		nota.modulate = COR_DESAFINO
-
-	if modo_desafino == "rapidas":
-		nota.velocidade *= 1.5
-
-	if maldita:
-		nota.maldita = true
-		nota.modulate = COR_MALDITA
-
-	nota.coluna = coluna
-	nota.atualizar_seta()
-	nota.position = Vector2(pista * 61 + 13, -30)
-	nota.perdida.connect(_registrar_miss)
-
-
-# Calcula quanto esperar para a nota chegar à linha exatamente no tempo da música
-func _tempo_ate_proxima_nota() -> float:
-	var periodo = 60.0 / bpm
-	var chegada = Audio.posicao_musica() + viagem_nota - offset_batida
-	var falta = periodo - fposmod(chegada, periodo)
-
-	# Evita duas notas coladas quando o timer acorda logo antes da batida
-	return falta + periodo if falta < 0.05 else falta
+		await get_tree().create_timer(60.0 / bpm).timeout
 
 
 func _process(_delta: float) -> void:
@@ -119,9 +57,9 @@ func _process(_delta: float) -> void:
 		return
 
 	var teclas = [
-		"riff_esquerda",
 		"riff_cima",
 		"riff_baixo",
+		"riff_esquerda",
 		"riff_direita"
 	]
 
@@ -148,56 +86,19 @@ func verificar_nota(coluna):
 			nota_maxima = nota
 
 	if nota_maxima == null:
-		_registrar_miss()
+		_mostrar_feedback("MISS", COR_MISS)
 		return
 
 	nota_maxima.acertada = true
 
-	if nota_maxima.maldita:
-		Audio.tocar("nota_maldita")
-		_mostrar_feedback("MALDITA!", COR_MALDITA)
-		boss.jogador.receber_dano(1)
-		nota_maxima.queue_free()
-		return
-
-	if boss.escudo_ativo:
-		Audio.tocar("escudo", 0.0)
-		_mostrar_feedback("ESCUDO", COR_ESCUDO)
-		nota_maxima.queue_free()
-		return
-
 	if menor_distancia <= janela_perfect:
-		Audio.tocar("nota_perfect", 0.0)
 		_mostrar_feedback("PERFECT!", COR_PERFECT)
-		boss.receber_dano(boss.dano_da_nota(true))
+		boss.receber_dano(3)
 	else:
-		Audio.tocar("nota_good", 0.0)
 		_mostrar_feedback("GOOD", COR_GOOD)
-		boss.receber_dano(boss.dano_da_nota(false))
+		boss.receber_dano(1)
 
 	nota_maxima.queue_free()
-
-
-func _registrar_miss():
-	Audio.tocar("nota_miss")
-	_mostrar_feedback("MISS", COR_MISS)
-	boss.punir_miss()
-
-
-func desafinar(duracao: float):
-	if not tocando:
-		return
-
-	desafino_id += 1
-	var id = desafino_id
-	modo_desafino = ["trocadas", "rapidas"].pick_random()
-	Audio.tocar("teleporte")
-	_mostrar_feedback("DESAFINADO!", COR_DESAFINO)
-
-	await get_tree().create_timer(duracao).timeout
-
-	if id == desafino_id:
-		modo_desafino = ""
 
 
 func _mostrar_feedback(texto, cor):
