@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://boqdnysqndrkl" path="res://scripts/enemies/inimigo.gd" id="1_clyw6"]
 [ext_resource type="SpriteFrames" path="res://assets/sprites/inimigos/normal/normal.tres" id="2_frames"]
+[ext_resource type="Script" path="res://scripts/objects/sombra.gd" id="20_sombra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qf7sd"]
-size = Vector2(44, 60)
+size = Vector2(88, 120)
 
 [node name="Inimigo" type="CharacterBody2D" unique_id=577347522]
 collision_layer = 2
@@ -14,7 +15,7 @@ script = ExtResource("1_clyw6")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=401039523]
-scale = Vector2(2.5, 2.5)
+scale = Vector2(5, 5)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
@@ -25,3 +26,9 @@ shape = SubResource("RectangleShape2D_qf7sd")
 
 [node name="TimerAtaque" type="Timer" parent="." unique_id=364911093]
 one_shot = true
+
+[node name="Sombra" type="Node2D" parent="." unique_id=881000002]
+z_index = -1
+position = Vector2(0, 80)
+script = ExtResource("20_sombra")
+tamanho = Vector2(92, 24)

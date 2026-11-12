@@ -18,6 +18,7 @@ func _physics_process(delta):
 
 	position.x += movimento * direcao
 	distancia += movimento
+	Combate.ameaca_perto(global_position, 90.0)
 
 	if distancia >= alcance:
 		queue_free()

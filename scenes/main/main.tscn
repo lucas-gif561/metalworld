@@ -10,13 +10,18 @@
 [ext_resource type="PackedScene" uid="uid://bo0smysfkbbbw" path="res://scenes/enemies/inimigo_atirador.tscn" id="8_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://dltkylafufj17" path="res://scenes/objects/Portal.tscn" id="9_b1x3f"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="30_hud"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/inimigo_drone_chao.tscn" id="40_chao"]
+[ext_resource type="PackedScene" path="res://scenes/objects/barril.tscn" id="41_barril"]
+[ext_resource type="PackedScene" path="res://scenes/objects/caixote.tscn" id="42_caixote"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/onda_especial.tscn" id="43_onda"]
 
 [node name="Main" type="Node2D" unique_id=322226560]
 y_sort_enabled = true
 script = ExtResource("1_l3cfh")
+cena_onda_solo = ExtResource("43_onda")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1117690434]
-z_index = -1
+z_index = -2
 position = Vector2(1622.5001, 215.99998)
 scale = Vector2(1.4986188, 1.1933701)
 texture = ExtResource("2_6q06x")
@@ -128,7 +133,20 @@ cena_inimigo = ExtResource("5_yyfjg")
 cena_inimigo_rapido = ExtResource("7_yyfjg")
 cena_inimigo_grande = ExtResource("6_hujxm")
 cena_inimigo_atirador = ExtResource("8_yyfjg")
+cena_drone_chao = ExtResource("40_chao")
 
 [node name="PortalSpawn" type="Node2D" parent="." unique_id=1404435575]
 
 [node name="HudJogo" parent="." unique_id=880012347 instance=ExtResource("30_hud")]
+
+[node name="Caixote1" parent="." unique_id=881000100 instance=ExtResource("42_caixote")]
+position = Vector2(430, 520)
+
+[node name="Barril1" parent="." unique_id=881000101 instance=ExtResource("41_barril")]
+position = Vector2(1440, 360)
+
+[node name="Caixote2" parent="." unique_id=881000102 instance=ExtResource("42_caixote")]
+position = Vector2(2350, 540)
+
+[node name="Barril2" parent="." unique_id=881000103 instance=ExtResource("41_barril")]
+position = Vector2(2850, 360)

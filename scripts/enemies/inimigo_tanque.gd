@@ -1,12 +1,15 @@
 extends "res://scripts/enemies/inimigo.gd"
 
 @export var cena_granada: PackedScene
-@export var distancia_ideal = 320.0
-@export var margem_limite = 30.0
+@export var distancia_ideal = 420.0
+@export var margem_limite = 60.0
 
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if jogador == null or morto:
+		return
+
+	if _processar_empurrao(delta) or _processar_atordoamento():
 		return
 
 	if jogador.vida <= 0:
@@ -25,13 +28,13 @@ func _physics_process(_delta):
 		movimento = global_position.clamp(area.position, area.end) - global_position
 	else:
 		# ALINHAR COM O JOGADOR
-		if abs(diferenca.y) > 15:
+		if abs(diferenca.y) > 30:
 			movimento.y = sign(diferenca.y)
 
 		# MANTER DISTANCIA
-		if abs(diferenca.x) < distancia_ideal - 40:
+		if abs(diferenca.x) < distancia_ideal - 80:
 			movimento.x = -sign(diferenca.x)
-		elif abs(diferenca.x) > distancia_ideal + 40:
+		elif abs(diferenca.x) > distancia_ideal + 80:
 			movimento.x = sign(diferenca.x)
 
 	velocity = movimento.normalized() * velocidade
@@ -43,7 +46,7 @@ func _physics_process(_delta):
 		global_position = global_position.clamp(area.position, area.end)
 
 		# ATIRAR
-		if abs(diferenca.y) <= 20 and abs(diferenca.x) <= 550:
+		if abs(diferenca.y) <= 40 and abs(diferenca.x) <= 550:
 			if timer_ataque.is_stopped() and cena_granada != null:
 				atirar()
 				timer_ataque.start()
@@ -58,6 +61,6 @@ func atirar():
 
 	get_tree().current_scene.add_child(granada)
 
-	granada.global_position = global_position + Vector2(60.0 * lado, -12.0)
+	granada.global_position = global_position + Vector2(120.0 * lado, -24.0)
 	Audio.tocar("tiro_inimigo", 0.0)
 	_tocar_acao("attack")

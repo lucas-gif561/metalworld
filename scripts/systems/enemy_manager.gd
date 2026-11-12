@@ -7,6 +7,7 @@ signal arena_concluida
 @export var cena_inimigo_rapido: PackedScene
 @export var cena_inimigo_grande: PackedScene
 @export var cena_inimigo_atirador: PackedScene
+@export var cena_drone_chao: PackedScene
 
 @export var ondas_por_arena = 2
 @export var intervalo_ondas = 1.5
@@ -55,6 +56,11 @@ func criar_onda():
 
 		get_parent().add_child(inimigo)
 		inimigo.global_position = ponto.global_position
+
+		# Com os personagens maiores, mantém os pés dentro da faixa da rua
+		if get_parent().has_method("limites_arena"):
+			var limites = get_parent().limites_arena()
+			inimigo.global_position.y = clampf(inimigo.global_position.y, limites.position.y, limites.end.y)
 
 		inimigos_vivos += 1
 		inimigo.tree_exited.connect(inimigo_morreu)
@@ -112,6 +118,8 @@ func escolher_inimigo(indice):
 						if cena_inimigo_rapido != null:
 							return cena_inimigo_rapido
 					2:
+						if cena_drone_chao != null:
+							return cena_drone_chao
 						return cena_inimigo
 
 			elif onda_atual == 2:
@@ -119,7 +127,11 @@ func escolher_inimigo(indice):
 					0:
 						if cena_inimigo_grande != null:
 							return cena_inimigo_grande
-					1, 2:
+					1:
+						if cena_drone_chao != null:
+							return cena_drone_chao
+						return cena_inimigo
+					2:
 						return cena_inimigo
 					3:
 						if cena_inimigo_rapido != null:

@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[sub_resource type="Gradient" id="Gradient_onda"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(1, 1, 0.85, 1, 1, 0.3, 0.72, 1, 0.45, 0.2, 1, 0)
+
+[node name="OndaEspecial" type="CPUParticles2D"]
+z_index = 10
+emitting = true
+amount = 90
+lifetime = 0.45
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 380.0
+initial_velocity_max = 460.0
+damping_min = 500.0
+damping_max = 700.0
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color_ramp = SubResource("Gradient_onda")

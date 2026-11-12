@@ -2,15 +2,21 @@
 
 [ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://scenes/enemies/inimigo.tscn" id="1_erp6p"]
 [ext_resource type="SpriteFrames" path="res://assets/sprites/inimigos/rapido/rapido.tres" id="9_frames"]
+[ext_resource type="Script" path="res://scripts/enemies/inimigo_rapido.gd" id="30_rap"]
 
 [node name="InimigoRapido" unique_id=577347522 instance=ExtResource("1_erp6p")]
+script = ExtResource("30_rap")
 velocidade = 170.0
 vida = 2
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
-scale = Vector2(2.5, 2.5)
+scale = Vector2(5, 5)
 sprite_frames = ExtResource("9_frames")
 offset = Vector2(7, -7)
 
 [node name="TimerAtaque" parent="." index="2" unique_id=364911093]
 wait_time = 0.8
+
+[node name="Sombra" parent="." index="3"]
+position = Vector2(0, 84)
+tamanho = Vector2(104, 24)

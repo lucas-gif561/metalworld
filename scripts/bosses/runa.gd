@@ -2,7 +2,7 @@ extends StaticBody2D
 
 signal quebrada
 
-@export var vida: int = 3
+@export var vida: float = 3.0
 
 @onready var sprite = $AnimatedSprite2D
 

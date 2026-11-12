@@ -1,0 +1,28 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://scenes/enemies/inimigo.tscn" id="1_base"]
+[ext_resource type="SpriteFrames" path="res://assets/sprites/inimigos/drone_chao/drone_chao.tres" id="2_frames"]
+[ext_resource type="Script" path="res://scripts/enemies/inimigo_kamikaze.gd" id="3_kami"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/estouro_granada.tscn" id="4_part"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
+size = Vector2(112, 88)
+
+[node name="InimigoDroneChao" unique_id=577347522 instance=ExtResource("1_base")]
+script = ExtResource("3_kami")
+cena_particulas = ExtResource("4_part")
+velocidade = 150.0
+vida = 1
+dano = 2
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
+scale = Vector2(5, 5)
+sprite_frames = ExtResource("2_frames")
+offset = Vector2(8, -12)
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=698727436]
+shape = SubResource("RectangleShape2D_chao")
+
+[node name="Sombra" parent="." index="3"]
+position = Vector2(0, 60)
+tamanho = Vector2(128, 28)

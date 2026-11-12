@@ -4,7 +4,7 @@ const QUANTIDADE_BALAS = 8
 
 @export var velocidade: float = 320.0
 @export var distancia_saida_balas: float = 30.0
-@export var distancia_saida_jogador: float = 60.0
+@export var distancia_saida_jogador: float = 120.0
 @export var tempo_vida_balas: float = 2.5
 @export var cena_particulas: PackedScene
 @export var cena_bala: PackedScene
@@ -23,6 +23,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	global_position += direcao * velocidade * delta
 	percorrido += velocidade * delta
+	Combate.ameaca_perto(global_position, 110.0)
 
 	if percorrido >= alcance or not get_tree().current_scene.limites_arena().has_point(global_position):
 		estourar(global_position, distancia_saida_balas)
@@ -41,6 +42,7 @@ func estourar(centro: Vector2, distancia_saida: float) -> void:
 
 	estourou = true
 	Audio.tocar("granada")
+	Combate.tremer(6.0)
 
 	var cena_atual = get_tree().current_scene
 

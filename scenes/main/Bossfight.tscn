@@ -42,6 +42,7 @@ script = ExtResource("1_df7gq")
 metadata/_edit_group_ = true
 
 [node name="BackGround" type="Sprite2D" parent="Arena" unique_id=1230644980]
+z_index = -2
 position = Vector2(574.80566, 321.99997)
 scale = Vector2(0.6950055, 0.6950053)
 texture = ExtResource("1_6tvee")
@@ -98,6 +99,7 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_rk34g")
 
 [node name="Player" parent="." unique_id=1357147288 instance=ExtResource("3_8xsta")]
+escala_personagem = 0.5
 position = Vector2(577, 523)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1912905334]

@@ -86,6 +86,11 @@ func tocar_musica(nome: String) -> void:
 	musica.play()
 
 
+# Na câmera lenta a música fica arrastada, como um disco desacelerando
+func definir_lentidao(lento: bool) -> void:
+	musica.pitch_scale = 0.7 if lento else 1.0
+
+
 func parar_musica() -> void:
 	musica_atual = ""
 

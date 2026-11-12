@@ -1,0 +1,12 @@
+Dylan com guitarra — 7 animações, 36 quadros
+
+PNGs com transparência e células de 48 x 48 pixels:
+idle: 4 | run: 6 | attack: 6 | run_attack: 6 | hurt: 2 | death: 6 | dodge: 6
+
+Os sprites originais foram preservados. As novas imagens foram geradas com a ferramenta integrada imagegen a partir dos originais e reempacotadas nas dimensões do projeto; há variações de desenho e pose em relação aos originais.
+
+Para usar no Godot, mantenha a pasta assets/sprites/dylan_com_guitarra na raiz do projeto e selecione dylan_com_guitarra.tres no campo Sprite Frames de um AnimatedSprite2D. O recurso conserva nomes, velocidades, duração dos quadros e opções de repetição do recurso original. Nenhuma cena do jogo foi alterada.
+
+alta_resolucao/: saídas completas da geração.
+preview.png: prévia ampliada de todas as animações.
+prompts.txt: prompts usados na geração.

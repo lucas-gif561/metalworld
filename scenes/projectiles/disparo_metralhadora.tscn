@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[sub_resource type="Gradient" id="Gradient_clarao"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(1, 1, 0.8, 1, 1, 0.6, 0.1, 0)
+
+[node name="DisparoMetralhadora" type="CPUParticles2D"]
+z_index = 10
+emitting = true
+amount = 1
+lifetime = 0.45
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(-0.5, -1)
+spread = 20.0
+gravity = Vector2(0, 700)
+initial_velocity_min = 90.0
+initial_velocity_max = 140.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color = Color(0.85, 0.7, 0.35, 1)
+
+[node name="Clarao" type="CPUParticles2D" parent="."]
+emitting = true
+amount = 8
+lifetime = 0.07
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(1, 0)
+spread = 25.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 260.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_clarao")

@@ -16,6 +16,7 @@ func _ready() -> void:
 func _physics_process(delta):
 	global_position += direcao * velocidade * delta
 	tempo_vida -= delta
+	Combate.ameaca_perto(global_position, 90.0)
 	if tempo_vida <= 0.0:
 		queue_free()
 
