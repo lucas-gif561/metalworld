@@ -153,6 +153,9 @@ Os sprites finais são feitos pelo responsável pela base. Até lá, use **arte 
 
 ## 7. Armadilhas conhecidas do Godot
 
+- **Visual e tamanho vão na cena, não no código.** Escala, posição, hitbox, cores e textos fixos devem ser gravados no `.tscn` pelo Inspector, para o editor mostrar o mesmo que o jogo. Só use código para o que muda durante a partida, como a cor do P2 ou o tamanho 1,5x nas ruas, e deixe um comentário explicando o porquê.
+- O aviso "RIFF!" do descanso é o nó `SinalRiff` (um Label) no `scenes/bosses/boss.tscn`. Copie esse nó para o seu boss se quiser mudar o texto ou o lugar; sem ele, o boss cria um igual sozinho.
+
 - Prefira editar cenas (`.tscn`) **pelo editor**. Se editar como texto, não invente `uid="uid://..."`: deixe só o `path`, e o Godot gera o resto.
 - Em cena herdada, a linha `script = ...` vem **antes** das propriedades exportadas, senão os valores se perdem.
 - Não deixe o editor do Godot aberto enquanto troca de branch no git, porque ele pode sobrescrever cenas com a versão antiga. Feche, troque e reabra.

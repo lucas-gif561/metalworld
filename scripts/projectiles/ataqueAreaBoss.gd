@@ -20,7 +20,8 @@ func _ready() -> void:
 	
 	pass # Replace with function body.
 	
-# A cena foi desenhada com raio 45; outros tamanhos escalam colisão e sprite juntos
+# A cena foi desenhada com raio 45. Fica em código porque cada ataque pede um
+# raio diferente (45 na trilha e no corredor, 90 no círculo grande)
 func _aplicar_raio() -> void:
 	var forma = $CollisionShape2D.shape.duplicate()
 	forma.radius = raio

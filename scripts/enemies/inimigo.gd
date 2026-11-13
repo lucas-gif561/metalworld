@@ -65,7 +65,9 @@ func _ready():
 	aplicar_escala.call_deferred(Jogo.escala_da_fase())
 
 
-## Muda o tamanho do inimigo (sprite, colisão e distâncias de ataque)
+## Muda o tamanho do inimigo (sprite, colisão e distâncias de ataque).
+## Fica em código porque a mesma cena de inimigo serve na rua (1,5x) e no
+## boss (capangas, 1x). O tamanho normal é o que está gravado na cena.
 func aplicar_escala(fator: float) -> void:
 	if is_equal_approx(fator, escala_personagem) or not is_inside_tree():
 		return

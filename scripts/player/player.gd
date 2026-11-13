@@ -72,8 +72,6 @@ var espera_stamina = 0.0
 var esquivando = false
 var tempo_dodge = 0.0
 var direcao_dodge = Vector2.RIGHT
-var escala_base = 2.5
-var offset_base = Vector2.ZERO
 var progresso_reviver = 0.0
 var tempo_invencivel_padrao = 1.0
 var _ajudado = false
@@ -83,9 +81,9 @@ var proximo_soco = 0
 var soco_atual = -1
 var soco_guardado = false
 var fim_sequencia_ms = 0
-var _anel: Node2D
-var _indicador: Node2D
-var _etiqueta: Label
+@onready var _anel = $Anel
+@onready var _indicador = $IndicadorReviver
+@onready var _etiqueta = $Etiqueta
 
 
 func _ready():
@@ -94,17 +92,14 @@ func _ready():
 	tempo_invencivel_padrao = timer_invencibilidade.wait_time
 	sprite.animation_finished.connect(_ao_terminar_animacao)
 	sprite.frame_changed.connect(_ao_mudar_quadro)
-	escala_base = abs(sprite.scale.y)
-	offset_base = sprite.offset
-	sprite.animation_changed.connect(_ajustar_visual)
-	sprite.sprite_frames_changed.connect(_ajustar_visual)
-	_ajustar_visual()
-	_criar_identificacao()
+	_configurar_identificacao()
 	Jogo.registrar_jogador(self)
 	aplicar_escala.call_deferred(Jogo.escala_da_fase())
 
 
-## Muda o tamanho do personagem (sprite, colisão, alcance do soco e marcadores)
+## Muda o tamanho do personagem (sprite, colisão, alcance do soco e marcadores).
+## Fica em código porque a MESMA cena do jogador é usada na rua (1,5x) e no
+## boss (1x). O tamanho normal (boss) é o que está gravado no player.tscn.
 func aplicar_escala(fator: float) -> void:
 	if is_equal_approx(fator, escala_personagem):
 		return
@@ -120,23 +115,12 @@ func aplicar_escala(fator: float) -> void:
 	velocidade *= razao
 	faixa_soco *= razao
 	raio_reviver *= razao
-	_ajustar_visual()
+	sprite.scale *= razao
 
 
 ## Nome da ação deste jogador: acao("atacar") -> "p1_atacar" ou "p2_atacar"
 func acao(nome: String) -> StringName:
 	return Controles.acao(id_jogador, nome)
-
-
-# Animações desenhadas em outro tamanho guardam escala e offset próprios no SpriteFrames
-# (metadado "ajustes_animacao"), para o Dylan ter sempre a mesma altura na tela
-func _ajustar_visual() -> void:
-	var ajustes = sprite.sprite_frames.get_meta("ajustes_animacao", {})
-	var ajuste = ajustes.get(String(sprite.animation), null)
-	var escala = (ajuste.escala if ajuste else escala_base) * escala_personagem
-	var lado = -1.0 if sprite.scale.x < 0 else 1.0
-	sprite.scale = Vector2(escala * lado, escala)
-	sprite.offset = ajuste.offset if ajuste else offset_base
 
 
 func _physics_process(delta):
@@ -145,7 +129,7 @@ func _physics_process(delta):
 		if not _ajudado:
 			progresso_reviver = max(progresso_reviver - delta, 0.0)
 		_ajudado = false
-		_indicador.queue_redraw()
+		_indicador.progresso = progresso_reviver
 		return
 
 	if esquivando:
@@ -197,7 +181,7 @@ func _physics_process(delta):
 
 
 func _process(_delta):
-	_etiqueta.visible = Jogo.p2_ativo
+	_etiqueta.visible = Jogo.p2_ativo and not caido
 
 
 func _iniciar_dodge(direcao):
@@ -440,7 +424,9 @@ func reviver():
 
 # ---------------------------------------------------------------- Visual
 
-func _criar_identificacao():
+## Cores do P1/P2 nos marcadores da cena (Anel, Etiqueta, IndicadorReviver).
+## A cor do P2 fica em código porque P1 e P2 usam a mesma cena.
+func _configurar_identificacao():
 	var cor = Jogo.cor(id_jogador)
 
 	if id_jogador == 2:
@@ -449,49 +435,8 @@ func _criar_identificacao():
 		material.set_shader_parameter("cor_destaque", cor)
 		sprite.material = material
 
-	# Anel colorido no pé (fica atrás do sprite)
-	_anel = Node2D.new()
-	_anel.position = Vector2(0, 40)
-	_anel.scale = Vector2(1.0, 0.35)
-	_anel.draw.connect(func():
-		_anel.draw_arc(Vector2.ZERO, 26.0, 0.0, TAU, 32, Color(cor, 0.85), 3.0)
-	)
-	add_child(_anel)
-	move_child(_anel, 0)
-
-	# "P1" / "P2" em cima da cabeça
-	_etiqueta = Label.new()
+	_anel.cor = Color(cor, 0.85)
 	_etiqueta.text = "P%d" % id_jogador
-	_etiqueta.position = Vector2(-20, -84)
-	_etiqueta.size = Vector2(40, 20)
-	_etiqueta.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_etiqueta.add_theme_color_override("font_color", cor)
-	_etiqueta.add_theme_color_override("font_outline_color", Color.BLACK)
-	_etiqueta.add_theme_constant_override("outline_size", 5)
-	_etiqueta.add_theme_font_size_override("font_size", 16)
-	add_child(_etiqueta)
-
-	# Círculo de "segure para levantar" quando caído
-	_indicador = Node2D.new()
-	_indicador.z_index = 10
-	_indicador.position = Vector2(0, -36)
-	_indicador.draw.connect(_desenhar_indicador)
+	_indicador.cor = cor
 	_indicador.hide()
-	add_child(_indicador)
-
-	var texto = Label.new()
-	texto.text = "SEGURE E / B"
-	texto.position = Vector2(-60, 20)
-	texto.size = Vector2(120, 20)
-	texto.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	texto.add_theme_color_override("font_outline_color", Color.BLACK)
-	texto.add_theme_constant_override("outline_size", 5)
-	texto.add_theme_font_size_override("font_size", 14)
-	_indicador.add_child(texto)
-
-
-func _desenhar_indicador():
-	var cor = Jogo.cor(id_jogador)
-	_indicador.draw_arc(Vector2.ZERO, 16.0, 0.0, TAU, 32, Color(0, 0, 0, 0.6), 5.0)
-	if progresso_reviver > 0.0:
-		_indicador.draw_arc(Vector2.ZERO, 16.0, -PI / 2, -PI / 2 + TAU * progresso_reviver, 32, cor, 5.0)

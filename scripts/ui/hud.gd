@@ -2,10 +2,12 @@ extends CanvasLayer
 ## HUD das fases: vida e stamina de cada jogador, progresso, avisos e tela de fim.
 ## Conecta sozinho com os jogadores que existem e com quem entrar depois.
 
+## Desloca os painéis de vida (ex.: para baixo da barra do boss)
 @export var deslocamento_vida := Vector2.ZERO
-@export var distancia_paineis := 240.0
 
 @onready var painel_vida = $PainelVida
+@onready var painel_p2 = $PainelVidaP2
+@onready var dica_p2 = $DicaP2
 @onready var progresso = $Progresso
 @onready var aviso = $Aviso
 @onready var tela_fim = $TelaFim
@@ -15,33 +17,15 @@ extends CanvasLayer
 var aviso_id := 0
 var paineis := {}
 var conectados := []
-var dica_p2: Label
 
 
 func _ready() -> void:
-	painel_vida.position += deslocamento_vida
-	progresso.position += deslocamento_vida
+	for no in [painel_vida, painel_p2, dica_p2, progresso]:
+		no.position += deslocamento_vida
 	aviso.hide()
 	tela_fim.hide()
-
-	var painel_p2 = painel_vida.duplicate()
-	painel_p2.name = "PainelVidaP2"
-	painel_p2.position = painel_vida.position + Vector2(distancia_paineis, 0)
-	add_child(painel_p2)
 	painel_p2.hide()
-
 	paineis = {1: painel_vida, 2: painel_p2}
-	for id_jogador in paineis:
-		_marcar_painel(paineis[id_jogador], id_jogador)
-
-	dica_p2 = Label.new()
-	dica_p2.text = "P2: aperte START / A\nno controle para entrar"
-	dica_p2.position = painel_p2.position
-	dica_p2.add_theme_color_override("font_color", Jogo.cor(2))
-	dica_p2.add_theme_color_override("font_outline_color", Color.BLACK)
-	dica_p2.add_theme_constant_override("outline_size", 5)
-	dica_p2.add_theme_font_size_override("font_size", 15)
-	add_child(dica_p2)
 
 	for jogador in Jogo.jogadores:
 		conectar_jogador(jogador)
@@ -50,14 +34,6 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	dica_p2.visible = not Jogo.p2_ativo and not tela_fim.visible
-
-
-func _marcar_painel(painel: Control, id_jogador: int) -> void:
-	var marca = ColorRect.new()
-	marca.color = Jogo.cor(id_jogador)
-	marca.position = Vector2(-6, 0)
-	marca.size = Vector2(4, 43)
-	painel.add_child(marca)
 
 
 func conectar_jogador(jogador) -> void:

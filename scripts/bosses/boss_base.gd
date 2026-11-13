@@ -439,12 +439,18 @@ func _encerrar_descanso():
 		tween_sinal.kill()
 
 
+## Usa o nó "SinalRiff" da cena do boss (Label). Se o boss não tiver um,
+## cria um igual ao do boss 1 para o descansar() funcionar mesmo assim.
 func _criar_sinal_riff():
+	if has_node("SinalRiff"):
+		sinal_riff = $SinalRiff
+		sinal_riff.hide()
+		return
 	sinal_riff = Label.new()
 	sinal_riff.text = "RIFF!\nESPAÇO / LB"
 	sinal_riff.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sinal_riff.size = Vector2(200, 60)
-	sinal_riff.position = Vector2(-100, -150)
+	sinal_riff.position = Vector2(-100, -115)
 	sinal_riff.z_index = 5
 	sinal_riff.add_theme_color_override("font_color", Color(1, 0.85, 0.3))
 	sinal_riff.add_theme_color_override("font_outline_color", Color.BLACK)
