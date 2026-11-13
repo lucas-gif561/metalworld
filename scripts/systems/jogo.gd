@@ -163,6 +163,24 @@ func jogador_aleatorio():
 	return vivos.pick_random() if not vivos.is_empty() else null
 
 
+## Tamanho dos personagens na fase atual (propriedade "escala_personagens"
+## da cena; as ruas usam 1,5 e as arenas de boss 1)
+func escala_da_fase() -> float:
+	var cena = get_tree().current_scene
+	var escala = cena.get("escala_personagens") if cena else null
+	return escala if escala != null else 1.0
+
+
+## Aumenta uma forma de colisão sem mexer nas outras instâncias que a compartilham
+func escalar_colisao(no_colisao: CollisionShape2D, fator: float) -> void:
+	var forma = no_colisao.shape.duplicate()
+	for propriedade in ["size", "radius", "height"]:
+		if propriedade in forma:
+			forma.set(propriedade, forma.get(propriedade) * fator)
+	no_colisao.shape = forma
+	no_colisao.position *= fator
+
+
 func cor(id_jogador: int) -> Color:
 	return CORES.get(id_jogador, Color.WHITE)
 

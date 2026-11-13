@@ -37,6 +37,7 @@ func _rodar() -> void:
 	jogo.p2_ativo = false
 	await _teste_socos()
 	await _teste_carga_dos_inimigos()
+	await _teste_atirador_nao_vira()
 	await _teste_riff()
 	print("RESULTADO: ", "PASSOU" if falhas == 0 else "FALHOU (%d)" % falhas)
 	quit(1 if falhas > 0 else 0)
@@ -63,10 +64,12 @@ func _teste_socos() -> void:
 	p1.direcao_olhar = 1
 	await esperar(0.1)
 
+	checar(is_equal_approx(p1.escala_personagem, 1.5), "na rua o Dylan fica 1,5x maior")
 	var alvo = _inimigo_parado(cena, Vector2(460, 450))
 	var atras = _inimigo_parado(cena, Vector2(340, 450))
 	var outra_faixa = _inimigo_parado(cena, Vector2(460, 540))
 	await process_frame
+	checar(is_equal_approx(alvo.escala_personagem, 1.5), "e os inimigos também")
 
 	await apertar("p1_atacar")
 	checar(p1.sprite.animation == &"soco_esquerdo", "1º soco: esquerdo (jab)")
@@ -164,12 +167,49 @@ func _teste_carga_dos_inimigos() -> void:
 	checar(p1.vida == 4, "socar durante a carga cancela o golpe (vida %d)" % p1.vida)
 
 
+func _teste_atirador_nao_vira() -> void:
+	print("== Atirador não vira durante a carga")
+	change_scene_to_file("res://scenes/main/main.tscn")
+	await esperar(0.5)
+	var cena = current_scene
+	for e in get_nodes_in_group("inimigos"):
+		e.queue_free()
+	var p1 = jogo.jogador_por_id(1)
+	p1.set_physics_process(false)
+	p1.invencivel = true
+	p1.global_position = Vector2(700, 450)
+
+	var atirador = load("res://scenes/enemies/inimigo_atirador.tscn").instantiate()
+	cena.add_child(atirador)
+	atirador.global_position = Vector2(420, 450)
+	var limite = Time.get_ticks_msec() + 3000
+	while not atirador.preparando and Time.get_ticks_msec() < limite:
+		await process_frame
+	checar(atirador.preparando and atirador.lado_carga == 1, "atirador começa a carregar virado para o jogador (direita)")
+
+	# Jogador passa para o outro lado no meio da carga
+	p1.global_position = Vector2(200, 450)
+	var tiro = [null]
+	cena.child_entered_tree.connect(func(no): if no.get("direcao") is int: tiro[0] = no)
+	await esperar(0.2)
+	checar(atirador.preparando and atirador.sprite.scale.x > 0, "não virou para o jogador durante a carga")
+	await esperar(0.4)
+	checar(tiro[0] != null and tiro[0].direcao == 1, "o tiro sai para o lado travado (direita)")
+
+
 func _teste_riff() -> void:
 	print("== Guitarra no Riff")
 	change_scene_to_file("res://scenes/main/Bossfight.tscn")
 	await esperar(0.6)
 	var cena = current_scene
 	var p1 = jogo.jogador_por_id(1)
+	checar(is_equal_approx(p1.escala_personagem, 1.0), "no boss o Dylan volta ao tamanho normal")
+	var inicio = p1.global_position
+	p1.direcao_olhar = -1
+	await apertar("p1_dodge")
+	await esperar(0.5)
+	var distancia = inicio.distance_to(p1.global_position)
+	checar(distancia > 90.0 and distancia < 150.0, "dodge no boss é mais curto (%.0f px, ~1,5 corpo)" % distancia)
 	p1.invencivel = true
 	await apertar("p1_riff_mode")
 	await esperar(0.1)

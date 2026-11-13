@@ -5,6 +5,8 @@ extends Node2D
 ## EnemyManager, Portal e HudJogo. A câmera anda uma tela para a direita a
 ## cada arena limpa; no fim, o portal leva para a próxima fase.
 
+## Tamanho do Dylan e dos inimigos nesta fase (as arenas de boss usam 1)
+@export var escala_personagens = 1.5
 @export var duracao_transicao = 0.8
 @export var margem_superior = 310.0
 @export var margem_inferior = 100.0

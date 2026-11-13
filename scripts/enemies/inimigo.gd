@@ -49,7 +49,11 @@ var jogador: Node2D = null
 var morto = false
 var em_acao = false
 var preparando = false
+## Lado para onde ele olhava ao começar a carga (1 = direita, -1 = esquerda).
+## Fica travado durante a carga: o golpe sai para esse lado.
+var lado_carga = 1
 var empurrao := Vector2.ZERO
+var escala_personagem = 1.0 # 1,5 nas ruas (ver Jogo.escala_da_fase)
 var _preparo_id = 0
 var _tempo_troca_alvo = 0.0
 
@@ -58,6 +62,19 @@ func _ready():
 	add_to_group("inimigos")
 	add_to_group("alvos_golpe")
 	sprite.animation_finished.connect(_ao_terminar_animacao)
+	aplicar_escala.call_deferred(Jogo.escala_da_fase())
+
+
+## Muda o tamanho do inimigo (sprite, colisão e distâncias de ataque)
+func aplicar_escala(fator: float) -> void:
+	if is_equal_approx(fator, escala_personagem) or not is_inside_tree():
+		return
+	var razao = fator / escala_personagem
+	escala_personagem = fator
+	sprite.scale *= razao
+	Jogo.escalar_colisao($CollisionShape2D, razao)
+	distancia_ataque *= razao
+	faixa_ataque *= razao
 
 
 func _physics_process(delta):
@@ -114,6 +131,7 @@ func carregar_ataque(golpe: Callable) -> void:
 	preparando = true
 	_preparo_id += 1
 	var id = _preparo_id
+	lado_carga = -1 if sprite.scale.x < 0 else 1
 	velocity = Vector2.ZERO
 	_tocar_acao("attack")
 	sprite.pause()

@@ -106,6 +106,15 @@ func _teste_ataques_do_boss() -> void:
 	await boss.teleporte()
 	checar(boss.global_position != posicao and is_equal_approx(boss.modulate.a, 1.0), "teleporte troca o boss de lugar")
 
+	var circulos = []
+	var ao_entrar = func(no): if no.get("raio") != null: circulos.append(no)
+	boss.get_parent().child_entered_tree.connect(ao_entrar)
+	boss.area_no_chao()
+	await process_frame
+	boss.get_parent().child_entered_tree.disconnect(ao_entrar)
+	checar(circulos.size() == 1 and circulos[0].raio == 90.0 and circulos[0].get_node("CollisionShape2D").shape.radius == 90.0, "círculo grande com o dobro do tamanho (raio 90)")
+	await esperar(1.0)
+
 	for ataque in ["rajada", "espiral", "trilha_no_chao", "corredor", "area_no_chao"]:
 		await boss.call(ataque)
 	checar(true, "rajada, espiral, trilha, corredor e área rodam sem erro")

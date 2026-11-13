@@ -103,7 +103,7 @@ A cena `fases/boss_N/boss_N.tscn` já funciona: arena, Riff, barra de vida e vit
   ```
 - **Sempre** use `esperar()` e `esperar_fim_do_ataque()`, nunca `get_tree().create_timer` direto. Elas não quebram quando a fase reinicia no meio do ataque.
 - Para mirar, use `alvo()` (jogador sorteado) ou `alvo_mais_proximo()`. Ambos podem devolver `null`.
-- Para o boss atirar, use `criar_projetil(direcao)`, que usa a cena `cena_projetil`. Também aceita outra cena como segundo argumento. Para um círculo de dano no chão, use `criar_circulo(posicao, dano, tempo_aviso)`.
+- Para o boss atirar, use `criar_projetil(direcao)`, que usa a cena `cena_projetil`. Também aceita outra cena como segundo argumento. Para um círculo de dano no chão, use `criar_circulo(posicao, dano, tempo_aviso, raio)`.
 - **Caixa de ferramentas:** a classe `Boss` já tem ataques e mecânicas prontos. Use só os que quiser, sempre com `await`:
 
   | Função | O que faz | Precisa de |

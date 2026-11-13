@@ -235,12 +235,13 @@ func criar_projetil(direcao: Vector2, cena: PackedScene = cena_projetil):
 
 
 ## Círculo no chão: avisa por tempo_aviso segundos e depois machuca quem estiver dentro
-func criar_circulo(posicao: Vector2, dano: int = 2, tempo_aviso: float = 1.5):
+func criar_circulo(posicao: Vector2, dano: int = 2, tempo_aviso: float = 1.5, raio: float = 45.0):
 	if cena_ataque_area == null:
 		return null
 	var area = cena_ataque_area.instantiate()
 	area.dano = dano
 	area.tempo_aviso = tempo_aviso
+	area.raio = raio
 	area.position = posicao
 	get_parent().add_child(area)
 	return area
@@ -279,13 +280,13 @@ func leque(angulos := [-40, -20, 0, 20, 40]) -> void:
 		criar_projetil(direcao_central.rotated(deg_to_rad(angulo)))
 
 
-## Um círculo grande embaixo de um jogador
-func area_no_chao() -> void:
+## Um círculo grande (raio 90, o dobro dos outros) embaixo de um jogador
+func area_no_chao(raio := 90.0) -> void:
 	var mira = alvo()
 	if not pode_atacar() or mira == null:
 		return
 	_conjurar()
-	criar_circulo(mira.global_position, 2, 1.5)
+	criar_circulo(mira.global_position, 2, 1.5, raio)
 	await esperar(1.5)
 
 

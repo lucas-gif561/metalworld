@@ -33,15 +33,13 @@ func _comportamento(_delta):
 func atirar():
 	var projetil = cena_projetil_inimigo.instantiate()
 
-	var direcao = 1
-
-	if jogador.global_position.x < global_position.x:
-		direcao = -1
+	# Atira para o lado travado no começo da carga, mesmo que o jogador tenha passado para o outro
+	var direcao = lado_carga
 
 	projetil.direcao = direcao
 
 	get_tree().current_scene.add_child(projetil)
 
-	projetil.global_position = global_position + Vector2(45 * direcao, 0)
+	projetil.global_position = global_position + Vector2(45 * escala_personagem * direcao, 0)
 	Audio.tocar("tiro_inimigo")
 	_tocar_acao("attack")

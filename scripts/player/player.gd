@@ -39,7 +39,9 @@ const SOCOS = [
 @export var tempo_sequencia = 0.6
 
 @export_group("Dodge")
-@export var velocidade_dodge = 520.0
+## Velocidade no tamanho normal (boss). Acompanha o tamanho do personagem:
+## nas ruas (1,5x) fica 1,5x mais rápida, e o dodge sempre cobre ~1,5 corpo
+@export var velocidade_dodge = 350.0
 @export var duracao_dodge = 0.35
 
 @export_group("Stamina")
@@ -73,6 +75,7 @@ var offset_base = Vector2.ZERO
 var progresso_reviver = 0.0
 var tempo_invencivel_padrao = 1.0
 var _ajudado = false
+var escala_personagem = 1.0 # 1,5 nas ruas (ver Jogo.escala_da_fase)
 var em_riff = false # tocando guitarra no modo Riff (a arena liga/desliga)
 var proximo_soco = 0
 var soco_atual = -1
@@ -96,6 +99,25 @@ func _ready():
 	_ajustar_visual()
 	_criar_identificacao()
 	Jogo.registrar_jogador(self)
+	aplicar_escala.call_deferred(Jogo.escala_da_fase())
+
+
+## Muda o tamanho do personagem (sprite, colisão, alcance do soco e marcadores)
+func aplicar_escala(fator: float) -> void:
+	if is_equal_approx(fator, escala_personagem):
+		return
+	var razao = fator / escala_personagem
+	escala_personagem = fator
+	Jogo.escalar_colisao($CollisionShape2D, razao)
+	_anel.position *= razao
+	_anel.scale *= razao
+	_etiqueta.position.y *= razao
+	_indicador.position *= razao
+	alcance_soco *= razao
+	velocidade_dodge *= razao
+	faixa_soco *= razao
+	raio_reviver *= razao
+	_ajustar_visual()
 
 
 ## Nome da ação deste jogador: acao("atacar") -> "p1_atacar" ou "p2_atacar"
@@ -108,7 +130,7 @@ func acao(nome: String) -> StringName:
 func _ajustar_visual() -> void:
 	var ajustes = sprite.sprite_frames.get_meta("ajustes_animacao", {})
 	var ajuste = ajustes.get(String(sprite.animation), null)
-	var escala = ajuste.escala if ajuste else escala_base
+	var escala = (ajuste.escala if ajuste else escala_base) * escala_personagem
 	var lado = -1.0 if sprite.scale.x < 0 else 1.0
 	sprite.scale = Vector2(escala * lado, escala)
 	sprite.offset = ajuste.offset if ajuste else offset_base
