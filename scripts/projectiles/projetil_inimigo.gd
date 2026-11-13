@@ -10,7 +10,7 @@ var distancia = 0.0
 
 func _ready():
 	$Sprite2D.flip_h = direcao < 0
-	body_entered.connect(atingir)
+	area_entered.connect(atingir)
 
 
 func _physics_process(delta):
@@ -23,7 +23,8 @@ func _physics_process(delta):
 		queue_free()
 
 
-func atingir(corpo):
-	if corpo.is_in_group("jogador"):
-		corpo.receber_dano(dano)
+# Acerta a Hurtbox (corpo) do jogador, na altura do peito: só pega quem está na faixa
+func atingir(area):
+	if area.is_in_group("hurtbox_jogador"):
+		area.get_parent().receber_dano(dano)
 		queue_free()

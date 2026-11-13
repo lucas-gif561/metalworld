@@ -124,7 +124,7 @@ func _criar_p2(fase: Node) -> void:
 	var p1 = jogador_por_id(1)
 	var p2 = load(CENA_JOGADOR).instantiate()
 	p2.id_jogador = 2
-	p2.position = (p1.position if p1 else Vector2(200, 450)) + Vector2(-40, 50)
+	p2.position = (p1.position if p1 else Vector2(200, 500)) + Vector2(-70, 0)
 	fase.add_child(p2)
 
 

@@ -15,21 +15,23 @@ var estourou = false
 
 
 func _ready() -> void:
-	body_entered.connect(_ao_colidir)
+	area_entered.connect(_ao_colidir)
 
 
 func _physics_process(delta: float) -> void:
 	global_position += direcao * velocidade * delta
 
-	if not get_tree().current_scene.limites_arena().has_point(global_position):
+	# Voa na altura do peito: só as bordas laterais da arena estouram a granada
+	var limites = get_tree().current_scene.limites_arena()
+	if global_position.x < limites.position.x or global_position.x > limites.end.x:
 		estourar(global_position, distancia_saida_balas)
 
 
-func _ao_colidir(corpo) -> void:
-	if corpo.is_in_group("jogador") and not estourou:
-		corpo.receber_dano(dano)
+func _ao_colidir(area) -> void:
+	if area.is_in_group("hurtbox_jogador") and not estourou:
+		area.get_parent().receber_dano(dano)
 		# As balas nascem em volta do corpo para nao serem consumidas por ele
-		estourar(corpo.global_position, distancia_saida_jogador)
+		estourar(area.global_position, distancia_saida_jogador)
 
 
 func estourar(centro: Vector2, distancia_saida: float) -> void:

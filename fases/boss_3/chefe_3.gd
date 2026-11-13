@@ -42,6 +42,6 @@ func leque_no_mais_proximo():
 	if mira == null:
 		return
 	_conjurar()
-	var direcao = (mira.global_position - global_position).normalized()
+	var direcao = (mira.posicao_do_corpo() - global_position).normalized()
 	for angulo in [-15, 0, 15]:
 		criar_projetil(direcao.rotated(deg_to_rad(angulo)))

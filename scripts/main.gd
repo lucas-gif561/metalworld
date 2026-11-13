@@ -8,8 +8,9 @@ extends Node2D
 ## Tamanho do Dylan e dos inimigos nesta fase (as arenas de boss usam 1)
 @export var escala_personagens = 1.5
 @export var duracao_transicao = 0.8
-@export var margem_superior = 310.0
-@export var margem_inferior = 100.0
+## Faixa da rua onde os PÉS podem ficar (distância do topo e da base da tela)
+@export var margem_superior = 374.0
+@export var margem_inferior = 36.0
 @onready var camera = $Camera2D
 @onready var enemy_manager = $EnemyManager
 @onready var portal = $Portal

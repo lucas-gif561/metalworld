@@ -38,6 +38,7 @@ func _rodar() -> void:
 	await _teste_socos()
 	await _teste_carga_dos_inimigos()
 	await _teste_atirador_nao_vira()
+	await _teste_profundidade()
 	await _teste_riff()
 	print("RESULTADO: ", "PASSOU" if falhas == 0 else "FALHOU (%d)" % falhas)
 	quit(1 if falhas > 0 else 0)
@@ -196,6 +197,47 @@ func _teste_atirador_nao_vira() -> void:
 	checar(atirador.preparando and atirador.sprite.scale.x > 0, "não virou para o jogador durante a carga")
 	await esperar(0.4)
 	checar(tiro[0] != null and tiro[0].direcao == 1, "o tiro sai para o lado travado (direita)")
+
+
+func _teste_profundidade() -> void:
+	print("== Profundidade (colisão nos pés)")
+	change_scene_to_file("res://scenes/main/main.tscn")
+	await esperar(0.5)
+	var cena = current_scene
+	for e in get_nodes_in_group("inimigos"):
+		e.queue_free()
+	var p1 = jogo.jogador_por_id(1)
+	var caixote = cena.get_node("Caixote1")
+
+	# Em outra faixa (pés 50 px acima): passa por trás do caixote
+	p1.global_position = Vector2(caixote.global_position.x - 90, caixote.global_position.y - 50)
+	await esperar(0.1)
+	_evento("p1_mover_direita", true)
+	await esperar(0.8)
+	_evento("p1_mover_direita", false)
+	checar(p1.global_position.x > caixote.global_position.x + 40, "passa por trás do caixote em outra faixa")
+
+	# Na mesma faixa: esbarra
+	p1.global_position = Vector2(caixote.global_position.x - 90, caixote.global_position.y)
+	await esperar(0.1)
+	_evento("p1_mover_direita", true)
+	await esperar(0.8)
+	_evento("p1_mover_direita", false)
+	checar(p1.global_position.x < caixote.global_position.x, "esbarra no caixote na mesma faixa")
+
+	# Tiro: acerta na mesma faixa, passa reto em outra
+	var cena_tiro = load("res://scenes/enemies/projetil_inimigo.tscn")
+	for caso in [[0.0, true, "tiro acerta quem está na mesma faixa"], [70.0, false, "tiro não acerta quem está em outra faixa"]]:
+		p1.global_position = Vector2(700, 470 + caso[0])
+		p1.timer_invencibilidade.stop()
+		var vida = p1.vida
+		var tiro = cena_tiro.instantiate()
+		tiro.direcao = 1
+		cena.add_child(tiro)
+		# saiu de um atirador com os pés em y=470, na altura do peito
+		tiro.global_position = Vector2(560, 470 - 43 * 1.5)
+		await esperar(0.7)
+		checar((p1.vida < vida) == caso[1], caso[2])
 
 
 func _teste_riff() -> void:

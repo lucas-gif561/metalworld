@@ -39,4 +39,4 @@ func tiro_mirado():
 	if mira == null:
 		return
 	_conjurar()
-	criar_projetil((mira.global_position - global_position).normalized())
+	criar_projetil((mira.posicao_do_corpo() - global_position).normalized())

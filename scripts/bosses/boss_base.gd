@@ -18,6 +18,8 @@ extends Node2D
 ## O boss só perde vida pelo Riff (a arena, BossFight.gd, cuida disso).
 ## Para mirar: alvo() devolve um jogador vivo sorteado e
 ## alvo_mais_proximo() o mais perto do boss. Ambos podem ser null.
+## A posição do jogador (global_position) é a dos PÉS: use-a para ataques no
+## chão; para tiros, mire em jogador.posicao_do_corpo().
 
 signal vida_atualizada(vida)
 signal derrotado
@@ -56,8 +58,8 @@ const COR_ESCUDO = Color(0.5, 0.8, 1.0)
 
 @export_group("Posições")
 @export var pontos_teleporte: Array[Vector2] = [Vector2(470, 150), Vector2(576, 160), Vector2(682, 150)]
-@export var pontos_runa: Array[Vector2] = [Vector2(220, 340), Vector2(932, 340), Vector2(576, 400)]
-@export var pontos_capanga: Array[Vector2] = [Vector2(220, 300), Vector2(932, 300)]
+@export var pontos_runa: Array[Vector2] = [Vector2(220, 374), Vector2(932, 374), Vector2(576, 434)]
+@export var pontos_capanga: Array[Vector2] = [Vector2(220, 342), Vector2(932, 342)]
 @export var maximo_capangas: int = 3
 @export var duracao_descanso: float = 4.0
 
@@ -265,7 +267,7 @@ func rajada(tiros := 6, intervalo := 0.4) -> void:
 		if not pode_atacar() or mira == null:
 			return
 		_conjurar()
-		criar_projetil((mira.global_position - global_position).normalized())
+		criar_projetil((mira.posicao_do_corpo() - global_position).normalized())
 		await esperar(intervalo)
 
 
@@ -275,7 +277,7 @@ func leque(angulos := [-40, -20, 0, 20, 40]) -> void:
 	if not pode_atacar() or mira == null:
 		return
 	_conjurar()
-	var direcao_central = (mira.global_position - global_position).normalized()
+	var direcao_central = (mira.posicao_do_corpo() - global_position).normalized()
 	for angulo in angulos:
 		criar_projetil(direcao_central.rotated(deg_to_rad(angulo)))
 
@@ -316,7 +318,8 @@ func espiral(passos := 40) -> void:
 ## Colunas de círculos varrendo a arena, cada uma com um buraco para passar
 func corredor() -> void:
 	var colunas = [110, 300, 490, 680, 870, 1060]
-	var linhas = [120, 205, 290, 375, 460, 545]
+	# Linhas no chão (altura dos pés) cobrindo toda a área onde dá para andar
+	var linhas = [190, 270, 350, 430, 510, 590]
 	var mira = alvo()
 
 	# Começa do lado oposto ao jogador e varre na direção dele

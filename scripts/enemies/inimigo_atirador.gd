@@ -2,6 +2,8 @@ extends Inimigo
 
 @export var cena_projetil_inimigo: PackedScene
 @export var distancia_ideal = 230.0
+## Altura do tiro acima dos pés (bate com a Hurtbox do jogador: mesma faixa = acerta)
+@export var altura_tiro = 43.0
 
 
 func _comportamento(_delta):
@@ -40,6 +42,6 @@ func atirar():
 
 	get_tree().current_scene.add_child(projetil)
 
-	projetil.global_position = global_position + Vector2(45 * escala_personagem * direcao, 0)
+	projetil.global_position = global_position + Vector2(45 * direcao, -altura_tiro) * escala_personagem
 	Audio.tocar("tiro_inimigo")
 	_tocar_acao("attack")

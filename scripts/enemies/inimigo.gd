@@ -13,6 +13,9 @@ extends CharacterBody2D
 ## branco por tempo_preparo). Use carregar_ataque(funcao) para isso também nos
 ## ataques novos. Um soco do jogador durante a carga cancela o golpe.
 ##
+## Profundidade: a ORIGEM do inimigo fica nos pés e a colisão é só uma faixa no
+## chão (veja inimigo.tscn). Distâncias e faixas comparam a posição dos pés.
+##
 ## Animações esperadas no SpriteFrames: idle, walk, attack, hurt, death.
 
 signal morreu(inimigo)
@@ -74,6 +77,7 @@ func aplicar_escala(fator: float) -> void:
 	var razao = fator / escala_personagem
 	escala_personagem = fator
 	sprite.scale *= razao
+	sprite.position *= razao
 	Jogo.escalar_colisao($CollisionShape2D, razao)
 	distancia_ataque *= razao
 	faixa_ataque *= razao

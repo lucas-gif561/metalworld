@@ -27,7 +27,7 @@ texture = ExtResource("2_fundo")
 position = Vector2(2050, 461)
 
 [node name="Player" parent="." instance=ExtResource("4_player")]
-position = Vector2(124, 424)
+position = Vector2(124, 488)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
@@ -39,12 +39,12 @@ position = Vector2(576, 324)
 [node name="Onda1" type="Node2D" parent="Spawns/Arena1"]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda1"]
-position = Vector2(1203, 420)
+position = Vector2(1203, 480)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_normal")
 
 [node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda1"]
-position = Vector2(1204, 520)
+position = Vector2(1204, 580)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_normal")
 
@@ -53,12 +53,12 @@ cena_inimigo = ExtResource("7_normal")
 [node name="Onda1" type="Node2D" parent="Spawns/Arena2"]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena2/Onda1"]
-position = Vector2(2320, 420)
+position = Vector2(2320, 480)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_normal")
 
 [node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda1"]
-position = Vector2(2330, 520)
+position = Vector2(2330, 580)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_rapido")
 
@@ -67,9 +67,9 @@ script = ExtResource("6_manager")
 cena_inimigo = ExtResource("7_normal")
 
 [node name="Caixote1" parent="." instance=ExtResource("10_caixote")]
-position = Vector2(700, 520)
+position = Vector2(700, 540)
 
 [node name="Barril1" parent="." instance=ExtResource("11_barril")]
-position = Vector2(1500, 380)
+position = Vector2(1500, 403)
 
 [node name="HudJogo" parent="." instance=ExtResource("9_hud")]

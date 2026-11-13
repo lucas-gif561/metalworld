@@ -153,6 +153,9 @@ Os sprites finais são feitos pelo responsável pela base. Até lá, use **arte 
 
 ## 7. Armadilhas conhecidas do Godot
 
+- **Profundidade: origem e colisão nos pés.** Todo personagem e objeto da rua tem a **origem do nó nos pés**: o `AnimatedSprite2D` fica deslocado para cima, e a `CollisionShape2D` é **só uma faixa fina no chão**, com uns 16 px de altura. Assim dá para passar na frente ou atrás dos outros, e a ordem de desenho (y-sort) fica certa. Ao criar um inimigo ou objeto novo, mexa na `position` do sprite até os pés ficarem na origem e deixe a colisão como uma faixa na base. Veja `scenes/enemies/inimigo.tscn` e `scenes/objects/caixote.tscn`.
+- **Tiros acertam o corpo, e não os pés.** O jogador tem uma `Hurtbox` (Area2D na camada 5, grupo `hurtbox_jogador`) na altura do peito. Projéteis devem ter `collision_mask = 16` e usar `area_entered`, verificando `area.is_in_group("hurtbox_jogador")`, e nascer na altura do peito de quem atira (veja `inimigo_atirador.gd`, `altura_tiro`). Para mirar no jogador use `jogador.posicao_do_corpo()`. `jogador.global_position` é a posição dos pés, boa para ataques no chão.
+
 - **Visual e tamanho vão na cena, não no código.** Escala, posição, hitbox, cores e textos fixos devem ser gravados no `.tscn` pelo Inspector, para o editor mostrar o mesmo que o jogo. Só use código para o que muda durante a partida, como a cor do P2 ou o tamanho 1,5x nas ruas, e deixe um comentário explicando o porquê.
 - O aviso "RIFF!" do descanso é o nó `SinalRiff` (um Label) no `scenes/bosses/boss.tscn`. Copie esse nó para o seu boss se quiser mudar o texto ou o lugar; sem ele, o boss cria um igual sozinho.
 

@@ -8,6 +8,7 @@ velocidade = 170.0
 vida = 2
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
+position = Vector2(0, -42)
 scale = Vector2(2.5, 2.5)
 sprite_frames = ExtResource("9_frames")
 offset = Vector2(7, -7)

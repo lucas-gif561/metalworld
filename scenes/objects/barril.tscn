@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scripts/objects/sombra.gd" id="4_sombra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_queb"]
-size = Vector2(50, 44)
+size = Vector2(50, 14)
 
 [node name="Barril" type="StaticBody2D"]
 collision_layer = 2
@@ -16,11 +16,12 @@ cena_item = ExtResource("3_item")
 
 [node name="Sombra" type="Node2D" parent="."]
 z_index = -1
-position = Vector2(0, 22)
+position = Vector2(0, 1)
 script = ExtResource("4_sombra")
 tamanho = Vector2(56, 14)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -23)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
@@ -28,4 +29,5 @@ autoplay = "idle"
 offset = Vector2(-1, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_queb")

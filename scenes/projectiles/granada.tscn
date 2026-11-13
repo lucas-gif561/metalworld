@@ -10,6 +10,7 @@ radius = 14.0
 
 [node name="Granada" type="Area2D"]
 collision_layer = 8
+collision_mask = 16
 script = ExtResource("1_gra")
 cena_particulas = ExtResource("3_est")
 cena_bala = ExtResource("4_bala")

@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/bosses/runa.gd" id="1_runa"]
 [ext_resource type="SpriteFrames" path="res://assets/sprites/boss/sigilo.tres" id="2_sig"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_runa"]
-radius = 34.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_runa"]
+size = Vector2(40, 14)
 
 [node name="Runa" type="StaticBody2D" groups=["runas"]]
 collision_layer = 2
@@ -13,10 +13,12 @@ script = ExtResource("1_runa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 1, 1, 1)
+position = Vector2(0, -34)
 scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("2_sig")
 animation = &"portal"
 autoplay = "portal"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_runa")
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_runa")

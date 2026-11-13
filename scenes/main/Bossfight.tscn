@@ -30,12 +30,15 @@ size = Vector2(53, 723)
 size = Vector2(75, 728.5)
 
 [node name="Bossfight" type="Node2D" unique_id=1072854072]
+y_sort_enabled = true
 script = ExtResource("1_df7gq")
 
 [node name="Arena" type="Node2D" parent="." unique_id=1638769874]
+y_sort_enabled = true
 metadata/_edit_group_ = true
 
 [node name="BackGround" type="Sprite2D" parent="Arena" unique_id=1230644980]
+z_index = -1
 position = Vector2(574.80566, 321.99997)
 scale = Vector2(0.6950055, 0.6950053)
 texture = ExtResource("1_6tvee")
@@ -64,7 +67,7 @@ position = Vector2(576, 528)
 [node name="Paredes" type="Node2D" parent="Arena" unique_id=1339352095]
 
 [node name="ParedeSuperior" type="StaticBody2D" parent="Arena/Paredes" unique_id=1488684478]
-position = Vector2(568, -24)
+position = Vector2(568, 37)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeSuperior" unique_id=536414275]
@@ -93,7 +96,7 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_rk34g")
 
 [node name="Player" parent="." unique_id=1357147288 instance=ExtResource("3_8xsta")]
-position = Vector2(577, 523)
+position = Vector2(577, 566)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1912905334]
 

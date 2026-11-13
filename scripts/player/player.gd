@@ -1,6 +1,11 @@
 extends CharacterBody2D
 ## Jogador (P1 ou P2). A mesma cena serve para os dois: muda só id_jogador.
 ##
+## Profundidade de beat 'em up: a ORIGEM do nó fica nos pés. A colisão física
+## (CollisionShape2D) é só uma faixa no chão, então dá para passar na frente ou
+## atrás de outros objetos. Tiros acertam a Hurtbox (corpo), que fica na
+## altura do peito: só pega quem está na mesma faixa da rua.
+##
 ## Ataque: socos alternados (esquerdo, direito...). O jogador para para bater
 ## e o dano sai no quadro do impacto, em quem estiver à frente e na mesma
 ## faixa da rua. Apertar durante o soco guarda o próximo golpe.
@@ -84,6 +89,7 @@ var fim_sequencia_ms = 0
 @onready var _anel = $Anel
 @onready var _indicador = $IndicadorReviver
 @onready var _etiqueta = $Etiqueta
+@onready var hurtbox = $Hurtbox
 
 
 func _ready():
@@ -106,6 +112,7 @@ func aplicar_escala(fator: float) -> void:
 	var razao = fator / escala_personagem
 	escala_personagem = fator
 	Jogo.escalar_colisao($CollisionShape2D, razao)
+	Jogo.escalar_colisao($Hurtbox/CollisionShape2D, razao)
 	_anel.position *= razao
 	_anel.scale *= razao
 	_etiqueta.position.y *= razao
@@ -116,6 +123,17 @@ func aplicar_escala(fator: float) -> void:
 	faixa_soco *= razao
 	raio_reviver *= razao
 	sprite.scale *= razao
+	sprite.position *= razao
+
+
+## Centro do corpo (a origem do jogador fica nos pés). Use para mirar tiros nele.
+func posicao_do_corpo() -> Vector2:
+	return $Hurtbox/CollisionShape2D.global_position
+
+
+## Liga/desliga a área onde tiros acertam (desligada no dodge e caído)
+func _hurtbox_ativa(ativa: bool) -> void:
+	hurtbox.set_deferred("monitorable", ativa)
 
 
 ## Nome da ação deste jogador: acao("atacar") -> "p1_atacar" ou "p2_atacar"
@@ -192,9 +210,10 @@ func _iniciar_dodge(direcao):
 	espera_stamina = espera_recarga
 	stamina_alterada.emit(stamina, stamina_maxima)
 
-	# Sem camada, balas e inimigos não detectam o jogador
+	# Sem camada e sem hurtbox, balas e inimigos passam pelo jogador
 	collision_layer = 0
 	collision_mask = MASCARA_DODGE
+	_hurtbox_ativa(false)
 	Audio.tocar("dodge")
 	_tocar_acao("dodge")
 
@@ -209,6 +228,7 @@ func _continuar_dodge(delta):
 		em_acao = false
 		collision_layer = CAMADA_NORMAL
 		collision_mask = MASCARA_NORMAL
+		_hurtbox_ativa(true)
 
 
 func _recarregar_stamina(delta):
@@ -375,6 +395,7 @@ func morrer():
 	velocity = Vector2.ZERO
 	collision_layer = 0 # inimigos e balas passam por quem está caído
 	collision_mask = MASCARA_DODGE
+	_hurtbox_ativa(false)
 	if tween_dano:
 		tween_dano.kill()
 	sprite.modulate = Color.WHITE
@@ -414,6 +435,7 @@ func reviver():
 	vida = max(1, ceili(vida_maxima / 2.0))
 	collision_layer = CAMADA_NORMAL
 	collision_mask = MASCARA_NORMAL
+	_hurtbox_ativa(true)
 	_indicador.hide()
 	_tocar_acao("levantar")
 	vida_alterada.emit(vida, vida_maxima)
