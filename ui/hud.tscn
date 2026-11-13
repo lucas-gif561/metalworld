@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://ui/menu_pausa.tscn" id="7_pausa"]
 [ext_resource type="Texture2D" path="res://ui/sprites/botao_a.png" id="8_botao_a"]
 [ext_resource type="Texture2D" path="res://ui/sprites/tecla_ctrl.png" id="9_ctrl"]
+[ext_resource type="Texture2D" path="res://ui/sprites/ampulheta.png" id="10_ampulheta"]
 
 [sub_resource type="Animation" id="Animation_vaga"]
 resource_name = "esperar"
@@ -534,6 +535,26 @@ libraries = {
 &"": SubResource("AnimationLibrary_siga")
 }
 autoplay = &"piscar"
+
+[node name="TravaRiff" type="TextureProgressBar" parent="."]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -268.0
+offset_top = 72.0
+offset_right = -196.0
+offset_bottom = 144.0
+grow_horizontal = 0
+pivot_offset = Vector2(36, 36)
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("10_ampulheta")
+texture_progress = ExtResource("10_ampulheta")
+tint_under = Color(0.5, 0.45, 0.55, 0.75)
 
 [node name="Aviso" type="Label" parent="."]
 anchors_preset = 10

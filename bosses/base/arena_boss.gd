@@ -7,14 +7,15 @@ extends Node2D
 ##   - HUD/BossHealthBar, HUD/CaboDeForca, HUD/RiffHUD (riff/riff_hud.tscn)
 ##   - HudJogo (instância de ui/hud.tscn)
 ##
-## Riff: qualquer jogador aperta o botão do Riff para começar. Durante o Riff
-## os dois ficam parados tocando, em revezamento. Qualquer outro botão fecha.
+## Riff: qualquer jogador aperta o botão do Riff para começar e o mesmo botão
+## para sair. Durante o Riff os dois ficam parados tocando, em revezamento.
+## Dano em qualquer jogador (inclusive da nota maldita) expulsa os dois.
+## Depois de sair, o Riff trava um tempo (RiffHUD: trava_ao_sair e
+## trava_por_dano); o HUD mostra uma ampulheta enchendo até liberar.
 ##
 ## Cabo de força (usar_cabo_de_forca): a dupla divide UMA vida contra o boss.
 ## Dano em qualquer jogador enche o boss; dano no boss enche a dupla.
 ## Se a vida da dupla zerar, os dois caem juntos.
-
-const ACOES_DO_RIFF = ["riff_mode", "riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 
 @export var texto_inicio = "Modo Riff — só as notas ferem o boss!"
 @export var usar_cabo_de_forca := true
@@ -40,6 +41,8 @@ func _ready() -> void:
 	Jogo.preparar_jogadores(self)
 	Jogo.game_over.connect(_ao_game_over)
 	Jogo.jogador_entrou.connect(_ao_jogador_entrar)
+	for jogador in Jogo.jogadores:
+		_ligar_dano_no_riff(jogador)
 	Audio.tocar_musica("boss")
 
 	riff_hud.boss = boss
@@ -66,6 +69,7 @@ func limites_arena() -> Rect2:
 
 
 func _ao_jogador_entrar(jogador) -> void:
+	_ligar_dano_no_riff(jogador)
 	jogador.bloqueado = riff_ativo
 	jogador.em_riff = riff_ativo
 	if usar_cabo_de_forca:
@@ -173,20 +177,16 @@ func _apertou(nome: String) -> bool:
 	return false
 
 
-# Qualquer tecla ou botão que não seja do Riff fecha o modo, para dar tempo de reagir
-func _input(event: InputEvent) -> void:
-	if not riff_ativo or not event.is_pressed() or event.is_echo():
-		return
+func _ligar_dano_no_riff(jogador) -> void:
+	if not jogador.dano_sofrido.is_connected(_ao_dano_no_riff):
+		jogador.dano_sofrido.connect(_ao_dano_no_riff)
 
-	if not (event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton):
-		return
 
-	for id_jogador in [1, 2]:
-		for acao in ACOES_DO_RIFF:
-			if event.is_action(Controles.acao(id_jogador, acao)):
-				return
-
-	_encerrar_riff()
+## Qualquer dano em qualquer jogador tira os dois do Riff (trava longa)
+func _ao_dano_no_riff(_valor) -> void:
+	if riff_ativo and boss.vida_atual > 0:
+		_encerrar_riff()
+		riff_hud.travar(riff_hud.trava_por_dano)
 
 
 func _process(_delta: float) -> void:
@@ -204,5 +204,10 @@ func _process(_delta: float) -> void:
 	if _apertou("riff_mode"):
 		if riff_ativo:
 			_encerrar_riff()
+			riff_hud.travar(riff_hud.trava_ao_sair)
+		elif riff_hud.travado():
+			hud.recusar_riff()
 		else:
 			_abrir_riff()
+
+	hud.mostrar_trava_riff(riff_hud.progresso_trava())

@@ -9,14 +9,14 @@ extends Control
 ## Confirmar: Enter, Espaço, J, A ou START.
 
 const TEXTO_CONTROLES = """P1 (teclado): WASD mover · J socar · K dodge · E interagir e levantar
-Espaço abre o Riff · Setas tocam as notas · R reinicia depois do game over
+Espaço abre e fecha o Riff · A W S D tocam as notas · R reinicia
 
 P2 (controle): analógico mover · X socar · A dodge · B interagir e levantar
-LB abre o Riff · X Y A B tocam as notas · START entra na partida e reinicia
+LB abre e fecha o Riff · Direcional ou X Y A B tocam · START entra e reinicia
 
 ESC / START pausa (e permite remover o P2).
 Caído? O parceiro segura E / B perto para levantar.
-No boss, só as notas do Riff ferem: abra o Riff quando o boss se ajoelhar."""
+No boss, só o Riff fere: abra quando ele se ajoelhar. Levou dano? O Riff trava."""
 
 const TEXTO_CREDITOS = """MetalWorld — projeto da disciplina
 

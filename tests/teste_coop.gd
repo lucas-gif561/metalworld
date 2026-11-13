@@ -142,6 +142,7 @@ func _teste_boss() -> void:
 	checar(cena.riff_ativo and p1.bloqueado and p2.bloqueado, "P2 abre o Riff e os dois ficam tocando")
 
 	riff.bpm = 600.0
+	riff.chance_notas_juntas = 0.0
 	await esperar(2.2)
 	var donos = []
 	for nota in riff._notas():
@@ -153,6 +154,22 @@ func _teste_boss() -> void:
 		if donos[i] != donos[i - 1]:
 			trocas += 1
 	checar(donos.size() >= 8 and 1 in donos and 2 in donos and trocas <= donos.size() / 4 + 1, "notas em blocos alternando P1 e P2")
+
+	# Notas juntas: na mesma batida, uma do P1 e uma do P2
+	for n in riff._notas():
+		n.queue_free()
+	riff.chance_notas_juntas = 1.0
+	await esperar(1.5)
+	var por_altura = {}
+	for n in riff._notas():
+		var chave = roundi(n.position.y / 4.0)
+		por_altura[chave] = por_altura.get(chave, []) + [n.dono]
+	var pares = por_altura.values().filter(func(d): return d.size() == 2 and 1 in d and 2 in d)
+	checar(pares.size() >= 3, "notas juntas: P1 e P2 na mesma batida (%d pares)" % pares.size())
+	var teclas_p1 = ["tecla_a.png", "tecla_w.png", "tecla_s.png", "tecla_d.png"]
+	var notas_p1 = riff._notas().filter(func(n): return n.dono == 1)
+	checar(not notas_p1.is_empty() and notas_p1.all(func(n): return n.seta.texture.resource_path.get_file() in teclas_p1), "notas do P1 mostram A W S D")
+	riff.chance_notas_juntas = 0.0
 
 	# Só o dono da nota acerta
 	riff.parar_riff()

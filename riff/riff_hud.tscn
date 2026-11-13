@@ -6,6 +6,41 @@
 [ext_resource type="Texture2D" path="res://riff/sprites/tecla_baixo_apagada.png" id="20_baixo"]
 [ext_resource type="Texture2D" path="res://riff/sprites/tecla_esquerda_apagada.png" id="20_esquerda"]
 [ext_resource type="Texture2D" path="res://riff/sprites/tecla_direita_apagada.png" id="20_direita"]
+[ext_resource type="Texture2D" path="res://riff/sprites/aviso.png" id="21_aviso"]
+
+[sub_resource type="Animation" id="Animation_aviso"]
+resource_name = "piscar"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aviso"]
+_data = {
+&"piscar": SubResource("Animation_aviso")
+}
 
 [node name="RiffHUD" type="Control" unique_id=948874030]
 layout_mode = 3
@@ -64,7 +99,7 @@ offset_right = 240.0
 offset_bottom = 278.0
 color = Color(1, 0.3019608, 0.72156864, 1)
 
-[node name="IndicadorCima" type="TextureRect" parent="NotasContainer" unique_id=1562985078]
+[node name="IndicadorEsquerda" type="TextureRect" parent="NotasContainer" unique_id=1562985078]
 layout_mode = 0
 offset_left = 13.0
 offset_top = 260.0
@@ -73,7 +108,7 @@ offset_bottom = 292.0
 texture = ExtResource("20_esquerda")
 expand_mode = 1
 
-[node name="IndicadorBaixo" type="TextureRect" parent="NotasContainer" unique_id=1960229845]
+[node name="IndicadorCima" type="TextureRect" parent="NotasContainer" unique_id=1960229845]
 layout_mode = 0
 offset_left = 74.0
 offset_top = 260.0
@@ -82,7 +117,7 @@ offset_bottom = 292.0
 texture = ExtResource("20_cima")
 expand_mode = 1
 
-[node name="IndicadorEsquerda" type="TextureRect" parent="NotasContainer" unique_id=1070303815]
+[node name="IndicadorBaixo" type="TextureRect" parent="NotasContainer" unique_id=1070303815]
 layout_mode = 0
 offset_left = 135.0
 offset_top = 260.0
@@ -123,3 +158,22 @@ theme_override_font_sizes/font_size = 20
 text = "VEZ DO P1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Aviso" type="TextureRect" parent="."]
+visible = false
+self_modulate = Color(1, 0.35, 0.25, 1)
+layout_mode = 0
+offset_left = -72.0
+offset_top = 90.0
+offset_right = -8.0
+offset_bottom = 154.0
+pivot_offset = Vector2(32, 32)
+mouse_filter = 2
+texture = ExtResource("21_aviso")
+expand_mode = 1
+
+[node name="Piscar" type="AnimationPlayer" parent="Aviso"]
+libraries = {
+&"": SubResource("AnimationLibrary_aviso")
+}
+autoplay = &"piscar"

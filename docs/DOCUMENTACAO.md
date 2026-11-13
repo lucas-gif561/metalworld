@@ -109,8 +109,9 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 
 ![Riff no boss](imagens/boss_riff.png)
 
-- **Riff** (Espaço / LB): notas descem em 4 pistas (← ↑ ↓ →) a 150 BPM, no tempo da música. PERFECT e GOOD ferem o chefe.
-- **Revezamento**: em dupla, blocos de 4 notas alternam P1 (rosa) e P2 (azul); só o dono acerta a própria nota.
+- **Riff** (Espaço / LB abre e fecha): notas descem em 4 pistas a 150 BPM, no tempo da música. O P1 toca com A W S D e o P2 com as setas (ou X Y A B). PERFECT e GOOD ferem o chefe. Quanto mais tempo no Riff, mais rápido as notas caem (até 1,6x).
+- **Revezamento**: em dupla, blocos de 4 notas alternam P1 (rosa) e P2 (azul); só o dono acerta a própria nota. Às vezes vem uma sequência de notas juntas, uma de cada jogador na mesma batida.
+- **Risco do Riff**: só a tecla do Riff fecha o modo. Qualquer dano em qualquer jogador, inclusive da nota maldita, expulsa os dois e trava o Riff por 30 s; sair por conta própria trava por 10 s. Uma ampulheta no HUD enche até liberar. Com o chefe fora do descanso, um "!" pisca ao lado das pistas: hora de decidir se continua tocando.
 - **Descanso**: o chefe se ajoelha e mostra "RIFF!": a hora segura de tocar.
 - **Fases do chefe** (66% e 33% da vida): ataques novos, ritmo mais rápido, nota maldita e escudo.
 - **Escudo de runas**: o Riff não fere até a dupla quebrar as runas no soco.

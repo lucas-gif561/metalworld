@@ -19,7 +19,7 @@ Dylan Walker nasceu surdo e descobriu o heavy metal no dia em que ganhou um apar
 - **Co-op local para 2 jogadores**: o P2 entra a qualquer momento; quem cai é levantado pelo parceiro.
 - **Combate justo**: inimigos piscam antes de atacar; dá para desviar, sair da faixa ou socar para cancelar.
 - **Profundidade de beat 'em up**: personagens passam na frente e atrás uns dos outros.
-- **Riff**: notas a 150 BPM no tempo da música; em dupla, blocos de notas alternam entre P1 (rosa) e P2 (azul).
+- **Riff**: notas a 150 BPM no tempo da música, acelerando quanto mais tempo vocês ficam tocando; em dupla, blocos alternam entre P1 (rosa) e P2 (azul) e às vezes os dois tocam juntos. Levou dano? Expulso do Riff e ele trava por um tempo.
 - **Chefe em 3 fases**: escudo de runas, capangas, teleporte, nota maldita e cabo de força (vida compartilhada).
 - **6 fases**: Rua 1 → Boss 1 → Rua 2 → Boss 2 → Rua 3 → Boss 3.
 
@@ -34,7 +34,7 @@ Dylan Walker nasceu surdo e descobriu o heavy metal no dia em que ganhou um apar
 | Dodge | K | A / RB |
 | Interagir / levantar parceiro | E | B |
 | Abrir/fechar Riff | Espaço | LB |
-| Notas do Riff (← ↑ ↓ →) | Setas | X / Y / A / B |
+| Notas do Riff (← ↑ ↓ →) | A W S D | Setas / X Y A B |
 | Entrar / reiniciar | Enter / R | START |
 | Pausar (e remover o P2) | Esc | START |
 

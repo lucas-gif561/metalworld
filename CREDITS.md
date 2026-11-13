@@ -29,6 +29,12 @@ Arquivos: `personagens/dylan/sprites/`, `ui/sprites/` (menos `coracao.png`, `rai
 Licença: CC0 (domínio público). Coração (vida) e raio (stamina).
 Arquivos: `ui/sprites/coracao.png`, `ui/sprites/raio.png`
 
+## Ampulheta
+
+**Additional Art for Godot 4 tutorials**, por MakerTech: <https://makertech.itch.io/additional-art-for-kenny-top-down-pixel-art-assets>
+Licença: CC0 (domínio público).
+Arquivos: `ui/sprites/ampulheta.png`
+
 ## Seta
 
 **CC0 Arrows**, por knekko: <https://opengameart.org/content/cc0-arrows>

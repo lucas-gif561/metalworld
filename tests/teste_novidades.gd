@@ -1,7 +1,8 @@
 extends SceneTree
 ## Teste das novidades que voltaram: impacto, barris e comida, ataques do
 ## boss, fases, escudo, nota maldita, cabo de força (vida compartilhada)
-## e "qualquer outro botão fecha o Riff". Rode com: tests/rodar_testes.sh
+## e as regras do Riff (sair, trava, dano expulsa, aceleração).
+## Rode com: tests/rodar_testes.sh
 
 var jogo: Node
 var falhas := 0
@@ -135,7 +136,7 @@ func _teste_ataques_do_boss() -> void:
 
 
 func _teste_riff() -> void:
-	print("== Riff: fases, nota maldita e fechar com outro botão")
+	print("== Riff: sair, trava, dano expulsa, fases e nota maldita")
 	var cena = await _boss_1()
 	var boss = cena.boss
 	var riff = cena.riff_hud
@@ -144,11 +145,37 @@ func _teste_riff() -> void:
 	await apertar("p1_riff_mode")
 	checar(cena.riff_ativo, "Riff aberto")
 	await apertar_tecla(KEY_W)
-	checar(not cena.riff_ativo and not p1.bloqueado, "apertar W (andar) fecha o Riff")
+	checar(cena.riff_ativo, "W toca nota do P1 e não fecha o Riff")
+	await apertar("p1_atacar")
+	await apertar("p1_dodge")
+	checar(cena.riff_ativo, "outros botões não fecham mais o Riff")
+	checar(riff.fator_velocidade() > 1.0, "notas aceleram com o tempo no Riff (%.2fx)" % riff.fator_velocidade())
 
 	await apertar("p1_riff_mode")
-	await apertar("p1_riff_cima")
-	checar(cena.riff_ativo, "tocar uma nota não fecha o Riff")
+	checar(not cena.riff_ativo and not p1.bloqueado, "a mesma tecla fecha o Riff")
+	checar(riff.travado() and is_equal_approx(riff.trava_total, riff.trava_ao_sair), "sair trava o Riff por %d s" % riff.trava_ao_sair)
+	await process_frame
+	checar(cena.hud.get_node("TravaRiff").visible, "ampulheta aparece no HUD")
+	await apertar("p1_riff_mode")
+	checar(not cena.riff_ativo, "travado, o Riff não abre")
+
+	riff.trava_restante = 0.0
+	await apertar("p1_riff_mode")
+	checar(cena.riff_ativo, "liberado, o Riff abre de novo")
+	boss._encerrar_descanso()
+	await process_frame
+	checar(riff.aviso.visible, "\"!\" pisca com o boss fora do descanso")
+	p1.invencivel = false
+	p1.timer_invencibilidade.stop()
+	var vida_boss_antes = boss.vida_atual
+	p1.receber_dano(1)
+	await process_frame
+	boss.vida_atual = vida_boss_antes # o cabo de força curou o boss; desfaz para o teste das fases
+	checar(not cena.riff_ativo, "levar dano expulsa do Riff")
+	checar(is_equal_approx(riff.trava_total, riff.trava_por_dano), "dano trava o Riff por %d s" % riff.trava_por_dano)
+	p1.invencivel = true
+	riff.trava_restante = 0.0
+	await apertar("p1_riff_mode")
 
 	# Um Riff bom derruba uma fase inteira
 	var dano = boss.dano_da_nota(true)
@@ -159,11 +186,13 @@ func _teste_riff() -> void:
 	checar(not cena.riff_ativo, "mudar de fase fecha o Riff")
 	checar(boss.nota_maldita_disponivel(), "nota maldita liberada na fase 2")
 
-	# Nota maldita machuca quem toca e não fere o boss
+	# Nota maldita machuca quem toca, não fere o boss e expulsa do Riff
 	for runa in get_nodes_in_group("runas"):
 		runa.receber_dano(99)
 	await process_frame
-	riff.tocando = true
+	riff.trava_restante = 0.0
+	if not cena.riff_ativo:
+		await apertar("p1_riff_mode")
 	p1.invencivel = false
 	p1.timer_invencibilidade.stop()
 	var vida_p1 = p1.vida
@@ -178,7 +207,8 @@ func _teste_riff() -> void:
 	riff.verificar_nota(0, 1)
 	checar(p1.vida == vida_p1 - 1, "nota maldita tira vida de quem tocou")
 	checar(boss.vida_atual >= vida_boss, "nota maldita não fere o boss")
-	riff.tocando = false
+	await process_frame
+	checar(not cena.riff_ativo and is_equal_approx(riff.trava_total, riff.trava_por_dano), "nota maldita também expulsa e trava o Riff")
 
 
 func _teste_cabo_de_forca() -> void:

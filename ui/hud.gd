@@ -24,6 +24,7 @@ const COR_CAIDO = Color(0.3, 0.3, 0.35, 1)
 @onready var subtitulo_fim = $TelaFim/Conteudo/Subtitulo
 
 var aviso_id := 0
+var _tween_trava: Tween
 var paineis := {}
 var conectados := []
 
@@ -141,6 +142,25 @@ func mostrar_titulo(texto: String) -> void:
 		return
 	titulo_fase.get_node("Nome").text = texto
 	titulo_fase.get_node("Animacao").play("entrar")
+
+
+## Ampulheta do Riff travado: enche como relógio até liberar (1 = liberado)
+func mostrar_trava_riff(progresso: float) -> void:
+	var trava = $TravaRiff
+	trava.visible = progresso < 1.0
+	trava.value = progresso
+
+
+## Tentou abrir o Riff travado: a ampulheta treme
+func recusar_riff() -> void:
+	Audio.tocar("nota_miss")
+	var trava = $TravaRiff
+	if _tween_trava:
+		_tween_trava.kill()
+	trava.rotation = 0.0
+	_tween_trava = trava.create_tween()
+	for angulo in [0.3, -0.3, 0.15, 0.0]:
+		_tween_trava.tween_property(trava, "rotation", angulo, 0.05)
 
 
 ## Seta piscando para a direita quando a área foi limpa
