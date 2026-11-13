@@ -31,6 +31,7 @@ func _ready():
 	Jogo.jogador_entrou.connect(_ao_jogador_entrar)
 	enemy_manager.onda_iniciada.connect(_ao_iniciar_onda)
 	enemy_manager.arena_concluida.connect(_ao_concluir_arena)
+	Audio.tocar_musica("ruas")
 
 
 func quantidade_arenas() -> int:
@@ -43,6 +44,10 @@ func _ao_iniciar_onda(arena, onda, total_ondas):
 
 
 func _ao_concluir_arena():
+	# Último inimigo da rua: câmera lenta para fechar com impacto
+	if arena_atual == quantidade_arenas():
+		Combate.camera_lenta(0.9)
+
 	if arena_atual < quantidade_arenas():
 		hud.mostrar_aviso("Área limpa! Siga para a direita  →")
 
@@ -53,6 +58,7 @@ func _ao_jogador_entrar(jogador):
 
 func _ao_game_over():
 	fim_de_jogo = true
+	Audio.parar_musica()
 	hud.mostrar_fim("GAME OVER", "R / START para tentar de novo", Color(1, 0.25, 0.25))
 
 

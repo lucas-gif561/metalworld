@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://scenes/player/player.tscn" id="3_8xsta"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="30_hud"]
 [ext_resource type="PackedScene" path="res://scenes/ui/riff_hud.tscn" id="40_riff"]
+[ext_resource type="PackedScene" path="res://scenes/ui/cabo_de_forca.tscn" id="44_cabo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vyw2r"]
 radius = 108.0
@@ -92,6 +93,9 @@ offset_right = 1142.0
 offset_bottom = 35.0
 value = 100.0
 show_percentage = false
+
+[node name="CaboDeForca" parent="HUD" instance=ExtResource("44_cabo")]
+visible = false
 
 [node name="RiffHUD" parent="HUD" unique_id=948874030 instance=ExtResource("40_riff")]
 

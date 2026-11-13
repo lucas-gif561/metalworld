@@ -37,6 +37,8 @@ func estourar(centro: Vector2, distancia_saida: float) -> void:
 		return
 
 	estourou = true
+	Audio.tocar("granada")
+	Combate.tremer(6.0)
 
 	var cena_atual = get_tree().current_scene
 

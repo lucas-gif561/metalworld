@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://cohoo1yja2qtv" path="res://scenes/projectiles/ProjetilBoss.tscn" id="4_8xsta"]
 [ext_resource type="PackedScene" uid="uid://ce5l8vsahldl3" path="res://scenes/projectiles/ataqueAreaBoss.tscn" id="4_78twr"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="30_hud"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/inimigo_rapido.tscn" id="41_capanga"]
+[ext_resource type="PackedScene" path="res://scenes/bosses/runa.tscn" id="42_runa"]
+[ext_resource type="PackedScene" path="res://scenes/projectiles/particulas_boss.tscn" id="43_particulas"]
+[ext_resource type="PackedScene" path="res://scenes/ui/cabo_de_forca.tscn" id="44_cabo"]
 [ext_resource type="PackedScene" path="res://scenes/ui/riff_hud.tscn" id="40_riff"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vyw2r"]
@@ -45,8 +49,14 @@ shape = SubResource("CapsuleShape2D_vyw2r")
 
 [node name="Boss" parent="Arena" unique_id=647068640 instance=ExtResource("2_df7gq")]
 position = Vector2(576, 160)
-cena_ataque_area = ExtResource("4_78twr")
+vida_maxima = 200
 cena_projetil = ExtResource("4_8xsta")
+cena_ataque_area = ExtResource("4_78twr")
+cena_capanga = ExtResource("41_capanga")
+cena_runa = ExtResource("42_runa")
+cena_particulas = ExtResource("43_particulas")
+usar_fases = true
+usar_nota_maldita = true
 
 [node name="SpawnPlayer" type="Marker2D" parent="Arena" unique_id=126301520]
 position = Vector2(576, 528)
@@ -95,6 +105,9 @@ offset_right = 1142.0
 offset_bottom = 35.0
 value = 100.0
 show_percentage = false
+
+[node name="CaboDeForca" parent="HUD" instance=ExtResource("44_cabo")]
+visible = false
 
 [node name="RiffHUD" parent="HUD" unique_id=948874030 instance=ExtResource("40_riff")]
 

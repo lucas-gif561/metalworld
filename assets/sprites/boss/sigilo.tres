@@ -1,6 +1,7 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bjhoe5tc06si0"]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/boss/sigilo.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://ckkey86doaklx" path="res://assets/sprites/boss/sigilo.png" id="1_tex"]
+[ext_resource type="Texture2D" uid="uid://bvthiq3xumu26" path="res://assets/sprites/portals/purple.png" id="2_oa681"]
 
 [sub_resource type="AtlasTexture" id="at_0"]
 atlas = ExtResource("1_tex")
@@ -114,29 +115,37 @@ region = Rect2(192, 256, 64, 64)
 atlas = ExtResource("1_tex")
 region = Rect2(256, 256, 64, 64)
 
-[sub_resource type="AtlasTexture" id="at_28"]
-atlas = ExtResource("1_tex")
-region = Rect2(320, 192, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_r31ih"]
+atlas = ExtResource("2_oa681")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="at_29"]
-atlas = ExtResource("1_tex")
-region = Rect2(0, 256, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_klr6t"]
+atlas = ExtResource("2_oa681")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="at_30"]
-atlas = ExtResource("1_tex")
-region = Rect2(64, 256, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bipd"]
+atlas = ExtResource("2_oa681")
+region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="at_31"]
-atlas = ExtResource("1_tex")
-region = Rect2(128, 256, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_74jvd"]
+atlas = ExtResource("2_oa681")
+region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="at_32"]
-atlas = ExtResource("1_tex")
-region = Rect2(192, 256, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5r0g"]
+atlas = ExtResource("2_oa681")
+region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="at_33"]
-atlas = ExtResource("1_tex")
-region = Rect2(256, 256, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_7g5wb"]
+atlas = ExtResource("2_oa681")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn4oy"]
+atlas = ExtResource("2_oa681")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mstiv"]
+atlas = ExtResource("2_oa681")
+region = Rect2(448, 0, 64, 64)
 
 [resource]
 animations = [{
@@ -225,30 +234,36 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("at_27")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ataque",
 "speed": 18.7
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("at_28")
+"texture": SubResource("AtlasTexture_r31ih")
 }, {
 "duration": 1.0,
-"texture": SubResource("at_29")
+"texture": SubResource("AtlasTexture_klr6t")
 }, {
 "duration": 1.0,
-"texture": SubResource("at_30")
+"texture": SubResource("AtlasTexture_1bipd")
 }, {
 "duration": 1.0,
-"texture": SubResource("at_31")
+"texture": SubResource("AtlasTexture_74jvd")
 }, {
 "duration": 1.0,
-"texture": SubResource("at_32")
+"texture": SubResource("AtlasTexture_w5r0g")
 }, {
 "duration": 1.0,
-"texture": SubResource("at_33")
+"texture": SubResource("AtlasTexture_7g5wb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn4oy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mstiv")
 }],
-"loop": true,
+"loop": 1,
 "name": &"portal",
-"speed": 8.0
+"speed": 16.0
 }]

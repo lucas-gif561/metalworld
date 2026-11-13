@@ -54,7 +54,7 @@ O jogo tem **1 ou 2 jogadores**, e o P2 pode entrar no meio da fase. Por isso:
    | `dodge` | K | A / RB |
    | `interagir` (portal, levantar parceiro) | E | B |
    | `riff_mode` | Espaço | LB |
-   | `riff_cima` / `riff_baixo` / `riff_esquerda` / `riff_direita` | Setas | Y / A / X / B ou direcional |
+   | `riff_esquerda` / `riff_cima` / `riff_baixo` / `riff_direita` (pistas ← ↑ ↓ →) | Setas | X / Y / A / B ou direcional |
    | `reiniciar` | R | Start |
    | `entrar` (P2 entra na partida) | — | Start / A |
 
@@ -73,6 +73,7 @@ A cena `fases/rua_N/rua_N.tscn` já funciona: tem 2 arenas, inimigos e um portal
   - Cada arena tem 1032 px de largura: a arena 1 é centrada em x=576, a 2 em x=1608, a 3 em x=2640 (a anterior + 1032).
   - Inimigos podem nascer fora da tela, um pouco à direita ou à esquerda.
 - **Portal:** coloque o nó `Portal` dentro da última arena. Ele leva sozinho para a próxima fase.
+- **Barris e caixotes:** instancie `scenes/objects/barril.tscn` ou `caixote.tscn` na cena. Eles quebram no tiro e soltam comida que cura. Para trocar a comida, mude `cena_item` no Inspector: use `item_maca.tscn`, `item_carne.tscn` ou uma cena nova com `scripts/objects/item_vida.gd`.
 - **Fundo:** troque a textura do nó `Background`.
 - **Não precisa de script novo para a fase:** ela usa `scripts/main.gd`.
 
@@ -83,6 +84,7 @@ A cena `fases/rua_N/rua_N.tscn` já funciona: tem 2 arenas, inimigos e um portal
 3. Use as funções prontas: `_olhar_para_jogador()`, `_atualizar_animacao()`, `_tocar_acao("attack")`, `move_and_slide()`.
 4. Para dar dano no jogador, chame `jogador.receber_dano(dano)` ou crie um projétil cuja colisão chame `receber_dano` em quem estiver no grupo `"jogador"`.
 5. Ao morrer, o inimigo emite `morreu(inimigo)` e some sozinho. Não chame `queue_free()` antes.
+6. Som e impacto já vêm prontos no `Inimigo`: tremor e pausa curta ao tomar tiro e ao morrer, ajustáveis no grupo "Impacto" do Inspector. Para efeitos extras, use `Audio.tocar("nome")` (lista em `scripts/systems/audio.gd`) e `Combate.tremer(forca)` / `Combate.pausar(segundos)`.
 
 ---
 
@@ -100,9 +102,30 @@ A cena `fases/boss_N/boss_N.tscn` já funciona: arena, Riff, barra de vida e vit
   ```
 - **Sempre** use `esperar()` e `esperar_fim_do_ataque()`, nunca `get_tree().create_timer` direto. Elas não quebram quando a fase reinicia no meio do ataque.
 - Para mirar, use `alvo()` (jogador sorteado) ou `alvo_mais_proximo()`. Ambos podem devolver `null`.
-- Para atirar, use `criar_projetil(direcao)`, que usa a cena `cena_projetil`. Também aceita outra cena como segundo argumento.
+- Para atirar, use `criar_projetil(direcao)`, que usa a cena `cena_projetil`. Também aceita outra cena como segundo argumento. Para um círculo de dano no chão, use `criar_circulo(posicao, dano, tempo_aviso)`.
+- **Caixa de ferramentas:** a classe `Boss` já tem ataques e mecânicas prontos. Use só os que quiser, sempre com `await`:
+
+  | Função | O que faz | Precisa de |
+  |---|---|---|
+  | `rajada()` | 6 tiros mirados | `cena_projetil` |
+  | `leque()` | leque de 5 tiros | `cena_projetil` |
+  | `espiral()` | dois fios de tiros girando | `cena_projetil` |
+  | `area_no_chao()` | círculo grande embaixo de um jogador | `cena_ataque_area` |
+  | `trilha_no_chao()` | rastro de círculos seguindo um jogador | `cena_ataque_area` |
+  | `corredor()` | colunas de círculos varrendo a arena, com um buraco | `cena_ataque_area` |
+  | `invocar_capangas()` | chama inimigos nos `pontos_capanga` | `cena_capanga` |
+  | `teleporte()` | some e reaparece num dos `pontos_teleporte` | `cena_particulas` (opcional) |
+  | `ativar_escudo()` | o Riff não fere até quebrarem as runas no tiro | `cena_runa` |
+  | `descansar()` | o boss se ajoelha e mostra "RIFF!": a hora de tocar | animações `ajoelhar`/`descanso` (opcional) |
+
+  As cenas prontas são `scenes/projectiles/ProjetilBoss.tscn`, `ataqueAreaBoss.tscn`, `particulas_boss.tscn`, `scenes/bosses/runa.tscn` e qualquer inimigo de `scenes/enemies/`.
+- **Fases** (`usar_fases` no Inspector): abaixo de 66% e de 33% da vida o boss enfurece, e `esperar_no_ritmo()` encurta as pausas. Ao mudar de fase, o Riff fecha e o escudo sobe (`escudo_ao_mudar_fase`). Com fases, o dano das notas é calibrado para um Riff bom valer uma fase. Para saber em que fase está, use `if fase >= 2:`.
+- **Nota maldita** (`usar_nota_maldita`, a partir de `fase_nota_maldita`): nota vermelha que machuca quem toca.
+- **Cabo de força** (`usar_cabo_de_forca` no nó raiz da arena, ligado por padrão): a dupla divide uma vida contra o boss. Dano em qualquer jogador enche o boss, e dano no boss enche a dupla.
+- Exemplo com tudo isso junto: `scripts/bosses/boss.gd` (boss 1) e as propriedades do nó `Arena/Boss` em `scenes/main/Bossfight.tscn`.
 - O boss **só perde vida pelo Riff**. Não dê dano no boss por tiro.
-- Para ajustar o Riff de um boss, selecione o nó `HUD/RiffHUD` da arena e mude `bpm`, `dano_perfect` e `dano_good` no Inspector.
+- Para ajustar o Riff de um boss, selecione o nó `HUD/RiffHUD` da arena e mude no Inspector `bpm` (150 por padrão, no tempo da música), `chance_nota_maldita`, `dano_perfect` e `dano_good`. Os danos só valem para boss sem fases.
+- Durante o Riff, qualquer botão que não seja de nota fecha o modo. Isso é de propósito: dá tempo de reagir.
 - A vida fica em `vida_maxima`, no nó raiz do `chefe_N.tscn`.
 - Exemplo completo: `scripts/bosses/boss.gd` (boss 1).
 

@@ -4,12 +4,20 @@ extends Control
 ## Co-op (revezamento): as notas vêm em blocos de NOTAS_POR_BLOCO, alternando
 ## entre P1 e P2. Cada nota tem a cor do dono e só o dono pode acertá-la.
 ## Se só um jogador estiver de pé, todas as notas são dele.
+##
+## Nota maldita (se o boss permitir): vermelha, machuca quem tocar. Sempre
+## vem com uma nota normal junto, para existir um acerto possível.
+## Com o escudo do boss ativo, as notas não ferem.
 
 const NOTAS_POR_BLOCO = 4
-const TECLAS = ["riff_cima", "riff_baixo", "riff_esquerda", "riff_direita"]
+const TECLAS = ["riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 
 @export var cena_nota: PackedScene
-@export var bpm: float = 120.0
+@export var bpm: float = 150.0
+## Atraso da batida da música (segundos), para as notas chegarem no tempo
+@export var offset_batida: float = 0.516
+@export var chance_nota_maldita: float = 0.15
+## Dano por nota (bosses com usar_fases calculam o próprio)
 @export var dano_perfect: int = 3
 @export var dano_good: int = 1
 ## Quem leva o dano. A arena (BossFight.gd) preenche sozinha.
@@ -22,6 +30,8 @@ const TECLAS = ["riff_cima", "riff_baixo", "riff_esquerda", "riff_direita"]
 const COR_PERFECT = Color(0.35, 0.9, 1.0)
 const COR_GOOD = Color(0.5, 1.0, 0.5)
 const COR_MISS = Color(1.0, 0.3, 0.3)
+const COR_MALDITA = Color(1.0, 0.15, 0.15)
+const COR_ESCUDO = Color(0.5, 0.8, 1.0)
 
 var tocando = false
 var posicao_acerto: float = 260.0
@@ -31,16 +41,22 @@ var geracao_id: int = 0
 var tween_feedback: Tween
 var dono_bloco: int = 1
 var notas_no_bloco: int = 0
+var viagem_nota: float = 0.0
 
 
 func iniciar_riff():
 	if tocando:
 		return
 
+	var modelo = cena_nota.instantiate()
+	viagem_nota = (posicao_acerto + 30.0) / modelo.velocidade
+	modelo.free()
+
 	tocando = true
 	geracao_id += 1
 	notas_no_bloco = 0
-	dono_bloco = _ids_vivos()[0] if not _ids_vivos().is_empty() else 1
+	var vivos = _ids_vivos()
+	dono_bloco = vivos[0] if not vivos.is_empty() else 1
 	gerar_notas(geracao_id)
 
 
@@ -55,21 +71,46 @@ func parar_riff():
 
 func gerar_notas(id):
 	while tocando and id == geracao_id:
-		var nota = cena_nota.instantiate()
-		notas_container.add_child(nota)
+		await get_tree().create_timer(_tempo_ate_proxima_nota()).timeout
 
+		if not tocando or id != geracao_id:
+			return
+
+		var dono = _proximo_dono()
 		var coluna = randi_range(0, 3)
+		var maldita = boss.has_method("nota_maldita_disponivel") and boss.nota_maldita_disponivel() and randf() < chance_nota_maldita
 
-		nota.coluna = coluna
-		nota.dono = _proximo_dono()
-		nota.atualizar_seta()
-		nota.position = Vector2(coluna * 61 + 13, -30)
-		nota.perdida.connect(_mostrar_feedback.bind("MISS", COR_MISS))
+		_criar_nota(coluna, dono, maldita)
 
-		if _em_dupla():
-			nota.modulate = Color.WHITE.lerp(Jogo.cor(nota.dono), 0.65)
+		if maldita:
+			var outras = [0, 1, 2, 3]
+			outras.erase(coluna)
+			_criar_nota(outras.pick_random(), dono, false)
 
-		await get_tree().create_timer(60.0 / bpm).timeout
+
+func _criar_nota(coluna: int, dono: int, maldita: bool) -> void:
+	var nota = cena_nota.instantiate()
+	notas_container.add_child(nota)
+	nota.coluna = coluna
+	nota.dono = dono
+	nota.maldita = maldita
+	nota.atualizar_seta()
+	nota.position = Vector2(coluna * 61 + 13, -30)
+	nota.perdida.connect(_registrar_miss)
+
+	if maldita:
+		nota.modulate = COR_MALDITA
+	elif _em_dupla():
+		nota.modulate = Color.WHITE.lerp(Jogo.cor(dono), 0.65)
+
+
+# Quanto esperar para a próxima nota chegar à linha no tempo da música
+func _tempo_ate_proxima_nota() -> float:
+	var periodo = 60.0 / bpm
+	var chegada = Audio.posicao_musica() + viagem_nota - offset_batida
+	var falta = periodo - fposmod(chegada, periodo)
+	# Evita duas notas coladas quando o timer acorda logo antes da batida
+	return falta + periodo if falta < 0.05 else falta
 
 
 func _proximo_dono() -> int:
@@ -152,19 +193,42 @@ func verificar_nota(coluna, id_jogador := 1):
 	if nota_maxima == null:
 		# Apertar fora da sua vez não conta como erro
 		if tem_nota_propria:
-			_mostrar_feedback("MISS", COR_MISS)
+			_registrar_miss()
 		return
 
 	nota_maxima.acertada = true
-
-	if menor_distancia <= janela_perfect:
-		_mostrar_feedback("PERFECT!", COR_PERFECT)
-		boss.receber_dano(dano_perfect)
-	else:
-		_mostrar_feedback("GOOD", COR_GOOD)
-		boss.receber_dano(dano_good)
-
 	nota_maxima.queue_free()
+
+	if nota_maxima.maldita:
+		Audio.tocar("nota_maldita")
+		_mostrar_feedback("MALDITA!", COR_MALDITA)
+		var jogador = Jogo.jogador_por_id(id_jogador)
+		if jogador:
+			jogador.receber_dano(1)
+		return
+
+	if boss.get("escudo_ativo"):
+		Audio.tocar("escudo", 0.0)
+		_mostrar_feedback("ESCUDO", COR_ESCUDO)
+		return
+
+	var perfect = menor_distancia <= janela_perfect
+	# Boss com fases calcula o próprio dano (um Riff bom = uma fase)
+	var dano = boss.dano_da_nota(perfect) if boss.get("usar_fases") else (dano_perfect if perfect else dano_good)
+
+	if perfect:
+		Audio.tocar("nota_perfect", 0.0)
+		_mostrar_feedback("PERFECT!", COR_PERFECT)
+	else:
+		Audio.tocar("nota_good", 0.0)
+		_mostrar_feedback("GOOD", COR_GOOD)
+
+	boss.receber_dano(dano)
+
+
+func _registrar_miss():
+	Audio.tocar("nota_miss")
+	_mostrar_feedback("MISS", COR_MISS)
 
 
 func _mostrar_feedback(texto, cor):

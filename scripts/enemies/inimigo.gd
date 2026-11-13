@@ -19,6 +19,12 @@ signal morreu(inimigo)
 @export var dano = 1
 @export var intervalo_troca_alvo = 0.5
 
+@export_group("Impacto")
+## Pausa curta no jogo quando o inimigo toma um tiro (segundos)
+@export var pausa_ao_acertar = 0.03
+@export var pausa_ao_morrer = 0.07
+@export var tremor_ao_morrer = 5.0
+
 @onready var timer_ataque = $TimerAtaque
 @onready var sprite = $AnimatedSprite2D
 
@@ -107,6 +113,8 @@ func receber_dano(valor):
 	if vida <= 0:
 		morrer()
 	else:
+		Audio.tocar("dano_inimigo")
+		Combate.pausar(pausa_ao_acertar)
 		_tocar_acao("hurt")
 		sprite.modulate = Color(1, 0.4, 0.4)
 		create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.2)
@@ -117,6 +125,9 @@ func morrer():
 	velocity = Vector2.ZERO
 	$CollisionShape2D.set_deferred("disabled", true)
 	morreu.emit(self)
+	Audio.tocar("morte_inimigo")
+	Combate.pausar(pausa_ao_morrer)
+	Combate.tremer(tremor_ao_morrer)
 	_tocar_acao("death")
 	await sprite.animation_finished
 	queue_free()

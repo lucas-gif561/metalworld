@@ -126,8 +126,9 @@ func _teste_boss() -> void:
 	var p1 = jogo.jogador_por_id(1)
 	var p2 = jogo.jogador_por_id(2)
 	checar(p1 != null and p2 != null, "os dois jogadores no boss")
-	cena.boss.set_process(false)
-	cena.boss.vida_maxima = 999
+	# Ninguém toma dano no meio do teste (com a vida compartilhada isso cura o boss)
+	p1.invencivel = true
+	p2.invencivel = true
 
 	await apertar("p2_riff_mode")
 	checar(cena.riff_ativo and p1.bloqueado and p2.bloqueado, "P2 abre o Riff e os dois ficam tocando")
@@ -152,17 +153,17 @@ func _teste_boss() -> void:
 	var vida = cena.boss.vida_atual
 	var nota = riff.cena_nota.instantiate()
 	riff.notas_container.add_child(nota)
-	nota.coluna = 1
+	nota.coluna = 1 # pista ↑
 	nota.dono = 2
 	nota.velocidade = 0.0
 	nota.position = Vector2(74, riff.posicao_acerto)
 	riff.verificar_nota(1, 1)
 	checar(cena.boss.vida_atual == vida and is_instance_valid(nota) and not nota.acertada, "P1 não acerta nota do P2")
-	await apertar("p2_riff_baixo")
-	checar(cena.boss.vida_atual == vida - riff.dano_perfect, "P2 acerta a própria nota pelo controle (PERFECT)")
+	await apertar("p2_riff_cima")
+	checar(cena.boss.vida_atual == vida - cena.boss.dano_da_nota(true), "P2 acerta a própria nota pelo controle (PERFECT)")
 
 	# Com um caído, todas as notas vão para quem está de pé
-	p2.receber_dano(99)
+	p2.morrer()
 	await esperar(0.1)
 	riff.notas_no_bloco = 0
 	var donos_solo = []
@@ -172,6 +173,7 @@ func _teste_boss() -> void:
 
 	await apertar("p1_riff_mode")
 	checar(not cena.riff_ativo and not p1.bloqueado, "P1 fecha o Riff")
+	p2.reviver()
 
 
 func _teste_solo() -> void:

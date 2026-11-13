@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" path="res://scenes/enemies/inimigo.tscn" id="7_normal"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/inimigo_rapido.tscn" id="8_rapido"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="9_hud"]
+[ext_resource type="PackedScene" path="res://scenes/objects/caixote.tscn" id="10_caixote"]
+[ext_resource type="PackedScene" path="res://scenes/objects/barril.tscn" id="11_barril"]
 
 [node name="Rua2" type="Node2D"]
 y_sort_enabled = true
@@ -63,5 +65,11 @@ cena_inimigo = ExtResource("8_rapido")
 [node name="EnemyManager" type="Node" parent="."]
 script = ExtResource("6_manager")
 cena_inimigo = ExtResource("7_normal")
+
+[node name="Caixote1" parent="." instance=ExtResource("10_caixote")]
+position = Vector2(700, 520)
+
+[node name="Barril1" parent="." instance=ExtResource("11_barril")]
+position = Vector2(1500, 380)
 
 [node name="HudJogo" parent="." instance=ExtResource("9_hud")]

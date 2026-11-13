@@ -8,6 +8,7 @@ extends CharacterBody2D
 signal vida_alterada(atual, maxima)
 signal morreu # o jogador caiu (vida chegou a zero)
 signal revivido
+signal dano_sofrido(valor) # quanto de vida perdeu num golpe
 signal stamina_alterada(atual, maxima)
 
 const CAMADA_NORMAL = 1
@@ -160,6 +161,7 @@ func _iniciar_dodge(direcao):
 	# Sem camada, balas e inimigos não detectam o jogador
 	collision_layer = 0
 	collision_mask = MASCARA_DODGE
+	Audio.tocar("dodge")
 	_tocar_acao("dodge")
 
 
@@ -231,6 +233,7 @@ func atirar():
 	get_tree().current_scene.add_child(projetil)
 
 	projetil.global_position = global_position + Vector2(40 * direcao_olhar, 0)
+	Audio.tocar("tiro_dylan")
 	_tocar_acao(_animacao_ataque(velocity))
 
 
@@ -238,12 +241,16 @@ func receber_dano(dano):
 	if caido or invencivel or esquivando or not timer_invencibilidade.is_stopped():
 		return
 
+	var vida_antes = vida
 	vida = max(vida - dano, 0)
 	vida_alterada.emit(vida, vida_maxima)
+	dano_sofrido.emit(vida_antes - vida)
 
 	if vida <= 0:
-		morrer()
+		if not caido:
+			morrer()
 	else:
+		Audio.tocar("dano_dylan")
 		timer_invencibilidade.start(tempo_invencivel_padrao)
 		_tocar_acao("hurt")
 		_piscar()
@@ -258,6 +265,22 @@ func _piscar(vezes := 5):
 	tween_dano.tween_property(sprite, "modulate", Color.WHITE, 0.1)
 
 
+func curar(valor):
+	if caido:
+		return
+	vida = min(vida + valor, vida_maxima)
+	vida_alterada.emit(vida, vida_maxima)
+
+
+## Usado pela vida compartilhada do boss: iguala a vida deste jogador à da dupla
+func sincronizar_vida(nova_vida: int, nova_maxima: int) -> void:
+	vida_maxima = nova_maxima
+	vida = clampi(nova_vida, 0, nova_maxima)
+	vida_alterada.emit(vida, vida_maxima)
+	if vida <= 0 and not caido:
+		morrer()
+
+
 ## O jogador cai e espera o parceiro (ou o game over, se ninguém sobrar)
 func morrer():
 	vida = 0
@@ -270,6 +293,7 @@ func morrer():
 	if tween_dano:
 		tween_dano.kill()
 	sprite.modulate = Color.WHITE
+	Audio.tocar("morte_dylan", 0.0)
 	_tocar_acao("death")
 	_indicador.show()
 	morreu.emit()

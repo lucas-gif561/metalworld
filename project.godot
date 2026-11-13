@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 Controles="*res://scripts/systems/controles.gd"
 Jogo="*res://scripts/systems/jogo.gd"
+Audio="*res://scripts/systems/audio.gd"
+Combate="*res://scripts/systems/combate.gd"
 
 [display]
 

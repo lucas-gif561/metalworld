@@ -22,6 +22,7 @@ grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("7_xtdbn")
 cena_nota = ExtResource("8_mi726")
+bpm = 150.0
 
 [node name="NotasContainer" type="Control" parent="." unique_id=1075832888]
 anchors_preset = 0
@@ -69,7 +70,7 @@ offset_left = 13.0
 offset_top = 260.0
 offset_right = 45.0
 offset_bottom = 292.0
-texture = ExtResource("20_cima")
+texture = ExtResource("20_esquerda")
 expand_mode = 1
 
 [node name="IndicadorBaixo" type="TextureRect" parent="NotasContainer" unique_id=1960229845]
@@ -78,7 +79,7 @@ offset_left = 74.0
 offset_top = 260.0
 offset_right = 106.0
 offset_bottom = 292.0
-texture = ExtResource("20_baixo")
+texture = ExtResource("20_cima")
 expand_mode = 1
 
 [node name="IndicadorEsquerda" type="TextureRect" parent="NotasContainer" unique_id=1070303815]
@@ -87,7 +88,7 @@ offset_left = 135.0
 offset_top = 260.0
 offset_right = 167.0
 offset_bottom = 292.0
-texture = ExtResource("20_esquerda")
+texture = ExtResource("20_baixo")
 expand_mode = 1
 
 [node name="IndicadorDireita" type="TextureRect" parent="NotasContainer" unique_id=562682541]

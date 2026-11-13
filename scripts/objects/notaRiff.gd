@@ -2,10 +2,11 @@ extends Control
 
 signal perdida
 
+# Ordem das pistas: ← ↑ ↓ →
 const SETAS = [
+	preload("res://assets/sprites/ui/tecla_esquerda.png"),
 	preload("res://assets/sprites/ui/tecla_cima.png"),
 	preload("res://assets/sprites/ui/tecla_baixo.png"),
-	preload("res://assets/sprites/ui/tecla_esquerda.png"),
 	preload("res://assets/sprites/ui/tecla_direita.png"),
 ]
 
@@ -14,6 +15,7 @@ const SETAS = [
 @onready var seta = $Seta
 
 var coluna: int = 0
+var maldita = false # nota vermelha: machuca quem tocar
 var dono: int = 1 # jogador que deve acertar esta nota (revezamento)
 var acertada = false
 
@@ -31,5 +33,6 @@ func _process(delta: float) -> void:
 
 	if position.y >= 290 and not acertada:
 		acertada = true
-		perdida.emit()
+		if not maldita:
+			perdida.emit()
 		queue_free()

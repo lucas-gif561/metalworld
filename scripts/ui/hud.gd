@@ -87,6 +87,14 @@ func _atualizar_vida(atual, maxima, painel, id_jogador) -> void:
 	painel.get_node("TextoVida").text = "P%d  %s" % [id_jogador, texto]
 
 
+## Cabo de força: a vida fica na barra do cabo; aqui sobra só a stamina
+func usar_vida_compartilhada() -> void:
+	for painel in paineis.values():
+		painel.get_node("BarraVida").hide()
+		painel.get_node("TextoVida").hide()
+		painel.get_node("BarraStamina").position.y = 0.0
+
+
 func definir_progresso(texto: String) -> void:
 	progresso.text = texto
 

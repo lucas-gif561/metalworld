@@ -47,4 +47,5 @@ func _process(_delta):
 
 func entrar_portal():
 	ativado = false
+	Audio.tocar("portal", 0.0)
 	Jogo.proxima_fase()

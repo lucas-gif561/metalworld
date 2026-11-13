@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://dltkylafufj17" path="res://scenes/objects/Portal.tscn" id="9_b1x3f"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="30_hud"]
 [ext_resource type="Script" path="res://scripts/systems/ponto_spawn.gd" id="10_ponto"]
+[ext_resource type="PackedScene" path="res://scenes/objects/barril.tscn" id="41_barril"]
+[ext_resource type="PackedScene" path="res://scenes/objects/caixote.tscn" id="42_caixote"]
 
 [node name="Main" type="Node2D" unique_id=322226560]
 y_sort_enabled = true
@@ -176,5 +178,17 @@ script = ExtResource("6_ow5a4")
 cena_inimigo = ExtResource("5_yyfjg")
 
 [node name="PortalSpawn" type="Node2D" parent="." unique_id=1404435575]
+
+[node name="Caixote1" parent="." instance=ExtResource("42_caixote")]
+position = Vector2(430, 520)
+
+[node name="Barril1" parent="." instance=ExtResource("41_barril")]
+position = Vector2(1440, 360)
+
+[node name="Caixote2" parent="." instance=ExtResource("42_caixote")]
+position = Vector2(2350, 540)
+
+[node name="Barril2" parent="." instance=ExtResource("41_barril")]
+position = Vector2(2850, 360)
 
 [node name="HudJogo" parent="." unique_id=880012347 instance=ExtResource("30_hud")]
