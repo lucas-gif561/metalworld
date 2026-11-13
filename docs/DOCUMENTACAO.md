@@ -66,7 +66,7 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 | RF02 | Jogar com 1 ou 2 jogadores; o 2º pode entrar no meio da fase (START) | ✅ Implementado |
 | RF03 | Teclado para o P1 e controle para o P2 (com teclado reserva para testes) | ✅ Implementado |
 | RF04 | Combate corpo a corpo: socos alternados (jab e direto), esquiva (dodge) com stamina | ✅ Implementado |
-| RF05 | Inimigos com ataque telegrafado (piscam antes de bater) e alvo no jogador mais próximo | ✅ Implementado |
+| RF05 | Inimigos com ataque telegrafado (piscam antes de bater), alvo no jogador mais próximo e IA de grupo (2 atacam por vez, os outros cercam) | ✅ Implementado |
 | RF06 | Fases de rua em arenas e ondas, com portal para o chefe | ✅ Implementado |
 | RF07 | Objetos quebráveis (barris e caixotes) que soltam comida que cura | ✅ Implementado |
 | RF08 | Jogador caído pode ser levantado pelo parceiro; game over só com os dois caídos | ✅ Implementado |
@@ -97,7 +97,7 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 
 - **Socos alternados** (J / X): jab (1 de dano) e direto (2, empurra). O jogador para para bater; apertar durante o golpe guarda o próximo.
 - **Dodge** (K / A) com stamina: atravessa inimigos e tiros.
-- **Inimigos**: normal, rápido, atirador (tiro na faixa) e tanque (granada que estoura em 8 balas). Todos **carregam o golpe** piscando branco: dá para sair da faixa, desviar ou socar para cancelar.
+- **Inimigos**: normal, rápido, atirador (tiro na faixa) e tanque (granada que estoura em 8 balas). Todos **carregam o golpe** piscando branco: dá para sair da faixa, desviar ou socar para cancelar. **IA de grupo** (estilo Castle Crashers): cada jogador tem 2 vagas de ataque, uma de cada lado; quem pega a vaga bate 2 vezes, recua e dá a vez, e os outros cercam o jogador pelos dois lados, à distância.
 - **Profundidade**: colisão só nos pés; personagens passam na frente/atrás uns dos outros e dos objetos.
 - **Impacto**: pausa curta e tremor de tela nos acertos; câmera lenta no último inimigo da rua.
 - **Barris e caixotes** quebram na porrada e soltam maçã ou carne.
@@ -163,6 +163,7 @@ flowchart LR
 | Vida do jogador | 5 (cabo de força no chefe: dupla com 5 de 10) |
 | Jab / direto | 1 / 2 de dano |
 | Carga do ataque inimigo | 0,45 s (tanque 0,6 s) |
+| Atacantes por jogador | 2 (um de cada lado), 2 golpes cada antes de dar a vez |
 | Riff | 150 BPM; com fases, 6 PERFECT ≈ 1 fase do chefe |
 | Velocidade de andar | ~2 corpos por segundo (proporcional ao tamanho) |
 
@@ -299,6 +300,7 @@ tests/rodar_testes.sh
 | `teste_coop.gd` | Entrada do P2, mira dos inimigos, levantar parceiro, game over, Riff em revezamento, reiniciar no meio do chefe |
 | `teste_combate.gd` | Socos (alcance, faixa, empurrão), carga dos inimigos, atirador, profundidade, guitarra no Riff, tamanhos |
 | `teste_novidades.gd` | Impacto, caixote e comida, ataques do chefe, escudo, fases, nota maldita, cabo de força |
+| `teste_ia.gd` | IA de grupo: no máximo 2 atacando, revezamento, rodear à distância, não empilhar, vagas por jogador no co-op |
 | `teste_menu.gd` | Navegação do menu, janelas de controles/créditos, iniciar sozinho/em dupla |
 
 O script falha se **qualquer** teste falhar ou se aparecer erro de script durante a execução. Além disso, cada mudança visual é conferida por captura de tela.
