@@ -260,7 +260,7 @@ classDiagram
     Boss <|-- Chefe3
 ```
 
-- **Inimigo novo**: cena herdada de `inimigos/base/inimigo.tscn` + script `extends Inimigo` que só escreve `_comportamento()`.
+- **Inimigo novo**: cena herdada de `inimigos/base/inimigo.tscn`. Se só bate de perto, não precisa de script (já vem com a IA de grupo); com comportamento diferente, um script `extends Inimigo` que só escreve `_comportamento()`.
 - **Chefe novo**: script `extends Boss` que só escreve `ciclo_ataques()` combinando os ataques prontos.
 - **Rua nova**: ondas montadas no editor com nós `PontoSpawn`; sem script novo.
 
