@@ -58,11 +58,16 @@ func _teste_rua() -> void:
 	await esperar(0.6)
 	var cena = current_scene
 	checar(jogo.jogadores.size() == 1, "começa só com o P1")
+	await process_frame
+	checar(cena.hud.vaga_p2.visible, "vaga do P2 piscando no HUD")
 
 	await apertar("p2_entrar")
-	await esperar(0.2)
 	var p1 = jogo.jogador_por_id(1)
 	var p2 = jogo.jogador_por_id(2)
+	checar(p2 != null and p2.entrando and p2.global_position.x < p1.global_position.x - 70, "P2 chega correndo de fora da tela")
+	await esperar(1.0)
+	checar(p2 != null and not p2.entrando, "P2 terminou a entrada e já joga")
+	checar(not cena.hud.vaga_p2.visible, "vaga do P2 sumiu")
 	checar(p2 != null and jogo.p2_ativo, "P2 entrou apertando START")
 	checar(cena.hud.paineis[2].visible, "painel de vida do P2 apareceu")
 	checar(p2.sprite.material != null, "P2 com outra cor")
@@ -89,6 +94,7 @@ func _teste_rua() -> void:
 	# Reviver
 	var game_over = [false]
 	jogo.game_over.connect(func(): game_over[0] = true)
+	p2.timer_invencibilidade.stop() # algum inimigo pode ter acertado antes
 	p2.receber_dano(99)
 	await esperar(0.2)
 	checar(p2.caido, "P2 caiu com a vida zerada")

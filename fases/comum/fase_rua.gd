@@ -86,6 +86,8 @@ func _process(_delta):
 	var alguem_na_borda = false
 
 	for jogador in Jogo.jogadores:
+		if jogador.entrando:
+			continue # o P2 chegando de fora da tela
 		jogador.global_position = jogador.global_position.clamp(limites.position, limites.end)
 		if not jogador.caido and jogador.global_position.x >= limites.end.x:
 			alguem_na_borda = true

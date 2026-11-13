@@ -7,6 +7,42 @@
 [ext_resource type="Shader" path="res://personagens/dylan/troca_cor.gdshader" id="5_troca_cor"]
 [ext_resource type="Texture2D" path="res://ui/sprites/seta.png" id="6_seta"]
 [ext_resource type="PackedScene" path="res://ui/menu_pausa.tscn" id="7_pausa"]
+[ext_resource type="Texture2D" path="res://ui/sprites/botao_a.png" id="8_botao_a"]
+[ext_resource type="Texture2D" path="res://ui/sprites/tecla_ctrl.png" id="9_ctrl"]
+
+[sub_resource type="Animation" id="Animation_vaga"]
+resource_name = "esperar"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Retrato:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.35)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Botoes:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vaga"]
+_data = {
+&"esperar": SubResource("Animation_vaga")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_retrato_p1"]
 bg_color = Color(0.08, 0.03, 0.12, 0.85)
@@ -399,17 +435,74 @@ texture_under = ExtResource("3_raio")
 texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="DicaP2" type="Label" parent="."]
+[node name="VagaP2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 offset_left = 370.0
 offset_top = 8.0
-offset_right = 600.0
-offset_bottom = 50.0
-theme_override_colors/font_color = Color(0.35, 0.9, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 15
-text = "P2: aperte START / A
-no controle para entrar"
+offset_right = 448.0
+offset_bottom = 86.0
+mouse_filter = 2
+
+[node name="Retrato" type="Panel" parent="VagaP2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_retrato_p2")
+
+[node name="Silhueta" type="TextureRect" parent="VagaP2/Retrato"]
+self_modulate = Color(0.2, 0.45, 0.55, 0.9)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_retrato")
+expand_mode = 1
+
+[node name="Botoes" type="Control" parent="VagaP2"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 86.0
+offset_top = 15.0
+offset_right = 150.0
+offset_bottom = 63.0
+pivot_offset = Vector2(24, 24)
+mouse_filter = 2
+
+[node name="BotaoControle" type="TextureRect" parent="VagaP2/Botoes"]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+texture = ExtResource("8_botao_a")
+expand_mode = 1
+
+[node name="TeclaTeclado" type="TextureRect" parent="VagaP2/Botoes"]
+visible = false
+layout_mode = 0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("9_ctrl")
+expand_mode = 1
+
+[node name="Piscar" type="AnimationPlayer" parent="VagaP2"]
+libraries = {
+&"": SubResource("AnimationLibrary_vaga")
+}
+autoplay = &"esperar"
 
 [node name="Siga" type="Control" parent="."]
 visible = false

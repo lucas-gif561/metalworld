@@ -68,6 +68,9 @@ const SOCOS = [
 var vida_maxima = 0
 var direcao_olhar = 1
 var bloqueado = false
+## Entrando na partida: corre sozinho da borda da tela até destino_entrada
+var entrando = false
+var destino_entrada := Vector2.ZERO
 var invencivel = false
 var em_acao = false
 var caido = false
@@ -88,7 +91,6 @@ var soco_guardado = false
 var fim_sequencia_ms = 0
 @onready var _anel = $Anel
 @onready var _indicador = $IndicadorReviver
-@onready var _etiqueta = $Etiqueta
 @onready var hurtbox = $Hurtbox
 
 
@@ -115,7 +117,6 @@ func aplicar_escala(fator: float) -> void:
 	Jogo.escalar_colisao($Hurtbox/CollisionShape2D, razao)
 	_anel.position *= razao
 	_anel.scale *= razao
-	_etiqueta.position.y *= razao
 	_indicador.position *= razao
 	alcance_soco *= razao
 	velocidade_dodge *= razao
@@ -155,6 +156,10 @@ func _physics_process(delta):
 		return
 
 	_recarregar_stamina(delta)
+
+	if entrando:
+		_correr_para_entrada()
+		return
 
 	if bloqueado:
 		velocity = Vector2.ZERO
@@ -198,8 +203,27 @@ func _physics_process(delta):
 	_atualizar_animacao(direcao)
 
 
-func _process(_delta):
-	_etiqueta.visible = Jogo.p2_ativo and not caido
+## P2 entrando no meio da fase: nasce fora da tela e corre até o destino.
+## Atravessa paredes e inimigos no caminho (sem colisão até chegar).
+func entrar_correndo(destino: Vector2) -> void:
+	entrando = true
+	destino_entrada = destino
+	collision_mask = 0
+	_hurtbox_ativa(false)
+
+
+func _correr_para_entrada() -> void:
+	var falta = destino_entrada - global_position
+	if falta.length() < 10.0:
+		entrando = false
+		velocity = Vector2.ZERO
+		collision_mask = MASCARA_NORMAL
+		_hurtbox_ativa(true)
+		return
+	velocity = falta.normalized() * velocidade * 1.5
+	move_and_slide()
+	_virar_para(falta.x)
+	_atualizar_animacao(falta)
 
 
 func _iniciar_dodge(direcao):
@@ -446,7 +470,7 @@ func reviver():
 
 # ---------------------------------------------------------------- Visual
 
-## Cores do P1/P2 nos marcadores da cena (Anel, Etiqueta, IndicadorReviver).
+## Cores do P1/P2 nos marcadores da cena (Anel e IndicadorReviver).
 ## A cor do P2 fica em código porque P1 e P2 usam a mesma cena.
 func _configurar_identificacao():
 	var cor = Jogo.cor(id_jogador)
@@ -458,7 +482,5 @@ func _configurar_identificacao():
 		sprite.material = material
 
 	_anel.cor = Color(cor, 0.85)
-	_etiqueta.text = "P%d" % id_jogador
-	_etiqueta.add_theme_color_override("font_color", cor)
 	_indicador.cor = cor
 	_indicador.hide()

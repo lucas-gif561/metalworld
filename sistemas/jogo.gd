@@ -119,7 +119,7 @@ func entrar_p2() -> void:
 	if p2_ativo:
 		return
 	p2_ativo = true
-	_criar_p2(get_tree().current_scene)
+	_criar_p2(get_tree().current_scene, true)
 
 
 ## Tira o P2 da partida (menu de pause). Ele pode entrar de novo com START.
@@ -134,12 +134,27 @@ func remover_p2() -> void:
 	_ao_jogador_cair()
 
 
-func _criar_p2(fase: Node) -> void:
+## correndo: entrou no meio da fase, então chega correndo pela esquerda da tela
+func _criar_p2(fase: Node, correndo := false) -> void:
 	var p1 = jogador_por_id(1)
 	var p2 = load(CENA_JOGADOR).instantiate()
 	p2.id_jogador = 2
-	p2.position = (p1.position if p1 else Vector2(200, 500)) + Vector2(-70, 0)
+	var destino = (p1.position if p1 else Vector2(200, 500)) + Vector2(-70, 0)
+	p2.position = destino
+	if correndo:
+		p2.position = Vector2(_borda_esquerda_da_tela() - 60.0, destino.y)
+		p2.entrando = true # avisa o HUD (jogador_entrou) antes do _ready
 	fase.add_child(p2)
+	if correndo:
+		p2.entrar_correndo(destino)
+
+
+func _borda_esquerda_da_tela() -> float:
+	var tela = get_viewport().get_visible_rect().size
+	var camera = get_viewport().get_camera_2d()
+	if camera == null:
+		return 0.0
+	return camera.get_screen_center_position().x - tela.x / 2.0 / camera.zoom.x
 
 
 func jogador_por_id(id_jogador: int):

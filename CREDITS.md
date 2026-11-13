@@ -63,4 +63,4 @@ Arquivos: `assets/audio/sfx/`
 
 **Input Prompts Pixel 16×**, por Kenney: <https://kenney.nl/assets/input-prompts-pixel>
 Licença: CC0 (domínio público).
-Arquivos: `riff/sprites/`
+Arquivos: `riff/sprites/`, `ui/sprites/botao_a.png`, `ui/sprites/tecla_ctrl.png`

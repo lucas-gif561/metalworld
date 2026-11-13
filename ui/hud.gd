@@ -15,7 +15,7 @@ const COR_CAIDO = Color(0.3, 0.3, 0.35, 1)
 
 @onready var painel_vida = $PainelVida
 @onready var painel_p2 = $PainelVidaP2
-@onready var dica_p2 = $DicaP2
+@onready var vaga_p2 = $VagaP2
 @onready var siga = $Siga
 @onready var aviso = $Aviso
 @onready var titulo_fase = $TituloFase
@@ -29,7 +29,7 @@ var conectados := []
 
 
 func _ready() -> void:
-	for no in [painel_vida, painel_p2, dica_p2]:
+	for no in [painel_vida, painel_p2, vaga_p2]:
 		no.position += deslocamento_vida
 	aviso.hide()
 	siga.hide()
@@ -40,12 +40,18 @@ func _ready() -> void:
 
 	for jogador in Jogo.jogadores:
 		conectar_jogador(jogador)
-	Jogo.jogador_entrou.connect(conectar_jogador)
+	Jogo.jogador_entrou.connect(_ao_jogador_entrar)
 	Jogo.jogador_saiu.connect(_ao_jogador_sair)
 
 
 func _process(_delta: float) -> void:
-	dica_p2.visible = not Jogo.p2_ativo and not tela_fim.visible
+	# Vaga do P2: silhueta piscando com o botão de entrar (A no controle;
+	# sem controle, a tecla do teclado reserva). Troca se plugar um controle.
+	vaga_p2.visible = not Jogo.p2_ativo and not tela_fim.visible
+	if vaga_p2.visible:
+		var tem_controle = Controles.controle_do_jogador(2) >= 0
+		vaga_p2.get_node("Botoes/BotaoControle").visible = tem_controle
+		vaga_p2.get_node("Botoes/TeclaTeclado").visible = not tem_controle
 
 
 func conectar_jogador(jogador) -> void:
@@ -59,6 +65,29 @@ func conectar_jogador(jogador) -> void:
 	jogador.stamina_alterada.connect(_atualizar_stamina.bind(painel, jogador.custo_dodge))
 	_atualizar_vida(jogador.vida, jogador.vida_maxima, painel)
 	_atualizar_stamina(jogador.stamina, jogador.stamina_maxima, painel, jogador.custo_dodge)
+
+
+# Quem entra no meio da fase ganha uma entrada com flash
+func _ao_jogador_entrar(jogador) -> void:
+	conectar_jogador(jogador)
+	if jogador.entrando and paineis.has(jogador.id_jogador):
+		_animar_entrada(paineis[jogador.id_jogador], jogador.vida)
+
+
+## Retrato acende com um flash e os corações enchem um por um
+func _animar_entrada(painel: Control, vida: int) -> void:
+	var retrato = painel.get_node("Retrato")
+	var coracoes = painel.get_node("Icones/Coracoes").get_children()
+	for coracao in coracoes:
+		coracao.value = 0.0
+	retrato.modulate = Color(4, 4, 4)
+	var tween = create_tween()
+	tween.tween_property(retrato, "modulate", Color.WHITE, 0.4)
+	for i in mini(vida, coracoes.size()):
+		tween.tween_callback(func():
+			coracoes[i].value = 1.0
+			_pulsar(coracoes[i]))
+		tween.tween_interval(0.1)
 
 
 func _ao_jogador_sair(id_jogador: int) -> void:

@@ -102,6 +102,7 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 - **Impacto**: pausa curta e tremor de tela nos acertos; câmera lenta no último inimigo da rua.
 - **Barris e caixotes** quebram na porrada e soltam maçã ou carne.
 - **HUD com ícones, quase sem texto**: retrato do Dylan de cada jogador (moldura rosa ou azul, apagado quando cai), corações para a vida e raios para a stamina (um raio por dodge, enchendo enquanto recarrega). O nome da fase entra na tela no começo e uma seta pisca para a direita quando a área está limpa. A barra do chefe usa a moldura dos botões do menu.
+- **Entrada do P2 sem texto**: o lugar do P2 no HUD mostra uma silhueta piscando com o botão de entrar (A no controle; sem controle, a tecla do teclado reserva). Ao entrar, o Dylan 2 chega correndo pela esquerda, o retrato acende e os corações enchem um por um.
 - **Pause** (Esc / START): continuar, remover o jogador 2 (ele pode voltar com START) ou ir ao menu principal.
 
 ### Chefes (Riff)
