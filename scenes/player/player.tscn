@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" path="res://assets/sprites/dylan/dylan.tres" id="3_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qf7sd"]
-size = Vector2(44, 68)
+size = Vector2(40, 84)
 
 [node name="Player" type="CharacterBody2D" unique_id=1357147288 groups=["jogador"]]
 collision_mask = 3
@@ -13,13 +13,14 @@ script = ExtResource("1_8afob")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=918612811]
-scale = Vector2(2.5, 2.5)
+scale = Vector2(1.85, 1.85)
 sprite_frames = ExtResource("3_frames")
 animation = &"idle"
 autoplay = "idle"
-offset = Vector2(11, -7)
+offset = Vector2(-3, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728486600]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_qf7sd")
 
 [node name="TimerInvencibilidade" type="Timer" parent="." unique_id=1526781898]
