@@ -7,6 +7,10 @@ signal quebrada
 @onready var sprite = $AnimatedSprite2D
 
 
+func _ready() -> void:
+	add_to_group("alvos_golpe") # quebra na porrada
+
+
 func receber_dano(valor) -> void:
 	if vida <= 0:
 		return

@@ -51,10 +51,10 @@ func _rodar() -> void:
 		checar(jogo.jogadores.size() == 2, "dois jogadores na fase")
 
 		# Os dois andam e atiram um pouco
-		for acao in ["p1_mover_direita", "p2_mover_direita", "p1_atirar", "p2_atirar"]:
+		for acao in ["p1_mover_direita", "p2_mover_direita", "p1_atacar", "p2_atacar"]:
 			Input.action_press(acao)
 		await esperar(0.6)
-		for acao in ["p1_mover_direita", "p2_mover_direita", "p1_atirar", "p2_atirar"]:
+		for acao in ["p1_mover_direita", "p2_mover_direita", "p1_atacar", "p2_atacar"]:
 			Input.action_release(acao)
 
 		if current_scene.has_node("Portal"):

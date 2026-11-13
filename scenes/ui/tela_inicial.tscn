@@ -59,9 +59,9 @@ horizontal_alignment = 1
 
 [node name="Controles" type="Label" parent="Conteudo"]
 layout_mode = 2
-text = "P1 (teclado): WASD mover · J atirar · K dodge · E interagir/reviver
+text = "P1 (teclado): WASD mover · J socar · K dodge · E interagir/reviver
 ESPAÇO modo Riff · SETAS notas · R reiniciar
-P2 (controle): analógico mover · X atirar · A dodge · B interagir/reviver
+P2 (controle): analógico mover · X socar · A dodge · B interagir/reviver
 LB modo Riff · X Y A B notas · START entrar/reiniciar
 Caído? O parceiro segura E / B perto para levantar"
 theme_override_font_sizes/font_size = 18

@@ -9,18 +9,34 @@ extends CharacterBody2D
 ##   3. Escreva só o _comportamento(delta). O alvo já está em "jogador"
 ##      (o jogador vivo mais próximo, atualizado sozinho).
 ##
+## Ataque justo: antes de bater, o inimigo CARREGA o golpe (congela piscando
+## branco por tempo_preparo). Use carregar_ataque(funcao) para isso também nos
+## ataques novos. Um soco do jogador durante a carga cancela o golpe.
+##
 ## Animações esperadas no SpriteFrames: idle, walk, attack, hurt, death.
 
 signal morreu(inimigo)
 
+const DESACELERACAO_EMPURRAO = 2400.0
+const COR_CARGA = Color(1.8, 1.8, 1.8)
+
 @export var velocidade = 100.0
 @export var vida = 3
-@export var distancia_ataque = 72.0
+## Distância (na horizontal) em que ele para e bate
+@export var distancia_ataque = 64.0
+## Diferença de altura aceita: precisa estar na mesma faixa da rua para acertar
+@export var faixa_ataque = 30.0
 @export var dano = 1
 @export var intervalo_troca_alvo = 0.5
 
+@export_group("Carga do ataque")
+## Quanto tempo o inimigo avisa (congelado e piscando) antes de atacar
+@export var tempo_preparo = 0.45
+## 1 = voa longe com o soco; 0,3 = pesado; 0 = não se mexe
+@export var resistencia_empurrao = 1.0
+
 @export_group("Impacto")
-## Pausa curta no jogo quando o inimigo toma um tiro (segundos)
+## Pausa curta no jogo quando o inimigo apanha (segundos)
 @export var pausa_ao_acertar = 0.03
 @export var pausa_ao_morrer = 0.07
 @export var tremor_ao_morrer = 5.0
@@ -32,16 +48,25 @@ signal morreu(inimigo)
 var jogador: Node2D = null
 var morto = false
 var em_acao = false
+var preparando = false
+var empurrao := Vector2.ZERO
+var _preparo_id = 0
 var _tempo_troca_alvo = 0.0
 
 
 func _ready():
 	add_to_group("inimigos")
+	add_to_group("alvos_golpe")
 	sprite.animation_finished.connect(_ao_terminar_animacao)
 
 
 func _physics_process(delta):
-	if morto:
+	# O empurrão vale até para o corpo caindo
+	if _processar_empurrao(delta) or morto:
+		return
+
+	if preparando:
+		velocity = Vector2.ZERO
 		return
 
 	_atualizar_alvo(delta)
@@ -54,25 +79,80 @@ func _physics_process(delta):
 	_comportamento(delta)
 
 
-## Comportamento padrão: corre até o jogador e bate de perto.
-## Inimigos novos sobrescrevem esta função.
+## Comportamento padrão: vai para o lado do jogador, na mesma faixa da rua,
+## e bate de perto (carregando o golpe antes). Inimigos novos sobrescrevem.
 func _comportamento(_delta):
-	var distancia = global_position.distance_to(jogador.global_position)
+	var diferenca = jogador.global_position - global_position
 
-	if distancia > distancia_ataque:
-		var direcao = (jogador.global_position - global_position).normalized()
-		velocity = direcao * velocidade
-	else:
+	if abs(diferenca.y) <= faixa_ataque and abs(diferenca.x) <= distancia_ataque:
 		velocity = Vector2.ZERO
-
+		_olhar_para_jogador()
 		if timer_ataque.is_stopped():
-			jogador.receber_dano(dano)
-			timer_ataque.start()
-			_tocar_acao("attack")
+			carregar_ataque(_golpe_de_perto)
+			return
+	else:
+		var lado = -1.0 if diferenca.x > 0 else 1.0
+		var destino = jogador.global_position + Vector2(lado * distancia_ataque * 0.8, 0)
+		velocity = global_position.direction_to(destino) * velocidade
+		_olhar_para_jogador()
 
-	_olhar_para_jogador()
 	_atualizar_animacao()
 	move_and_slide()
+
+
+## Golpe de perto: acerta quem ainda estiver na frente e na mesma faixa
+func _golpe_de_perto():
+	for alvo in Jogo.jogadores_vivos():
+		var diferenca = alvo.global_position - global_position
+		if abs(diferenca.x) <= distancia_ataque * 1.25 and abs(diferenca.y) <= faixa_ataque * 1.5:
+			alvo.receber_dano(dano)
+
+
+## Avisa o ataque (congela no 1º quadro do "attack", piscando branco) e depois
+## chama "golpe". Se o inimigo apanhar durante a carga, o golpe é cancelado.
+func carregar_ataque(golpe: Callable) -> void:
+	preparando = true
+	_preparo_id += 1
+	var id = _preparo_id
+	velocity = Vector2.ZERO
+	_tocar_acao("attack")
+	sprite.pause()
+	sprite.modulate = COR_CARGA
+
+	await get_tree().create_timer(tempo_preparo).timeout
+
+	if id != _preparo_id or morto or not is_inside_tree():
+		return
+
+	preparando = false
+	sprite.modulate = Color.WHITE
+	sprite.play()
+	timer_ataque.start()
+	golpe.call()
+
+
+func _cancelar_carga() -> void:
+	if preparando:
+		preparando = false
+		sprite.modulate = Color.WHITE
+		em_acao = false
+	_preparo_id += 1
+
+
+func empurrar(forca: Vector2) -> void:
+	empurrao = forca * resistencia_empurrao
+	_cancelar_carga()
+
+
+func _processar_empurrao(delta) -> bool:
+	if empurrao.length_squared() < 100.0:
+		empurrao = Vector2.ZERO
+		return false
+
+	velocity = empurrao
+	move_and_slide()
+	empurrao = empurrao.move_toward(Vector2.ZERO, DESACELERACAO_EMPURRAO * delta)
+	return true
 
 
 func _atualizar_alvo(delta):
@@ -109,6 +189,7 @@ func receber_dano(valor):
 		return
 
 	vida -= valor
+	_cancelar_carga()
 
 	if vida <= 0:
 		morrer()

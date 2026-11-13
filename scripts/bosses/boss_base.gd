@@ -35,7 +35,7 @@ const COR_ESCUDO = Color(0.5, 0.8, 1.0)
 @export var cena_ataque_area: PackedScene
 ## Inimigo invocado por invocar_capangas()
 @export var cena_capanga: PackedScene
-## Runa que segura o escudo (quebra no tiro)
+## Runa que segura o escudo (quebra no soco)
 @export var cena_runa: PackedScene
 ## Partículas do teleporte e das invocações
 @export var cena_particulas: PackedScene
@@ -373,7 +373,7 @@ func teleporte() -> void:
 	await tween_teleporte.finished
 
 
-## Escudo: o Riff não fere até os jogadores quebrarem as runas no tiro.
+## Escudo: o Riff não fere até os jogadores quebrarem as runas no soco.
 ## Devolve true se o escudo subiu agora.
 func ativar_escudo(prefixo := "") -> bool:
 	if escudo_ativo or cena_runa == null:
@@ -390,7 +390,7 @@ func ativar_escudo(prefixo := "") -> bool:
 		runa.quebrada.connect(_ao_quebrar_runa)
 		get_parent().add_child(runa)
 
-	anuncio.emit(prefixo + "Escudo ativo! Quebre as runas no tiro (J / X)")
+	anuncio.emit(prefixo + "Escudo ativo! Quebrem as runas na porrada (J / X)")
 	return true
 
 

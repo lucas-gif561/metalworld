@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d30jnxa6ea0iw"
-path="res://.godot/imported/slide.png-934865875be52beb59105a9347ccd76c.ctex"
+uid="uid://bntr3sseotypw"
+path="res://.godot/imported/levantar.png-836ef5083843d08a2c16a896c818e614.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/dylan_novo/slide.png"
-dest_files=["res://.godot/imported/slide.png-934865875be52beb59105a9347ccd76c.ctex"]
+source_file="res://assets/sprites/dylan_novo/levantar.png"
+dest_files=["res://.godot/imported/levantar.png-836ef5083843d08a2c16a896c818e614.ctex"]
 
 [params]
 

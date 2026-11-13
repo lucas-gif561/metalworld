@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw1af6jngwtg7"
-path="res://.godot/imported/run_attack.png-0b07df24a9c8c47280350d2f5175bcdf.ctex"
+uid="uid://c4mpcwme0cjwt"
+path="res://.godot/imported/riff_inicio.png-b693bbfa2fbdd62185a33a7eecc9637a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/dylan/run_attack.png"
-dest_files=["res://.godot/imported/run_attack.png-0b07df24a9c8c47280350d2f5175bcdf.ctex"]
+source_file="res://assets/sprites/dylan_novo/riff_inicio.png"
+dest_files=["res://.godot/imported/riff_inicio.png-b693bbfa2fbdd62185a33a7eecc9637a.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbel7651so43q"
-path="res://.godot/imported/run.png-646e960d3566e80cf607b461f169aefe.ctex"
+uid="uid://cd0m3n0m7dgql"
+path="res://.godot/imported/death.png-5b059e540cca1c0daa43756fa1ac4a25.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/dylan/run.png"
-dest_files=["res://.godot/imported/run.png-646e960d3566e80cf607b461f169aefe.ctex"]
+source_file="res://assets/sprites/dylan_novo/death.png"
+dest_files=["res://.godot/imported/death.png-5b059e540cca1c0daa43756fa1ac4a25.ctex"]
 
 [params]
 

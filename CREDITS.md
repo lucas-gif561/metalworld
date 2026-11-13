@@ -18,12 +18,16 @@ Arquivos: `assets/sprites/objetos/quebraveis.png`
 Livre para qualquer projeto, pessoal ou comercial.
 Arquivos: `assets/sprites/objetos/carne.png`, `assets/sprites/objetos/maca.png`
 
-## Personagens e projéteis
+## Dylan
 
-**Free 3 Cyberpunk Sprites Pixel Art** (Dylan): <https://free-game-assets.itch.io/free-3-cyberpunk-sprites-pixel-art>
+Sprites do Dylan gerados pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
+Arquivos: `assets/sprites/dylan_novo/`
+
+## Inimigos e projéteis
+
 **Free City Enemies Pixel Art** (inimigos e projéteis): <https://free-game-assets.itch.io/free-city-enemies-pixel-art-sprite-sheets>
 Licença: CraftPix, <https://craftpix.net/file-licenses/>. Uso em jogos permitido, sem crédito obrigatório.
-Arquivos: `assets/sprites/dylan/`, `assets/sprites/inimigos/`, `assets/sprites/projeteis/`
+Arquivos: `assets/sprites/inimigos/`, `assets/sprites/projeteis/`
 
 > Atenção: a licença da CraftPix proíbe redistribuir os arquivos de arte originais.
 > Não publique essas pastas em um repositório público.

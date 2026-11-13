@@ -27,8 +27,7 @@ func _comportamento(_delta):
 	# ATIRAR
 	if abs(diferenca.y) <= 20 and abs(diferenca.x) <= 550:
 		if timer_ataque.is_stopped() and cena_projetil_inimigo != null:
-			atirar()
-			timer_ataque.start()
+			carregar_ataque(atirar) # pisca antes de atirar
 
 
 func atirar():

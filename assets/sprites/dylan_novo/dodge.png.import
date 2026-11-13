@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brascufe1w82l"
-path="res://.godot/imported/hurt.png-22e46bcce86dfd71e3609120ab7be8ee.ctex"
+uid="uid://bt1kuyqyy4dum"
+path="res://.godot/imported/dodge.png-7065c95b69167492b1695d8e93be4f29.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/dylan/hurt.png"
-dest_files=["res://.godot/imported/hurt.png-22e46bcce86dfd71e3609120ab7be8ee.ctex"]
+source_file="res://assets/sprites/dylan_novo/dodge.png"
+dest_files=["res://.godot/imported/dodge.png-7065c95b69167492b1695d8e93be4f29.ctex"]
 
 [params]
 

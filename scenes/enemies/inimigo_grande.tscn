@@ -14,6 +14,8 @@ cena_granada = ExtResource("3_granada")
 velocidade = 80.0
 vida = 7
 dano = 3
+tempo_preparo = 0.6
+resistencia_empurrao = 0.35
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
 scale = Vector2(3.2, 3.2)

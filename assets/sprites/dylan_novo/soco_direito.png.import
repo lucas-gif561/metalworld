@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fdf8fir36eqv"
-path="res://.godot/imported/idle.png-d4394ae364921ff14cca795ae1e9c58d.ctex"
+uid="uid://bcw2yni3n647g"
+path="res://.godot/imported/soco_direito.png-3852fe33f8afe89d92339c525af5c634.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/dylan/idle.png"
-dest_files=["res://.godot/imported/idle.png-d4394ae364921ff14cca795ae1e9c58d.ctex"]
+source_file="res://assets/sprites/dylan_novo/soco_direito.png"
+dest_files=["res://.godot/imported/soco_direito.png-3852fe33f8afe89d92339c525af5c634.ctex"]
 
 [params]
 

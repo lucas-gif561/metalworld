@@ -67,6 +67,7 @@ func limites_arena() -> Rect2:
 
 func _ao_jogador_entrar(jogador) -> void:
 	jogador.bloqueado = riff_ativo
+	jogador.em_riff = riff_ativo
 	if usar_cabo_de_forca:
 		_ligar_vida_compartilhada(jogador)
 
@@ -137,12 +138,14 @@ func _encerrar_riff():
 	riff_hud.hide()
 	for jogador in Jogo.jogadores:
 		jogador.bloqueado = false
+		jogador.em_riff = false
 
 
 func _abrir_riff():
 	riff_ativo = true
 	for jogador in Jogo.jogadores:
 		jogador.bloqueado = true
+		jogador.em_riff = true # saca a guitarra e toca
 	riff_hud.show()
 	riff_hud.iniciar_riff()
 

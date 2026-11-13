@@ -2,8 +2,8 @@ extends Node
 ## Comandos de cada jogador (autoload "Controles").
 ##
 ## Cada ação existe em duas versões: "p1_<acao>" e "p2_<acao>".
-## Use sempre jogador.acao("atirar") ou Controles.acao(id, "atirar"),
-## nunca Input.is_action_pressed("atirar") direto.
+## Use sempre jogador.acao("atacar") ou Controles.acao(id, "atacar"),
+## nunca Input.is_action_pressed("atacar") direto.
 ##
 ## Jogador 1: teclado (teclas definidas no Mapa de Entrada do projeto) e,
 ##            se houver dois controles, o primeiro controle.
@@ -15,7 +15,7 @@ signal controles_mudaram
 
 const ACOES = [
 	"mover_cima", "mover_baixo", "mover_esquerda", "mover_direita",
-	"atirar", "dodge", "interagir", "riff_mode",
+	"atacar", "dodge", "interagir", "riff_mode",
 	"riff_cima", "riff_baixo", "riff_esquerda", "riff_direita",
 	"reiniciar", "entrar",
 ]
@@ -27,7 +27,7 @@ const BOTOES = {
 	"mover_baixo": [JOY_BUTTON_DPAD_DOWN],
 	"mover_esquerda": [JOY_BUTTON_DPAD_LEFT],
 	"mover_direita": [JOY_BUTTON_DPAD_RIGHT],
-	"atirar": [JOY_BUTTON_X],
+	"atacar": [JOY_BUTTON_X],
 	"dodge": [JOY_BUTTON_A, JOY_BUTTON_RIGHT_SHOULDER],
 	"interagir": [JOY_BUTTON_B],
 	"riff_mode": [JOY_BUTTON_LEFT_SHOULDER],
@@ -52,7 +52,7 @@ const TECLAS_RESERVA_P2 = {
 	"mover_baixo": [KEY_DOWN],
 	"mover_esquerda": [KEY_LEFT],
 	"mover_direita": [KEY_RIGHT],
-	"atirar": [KEY_CTRL],
+	"atacar": [KEY_CTRL],
 	"dodge": [KEY_SHIFT],
 	"interagir": [KEY_ENTER],
 	"riff_mode": [KEY_BACKSPACE],

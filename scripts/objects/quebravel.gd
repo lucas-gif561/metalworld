@@ -1,4 +1,5 @@
 extends StaticBody2D
+## Barril/caixote: quebra na porrada e solta cena_item (comida).
 
 @export var vida: float = 2.0
 @export var cena_item: PackedScene
