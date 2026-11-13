@@ -186,6 +186,14 @@ func _teste_solo() -> void:
 	jogo.jogador_por_id(1).receber_dano(99)
 	await esperar(0.2)
 	checar(cena.fim_de_jogo, "sozinho: cair é game over")
+	await apertar("p2_entrar")
+	await esperar(0.2)
+	checar(jogo.jogadores.size() == 1 and not jogo.p2_ativo, "P2 não entra na tela de game over")
+	await apertar("p1_reiniciar")
+	await esperar(0.8)
+	await apertar("p2_entrar")
+	await esperar(0.2)
+	checar(jogo.jogadores.size() == 2, "depois de reiniciar o P2 pode entrar de novo")
 
 
 func _teste_reiniciar_boss() -> void:

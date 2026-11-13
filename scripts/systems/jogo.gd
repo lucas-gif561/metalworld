@@ -31,7 +31,8 @@ var _game_over_emitido := false
 
 
 func _process(_delta: float) -> void:
-	if not p2_ativo and esta_em_fase() and not jogadores.is_empty():
+	# Depois do game over ninguém entra: só na partida reiniciada
+	if not p2_ativo and esta_em_fase() and not jogadores.is_empty() and not _game_over_emitido:
 		if Input.is_action_just_pressed(Controles.acao(2, "entrar")):
 			entrar_p2()
 
