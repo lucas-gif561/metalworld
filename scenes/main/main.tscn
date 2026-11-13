@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bo0smysfkbbbw" path="res://scenes/enemies/inimigo_atirador.tscn" id="8_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://dltkylafufj17" path="res://scenes/objects/Portal.tscn" id="9_b1x3f"]
 [ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="30_hud"]
+[ext_resource type="Script" path="res://scripts/systems/ponto_spawn.gd" id="10_ponto"]
 
 [node name="Main" type="Node2D" unique_id=322226560]
 y_sort_enabled = true
@@ -36,98 +37,143 @@ position = Vector2(576, 324)
 
 [node name="Onda1" type="Node2D" parent="Spawns/Arena1" unique_id=1371033652]
 
-[node name="Ponto1" type="Node2D" parent="Spawns/Arena1/Onda1" unique_id=1049145897]
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=1049145897]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(1203, 395)
 
-[node name="Ponto2" type="Node2D" parent="Spawns/Arena1/Onda1" unique_id=1583691589]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=1583691589]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
 position = Vector2(1204, 495)
 
-[node name="Ponto3" type="Node2D" parent="Spawns/Arena1/Onda1" unique_id=1746425679]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=1746425679]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(1279, 463)
 
-[node name="Ponto4" type="Node2D" parent="Spawns/Arena1/Onda1" unique_id=848187716]
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=848187716]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
 position = Vector2(1198, 577)
 
 [node name="Onda2" type="Node2D" parent="Spawns/Arena1" unique_id=594765321]
 
-[node name="Ponto1" type="Node2D" parent="Spawns/Arena1/Onda2" unique_id=896063183]
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=896063183]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
 position = Vector2(-84, 409)
 
-[node name="Ponto2" type="Node2D" parent="Spawns/Arena1/Onda2" unique_id=485288298]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=485288298]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(-80, 506)
 
-[node name="Ponto3" type="Node2D" parent="Spawns/Arena1/Onda2" unique_id=1174825459]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=1174825459]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(1279, 463)
 
-[node name="Ponto4" type="Node2D" parent="Spawns/Arena1/Onda2" unique_id=279321679]
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=279321679]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
 position = Vector2(1198, 577)
 
 [node name="Arena2" type="Node2D" parent="Spawns" unique_id=196938411]
 
 [node name="Onda1" type="Node2D" parent="Spawns/Arena2" unique_id=2022743521]
 
-[node name="Ponto1" type="Node2D" parent="Spawns/Arena2/Onda1" unique_id=809964112]
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=809964112]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("8_yyfjg")
 position = Vector2(2318, 369)
 
-[node name="Ponto2" type="Node2D" parent="Spawns/Arena2/Onda1" unique_id=958393027]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=958393027]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
 position = Vector2(2348, 508)
 
-[node name="Ponto3" type="Node2D" parent="Spawns/Arena2/Onda1" unique_id=1708826546]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=1708826546]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(923, 545)
 
-[node name="Ponto4" type="Node2D" parent="Spawns/Arena2/Onda1" unique_id=1357527123]
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=1357527123]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
 position = Vector2(857, 386)
 
 [node name="Onda2" type="Node2D" parent="Spawns/Arena2" unique_id=19479986]
 
-[node name="Ponto1" type="Node2D" parent="Spawns/Arena2/Onda2" unique_id=1679391376]
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena2/Onda2" unique_id=1679391376]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("8_yyfjg")
 position = Vector2(2320, 402)
 
-[node name="Ponto2" type="Node2D" parent="Spawns/Arena2/Onda2" unique_id=125707530]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda2" unique_id=125707530]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(940, 472)
 
-[node name="Ponto3" type="Node2D" parent="Spawns/Arena2/Onda2" unique_id=1478496746]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena2/Onda2" unique_id=1478496746]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("8_yyfjg")
 position = Vector2(2331, 470)
 
-[node name="Ponto4" type="Node2D" parent="Spawns/Arena2/Onda2" unique_id=608243441]
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena2/Onda2" unique_id=608243441]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(959, 412)
 
 [node name="Arena3" type="Node2D" parent="Spawns" unique_id=1180077061]
 
 [node name="Onda1" type="Node2D" parent="Spawns/Arena3" unique_id=1760018789]
 
-[node name="Ponto1" type="Node2D" parent="Spawns/Arena3/Onda1" unique_id=1834504222]
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=1834504222]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("6_hujxm")
 position = Vector2(3294, 530)
 
-[node name="Ponto2" type="Node2D" parent="Spawns/Arena3/Onda1" unique_id=1352774010]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=1352774010]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
 position = Vector2(3286, 346)
 
-[node name="Ponto3" type="Node2D" parent="Spawns/Arena3/Onda1" unique_id=170055630]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=170055630]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(1938, 500)
 
-[node name="Ponto4" type="Node2D" parent="Spawns/Arena3/Onda1" unique_id=1545605864]
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=1545605864]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
 position = Vector2(1925, 337)
 
 [node name="Onda2" type="Node2D" parent="Spawns/Arena3" unique_id=1452550229]
 
-[node name="Ponto1" type="Node2D" parent="Spawns/Arena3/Onda2" unique_id=264818682]
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=264818682]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("6_hujxm")
 position = Vector2(1859, 371)
 
-[node name="Ponto2" type="Node2D" parent="Spawns/Arena3/Onda2" unique_id=131656599]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=131656599]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(1855, 457)
 
-[node name="Ponto3" type="Node2D" parent="Spawns/Arena3/Onda2" unique_id=1372435535]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=1372435535]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 position = Vector2(3310, 458)
 
-[node name="Ponto4" type="Node2D" parent="Spawns/Arena3/Onda2" unique_id=652139223]
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=652139223]
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
 position = Vector2(3346, 433)
 
 [node name="EnemyManager" type="Node2D" parent="." unique_id=278920186]
 script = ExtResource("6_ow5a4")
 cena_inimigo = ExtResource("5_yyfjg")
-cena_inimigo_rapido = ExtResource("7_yyfjg")
-cena_inimigo_grande = ExtResource("6_hujxm")
-cena_inimigo_atirador = ExtResource("8_yyfjg")
 
 [node name="PortalSpawn" type="Node2D" parent="." unique_id=1404435575]
 

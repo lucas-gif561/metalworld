@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/Arenas Urbanas Sob a Lua.png" id="2_fundo"]
+[ext_resource type="PackedScene" path="res://scenes/objects/Portal.tscn" id="3_portal"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="4_player"]
+[ext_resource type="Script" path="res://scripts/systems/ponto_spawn.gd" id="5_ponto"]
+[ext_resource type="Script" path="res://scripts/systems/enemy_manager.gd" id="6_manager"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/inimigo.tscn" id="7_normal"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/inimigo_rapido.tscn" id="8_rapido"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="9_hud"]
+
+[node name="Rua2" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_main")
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.8, 0.9, 1.1, 1)
+z_index = -1
+position = Vector2(1622.5001, 215.99998)
+scale = Vector2(1.4986188, 1.1933701)
+texture = ExtResource("2_fundo")
+
+[node name="Portal" parent="." instance=ExtResource("3_portal")]
+position = Vector2(2050, 461)
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+position = Vector2(124, 424)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="Spawns" type="Node2D" parent="."]
+
+[node name="Arena1" type="Node2D" parent="Spawns"]
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena1"]
+
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda1"]
+position = Vector2(1203, 420)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_normal")
+
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda1"]
+position = Vector2(1204, 520)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_normal")
+
+[node name="Arena2" type="Node2D" parent="Spawns"]
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena2"]
+
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena2/Onda1"]
+position = Vector2(2320, 420)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_normal")
+
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda1"]
+position = Vector2(2330, 520)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("8_rapido")
+
+[node name="EnemyManager" type="Node" parent="."]
+script = ExtResource("6_manager")
+cena_inimigo = ExtResource("7_normal")
+
+[node name="HudJogo" parent="." instance=ExtResource("9_hud")]

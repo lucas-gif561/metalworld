@@ -1,10 +1,13 @@
 extends Node2D
+## Fase de rua (beat 'em up). Serve para as ruas 1, 2 e 3.
+##
+## A cena precisa ter: Player (o P1), Camera2D, Spawns (ArenaN/OndaN/pontos),
+## EnemyManager, Portal e HudJogo. A câmera anda uma tela para a direita a
+## cada arena limpa; no fim, o portal leva para a próxima fase.
 
-@export var quantidade_arenas = 3
 @export var duracao_transicao = 0.8
 @export var margem_superior = 310.0
 @export var margem_inferior = 100.0
-@onready var player = $Player
 @onready var camera = $Camera2D
 @onready var enemy_manager = $EnemyManager
 @onready var portal = $Portal
@@ -14,59 +17,72 @@ extends Node2D
 var fase_concluida = false
 var arena_atual = 1
 var em_transicao = false
+var fim_de_jogo = false
 var largura_tela = 0.0
 var altura_tela = 0.0
+
 
 func _ready():
 	largura_tela = get_viewport_rect().size.x / camera.zoom.x
 	altura_tela = get_viewport_rect().size.y / camera.zoom.y
 
-	hud.conectar_jogador(player)
-	player.morreu.connect(_ao_jogador_morrer)
+	Jogo.preparar_jogadores(self)
+	Jogo.game_over.connect(_ao_game_over)
+	Jogo.jogador_entrou.connect(_ao_jogador_entrar)
 	enemy_manager.onda_iniciada.connect(_ao_iniciar_onda)
 	enemy_manager.arena_concluida.connect(_ao_concluir_arena)
 
 
+func quantidade_arenas() -> int:
+	return enemy_manager.quantidade_arenas()
+
+
 func _ao_iniciar_onda(arena, onda, total_ondas):
-	hud.definir_progresso("ARENA %d/%d  ·  ONDA %d/%d" % [arena, quantidade_arenas, onda, total_ondas])
+	hud.definir_progresso("%s  ·  ARENA %d/%d  ·  ONDA %d/%d" % [
+		Jogo.nome_fase_atual().to_upper(), arena, quantidade_arenas(), onda, total_ondas])
 
 
 func _ao_concluir_arena():
-	if arena_atual < quantidade_arenas:
+	if arena_atual < quantidade_arenas():
 		hud.mostrar_aviso("Área limpa! Siga para a direita  →")
 
 
-func _ao_jogador_morrer():
-	hud.mostrar_fim("GAME OVER", "Pressione R para tentar de novo", Color(1, 0.25, 0.25))
+func _ao_jogador_entrar(jogador):
+	jogador.bloqueado = em_transicao
+
+
+func _ao_game_over():
+	fim_de_jogo = true
+	hud.mostrar_fim("GAME OVER", "R / START para tentar de novo", Color(1, 0.25, 0.25))
 
 
 func _process(_delta):
-	if em_transicao or player.vida <= 0:
+	if fim_de_jogo:
+		for id_jogador in [1, 2]:
+			if Input.is_action_just_pressed(Controles.acao(id_jogador, "reiniciar")):
+				enemy_manager.reiniciando = true
+				Jogo.reiniciar_fase()
+				return
+		return
+
+	if em_transicao:
 		return
 
 	# VERIFICAR FIM DA FASE
-	if not fase_concluida and arena_atual == quantidade_arenas and enemy_manager.arena_liberada:
+	if not fase_concluida and arena_atual == quantidade_arenas() and enemy_manager.arena_liberada:
 		concluir_fase()
 
-	# LIMITES DA ARENA
+	# LIMITES DA ARENA (os dois jogadores ficam na mesma tela)
 	var limites = limites_arena()
+	var alguem_na_borda = false
 
-	player.global_position.y = clampf(
-		player.global_position.y,
-		limites.position.y,
-		limites.end.y
-	)
+	for jogador in Jogo.jogadores:
+		jogador.global_position = jogador.global_position.clamp(limites.position, limites.end)
+		if not jogador.caido and jogador.global_position.x >= limites.end.x:
+			alguem_na_borda = true
 
-	# LIMITE ESQUERDO
-	if player.global_position.x < limites.position.x:
-		player.global_position.x = limites.position.x
-
-	# LIMITE DIREITO
-	if player.global_position.x >= limites.end.x:
-		player.global_position.x = limites.end.x
-
-		if arena_atual < quantidade_arenas and enemy_manager.arena_liberada:
-			proxima_arena()
+	if alguem_na_borda and arena_atual < quantidade_arenas() and enemy_manager.arena_liberada:
+		proxima_arena()
 
 
 func limites_arena() -> Rect2:
@@ -80,7 +96,8 @@ func limites_arena() -> Rect2:
 
 func proxima_arena():
 	em_transicao = true
-	player.bloqueado = true
+	for jogador in Jogo.jogadores:
+		jogador.bloqueado = true
 	hud.esconder_aviso()
 
 	var distancia = largura_tela - 120
@@ -103,19 +120,12 @@ func proxima_arena():
 	enemy_manager.iniciar_arena(arena_atual)
 
 	em_transicao = false
-	player.bloqueado = false
+	for jogador in Jogo.jogadores:
+		jogador.bloqueado = false
 
-
-func _input(event):
-	if player.vida <= 0 and event.is_action_pressed("reiniciar"):
-		enemy_manager.reiniciando = true
-		get_tree().call_deferred("reload_current_scene")
 
 func concluir_fase():
 	fase_concluida = true
 
-	player.bloqueado = false
-	player.velocity = Vector2.ZERO
-	
 	portal.ativar_portal()
-	hud.mostrar_aviso("O portal abriu! Vá até ele e pressione E")
+	hud.mostrar_aviso("O portal abriu! Vá até ele e pressione E / B")

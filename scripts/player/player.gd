@@ -1,13 +1,21 @@
 extends CharacterBody2D
+## Jogador (P1 ou P2). A mesma cena serve para os dois: muda só id_jogador.
+##
+## Quando a vida chega a zero o jogador fica CAÍDO (não some). O parceiro
+## pode levantá-lo segurando "interagir" perto dele. Se todos caírem, o
+## autoload Jogo emite game_over.
 
 signal vida_alterada(atual, maxima)
-signal morreu
+signal morreu # o jogador caiu (vida chegou a zero)
+signal revivido
 signal stamina_alterada(atual, maxima)
 
 const CAMADA_NORMAL = 1
 const MASCARA_NORMAL = 3
 const MASCARA_DODGE = 1 # Durante o dodge colide apenas com o cenário
+const SHADER_TROCA_COR = preload("res://assets/shaders/troca_cor.gdshader")
 
+@export var id_jogador := 1
 @export var velocidade = 200.0
 @export var cena_projetil: PackedScene
 @export var intervalo_tiro = 0.3
@@ -23,6 +31,11 @@ const MASCARA_DODGE = 1 # Durante o dodge colide apenas com o cenário
 @export var recarga_stamina = 25.0
 @export var espera_recarga = 0.5
 
+@export_group("Reviver")
+@export var raio_reviver = 90.0
+@export var tempo_reviver = 2.0
+@export var invencivel_ao_reviver = 2.0
+
 @onready var timer_invencibilidade = $TimerInvencibilidade
 @onready var timer_tiro = $TimerTiro
 @onready var sprite = $AnimatedSprite2D
@@ -32,6 +45,7 @@ var direcao_olhar = 1
 var bloqueado = false
 var invencivel = false
 var em_acao = false
+var caido = false
 var tween_dano: Tween
 var stamina = 0.0
 var espera_stamina = 0.0
@@ -40,18 +54,32 @@ var tempo_dodge = 0.0
 var direcao_dodge = Vector2.RIGHT
 var escala_base = 2.5
 var offset_base = Vector2.ZERO
+var progresso_reviver = 0.0
+var tempo_invencivel_padrao = 1.0
+var _ajudado = false
+var _anel: Node2D
+var _indicador: Node2D
+var _etiqueta: Label
 
 
 func _ready():
 	vida_maxima = vida
 	stamina = stamina_maxima
 	timer_tiro.wait_time = intervalo_tiro
+	tempo_invencivel_padrao = timer_invencibilidade.wait_time
 	sprite.animation_finished.connect(_ao_terminar_animacao)
 	escala_base = abs(sprite.scale.y)
 	offset_base = sprite.offset
 	sprite.animation_changed.connect(_ajustar_visual)
 	sprite.sprite_frames_changed.connect(_ajustar_visual)
 	_ajustar_visual()
+	_criar_identificacao()
+	Jogo.registrar_jogador(self)
+
+
+## Nome da ação deste jogador: acao("atirar") -> "p1_atirar" ou "p2_atirar"
+func acao(nome: String) -> StringName:
+	return Controles.acao(id_jogador, nome)
 
 
 # Animações desenhadas em outro tamanho guardam escala e offset próprios no SpriteFrames
@@ -66,8 +94,12 @@ func _ajustar_visual() -> void:
 
 
 func _physics_process(delta):
-	if vida <= 0:
+	if caido:
 		velocity = Vector2.ZERO
+		if not _ajudado:
+			progresso_reviver = max(progresso_reviver - delta, 0.0)
+		_ajudado = false
+		_indicador.queue_redraw()
 		return
 
 	if esquivando:
@@ -81,12 +113,14 @@ func _physics_process(delta):
 		_atualizar_animacao(Vector2.ZERO)
 		return
 
+	_tentar_reviver_parceiro(delta)
+
 	# MOVIMENTAÇÃO
 	var direcao = Input.get_vector(
-		"mover_esquerda",
-		"mover_direita",
-		"mover_cima",
-		"mover_baixo"
+		acao("mover_esquerda"),
+		acao("mover_direita"),
+		acao("mover_cima"),
+		acao("mover_baixo")
 	)
 	velocity = direcao * velocidade
 	move_and_slide()
@@ -101,14 +135,18 @@ func _physics_process(delta):
 	_atualizar_animacao(direcao)
 
 	# DODGE
-	if Input.is_action_just_pressed("dodge") and stamina >= custo_dodge:
+	if Input.is_action_just_pressed(acao("dodge")) and stamina >= custo_dodge:
 		_iniciar_dodge(direcao)
 		return
 
 	# ATAQUE
-	if Input.is_action_pressed("atirar") and timer_tiro.is_stopped():
+	if Input.is_action_pressed(acao("atirar")) and timer_tiro.is_stopped():
 		atirar()
 		timer_tiro.start()
+
+
+func _process(_delta):
+	_etiqueta.visible = Jogo.p2_ativo
 
 
 func _iniciar_dodge(direcao):
@@ -179,7 +217,7 @@ func _tocar_acao(nome):
 
 
 func _ao_terminar_animacao():
-	if vida > 0:
+	if not caido:
 		em_acao = false
 
 
@@ -197,7 +235,7 @@ func atirar():
 
 
 func receber_dano(dano):
-	if vida <= 0 or invencivel or esquivando or not timer_invencibilidade.is_stopped():
+	if caido or invencivel or esquivando or not timer_invencibilidade.is_stopped():
 		return
 
 	vida = max(vida - dano, 0)
@@ -206,25 +244,129 @@ func receber_dano(dano):
 	if vida <= 0:
 		morrer()
 	else:
-		timer_invencibilidade.start()
+		timer_invencibilidade.start(tempo_invencivel_padrao)
 		_tocar_acao("hurt")
 		_piscar()
 
 
-func _piscar():
+func _piscar(vezes := 5):
 	if tween_dano:
 		tween_dano.kill()
 	sprite.modulate = Color(1, 0.4, 0.4)
-	tween_dano = create_tween().set_loops(5)
+	tween_dano = create_tween().set_loops(vezes)
 	tween_dano.tween_property(sprite, "modulate", Color(1, 1, 1, 0.3), 0.1)
 	tween_dano.tween_property(sprite, "modulate", Color.WHITE, 0.1)
 
 
+## O jogador cai e espera o parceiro (ou o game over, se ninguém sobrar)
 func morrer():
 	vida = 0
+	caido = true
+	esquivando = false
+	progresso_reviver = 0.0
 	velocity = Vector2.ZERO
+	collision_layer = 0 # inimigos e balas passam por quem está caído
+	collision_mask = MASCARA_DODGE
 	if tween_dano:
 		tween_dano.kill()
 	sprite.modulate = Color.WHITE
 	_tocar_acao("death")
+	_indicador.show()
 	morreu.emit()
+
+
+# ---------------------------------------------------------------- Reviver
+
+func _tentar_reviver_parceiro(delta):
+	if not Input.is_action_pressed(acao("interagir")):
+		return
+
+	for outro in Jogo.jogadores:
+		if outro == self or not is_instance_valid(outro) or not outro.caido:
+			continue
+		if global_position.distance_to(outro.global_position) <= raio_reviver:
+			outro.ajudar_a_levantar(delta)
+			return
+
+
+func ajudar_a_levantar(delta):
+	if not caido:
+		return
+	_ajudado = true
+	progresso_reviver += delta / tempo_reviver
+	if progresso_reviver >= 1.0:
+		reviver()
+
+
+func reviver():
+	caido = false
+	em_acao = false
+	progresso_reviver = 0.0
+	vida = max(1, ceili(vida_maxima / 2.0))
+	collision_layer = CAMADA_NORMAL
+	collision_mask = MASCARA_NORMAL
+	_indicador.hide()
+	sprite.play("idle")
+	vida_alterada.emit(vida, vida_maxima)
+	timer_invencibilidade.start(invencivel_ao_reviver)
+	_piscar(int(invencivel_ao_reviver / 0.2))
+	revivido.emit()
+
+
+# ---------------------------------------------------------------- Visual
+
+func _criar_identificacao():
+	var cor = Jogo.cor(id_jogador)
+
+	if id_jogador == 2:
+		var material = ShaderMaterial.new()
+		material.shader = SHADER_TROCA_COR
+		material.set_shader_parameter("cor_destaque", cor)
+		sprite.material = material
+
+	# Anel colorido no pé (fica atrás do sprite)
+	_anel = Node2D.new()
+	_anel.position = Vector2(0, 40)
+	_anel.scale = Vector2(1.0, 0.35)
+	_anel.draw.connect(func():
+		_anel.draw_arc(Vector2.ZERO, 26.0, 0.0, TAU, 32, Color(cor, 0.85), 3.0)
+	)
+	add_child(_anel)
+	move_child(_anel, 0)
+
+	# "P1" / "P2" em cima da cabeça
+	_etiqueta = Label.new()
+	_etiqueta.text = "P%d" % id_jogador
+	_etiqueta.position = Vector2(-20, -84)
+	_etiqueta.size = Vector2(40, 20)
+	_etiqueta.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_etiqueta.add_theme_color_override("font_color", cor)
+	_etiqueta.add_theme_color_override("font_outline_color", Color.BLACK)
+	_etiqueta.add_theme_constant_override("outline_size", 5)
+	_etiqueta.add_theme_font_size_override("font_size", 16)
+	add_child(_etiqueta)
+
+	# Círculo de "segure para levantar" quando caído
+	_indicador = Node2D.new()
+	_indicador.z_index = 10
+	_indicador.position = Vector2(0, -36)
+	_indicador.draw.connect(_desenhar_indicador)
+	_indicador.hide()
+	add_child(_indicador)
+
+	var texto = Label.new()
+	texto.text = "SEGURE E / B"
+	texto.position = Vector2(-60, 20)
+	texto.size = Vector2(120, 20)
+	texto.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	texto.add_theme_color_override("font_outline_color", Color.BLACK)
+	texto.add_theme_constant_override("outline_size", 5)
+	texto.add_theme_font_size_override("font_size", 14)
+	_indicador.add_child(texto)
+
+
+func _desenhar_indicador():
+	var cor = Jogo.cor(id_jogador)
+	_indicador.draw_arc(Vector2.ZERO, 16.0, 0.0, TAU, 32, Color(0, 0, 0, 0.6), 5.0)
+	if progresso_reviver > 0.0:
+		_indicador.draw_arc(Vector2.ZERO, 16.0, -PI / 2, -PI / 2 + TAU * progresso_reviver, 32, cor, 5.0)

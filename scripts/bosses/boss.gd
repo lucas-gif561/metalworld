@@ -1,64 +1,8 @@
-extends Node2D
-
-signal vida_atualizada(vida)
-signal derrotado
+extends Boss
+## Boss 1: rajada mirada, leque de 5 tiros e círculos no chão.
+## Serve de exemplo para os bosses 2 e 3.
 
 @export var cena_ataque_area: PackedScene
-@export var cena_projetil: PackedScene
-@export var jogador: Node2D
-@export var vida_maxima: int = 100
-
-@onready var sprite = $AnimatedSprite2D
-
-var atacando: bool = false
-var vida_atual: int
-
-
-func _ready() -> void:
-	vida_atual = vida_maxima
-	sprite.animation_finished.connect(_ao_terminar_animacao)
-
-
-func receber_dano(valor: int):
-	if vida_atual <= 0:
-		return
-	vida_atual = max(vida_atual - valor, 0)
-	vida_atualizada.emit(vida_atual)
-
-	if vida_atual <= 0:
-		morrer()
-	else:
-		sprite.stop()
-		sprite.play("hurt")
-		sprite.modulate = Color(1, 0.4, 0.4)
-		create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.15)
-
-
-func morrer():
-	atacando = false
-	sprite.modulate = Color.WHITE
-	sprite.stop()
-	sprite.play("death")
-	await sprite.animation_finished
-	derrotado.emit()
-
-
-func _ao_terminar_animacao():
-	if vida_atual > 0:
-		sprite.play("idle")
-
-
-func _conjurar():
-	sprite.stop()
-	sprite.play("cast")
-
-
-func pode_atacar() -> bool:
-	return vida_atual > 0 and jogador_vivo()
-
-
-func jogador_vivo() -> bool:
-	return is_instance_valid(jogador) and jogador.vida > 0
 
 
 func iniciar_rajada():
@@ -68,38 +12,34 @@ func iniciar_rajada():
 	atacando = true
 
 	for i in range(6):
-		if not pode_atacar():
+		var mira = alvo()
+		if not pode_atacar() or mira == null:
 			break
 
 		_conjurar()
-		_criar_projetil((jogador.global_position - global_position).normalized())
+		criar_projetil((mira.global_position - global_position).normalized())
 
-		await get_tree().create_timer(0.4).timeout
+		await esperar(0.4)
 
 	atacando = false
 
 
 func ataque_leque():
-	if atacando or cena_projetil == null or not pode_atacar():
+	var mira = alvo()
+	if atacando or cena_projetil == null or not pode_atacar() or mira == null:
 		return
 
 	_conjurar()
 
-	var direcao_central = (jogador.global_position - global_position).normalized()
+	var direcao_central = (mira.global_position - global_position).normalized()
 
 	for angulo in [-40, -20, 0, 20, 40]:
-		_criar_projetil(direcao_central.rotated(deg_to_rad(angulo)))
-
-
-func _criar_projetil(direcao: Vector2):
-	var projetil = cena_projetil.instantiate()
-	get_parent().add_child(projetil)
-	projetil.global_position = global_position
-	projetil.direcao = direcao
+		criar_projetil(direcao_central.rotated(deg_to_rad(angulo)))
 
 
 func ataque_area():
-	if atacando or cena_ataque_area == null or not pode_atacar():
+	var mira = alvo()
+	if atacando or cena_ataque_area == null or not pode_atacar() or mira == null:
 		return
 
 	atacando = true
@@ -108,23 +48,22 @@ func ataque_area():
 	var area = cena_ataque_area.instantiate()
 	get_parent().add_child(area)
 
-	area.global_position = jogador.global_position
+	area.global_position = mira.global_position
 
-	await get_tree().create_timer(1.5).timeout
+	await esperar(1.5)
 
 	atacando = false
 
 
 func ciclo_ataques():
-	await get_tree().create_timer(2.0).timeout
+	await esperar(2.0)
 
 	while pode_atacar():
 		iniciar_rajada()
 
-		while atacando:
-			await get_tree().process_frame
+		await esperar_fim_do_ataque()
 
-		await get_tree().create_timer(2.0).timeout
+		await esperar(2.0)
 
 		for i in range(3):
 			if not pode_atacar():
@@ -133,9 +72,9 @@ func ciclo_ataques():
 			ataque_leque()
 
 			if i < 2:
-				await get_tree().create_timer(0.7).timeout
+				await esperar(0.7)
 
-		await get_tree().create_timer(2.0).timeout
+		await esperar(2.0)
 
 		for i in range(4):
 			if not pode_atacar():
@@ -143,10 +82,9 @@ func ciclo_ataques():
 
 			ataque_area()
 
-			while atacando:
-				await get_tree().process_frame
+			await esperar_fim_do_ataque()
 
 			if i < 3:
-				await get_tree().create_timer(0.5).timeout
+				await esperar(0.5)
 
-		await get_tree().create_timer(5.0).timeout
+		await esperar(5.0)

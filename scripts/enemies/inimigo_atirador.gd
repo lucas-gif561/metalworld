@@ -1,18 +1,10 @@
-extends "res://scripts/enemies/inimigo.gd"
+extends Inimigo
 
 @export var cena_projetil_inimigo: PackedScene
 @export var distancia_ideal = 230.0
 
 
-func _physics_process(_delta):
-	if jogador == null or morto:
-		return
-
-	if jogador.vida <= 0:
-		velocity = Vector2.ZERO
-		_atualizar_animacao()
-		return
-
+func _comportamento(_delta):
 	var diferenca = jogador.global_position - global_position
 	var movimento = Vector2.ZERO
 

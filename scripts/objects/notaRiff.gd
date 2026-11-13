@@ -14,6 +14,7 @@ const SETAS = [
 @onready var seta = $Seta
 
 var coluna: int = 0
+var dono: int = 1 # jogador que deve acertar esta nota (revezamento)
 var acertada = false
 
 

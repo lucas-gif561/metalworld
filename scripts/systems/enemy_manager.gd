@@ -1,57 +1,66 @@
 extends Node
+## Cria as ondas de inimigos de cada arena da rua.
+##
+## Lê a árvore Spawns/ArenaN/OndaN/<pontos>. Cada ponto pode ser um
+## PontoSpawn com a cena do inimigo; sem cena, usa cena_inimigo (padrão).
+## A quantidade de arenas e de ondas sai da própria cena.
 
 signal onda_iniciada(arena, onda, total_ondas)
 signal arena_concluida
 
 @export var cena_inimigo: PackedScene
-@export var cena_inimigo_rapido: PackedScene
-@export var cena_inimigo_grande: PackedScene
-@export var cena_inimigo_atirador: PackedScene
-
-@export var ondas_por_arena = 2
 @export var intervalo_ondas = 1.5
 
 @onready var spawns = $"../Spawns"
 
 var arena_atual = 1
 var onda_atual = 1
+var ondas_por_arena = 1
 var inimigos_vivos = 0
 var arena_liberada = false
 var esperando_onda = false
 var reiniciando = false
 
+
 func _ready():
 	call_deferred("iniciar_arena", 1)
 
 
-func iniciar_arena(numero):
-	if cena_inimigo == null:
-		print("Configure a cena do inimigo!")
-		return
+func quantidade_arenas() -> int:
+	return spawns.get_child_count()
 
+
+func iniciar_arena(numero):
 	arena_atual = numero
 	onda_atual = 1
+	ondas_por_arena = _arena().get_child_count()
 	arena_liberada = false
 	esperando_onda = false
 
 	criar_onda()
 
 
+func _arena() -> Node:
+	return spawns.get_node("Arena" + str(arena_atual))
+
+
 func criar_onda():
-	var arena = spawns.get_node("Arena" + str(arena_atual))
-	var onda = arena.get_node("Onda" + str(onda_atual))
-	var pontos = onda.get_children()
+	var onda = _arena().get_node("Onda" + str(onda_atual))
 
 	inimigos_vivos = 0
 
 	print("Arena ", arena_atual, " - Onda ", onda_atual)
 	onda_iniciada.emit(arena_atual, onda_atual, ondas_por_arena)
 
-	for i in range(pontos.size()):
-		var ponto = pontos[i]
-		var tipo_inimigo = escolher_inimigo(i)
+	for ponto in onda.get_children():
+		var cena = ponto.get("cena_inimigo")
+		if cena == null:
+			cena = cena_inimigo
+		if cena == null:
+			push_warning("Ponto %s sem inimigo e EnemyManager sem cena_inimigo" % ponto.name)
+			continue
 
-		var inimigo = tipo_inimigo.instantiate()
+		var inimigo = cena.instantiate()
 
 		get_parent().add_child(inimigo)
 		inimigo.global_position = ponto.global_position
@@ -61,80 +70,16 @@ func criar_onda():
 
 	print("Inimigos na onda: ", inimigos_vivos)
 
-
-func escolher_inimigo(indice):
-	match arena_atual:
-		1:
-			# Arena 1
-			if onda_atual == 1:
-				match indice:
-					0, 2:
-						return cena_inimigo
-					1, 3:
-						return cena_inimigo_rapido
-
-			elif onda_atual == 2:
-				match indice:
-					0, 3:
-						return cena_inimigo_rapido
-					1, 2:
-						return cena_inimigo
-
-		2:
-			# Arena 2
-			if onda_atual == 1:
-				match indice:
-					0:
-						if cena_inimigo_atirador != null:
-							return cena_inimigo_atirador
-					1, 3:
-						if cena_inimigo_rapido != null:
-							return cena_inimigo_rapido
-					2:
-						return cena_inimigo
-
-			elif onda_atual == 2:
-				match indice:
-					0, 2:
-						if cena_inimigo_atirador != null:
-							return cena_inimigo_atirador
-					1, 3:
-						return cena_inimigo
-
-		3:
-			# Arena 3
-			if onda_atual == 1:
-				match indice:
-					0:
-						if cena_inimigo_grande != null:
-							return cena_inimigo_grande
-					1, 3:
-						if cena_inimigo_rapido != null:
-							return cena_inimigo_rapido
-					2:
-						return cena_inimigo
-
-			elif onda_atual == 2:
-				match indice:
-					0:
-						if cena_inimigo_grande != null:
-							return cena_inimigo_grande
-					1, 2:
-						return cena_inimigo
-					3:
-						if cena_inimigo_rapido != null:
-							return cena_inimigo_rapido
-
-	return cena_inimigo
+	if inimigos_vivos == 0:
+		call_deferred("inimigo_morreu", true)
 
 
-func inimigo_morreu():
+func inimigo_morreu(sem_inimigos := false):
 	if reiniciando or not is_inside_tree():
 		return
 
-	inimigos_vivos -= 1
-
-	print("Inimigos restantes: ", inimigos_vivos)
+	if not sem_inimigos:
+		inimigos_vivos -= 1
 
 	if inimigos_vivos <= 0 and not esperando_onda:
 		if onda_atual < ondas_por_arena:
@@ -150,8 +95,6 @@ func iniciar_proxima_onda():
 	if reiniciando or not is_inside_tree():
 		return
 
-	print("Preparando próxima onda...")
-
 	await get_tree().create_timer(intervalo_ondas).timeout
 
 	if reiniciando or not is_inside_tree():
@@ -161,6 +104,7 @@ func iniciar_proxima_onda():
 	esperando_onda = false
 
 	criar_onda()
+
 
 func _exit_tree():
 	reiniciando = true

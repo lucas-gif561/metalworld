@@ -1,19 +1,11 @@
-extends "res://scripts/enemies/inimigo.gd"
+extends Inimigo
 
 @export var cena_granada: PackedScene
 @export var distancia_ideal = 320.0
 @export var margem_limite = 30.0
 
 
-func _physics_process(_delta):
-	if jogador == null or morto:
-		return
-
-	if jogador.vida <= 0:
-		velocity = Vector2.ZERO
-		_atualizar_animacao()
-		return
-
+func _comportamento(_delta):
 	# Na vertical usa a mesma faixa do jogador, para sempre conseguir se alinhar
 	var area = get_tree().current_scene.limites_arena().grow_individual(-margem_limite, 0.0, -margem_limite, 0.0)
 	var dentro = area.grow(1.0).has_point(global_position)
