@@ -101,6 +101,7 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 - **Profundidade**: colisão só nos pés; personagens passam na frente/atrás uns dos outros e dos objetos.
 - **Impacto**: pausa curta e tremor de tela nos acertos; câmera lenta no último inimigo da rua.
 - **Barris e caixotes** quebram na porrada e soltam maçã ou carne.
+- **HUD com ícones**: corações para a vida e raios para a stamina (um raio por dodge, enchendo enquanto recarrega). O nome da fase entra na tela no começo e "SIGA →" pisca quando a área está limpa; sem texto de arena ou onda.
 
 ### Chefes (Riff)
 
@@ -344,5 +345,5 @@ Todos os assets de terceiros, autores e licenças estão em [`CREDITS.md`](../CR
 
 - Conteúdo próprio das Ruas 2 e 3 (inimigos novos) e dos Bosses 2 e 3 (padrões de ataque).
 - Sprites próprios para inimigos e chefes (PixelLab).
-- HUD, game over e vitória no mesmo estilo do menu.
+- Game over e vitória no mesmo estilo do menu.
 - Ideias em avaliação: Riff com guitarra e bateria ao mesmo tempo; golpes especiais por sequência de setas.

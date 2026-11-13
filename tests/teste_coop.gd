@@ -92,7 +92,8 @@ func _teste_rua() -> void:
 	await esperar(0.2)
 	checar(p2.caido, "P2 caiu com a vida zerada")
 	checar(not game_over[0], "sem game over com o P1 de pé")
-	checar(cena.hud.paineis[2].get_node("TextoVida").text.contains("CAÍDO"), "HUD mostra P2 CAÍDO")
+	checar(cena.hud.paineis[2].get_node("Topo/Caido").visible, "HUD mostra P2 CAÍDO")
+	checar(cena.hud.paineis[2].get_node("Coracoes").get_children().all(func(c): return c.value == 0.0), "HUD mostra os corações do P2 vazios")
 
 	p1.global_position = p2.global_position + Vector2(40, 0)
 	await segurar("p1_interagir", 0.8)

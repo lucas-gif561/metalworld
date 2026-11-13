@@ -21,7 +21,13 @@ Arquivos: `objetos/sprites/carne.png`, `objetos/sprites/maca.png`
 ## Dylan
 
 Sprites do Dylan e peças da interface (placa do título e botões do menu) gerados pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
-Arquivos: `personagens/dylan/sprites/`, `ui/sprites/`
+Arquivos: `personagens/dylan/sprites/`, `ui/sprites/` (menos `coracao.png` e `raio.png`)
+
+## Ícones do HUD
+
+**Critters - Pixel UI**, por Foozle (arte de Baldur): <https://foozlecc.itch.io/critters-pixel-ui>
+Licença: CC0 (domínio público). Coração (vida) e raio (stamina).
+Arquivos: `ui/sprites/coracao.png`, `ui/sprites/raio.png`
 
 ## Inimigos
 

@@ -35,15 +35,15 @@ func _ready():
 	gerenciador_ondas.onda_iniciada.connect(_ao_iniciar_onda)
 	gerenciador_ondas.arena_concluida.connect(_ao_concluir_arena)
 	Audio.tocar_musica("ruas")
+	hud.mostrar_titulo(Jogo.nome_fase_atual().to_upper())
 
 
 func quantidade_arenas() -> int:
 	return gerenciador_ondas.quantidade_arenas()
 
 
-func _ao_iniciar_onda(arena, onda, total_ondas):
-	hud.definir_progresso("%s  ·  ARENA %d/%d  ·  ONDA %d/%d" % [
-		Jogo.nome_fase_atual().to_upper(), arena, quantidade_arenas(), onda, total_ondas])
+func _ao_iniciar_onda(_arena, _onda, _total_ondas):
+	hud.mostrar_siga(false)
 
 
 func _ao_concluir_arena():
@@ -52,7 +52,7 @@ func _ao_concluir_arena():
 		Combate.camera_lenta(0.9)
 
 	if arena_atual < quantidade_arenas():
-		hud.mostrar_aviso("Área limpa! Siga para a direita  →")
+		hud.mostrar_siga(true)
 
 
 func _ao_jogador_entrar(jogador):
@@ -108,6 +108,7 @@ func proxima_arena():
 	for jogador in Jogo.jogadores:
 		jogador.bloqueado = true
 	hud.esconder_aviso()
+	hud.mostrar_siga(false)
 
 	var distancia = largura_tela - 120
 	var destino = camera.global_position + Vector2(distancia, 0)
