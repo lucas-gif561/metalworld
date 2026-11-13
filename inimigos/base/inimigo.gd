@@ -235,4 +235,8 @@ func morrer():
 	Combate.tremer(tremor_ao_morrer)
 	_tocar_acao("death")
 	await sprite.animation_finished
+	# Some esmaecendo (serve também para inimigos sem animação de queda)
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate:a", 0.0, 0.35)
+	await tween.finished
 	queue_free()

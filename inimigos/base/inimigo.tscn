@@ -14,12 +14,11 @@ script = ExtResource("1_clyw6")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=401039523]
-position = Vector2(0, -40)
-scale = Vector2(2.5, 2.5)
+scale = Vector2(1.6, 1.6)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
-offset = Vector2(10, -8)
+offset = Vector2(-3, -31.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=698727436]
 position = Vector2(0, -8)

@@ -13,10 +13,9 @@ distancia_ataque = 230.0
 dano = 2
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
-position = Vector2(0, -50)
-scale = Vector2(2.5, 2.5)
+scale = Vector2(2.2, 2.2)
 sprite_frames = ExtResource("9_frames")
-offset = Vector2(11, -4)
+offset = Vector2(0, -22)
 
 [node name="TimerAtaque" parent="." index="2" unique_id=364911093]
 wait_time = 1.5

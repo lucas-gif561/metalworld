@@ -23,14 +23,20 @@ Arquivos: `objetos/sprites/carne.png`, `objetos/sprites/maca.png`
 Sprites do Dylan e peças da interface (placa do título e botões do menu) gerados pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
 Arquivos: `personagens/dylan/sprites/`, `ui/sprites/`
 
-## Inimigos e projéteis
+## Inimigos
 
-**Free City Enemies Pixel Art** (inimigos e projéteis): <https://free-game-assets.itch.io/free-city-enemies-pixel-art-sprite-sheets>
-Licença: CraftPix, <https://craftpix.net/file-licenses/>. Uso em jogos permitido, sem crédito obrigatório.
-Arquivos: `inimigos/*/sprites/`, `assets/projeteis/`
+**Streets of Fight**, por Luis Zuno (ansimuz): <https://opengameart.org/content/streets-of-fight>
+Licença: CC0 (domínio público). Punk dos inimigos normal e rápido (o rápido é uma versão recolorida).
+Arquivos: `inimigos/base/sprites/`, `inimigos/rapido/sprites/`
 
-> Atenção: a licença da CraftPix proíbe redistribuir os arquivos de arte originais.
-> Não publique essas pastas em um repositório público.
+**Business of Rage character beatemup 2D**, por DidiGameB: <https://opengameart.org/content/business-of-rage-characeter-beatemup-2d>
+Licença: CC0 (domínio público). Streetboy (atirador) e brutamontes (tanque), com quadros reorganizados.
+Arquivos: `inimigos/atirador/sprites/`, `inimigos/tanque/sprites/`
+
+## Projéteis
+
+Formas geométricas simples feitas pela equipe (círculo e cápsula brancos, coloridos pelo jogo).
+Arquivos: `assets/projeteis/`
 
 ## Áudio
 

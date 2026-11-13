@@ -20,7 +20,7 @@ No boss, só as notas do Riff ferem: abra o Riff quando o boss se ajoelhar."""
 const TEXTO_CREDITOS = """MetalWorld — projeto da disciplina
 
 Dylan e interface: gerados pela equipe no PixelLab
-Inimigos e projéteis: Free City Enemies (CraftPix)
+Inimigos: Streets of Fight (ansimuz) e Business of Rage (DidiGameB), CC0
 Boss: Doom Scribe (CC BY 4.0)
 Barris e caixotes: Elthen · Comida: Pixel Coder
 Músicas: MintoDog (CC0) · Efeitos sonoros: Bfxr
