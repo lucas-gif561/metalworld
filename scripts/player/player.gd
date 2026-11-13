@@ -27,7 +27,9 @@ const SOCOS = [
 ]
 
 @export var id_jogador := 1
-@export var velocidade = 200.0
+## Velocidade no tamanho normal (boss). Acompanha o tamanho do personagem:
+## nas ruas (1,5x) vira 249, e ele anda sempre ~2 corpos por segundo
+@export var velocidade = 166.0
 @export var vida = 5
 
 @export_group("Soco")
@@ -115,6 +117,7 @@ func aplicar_escala(fator: float) -> void:
 	_indicador.position *= razao
 	alcance_soco *= razao
 	velocidade_dodge *= razao
+	velocidade *= razao
 	faixa_soco *= razao
 	raio_reviver *= razao
 	_ajustar_visual()

@@ -65,6 +65,7 @@ func _teste_socos() -> void:
 	await esperar(0.1)
 
 	checar(is_equal_approx(p1.escala_personagem, 1.5), "na rua o Dylan fica 1,5x maior")
+	checar(is_equal_approx(p1.velocidade, 249.0), "e anda ~2 corpos por segundo na rua (%.0f px/s)" % p1.velocidade)
 	var alvo = _inimigo_parado(cena, Vector2(460, 450))
 	var atras = _inimigo_parado(cena, Vector2(340, 450))
 	var outra_faixa = _inimigo_parado(cena, Vector2(460, 540))
@@ -204,6 +205,7 @@ func _teste_riff() -> void:
 	var cena = current_scene
 	var p1 = jogo.jogador_por_id(1)
 	checar(is_equal_approx(p1.escala_personagem, 1.0), "no boss o Dylan volta ao tamanho normal")
+	checar(is_equal_approx(p1.velocidade, 166.0), "no boss também ~2 corpos por segundo (%.0f px/s)" % p1.velocidade)
 	var inicio = p1.global_position
 	p1.direcao_olhar = -1
 	await apertar("p1_dodge")
