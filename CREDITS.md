@@ -20,8 +20,8 @@ Arquivos: `objetos/sprites/carne.png`, `objetos/sprites/maca.png`
 
 ## Dylan
 
-Sprites do Dylan gerados pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
-Arquivos: `personagens/dylan/sprites/`
+Sprites do Dylan e peças da interface (placa do título e botões do menu) gerados pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
+Arquivos: `personagens/dylan/sprites/`, `ui/sprites/`
 
 ## Inimigos e projéteis
 

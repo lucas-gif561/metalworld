@@ -1,0 +1,43 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="Texture2D" path="res://ui/sprites/botao_menu.png" id="1_apagado"]
+[ext_resource type="Texture2D" path="res://ui/sprites/botao_menu_aceso.png" id="2_aceso"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_apagado"]
+content_margin_left = 28.0
+content_margin_top = 8.0
+content_margin_right = 28.0
+content_margin_bottom = 10.0
+texture = ExtResource("1_apagado")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aceso"]
+content_margin_left = 28.0
+content_margin_top = 8.0
+content_margin_right = 28.0
+content_margin_bottom = 10.0
+texture = ExtResource("2_aceso")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+axis_stretch_horizontal = 2
+
+[resource]
+Button/colors/font_color = Color(0.82, 0.76, 0.93, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0.1, 0.02, 0.12, 1)
+Button/colors/font_pressed_color = Color(1, 0.9, 0.96, 1)
+Button/constants/outline_size = 6
+Button/font_sizes/font_size = 26
+Button/styles/focus = SubResource("StyleBoxTexture_aceso")
+Button/styles/hover = SubResource("StyleBoxTexture_aceso")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_aceso")
+Button/styles/normal = SubResource("StyleBoxTexture_apagado")
+Button/styles/pressed = SubResource("StyleBoxTexture_aceso")
