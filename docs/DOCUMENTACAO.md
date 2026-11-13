@@ -101,7 +101,8 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 - **Profundidade**: colisão só nos pés; personagens passam na frente/atrás uns dos outros e dos objetos.
 - **Impacto**: pausa curta e tremor de tela nos acertos; câmera lenta no último inimigo da rua.
 - **Barris e caixotes** quebram na porrada e soltam maçã ou carne.
-- **HUD com ícones**: corações para a vida e raios para a stamina (um raio por dodge, enchendo enquanto recarrega). O nome da fase entra na tela no começo e "SIGA →" pisca quando a área está limpa; sem texto de arena ou onda.
+- **HUD com ícones, quase sem texto**: retrato do Dylan de cada jogador (moldura rosa ou azul, apagado quando cai), corações para a vida e raios para a stamina (um raio por dodge, enchendo enquanto recarrega). O nome da fase entra na tela no começo e uma seta pisca para a direita quando a área está limpa. A barra do chefe usa a moldura dos botões do menu.
+- **Pause** (Esc / START): continuar, remover o jogador 2 (ele pode voltar com START) ou ir ao menu principal.
 
 ### Chefes (Riff)
 
@@ -298,7 +299,7 @@ tests/rodar_testes.sh
 | Teste | O que verifica |
 |---|---|
 | `teste_fases.gd` | Joga as 6 fases em sequência com 2 jogadores até voltar ao menu |
-| `teste_coop.gd` | Entrada do P2, mira dos inimigos, levantar parceiro, game over, Riff em revezamento, reiniciar no meio do chefe |
+| `teste_coop.gd` | Entrada do P2, mira dos inimigos, levantar parceiro, game over, Riff em revezamento, reiniciar no meio do chefe, pause e remover o P2 |
 | `teste_combate.gd` | Socos (alcance, faixa, empurrão), carga dos inimigos, atirador, profundidade, guitarra no Riff, tamanhos |
 | `teste_novidades.gd` | Impacto, caixote e comida, ataques do chefe, escudo, fases, nota maldita, cabo de força |
 | `teste_ia.gd` | IA de grupo: no máximo 2 atacando, revezamento, rodear à distância, não empilhar, vagas por jogador no co-op |

@@ -106,6 +106,11 @@ func definir_lentidao(lento: bool) -> void:
 	musica.pitch_scale = 0.7 if lento else 1.0
 
 
+## Pausa a música junto com o jogo (o Riff usa a posição da música)
+func pausar_musica(pausar: bool) -> void:
+	musica.stream_paused = pausar
+
+
 func parar_musica() -> void:
 	musica_atual = ""
 

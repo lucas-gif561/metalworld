@@ -80,6 +80,7 @@ O jogo tem **1 ou 2 jogadores**, e o P2 pode entrar no meio da fase. Por isso:
    | `riff_esquerda` / `riff_cima` / `riff_baixo` / `riff_direita` (pistas ← ↑ ↓ →) | Setas | X / Y / A / B ou direcional |
    | `reiniciar` | R | Start |
    | `entrar` (P2 entra na partida) | — | Start / A |
+   | `pausar` (menu de pause) | Esc | Start |
 
    Sem controle, o P2 tem um teclado reserva para testes: setas, Ctrl direito, Shift direito, Enter e Backspace.
 

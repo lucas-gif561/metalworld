@@ -7,6 +7,7 @@ extends Node
 ## - Game over quando todos os jogadores caem
 
 signal jogador_entrou(jogador)
+signal jogador_saiu(id_jogador)
 signal game_over
 
 const FASES = [
@@ -119,6 +120,18 @@ func entrar_p2() -> void:
 		return
 	p2_ativo = true
 	_criar_p2(get_tree().current_scene)
+
+
+## Tira o P2 da partida (menu de pause). Ele pode entrar de novo com START.
+func remover_p2() -> void:
+	var p2 = jogador_por_id(2)
+	p2_ativo = false
+	if p2:
+		jogadores.erase(p2)
+		p2.queue_free()
+	jogador_saiu.emit(2)
+	# Se o P1 estava caído esperando o parceiro, agora é game over
+	_ao_jogador_cair()
 
 
 func _criar_p2(fase: Node) -> void:

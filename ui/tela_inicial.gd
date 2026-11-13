@@ -14,6 +14,7 @@ Espaço abre o Riff · Setas tocam as notas · R reinicia depois do game over
 P2 (controle): analógico mover · X socar · A dodge · B interagir e levantar
 LB abre o Riff · X Y A B tocam as notas · START entra na partida e reinicia
 
+ESC / START pausa (e permite remover o P2).
 Caído? O parceiro segura E / B perto para levantar.
 No boss, só as notas do Riff ferem: abra o Riff quando o boss se ajoelhar."""
 

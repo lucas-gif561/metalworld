@@ -1,5 +1,6 @@
 extends Control
-## Cabo de força: uma barra só, a dupla de um lado e o boss do outro.
+## Cabo de força: uma barra só, a dupla (azul) de um lado e o boss (rosa) do
+## outro. Visual na cena: barra dentro da moldura dos botões do menu.
 
 @onready var barra = $Barra
 @onready var marcador = $Marcador
@@ -18,8 +19,7 @@ func conectar(novo_jogador, novo_boss) -> void:
 
 
 func _process(_delta: float) -> void:
-	$TextoDylan.text = "P1 + P2" if Jogo.jogadores.size() >= 2 else "DYLAN"
-	marcador.position.x = barra.value * size.x - marcador.size.x / 2.0
+	marcador.position.x = barra.position.x + barra.value * barra.size.x - marcador.size.x / 2.0
 
 
 # 0 = boss venceu, 1 = Dylan venceu, 0,5 = empate

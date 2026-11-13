@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://ui/sprites/botao_menu.png" id="1_moldura"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fundo"]
+bg_color = Color(0.12, 0.05, 0.16, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vida"]
+bg_color = Color(1, 0.3, 0.72, 1)
+
+[node name="BarraVidaBoss" type="ProgressBar"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -422.0
+offset_top = 28.0
+offset_right = -30.0
+offset_bottom = 48.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_fundo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vida")
+value = 100.0
+show_percentage = false
+
+[node name="Moldura" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_moldura")
+draw_center = false
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+axis_stretch_horizontal = 2

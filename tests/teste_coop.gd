@@ -46,6 +46,7 @@ func _rodar() -> void:
 	await _teste_boss()
 	await _teste_solo()
 	await _teste_reiniciar_boss()
+	await _teste_pausa()
 	print("RESULTADO: ", "PASSOU" if falhas == 0 else "FALHOU (%d)" % falhas)
 	quit(1 if falhas > 0 else 0)
 
@@ -92,8 +93,8 @@ func _teste_rua() -> void:
 	await esperar(0.2)
 	checar(p2.caido, "P2 caiu com a vida zerada")
 	checar(not game_over[0], "sem game over com o P1 de pé")
-	checar(cena.hud.paineis[2].get_node("Topo/Caido").visible, "HUD mostra P2 CAÍDO")
-	checar(cena.hud.paineis[2].get_node("Coracoes").get_children().all(func(c): return c.value == 0.0), "HUD mostra os corações do P2 vazios")
+	checar(cena.hud.paineis[2].get_node("Retrato").modulate != Color.WHITE, "HUD mostra P2 CAÍDO")
+	checar(cena.hud.paineis[2].get_node("Icones/Coracoes").get_children().all(func(c): return c.value == 0.0), "HUD mostra os corações do P2 vazios")
 
 	p1.global_position = p2.global_position + Vector2(40, 0)
 	await segurar("p1_interagir", 0.8)
@@ -206,3 +207,35 @@ func _teste_reiniciar_boss() -> void:
 		jogo.reiniciar_fase()
 		await esperar(1.5)
 		checar(jogo.jogadores.size() == 2, "recarregou " + cena.get_file() + " (erros de script aparecem no rodar_testes.sh)")
+
+
+func _teste_pausa() -> void:
+	print("== Pause: continuar e remover o P2")
+	jogo.p2_ativo = true
+	change_scene_to_file("res://fases/rua_1/rua_1.tscn")
+	await esperar(0.6)
+	var cena = current_scene
+	var pausa = cena.hud.get_node("MenuPausa")
+	checar(jogo.jogadores.size() == 2, "começa com P1 e P2")
+
+	await apertar("p1_pausar")
+	checar(paused and pausa.visible, "ESC pausa o jogo e abre o menu")
+	checar(pausa.botao_remover_p2.visible, "opção de remover o P2 aparece em dupla")
+	await apertar("p1_pausar")
+	checar(not paused and not pausa.visible, "ESC de novo continua")
+
+	await apertar("p2_pausar")
+	checar(paused, "START do P2 também pausa")
+	pausa.botao_remover_p2.pressed.emit()
+	await esperar(0.2)
+	checar(not paused, "remover o P2 volta ao jogo")
+	checar(jogo.jogadores.size() == 1 and not jogo.p2_ativo, "P2 saiu da partida")
+	checar(not cena.hud.paineis[2].visible, "painel do P2 sumiu do HUD")
+
+	await apertar("p1_pausar")
+	checar(not pausa.botao_remover_p2.visible, "sozinho, a opção de remover o P2 some")
+	await apertar("p1_pausar")
+
+	await apertar("p2_entrar")
+	await esperar(0.2)
+	checar(jogo.jogadores.size() == 2 and cena.hud.paineis[2].visible, "P2 entra de novo com START")

@@ -17,7 +17,7 @@ const ACOES = [
 	"mover_cima", "mover_baixo", "mover_esquerda", "mover_direita",
 	"atacar", "dodge", "interagir", "riff_mode",
 	"riff_cima", "riff_baixo", "riff_esquerda", "riff_direita",
-	"reiniciar", "entrar",
+	"reiniciar", "entrar", "pausar",
 ]
 
 # Botões no padrão Xbox (A embaixo, B direita, X esquerda, Y em cima).
@@ -37,6 +37,7 @@ const BOTOES = {
 	"riff_direita": [JOY_BUTTON_B, JOY_BUTTON_DPAD_RIGHT],
 	"reiniciar": [JOY_BUTTON_START],
 	"entrar": [JOY_BUTTON_START, JOY_BUTTON_A],
+	"pausar": [JOY_BUTTON_START],
 }
 
 const EIXOS = {
@@ -67,6 +68,7 @@ const TECLAS_RESERVA_P2 = {
 # Ações do jogador 1 que não estão no Mapa de Entrada do projeto
 const TECLAS_EXTRAS_P1 = {
 	"entrar": [KEY_ENTER],
+	"pausar": [KEY_ESCAPE],
 }
 
 var controle_p1 := -1

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="30_hud"]
 [ext_resource type="PackedScene" path="res://riff/riff_hud.tscn" id="40_riff"]
 [ext_resource type="PackedScene" path="res://ui/cabo_de_forca.tscn" id="44_cabo"]
+[ext_resource type="PackedScene" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vyw2r"]
 radius = 108.0
@@ -88,14 +89,7 @@ position = Vector2(577, 566)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1912905334]
 
-[node name="BossHealthBar" type="ProgressBar" parent="HUD" unique_id=817409153]
-modulate = Color(1, 0.3, 0.72, 1)
-offset_left = 10.0
-offset_top = 8.0
-offset_right = 1142.0
-offset_bottom = 35.0
-value = 100.0
-show_percentage = false
+[node name="BossHealthBar" parent="HUD" unique_id=817409153 instance=ExtResource("90_barra_boss")]
 
 [node name="CaboDeForca" parent="HUD" instance=ExtResource("44_cabo")]
 visible = false
@@ -103,4 +97,3 @@ visible = false
 [node name="RiffHUD" parent="HUD" unique_id=948874030 instance=ExtResource("40_riff")]
 
 [node name="HudJogo" parent="." unique_id=880012346 instance=ExtResource("30_hud")]
-deslocamento_vida = Vector2(0, 34)

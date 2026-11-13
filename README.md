@@ -36,6 +36,7 @@ Dylan Walker nasceu surdo e descobriu o heavy metal no dia em que ganhou um apar
 | Abrir/fechar Riff | Espaço | LB |
 | Notas do Riff (← ↑ ↓ →) | Setas | X / Y / A / B |
 | Entrar / reiniciar | Enter / R | START |
+| Pausar (e remover o P2) | Esc | START |
 
 ## Como executar
 

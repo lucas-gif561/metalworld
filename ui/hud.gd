@@ -1,12 +1,14 @@
 extends CanvasLayer
-## HUD das fases: corações (vida) e raios (stamina) de cada jogador, título da
-## fase, "SIGA →", avisos e tela de fim. Conecta sozinho com os jogadores que
+## HUD das fases: retrato, corações (vida) e raios (stamina) de cada jogador,
+## título da fase, seta de seguir, avisos e tela de fim. Conecta sozinho com os jogadores que
 ## existem e com quem entrar depois.
 ##
 ## Visual inteiro na cena (hud.tscn): cada coração e raio é um
 ## TextureProgressBar; o vazio é a mesma textura escurecida (tint_under) e o
 ## raio enche de baixo para cima enquanto a stamina recarrega. A entrada do
-## título e o pisca do "SIGA →" são AnimationPlayers.
+## título e o pisca da seta são AnimationPlayers.
+
+const COR_CAIDO = Color(0.3, 0.3, 0.35, 1)
 
 ## Desloca os painéis de vida (ex.: para baixo da barra do boss)
 @export var deslocamento_vida := Vector2.ZERO
@@ -39,6 +41,7 @@ func _ready() -> void:
 	for jogador in Jogo.jogadores:
 		conectar_jogador(jogador)
 	Jogo.jogador_entrou.connect(conectar_jogador)
+	Jogo.jogador_saiu.connect(_ao_jogador_sair)
 
 
 func _process(_delta: float) -> void:
@@ -58,9 +61,15 @@ func conectar_jogador(jogador) -> void:
 	_atualizar_stamina(jogador.stamina, jogador.stamina_maxima, painel, jogador.custo_dodge)
 
 
+func _ao_jogador_sair(id_jogador: int) -> void:
+	if paineis.has(id_jogador):
+		paineis[id_jogador].hide()
+	conectados = conectados.filter(func(j): return is_instance_valid(j) and j.id_jogador != id_jogador)
+
+
 ## Um coração por ponto de vida (a cena tem 5; vida maior que isso não aparece)
 func _atualizar_vida(atual, maxima, painel) -> void:
-	var coracoes = painel.get_node("Coracoes").get_children()
+	var coracoes = painel.get_node("Icones/Coracoes").get_children()
 	for i in coracoes.size():
 		var coracao = coracoes[i]
 		coracao.visible = i < maxima
@@ -68,12 +77,13 @@ func _atualizar_vida(atual, maxima, painel) -> void:
 		if coracao.value != cheio:
 			coracao.value = cheio
 			_pulsar(coracao)
-	painel.get_node("Topo/Caido").visible = atual <= 0
+	# Caído: retrato apagado (o parceiro pode levantar)
+	painel.get_node("Retrato").modulate = COR_CAIDO if atual <= 0 else Color.WHITE
 
 
 ## Um raio por dodge: cada raio vale custo_dodge de stamina
 func _atualizar_stamina(atual, maxima, painel, custo) -> void:
-	var raios = painel.get_node("Raios").get_children()
+	var raios = painel.get_node("Icones/Raios").get_children()
 	for i in raios.size():
 		var raio = raios[i]
 		raio.visible = (i + 1) * custo <= maxima
@@ -93,8 +103,7 @@ func _pulsar(icone: Control) -> void:
 ## Cabo de força: a vida fica na barra do cabo; aqui sobra só a stamina
 func usar_vida_compartilhada() -> void:
 	for painel in paineis.values():
-		painel.get_node("Coracoes").hide()
-		painel.get_node("Topo/Caido").hide()
+		painel.get_node("Icones/Coracoes").hide()
 
 
 ## Nome da fase entrando na tela no começo (estilo Sonic)
@@ -105,7 +114,7 @@ func mostrar_titulo(texto: String) -> void:
 	titulo_fase.get_node("Animacao").play("entrar")
 
 
-## "SIGA →" piscando quando a área foi limpa
+## Seta piscando para a direita quando a área foi limpa
 func mostrar_siga(mostrar: bool) -> void:
 	siga.visible = mostrar
 
