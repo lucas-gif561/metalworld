@@ -1,16 +1,16 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/Arenas Urbanas Sob a Lua.png" id="2_fundo"]
-[ext_resource type="PackedScene" path="res://scenes/objects/Portal.tscn" id="3_portal"]
-[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="4_player"]
-[ext_resource type="Script" path="res://scripts/systems/ponto_spawn.gd" id="5_ponto"]
-[ext_resource type="Script" path="res://scripts/systems/enemy_manager.gd" id="6_manager"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/inimigo.tscn" id="7_normal"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/inimigo_rapido.tscn" id="8_rapido"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="9_hud"]
-[ext_resource type="PackedScene" path="res://scenes/objects/caixote.tscn" id="10_caixote"]
-[ext_resource type="PackedScene" path="res://scenes/objects/barril.tscn" id="11_barril"]
+[ext_resource type="Script" path="res://fases/comum/fase_rua.gd" id="1_main"]
+[ext_resource type="Texture2D" path="res://assets/fundos/rua_noite.png" id="2_fundo"]
+[ext_resource type="PackedScene" path="res://objetos/portal.tscn" id="3_portal"]
+[ext_resource type="PackedScene" path="res://personagens/dylan/jogador.tscn" id="4_player"]
+[ext_resource type="Script" path="res://fases/comum/ponto_spawn.gd" id="5_ponto"]
+[ext_resource type="Script" path="res://fases/comum/gerenciador_ondas.gd" id="6_manager"]
+[ext_resource type="PackedScene" path="res://inimigos/base/inimigo.tscn" id="7_normal"]
+[ext_resource type="PackedScene" path="res://inimigos/rapido/inimigo_rapido.tscn" id="8_rapido"]
+[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="9_hud"]
+[ext_resource type="PackedScene" path="res://objetos/caixote.tscn" id="10_caixote"]
+[ext_resource type="PackedScene" path="res://objetos/barril.tscn" id="11_barril"]
 
 [node name="Rua3" type="Node2D"]
 y_sort_enabled = true
@@ -62,7 +62,7 @@ position = Vector2(2330, 580)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_rapido")
 
-[node name="EnemyManager" type="Node" parent="."]
+[node name="GerenciadorOndas" type="Node" parent="."]
 script = ExtResource("6_manager")
 cena_inimigo = ExtResource("7_normal")
 

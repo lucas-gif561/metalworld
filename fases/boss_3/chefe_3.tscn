@@ -1,8 +1,8 @@
 [gd_scene format=3]
 
-[ext_resource type="SpriteFrames" path="res://assets/sprites/boss/boss.tres" id="1_frames"]
+[ext_resource type="SpriteFrames" path="res://fases/boss_1/sprites/chefe_1.tres" id="1_frames"]
 [ext_resource type="Script" path="res://fases/boss_3/chefe_3.gd" id="2_script"]
-[ext_resource type="PackedScene" path="res://scenes/projectiles/ProjetilBoss.tscn" id="3_projetil"]
+[ext_resource type="PackedScene" path="res://bosses/base/projetil_boss.tscn" id="3_projetil"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chefe"]
 

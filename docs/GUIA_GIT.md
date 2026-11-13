@@ -21,7 +21,7 @@ Você não precisa saber git de linha de comando. O fluxo é sempre o mesmo:
 
 ## Salvar o trabalho (pode fazer várias vezes por dia)
 
-1. No GitHub Desktop aparecem os arquivos alterados. Confira se todos estão dentro da pasta da sua fase. Se apareceu algo fora dela, como `project.godot` ou `player.tscn`, clique com o botão direito no arquivo e escolha **Discard changes**, a não ser que tenha combinado antes.
+1. No GitHub Desktop aparecem os arquivos alterados. Confira se todos estão dentro da pasta da sua fase. Se apareceu algo fora dela, como `project.godot` ou `jogador.tscn`, clique com o botão direito no arquivo e escolha **Discard changes**, a não ser que tenha combinado antes.
 2. Escreva um resumo em português, por exemplo: `Rua 2: inimigo motoqueiro e onda 2 da arena 1`.
 3. Clique em **Commit to <sua branch>**.
 4. Clique em **Push origin** para mandar para o GitHub.

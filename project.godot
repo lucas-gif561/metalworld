@@ -11,16 +11,16 @@ config_version=5
 [application]
 
 config/name="MetalWorld"
-run/main_scene="res://scenes/ui/tela_inicial.tscn"
+run/main_scene="res://ui/tela_inicial.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Controles="*res://scripts/systems/controles.gd"
-Jogo="*res://scripts/systems/jogo.gd"
-Audio="*res://scripts/systems/audio.gd"
-Combate="*res://scripts/systems/combate.gd"
+Controles="*res://sistemas/controles.gd"
+Jogo="*res://sistemas/jogo.gd"
+Audio="*res://sistemas/audio.gd"
+Combate="*res://sistemas/combate.gd"
 
 [display]
 

@@ -78,7 +78,7 @@ func _vencer_rua() -> void:
 		for inimigo in get_nodes_in_group("inimigos"):
 			inimigo.receber_dano(999)
 		# Leva o P1 até a borda direita para a câmera andar
-		if cena.enemy_manager.arena_liberada and not cena.em_transicao:
+		if cena.gerenciador_ondas.arena_liberada and not cena.em_transicao:
 			var p1 = jogo.jogador_por_id(1)
 			p1.global_position.x = cena.limites_arena().end.x + 5
 		await esperar(0.3)

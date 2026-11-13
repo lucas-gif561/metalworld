@@ -53,7 +53,7 @@ func _rodar() -> void:
 func _teste_rua() -> void:
 	print("== Rua: entrada do P2, mira, reviver e game over")
 	jogo.p2_ativo = false
-	change_scene_to_file("res://scenes/main/main.tscn")
+	change_scene_to_file("res://fases/rua_1/rua_1.tscn")
 	await esperar(0.6)
 	var cena = current_scene
 	checar(jogo.jogadores.size() == 1, "começa só com o P1")
@@ -119,7 +119,7 @@ func _teste_rua() -> void:
 
 func _teste_boss() -> void:
 	print("== Boss: Riff em revezamento")
-	change_scene_to_file("res://scenes/main/Bossfight.tscn")
+	change_scene_to_file("res://fases/boss_1/boss_1.tscn")
 	await esperar(0.6)
 	var cena = current_scene
 	var riff = cena.riff_hud
@@ -179,7 +179,7 @@ func _teste_boss() -> void:
 func _teste_solo() -> void:
 	print("== Solo")
 	jogo.p2_ativo = false
-	change_scene_to_file("res://scenes/main/main.tscn")
+	change_scene_to_file("res://fases/rua_1/rua_1.tscn")
 	await esperar(0.6)
 	var cena = current_scene
 	checar(jogo.jogadores.size() == 1, "sozinho: só o P1")
@@ -199,7 +199,7 @@ func _teste_solo() -> void:
 func _teste_reiniciar_boss() -> void:
 	print("== Reiniciar no meio do ataque do boss")
 	jogo.p2_ativo = true
-	for cena in ["res://scenes/main/Bossfight.tscn", "res://fases/boss_2/boss_2.tscn", "res://fases/boss_3/boss_3.tscn"]:
+	for cena in ["res://fases/boss_1/boss_1.tscn", "res://fases/boss_2/boss_2.tscn", "res://fases/boss_3/boss_3.tscn"]:
 		change_scene_to_file(cena)
 		await esperar(4.5)
 		jogo.reiniciar_fase()

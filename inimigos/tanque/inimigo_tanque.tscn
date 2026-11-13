@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dh5fwt2atm5of"]
+
+[ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_puebg"]
+[ext_resource type="SpriteFrames" path="res://inimigos/tanque/sprites/tanque.tres" id="9_frames"]
+[ext_resource type="Script" path="res://inimigos/tanque/inimigo_tanque.gd" id="2_tanque"]
+[ext_resource type="PackedScene" path="res://inimigos/tanque/granada.tscn" id="3_granada"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puebg"]
+size = Vector2(64, 18)
+
+[node name="InimigoGrande" unique_id=577347522 instance=ExtResource("1_puebg")]
+script = ExtResource("2_tanque")
+cena_granada = ExtResource("3_granada")
+velocidade = 80.0
+vida = 7
+dano = 3
+tempo_preparo = 0.6
+resistencia_empurrao = 0.35
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
+position = Vector2(0, -54)
+scale = Vector2(3.2, 3.2)
+sprite_frames = ExtResource("9_frames")
+offset = Vector2(7, -7)
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=698727436]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_puebg")
+
+[node name="TimerAtaque" parent="." index="2" unique_id=364911093]
+wait_time = 2.2

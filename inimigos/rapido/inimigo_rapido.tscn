@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bns8j4jm6robf"]
+
+[ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_erp6p"]
+[ext_resource type="SpriteFrames" path="res://inimigos/rapido/sprites/rapido.tres" id="9_frames"]
+
+[node name="InimigoRapido" unique_id=577347522 instance=ExtResource("1_erp6p")]
+velocidade = 170.0
+vida = 2
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
+position = Vector2(0, -42)
+scale = Vector2(2.5, 2.5)
+sprite_frames = ExtResource("9_frames")
+offset = Vector2(7, -7)
+
+[node name="TimerAtaque" parent="." index="2" unique_id=364911093]
+wait_time = 0.8

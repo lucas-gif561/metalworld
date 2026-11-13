@@ -45,7 +45,7 @@ func _rodar() -> void:
 
 
 func _inimigo_parado(cena, posicao: Vector2):
-	var inimigo = load("res://scenes/enemies/inimigo.tscn").instantiate()
+	var inimigo = load("res://inimigos/base/inimigo.tscn").instantiate()
 	cena.add_child(inimigo)
 	inimigo.global_position = posicao
 	inimigo.vida = 99
@@ -55,7 +55,7 @@ func _inimigo_parado(cena, posicao: Vector2):
 
 func _teste_socos() -> void:
 	print("== Socos")
-	change_scene_to_file("res://scenes/main/main.tscn")
+	change_scene_to_file("res://fases/rua_1/rua_1.tscn")
 	await esperar(0.5)
 	var cena = current_scene
 	for e in get_nodes_in_group("inimigos"):
@@ -127,7 +127,7 @@ func _evento(acao: String, pressionado: bool) -> void:
 
 func _teste_carga_dos_inimigos() -> void:
 	print("== Inimigos carregam o golpe")
-	change_scene_to_file("res://scenes/main/main.tscn")
+	change_scene_to_file("res://fases/rua_1/rua_1.tscn")
 	await esperar(0.5)
 	var cena = current_scene
 	for e in get_nodes_in_group("inimigos"):
@@ -137,7 +137,7 @@ func _teste_carga_dos_inimigos() -> void:
 	p1.direcao_olhar = 1
 	p1.set_physics_process(false)
 
-	var inimigo = load("res://scenes/enemies/inimigo.tscn").instantiate()
+	var inimigo = load("res://inimigos/base/inimigo.tscn").instantiate()
 	cena.add_child(inimigo)
 	inimigo.global_position = Vector2(470, 450)
 	await esperar(0.25)
@@ -171,7 +171,7 @@ func _teste_carga_dos_inimigos() -> void:
 
 func _teste_atirador_nao_vira() -> void:
 	print("== Atirador não vira durante a carga")
-	change_scene_to_file("res://scenes/main/main.tscn")
+	change_scene_to_file("res://fases/rua_1/rua_1.tscn")
 	await esperar(0.5)
 	var cena = current_scene
 	for e in get_nodes_in_group("inimigos"):
@@ -181,7 +181,7 @@ func _teste_atirador_nao_vira() -> void:
 	p1.invencivel = true
 	p1.global_position = Vector2(700, 450)
 
-	var atirador = load("res://scenes/enemies/inimigo_atirador.tscn").instantiate()
+	var atirador = load("res://inimigos/atirador/inimigo_atirador.tscn").instantiate()
 	cena.add_child(atirador)
 	atirador.global_position = Vector2(420, 450)
 	var limite = Time.get_ticks_msec() + 3000
@@ -201,7 +201,7 @@ func _teste_atirador_nao_vira() -> void:
 
 func _teste_profundidade() -> void:
 	print("== Profundidade (colisão nos pés)")
-	change_scene_to_file("res://scenes/main/main.tscn")
+	change_scene_to_file("res://fases/rua_1/rua_1.tscn")
 	await esperar(0.5)
 	var cena = current_scene
 	for e in get_nodes_in_group("inimigos"):
@@ -226,7 +226,7 @@ func _teste_profundidade() -> void:
 	checar(p1.global_position.x < caixote.global_position.x, "esbarra no caixote na mesma faixa")
 
 	# Tiro: acerta na mesma faixa, passa reto em outra
-	var cena_tiro = load("res://scenes/enemies/projetil_inimigo.tscn")
+	var cena_tiro = load("res://inimigos/atirador/projetil_inimigo.tscn")
 	for caso in [[0.0, true, "tiro acerta quem está na mesma faixa"], [70.0, false, "tiro não acerta quem está em outra faixa"]]:
 		p1.global_position = Vector2(700, 470 + caso[0])
 		p1.timer_invencibilidade.stop()
@@ -242,7 +242,7 @@ func _teste_profundidade() -> void:
 
 func _teste_riff() -> void:
 	print("== Guitarra no Riff")
-	change_scene_to_file("res://scenes/main/Bossfight.tscn")
+	change_scene_to_file("res://fases/boss_1/boss_1.tscn")
 	await esperar(0.6)
 	var cena = current_scene
 	var p1 = jogo.jogador_por_id(1)

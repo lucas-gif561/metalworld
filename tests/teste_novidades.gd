@@ -55,7 +55,7 @@ func _rodar() -> void:
 
 func _teste_ruas() -> void:
 	print("== Ruas: impacto, barris e comida")
-	change_scene_to_file("res://scenes/main/main.tscn")
+	change_scene_to_file("res://fases/rua_1/rua_1.tscn")
 	await esperar(0.6)
 	var cena = current_scene
 	var combate = root.get_node("Combate")
@@ -84,7 +84,7 @@ func _teste_ruas() -> void:
 
 
 func _boss_1() -> Node:
-	change_scene_to_file("res://scenes/main/Bossfight.tscn")
+	change_scene_to_file("res://fases/boss_1/boss_1.tscn")
 	await esperar(0.6)
 	for jogador in jogo.jogadores:
 		jogador.invencivel = true
