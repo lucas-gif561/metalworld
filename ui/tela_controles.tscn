@@ -1,0 +1,141 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/tela_controles.gd" id="1_script"]
+[ext_resource type="Theme" path="res://ui/tema_menu.tres" id="2_tema"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
+bg_color = Color(0.14, 0.09, 0.18, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.25, 0.59, 1)
+
+[node name="TelaControles" type="ColorRect"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_tema")
+color = Color(0.03, 0.01, 0.06, 0.75)
+script = ExtResource("1_script")
+
+[node name="Margens" type="MarginContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = 24.0
+offset_right = 380.0
+offset_bottom = -24.0
+
+[node name="Painel" type="PanelContainer" parent="Margens"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+
+[node name="Respiro" type="MarginContainer" parent="Margens/Painel"]
+layout_mode = 2
+theme_override_constants/margin_left = 26
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 16
+
+[node name="Coluna" type="VBoxContainer" parent="Margens/Painel/Respiro"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Titulo" type="Label" parent="Margens/Painel/Respiro/Coluna"]
+layout_mode = 2
+text = "Controles"
+theme_override_colors/font_color = Color(1, 0.43, 0.77, 1)
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[node name="Conteudo" type="ScrollContainer" parent="Margens/Painel/Respiro/Coluna"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Secoes" type="VBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 9
+
+[node name="TituloCombos" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+layout_mode = 2
+text = "Minirriffs nas ruas"
+theme_override_colors/font_color = Color(1, 0.43, 0.77, 1)
+theme_override_font_sizes/font_size = 22
+
+[node name="Combos" type="GridContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+layout_mode = 2
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 3
+columns = 5
+
+[node name="Especial" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
+layout_mode = 2
+text = "Combo"
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+[node name="P1" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
+layout_mode = 2
+text = "Teclado P1"
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+[node name="P2" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
+layout_mode = 2
+text = "Teclado P2"
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+[node name="Controle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
+layout_mode = 2
+text = "Controle"
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+[node name="Custo" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
+layout_mode = 2
+text = "Poder"
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+
+[node name="RegraMinirriff" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+layout_mode = 2
+text = "Complete em até 3,5 s. Erro ou tempo esgotado custa 1 poder e atordoa por 0,5 s."
+autowrap_mode = 3
+
+[node name="TituloTeclado" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+layout_mode = 2
+text = "Teclado"
+theme_override_colors/font_color = Color(1, 0.43, 0.77, 1)
+theme_override_font_sizes/font_size = 22
+
+[node name="Teclado" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+layout_mode = 2
+text = "P1   WASD mover e tocar no Riff  •  F socar  •  G esquivar\n       Y interagir  •  T Riff  •  Esc pausar  •  R reiniciar\nP2   Setas mover e tocar no Riff  •  J socar, entrar e reiniciar  •  K esquivar\n       L interagir  •  I Riff  •  P pausar"
+autowrap_mode = 3
+
+[node name="TituloControle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+layout_mode = 2
+text = "Controle Xbox"
+theme_override_colors/font_color = Color(1, 0.43, 0.77, 1)
+theme_override_font_sizes/font_size = 22
+
+[node name="Controle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+layout_mode = 2
+text = "Analógico ou direcional: mover  •  X socar  •  B esquivar  •  RB interagir\nA abre e fecha o Riff  •  Pistas: LT, LB, RB, RT da esquerda para a direita\nStart entra como P2, pausa ou reinicia"
+autowrap_mode = 3
+
+[node name="Interacao" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+layout_mode = 2
+text = "Interaja para usar o portal. Segure o comando para levantar o parceiro."
+autowrap_mode = 3
+
+[node name="RiffIndependente" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+layout_mode = 2
+text = "Nos chefes, cada jogador abre o próprio Riff. P1 à esquerda, P2 à direita. Dano por acerto: 0,5× solo, 1× com os dois tocando. Esquivar também fecha o próprio Riff."
+autowrap_mode = 3
+
+[node name="Voltar" type="Button" parent="Margens/Painel/Respiro/Coluna"]
+custom_minimum_size = Vector2(210, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Voltar"

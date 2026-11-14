@@ -40,9 +40,13 @@ func _process(_delta):
 		return
 
 	for jogador in jogadores_perto:
-		if is_instance_valid(jogador) and not jogador.caido and Input.is_action_just_pressed(jogador.acao("interagir")):
+		if is_instance_valid(jogador) and pode_interagir(jogador) and jogador.tempo_atordoado <= 0.0 and Input.is_action_just_pressed(jogador.acao("interagir")):
 			entrar_portal()
 			return
+
+
+func pode_interagir(jogador) -> bool:
+	return ativado and not jogador.caido and jogador in jogadores_perto
 
 
 func entrar_portal():
