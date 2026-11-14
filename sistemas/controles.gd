@@ -9,7 +9,7 @@ extends Node
 ##            se houver dois controles, o primeiro controle.
 ## Jogador 2: o controle que sobrar. Sem controle, usa a metade direita do
 ##            teclado: setas mover, J socar, K dodge, L interagir, I Riff,
-##            P pausar (o P1 fica na metade esquerda: W A S D, F, G, E, Q).
+##            P pausar (o P1 fica na metade esquerda: W A S D, F, G, Y, T).
 
 signal controles_mudaram
 
@@ -21,22 +21,20 @@ const ACOES = [
 ]
 
 # Botões no padrão Xbox (A embaixo, B direita, X esquerda, Y em cima).
-# No Riff os botões de face seguem a posição da seta: X ←, Y ↑, A ↓, B →.
+# No Riff, as pistas seguem os gatilhos e os botões superiores: LT, LB, RB, RT.
 const BOTOES = {
 	"mover_cima": [JOY_BUTTON_DPAD_UP],
 	"mover_baixo": [JOY_BUTTON_DPAD_DOWN],
 	"mover_esquerda": [JOY_BUTTON_DPAD_LEFT],
 	"mover_direita": [JOY_BUTTON_DPAD_RIGHT],
 	"atacar": [JOY_BUTTON_X],
-	"dodge": [JOY_BUTTON_A, JOY_BUTTON_RIGHT_SHOULDER],
-	"interagir": [JOY_BUTTON_B],
-	"riff_mode": [JOY_BUTTON_LEFT_SHOULDER],
-	"riff_cima": [JOY_BUTTON_Y, JOY_BUTTON_DPAD_UP],
-	"riff_baixo": [JOY_BUTTON_A, JOY_BUTTON_DPAD_DOWN],
-	"riff_esquerda": [JOY_BUTTON_X, JOY_BUTTON_DPAD_LEFT],
-	"riff_direita": [JOY_BUTTON_B, JOY_BUTTON_DPAD_RIGHT],
+	"dodge": [JOY_BUTTON_B],
+	"interagir": [JOY_BUTTON_RIGHT_SHOULDER],
+	"riff_mode": [JOY_BUTTON_A],
+	"riff_cima": [JOY_BUTTON_LEFT_SHOULDER],
+	"riff_baixo": [JOY_BUTTON_RIGHT_SHOULDER],
 	"reiniciar": [JOY_BUTTON_START],
-	"entrar": [JOY_BUTTON_START, JOY_BUTTON_A],
+	"entrar": [JOY_BUTTON_START],
 	"pausar": [JOY_BUTTON_START],
 }
 
@@ -45,6 +43,8 @@ const EIXOS = {
 	"mover_baixo": [JOY_AXIS_LEFT_Y, 1.0],
 	"mover_esquerda": [JOY_AXIS_LEFT_X, -1.0],
 	"mover_direita": [JOY_AXIS_LEFT_X, 1.0],
+	"riff_esquerda": [JOY_AXIS_TRIGGER_LEFT, 1.0],
+	"riff_direita": [JOY_AXIS_TRIGGER_RIGHT, 1.0],
 }
 
 # Teclado do jogador 2: metade direita (dupla dividindo o mesmo teclado)

@@ -6,6 +6,8 @@
 [ext_resource type="Theme" path="res://ui/tema_menu.tres" id="4_tema"]
 [ext_resource type="Texture2D" path="res://ui/sprites/botao_menu.png" id="5_moldura"]
 
+[ext_resource type="PackedScene" path="res://ui/tela_controles.tscn" id="6_controles"]
+
 [node name="TelaInicial" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -193,5 +195,7 @@ theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
-text = "Qualquer botão para voltar"
+text = "B no controle ou qualquer tecla para voltar"
 horizontal_alignment = 1
+
+[node name="TelaControles" parent="." instance=ExtResource("6_controles")]

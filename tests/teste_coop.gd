@@ -126,79 +126,60 @@ func _teste_rua() -> void:
 
 
 func _teste_boss() -> void:
-	print("== Boss: Riff em revezamento")
+	print("== Boss: Riffs independentes")
 	change_scene_to_file("res://fases/boss_1/boss_1.tscn")
 	await esperar(0.6)
 	var cena = current_scene
-	var riff = cena.riff_hud
+	var riff_p1 = cena.riffs[1]
+	var riff_p2 = cena.riffs[2]
 	var p1 = jogo.jogador_por_id(1)
 	var p2 = jogo.jogador_por_id(2)
-	checar(p1 != null and p2 != null, "os dois jogadores no boss")
-	# Ninguém toma dano no meio do teste (com a vida compartilhada isso cura o boss)
 	p1.invencivel = true
 	p2.invencivel = true
+	cena.boss.usar_fases = false
+	checar(riff_p1.global_position.x < riff_p2.global_position.x, "pistas do P1 à esquerda e do P2 à direita")
 
 	await apertar("p2_riff_mode")
-	checar(cena.riff_ativo and p1.bloqueado and p2.bloqueado, "P2 abre o Riff e os dois ficam tocando")
+	checar(riff_p2.tocando and riff_p2.visible and p2.bloqueado, "P2 abre o próprio Riff")
+	checar(not riff_p1.tocando and not riff_p1.visible and not p1.bloqueado, "P1 continua livre")
+	await esperar(1.0)
+	checar(not riff_p2._notas().is_empty() and riff_p2._notas().all(func(nota): return nota.dono == 2), "P2 recebe apenas as próprias notas")
 
-	riff.bpm = 600.0
-	riff.chance_notas_juntas = 0.0
-	await esperar(2.2)
-	var donos = []
-	for nota in riff._notas():
-		donos.append(nota.dono)
-	donos.reverse() # a mais antiga primeiro
-	print("  donos das notas: ", donos)
-	var trocas = 0
-	for i in range(1, donos.size()):
-		if donos[i] != donos[i - 1]:
-			trocas += 1
-	checar(donos.size() >= 8 and 1 in donos and 2 in donos and trocas <= donos.size() / 4 + 1, "notas em blocos alternando P1 e P2")
-
-	# Notas juntas: na mesma batida, uma do P1 e uma do P2
-	for n in riff._notas():
-		n.queue_free()
-	riff.chance_notas_juntas = 1.0
-	await esperar(1.5)
-	var por_altura = {}
-	for n in riff._notas():
-		var chave = roundi(n.position.y / 4.0)
-		por_altura[chave] = por_altura.get(chave, []) + [n.dono]
-	var pares = por_altura.values().filter(func(d): return d.size() == 2 and 1 in d and 2 in d)
-	checar(pares.size() >= 3, "notas juntas: P1 e P2 na mesma batida (%d pares)" % pares.size())
-	var teclas_p1 = ["tecla_a.png", "tecla_w.png", "tecla_s.png", "tecla_d.png"]
-	var notas_p1 = riff._notas().filter(func(n): return n.dono == 1)
-	checar(not notas_p1.is_empty() and notas_p1.all(func(n): return n.seta.texture.resource_path.get_file() in teclas_p1), "notas do P1 mostram A W S D")
-	riff.chance_notas_juntas = 0.0
-
-	# Só o dono da nota acerta
-	riff.parar_riff()
-	await process_frame
-	riff.tocando = true
 	var vida = cena.boss.vida_atual
-	var nota = riff.cena_nota.instantiate()
-	riff.notas_container.add_child(nota)
-	nota.coluna = 1 # pista ↑
-	nota.dono = 2
-	nota.velocidade = 0.0
-	nota.position = Vector2(74, riff.posicao_acerto)
-	riff.verificar_nota(1, 1)
-	checar(cena.boss.vida_atual == vida and is_instance_valid(nota) and not nota.acertada, "P1 não acerta nota do P2")
-	await apertar("p2_riff_cima")
-	checar(cena.boss.vida_atual == vida - cena.boss.dano_da_nota(true), "P2 acerta a própria nota pelo controle (PERFECT)")
-
-	# Com um caído, todas as notas vão para quem está de pé
-	p2.morrer()
-	await esperar(0.1)
-	riff.notas_no_bloco = 0
-	var donos_solo = []
-	for i in 6:
-		donos_solo.append(riff._proximo_dono())
-	checar(donos_solo.all(func(d): return d == 1), "P2 caído: notas só do P1")
+	var dano = riff_p2.dano_perfect
+	_nota_na_linha(riff_p2)
+	await apertar("p1_riff_esquerda")
+	checar(is_equal_approx(cena.boss.vida_atual, vida), "P1 não acerta nota do P2")
+	await apertar("p2_riff_esquerda")
+	checar(is_equal_approx(cena.boss.vida_atual, vida - dano * 0.5), "acerto do P2 sozinho causa 0,5x")
 
 	await apertar("p1_riff_mode")
-	checar(not cena.riff_ativo and not p1.bloqueado, "P1 fecha o Riff")
-	p2.reviver()
+	checar(riff_p1.tocando and riff_p2.tocando, "P1 pode entrar com o Riff do P2 aberto")
+	vida = cena.boss.vida_atual
+	_nota_na_linha(riff_p1)
+	await apertar("p1_riff_esquerda")
+	checar(is_equal_approx(cena.boss.vida_atual, vida - dano), "acerto em dupla causa 1x de dano")
+
+	await apertar("p1_dodge")
+	checar(not riff_p1.tocando and riff_p1.travado() and not p1.bloqueado and p1.recarga_dodge_restante > 0.0, "P1 sai do próprio Riff esquivando")
+	checar(riff_p2.tocando and not riff_p2.travado() and p2.bloqueado, "P2 continua tocando")
+
+	await esperar(p1.duracao_dodge + 0.1)
+	p1.invencivel = false
+	p1.timer_invencibilidade.stop()
+	p1.receber_dano(1)
+	checar(riff_p2.tocando, "dano em P1 não interrompe o Riff de P2")
+	p2.invencivel = false
+	p2.timer_invencibilidade.stop()
+	p2.receber_dano(1)
+	checar(not riff_p2.tocando and riff_p2.trava_total == riff_p2.trava_por_dano, "dano em P2 interrompe e trava suas pistas")
+
+
+func _nota_na_linha(riff) -> void:
+	riff._criar_nota(0, riff.id_jogador, false)
+	var nota = riff._notas().back()
+	nota.velocidade = 0.0
+	nota.position.y = riff.posicao_acerto
 
 
 func _teste_solo() -> void:

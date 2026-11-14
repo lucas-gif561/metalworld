@@ -6,11 +6,13 @@ extends CanvasLayer
 ## do menu principal. Roda com o jogo pausado (process_mode = Sempre).
 ##
 ## Navegação: setas, WASD, direcional ou analógico de qualquer jogador.
-## Confirmar: Enter, Espaço, F, J, A. Voltar ao jogo: Esc / P / START de novo.
+## Confirmar: Enter, Espaço, F, J, A. Voltar ao jogo: Esc, P, B ou START.
 
 const ESPERA_NAVEGACAO = 0.18
 
+@onready var moldura = $Moldura
 @onready var menu = $Moldura/Menu
+@onready var controles = $TelaControles
 @onready var botao_remover_p2 = $Moldura/Menu/RemoverP2
 
 var _proxima_navegacao := 0.0
@@ -19,6 +21,8 @@ var _proxima_navegacao := 0.0
 func _ready() -> void:
 	hide()
 	$Moldura/Menu/Continuar.pressed.connect(continuar)
+	$Moldura/Menu/Controles.pressed.connect(_abrir_controles)
+	controles.fechada.connect(_fechar_controles)
 	botao_remover_p2.pressed.connect(_remover_p2)
 	$Moldura/Menu/MenuPrincipal.pressed.connect(_ir_ao_menu)
 	for botao in menu.get_children():
@@ -38,9 +42,22 @@ func abrir() -> void:
 
 
 func continuar() -> void:
+	controles.hide()
+	moldura.show()
 	hide()
 	get_tree().paused = false
 	Audio.pausar_musica(false)
+
+
+func _abrir_controles() -> void:
+	Audio.tocar("ui_confirma", 0.0)
+	moldura.hide()
+	controles.abrir()
+
+
+func _fechar_controles() -> void:
+	moldura.show()
+	$Moldura/Menu/Controles.grab_focus()
 
 
 func _remover_p2() -> void:
@@ -59,6 +76,20 @@ func _pode_pausar() -> bool:
 	return Jogo.esta_em_fase() and not get_tree().paused and not (hud and hud.tela_fim.visible)
 
 
+func _input(event: InputEvent) -> void:
+	if not visible or controles.visible or not event is InputEventJoypadButton:
+		return
+	if event.button_index == JOY_BUTTON_B:
+		if event.pressed:
+			continuar()
+		get_viewport().set_input_as_handled()
+	elif event.button_index == JOY_BUTTON_A:
+		var focado = get_viewport().gui_get_focus_owner()
+		if event.pressed and focado is Button and focado.is_visible_in_tree():
+			focado.pressed.emit()
+		get_viewport().set_input_as_handled()
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not visible:
 		if _apertou(event, "pausar") and _pode_pausar():
@@ -66,13 +97,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		return
 
-	if _apertou(event, "pausar"):
+	if _apertou(event, "pausar") or event.is_action_pressed("ui_cancel"):
 		continuar()
 	elif _apertou(event, "mover_cima"):
 		_navegar(-1)
 	elif _apertou(event, "mover_baixo"):
 		_navegar(1)
-	elif _apertou(event, "atacar"):
+	elif not event is InputEventJoypadButton and _apertou(event, "atacar"):
 		var focado = get_viewport().gui_get_focus_owner()
 		if focado is Button:
 			focado.pressed.emit()
