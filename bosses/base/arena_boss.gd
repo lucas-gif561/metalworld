@@ -4,14 +4,11 @@ extends Node2D
 ## A cena precisa ter:
 ##   - um boss (qualquer nó com script "extends Boss")
 ##   - Player (o P1; o P2 é criado sozinho se estiver jogando)
-##   - HUD/BossHealthBar, HUD/CaboDeForca, HUD/RiffHUD (riff/riff_hud.tscn)
+##   - HUD/BossHealthBar, HUD/CaboDeForca e duas instâncias de riff/riff_hud.tscn (RiffHUD e RiffHUDP2)
 ##   - HudJogo (instância de ui/hud.tscn)
 ##
-## Riff: qualquer jogador aperta o botão do Riff para começar e o mesmo botão
-## para sair. Durante o Riff os dois ficam parados tocando, em revezamento.
-## Dano em qualquer jogador (inclusive da nota maldita) expulsa os dois.
-## Depois de sair, o Riff trava um tempo (RiffHUD: trava_ao_sair e
-## trava_por_dano); o HUD mostra uma ampulheta enchendo até liberar.
+## Cada jogador abre e fecha o próprio Riff. Dano interrompe apenas o atingido.
+## A troca de fase do boss encerra os dois Riffs.
 ##
 ## Cabo de força (usar_cabo_de_forca): a dupla divide UMA vida contra o boss.
 ## Dano em qualquer jogador enche o boss; dano no boss enche a dupla.
@@ -26,9 +23,12 @@ extends Node2D
 @onready var boss_health_bar = $HUD/BossHealthBar
 @onready var cabo = $HUD/CaboDeForca
 @onready var riff_hud = $HUD/RiffHUD
+@onready var riffs = {1: riff_hud, 2: $HUD/RiffHUDP2}
 @onready var hud = $HudJogo
 
-var riff_ativo = false
+var riff_ativo: bool:
+	get:
+		return riffs.values().any(func(riff): return riff.tocando)
 var fim_de_jogo = false
 var venceu = false
 var vida_dupla := 0
@@ -41,11 +41,16 @@ func _ready() -> void:
 	Jogo.preparar_jogadores(self)
 	Jogo.game_over.connect(_ao_game_over)
 	Jogo.jogador_entrou.connect(_ao_jogador_entrar)
+	Jogo.jogador_saiu.connect(_encerrar_riff_de)
 	for jogador in Jogo.jogadores:
 		_ligar_dano_no_riff(jogador)
 	Audio.tocar_musica("boss")
 
-	riff_hud.boss = boss
+	for id_jogador in riffs:
+		var riff = riffs[id_jogador]
+		riff.boss = boss
+		riff.parceiro = riffs[3 - id_jogador]
+		riff.hide()
 	boss_health_bar.max_value = boss.vida_maxima
 	boss_health_bar.value = boss.vida_atual
 	boss.vida_atualizada.connect(_atualizar_barra_boss)
@@ -59,9 +64,8 @@ func _ready() -> void:
 		cabo.hide()
 
 	hud.mostrar_titulo(Jogo.nome_fase_atual().to_upper())
-	hud.mostrar_aviso("Q / I / LB: " + texto_inicio, 6.0)
+	hud.mostrar_aviso("T / I / A: " + texto_inicio, 6.0)
 	boss.ciclo_ataques()
-	riff_hud.hide()
 
 
 func limites_arena() -> Rect2:
@@ -70,8 +74,6 @@ func limites_arena() -> Rect2:
 
 func _ao_jogador_entrar(jogador) -> void:
 	_ligar_dano_no_riff(jogador)
-	jogador.bloqueado = riff_ativo
-	jogador.em_riff = riff_ativo
 	if usar_cabo_de_forca:
 		_ligar_vida_compartilhada(jogador)
 
@@ -137,21 +139,28 @@ func _atualizar_barra_boss(vida):
 
 
 func _encerrar_riff():
-	riff_ativo = false
-	riff_hud.parar_riff()
-	riff_hud.hide()
-	for jogador in Jogo.jogadores:
+	for id_jogador in riffs:
+		_encerrar_riff_de(id_jogador)
+
+
+func _encerrar_riff_de(id_jogador: int) -> void:
+	var riff = riffs[id_jogador]
+	if not riff.tocando:
+		return
+	riff.parar_riff()
+	riff.hide()
+	var jogador = Jogo.jogador_por_id(id_jogador)
+	if jogador != null:
 		jogador.bloqueado = false
 		jogador.em_riff = false
 
 
-func _abrir_riff():
-	riff_ativo = true
-	for jogador in Jogo.jogadores:
-		jogador.bloqueado = true
-		jogador.em_riff = true # saca a guitarra e toca
-	riff_hud.show()
-	riff_hud.iniciar_riff()
+func _abrir_riff(jogador) -> void:
+	var riff = riffs[jogador.id_jogador]
+	jogador.bloqueado = true
+	jogador.em_riff = true
+	riff.show()
+	riff.iniciar_riff()
 
 
 func _ao_game_over():
@@ -178,15 +187,24 @@ func _apertou(nome: String) -> bool:
 
 
 func _ligar_dano_no_riff(jogador) -> void:
-	if not jogador.dano_sofrido.is_connected(_ao_dano_no_riff):
-		jogador.dano_sofrido.connect(_ao_dano_no_riff)
+	var id_jogador: int = jogador.id_jogador
+	jogador.dano_sofrido.connect(_ao_dano_no_riff.bind(id_jogador))
+	jogador.morreu.connect(_encerrar_riff_de.bind(id_jogador))
+	jogador.esquiva_iniciada.connect(_ao_sair_do_riff.bind(id_jogador))
 
 
-## Qualquer dano em qualquer jogador tira os dois do Riff (trava longa)
-func _ao_dano_no_riff(_valor) -> void:
-	if riff_ativo and boss.vida_atual > 0:
-		_encerrar_riff()
-		riff_hud.travar(riff_hud.trava_por_dano)
+func _ao_sair_do_riff(id_jogador: int) -> void:
+	var riff = riffs[id_jogador]
+	if riff.tocando:
+		_encerrar_riff_de(id_jogador)
+		riff.travar(riff.trava_ao_sair)
+
+
+func _ao_dano_no_riff(valor, id_jogador: int) -> void:
+	var riff = riffs[id_jogador]
+	if valor > 0 and riff.tocando and boss.vida_atual > 0:
+		_encerrar_riff_de(id_jogador)
+		riff.travar(riff.trava_por_dano)
 
 
 func _process(_delta: float) -> void:
@@ -201,13 +219,17 @@ func _process(_delta: float) -> void:
 	if boss.vida_atual <= 0:
 		return
 
-	if _apertou("riff_mode"):
-		if riff_ativo:
-			_encerrar_riff()
-			riff_hud.travar(riff_hud.trava_ao_sair)
-		elif riff_hud.travado():
-			hud.recusar_riff()
-		else:
-			_abrir_riff()
+	for jogador in Jogo.jogadores_vivos():
+		var id_jogador: int = jogador.id_jogador
+		var riff = riffs[id_jogador]
+		if not jogador.entrando and Input.is_action_just_pressed(jogador.acao("riff_mode")):
+			if riff.tocando:
+				_ao_sair_do_riff(id_jogador)
+			elif riff.travado():
+				hud.recusar_riff(id_jogador)
+			elif not jogador.esquivando:
+				_abrir_riff(jogador)
 
-	hud.mostrar_trava_riff(riff_hud.progresso_trava())
+	for id_jogador in riffs:
+		var progresso: float = riffs[id_jogador].progresso_trava() if Jogo.jogador_por_id(id_jogador) != null else 1.0
+		hud.mostrar_trava_riff(progresso, id_jogador)

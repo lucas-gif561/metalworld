@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var cura: float = 1.0
+@export var cura: float = 2.0
 
 @onready var sprite = $Sprite2D
 

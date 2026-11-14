@@ -2,7 +2,7 @@ extends Area2D
 
 @export var velocidade = 350.0
 @export var alcance = 550.0
-@export var dano = 2
+@export var dano = 1
 
 var direcao = 1
 var distancia = 0.0

@@ -22,7 +22,7 @@ const TECLAS_P1 = [
 
 var coluna: int = 0
 var maldita = false # nota vermelha: machuca quem tocar
-var dono: int = 1 # jogador que deve acertar esta nota (revezamento)
+var dono: int = 1 # jogador que deve acertar esta nota
 var acertada = false
 
 

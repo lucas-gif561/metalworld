@@ -47,7 +47,7 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 
 **Proposta.** Unir os dois:
 - **Nas ruas**, combate corpo a corpo justo e legível: inimigos avisam antes de bater, há profundidade (dá para passar na frente/atrás) e cooperação (levantar o parceiro caído).
-- **No chefe**, a música é a arma. O chefe só perde vida pelo **Riff**: notas descem em pistas e os jogadores acertam no tempo. Em dupla, as notas vêm em **revezamento** (blocos de 4 notas, cada jogador na sua cor), e a dupla divide **uma vida só** contra o chefe (cabo de força).
+- **No chefe**, a música é a arma. O chefe só perde vida pelo **Riff**: notas descem em pistas e os jogadores acertam no tempo. Em dupla, cada jogador tem **pistas próprias** (P1 à esquerda e P2 à direita), e a dupla divide **uma vida só** contra o chefe (cabo de força).
 - **Tema de inclusão.** O protagonista é surdo, e a música aparece também de forma **visual**: notas coloridas, aviso "RIFF!" e feedback na tela, para jogar sem depender só do som.
 
 ## 3. Público-alvo
@@ -71,7 +71,7 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 | RF07 | Objetos quebráveis (barris e caixotes) que soltam comida que cura | ✅ Implementado |
 | RF08 | Jogador caído pode ser levantado pelo parceiro; game over só com os dois caídos | ✅ Implementado |
 | RF09 | Chefe que só toma dano pelo minigame de ritmo (Riff) | ✅ Implementado |
-| RF10 | Riff em revezamento entre os dois jogadores, com notas por cor | ✅ Implementado |
+| RF10 | Riff independente para cada jogador, com pistas por cor | ✅ Implementado |
 | RF11 | Chefe com fases, escudo de runas, capangas, teleporte e nota maldita | ✅ Implementado (Boss 1) |
 | RF12 | Vida compartilhada da dupla contra o chefe (cabo de força) | ✅ Implementado |
 | RF13 | Sequência de 6 fases, voltando ao menu ao fim | ✅ Implementado |
@@ -109,9 +109,9 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 
 ![Riff no boss](imagens/boss_riff.png)
 
-- **Riff** (Q / I / LB abre e fecha): notas descem em 4 pistas a 150 BPM, no tempo da música. O P1 toca com A W S D e o P2 com as setas (ou X Y A B). PERFECT e GOOD ferem o chefe. Quanto mais tempo no Riff, mais rápido as notas caem (até 1,6x).
-- **Revezamento**: em dupla, blocos de 4 notas alternam P1 (rosa) e P2 (azul); só o dono acerta a própria nota. Às vezes vem uma sequência de notas juntas, uma de cada jogador na mesma batida.
-- **Risco do Riff**: só a tecla do Riff fecha o modo. Qualquer dano em qualquer jogador, inclusive da nota maldita, expulsa os dois e trava o Riff por 10 s; sair por conta própria trava por 3 s. Uma ampulheta no HUD enche até liberar. Com o chefe fora do descanso, um "!" pisca ao lado das pistas: hora de decidir se continua tocando.
+- **Riff** (T / I / A abre e fecha): notas descem em 4 pistas a 150 BPM, no tempo da música. O P1 toca com A W S D e o P2 com as setas (ou LT LB RB RT). PERFECT e GOOD ferem o chefe. Quanto mais tempo no Riff, mais rápido as notas caem (até 1,6x).
+- **Riff em dupla**: P1 toca à esquerda e P2 à direita. Cada acerto causa 0,5× de dano com um jogador tocando ou 1× com os dois tocando.
+- **Risco do Riff**: dano, inclusive de nota maldita, encerra o Riff de quem foi atingido e trava suas pistas por 10 s. Sair voluntariamente, inclusive com uma esquiva, trava por 3 s. Cada jogador tem sua ampulheta. O "!" pisca enquanto o chefe está fora do descanso.
 - **Descanso**: o chefe se ajoelha e mostra "RIFF!": a hora segura de tocar.
 - **Fases do chefe** (66% e 33% da vida): ataques novos, ritmo mais rápido, nota maldita e escudo.
 - **Escudo de runas**: o Riff não fere até a dupla quebrar as runas no soco.
@@ -284,10 +284,10 @@ classDiagram
 |---|---|---|---|
 | Mover | W A S D | Setas | Analógico / direcional |
 | Socar | F | J | X |
-| Dodge | G | K | A / RB |
-| Interagir / levantar parceiro | E | L | B |
-| Abrir/fechar Riff | Q | I | LB |
-| Notas do Riff (← ↑ ↓ →) | W A S D | Setas | X / Y / A / B ou direcional |
+| Dodge | G | K | B |
+| Interagir / levantar parceiro | Y | L | RB |
+| Abrir/fechar Riff | T | I | A |
+| Notas do Riff (← ↑ ↓ →) | W A S D | Setas | LT / LB / RB / RT |
 | Entrar na partida / reiniciar | R | J | START |
 | Pausar | Esc | P | START |
 
@@ -302,7 +302,7 @@ tests/rodar_testes.sh
 | Teste | O que verifica |
 |---|---|
 | `teste_fases.gd` | Joga as 6 fases em sequência com 2 jogadores até voltar ao menu |
-| `teste_coop.gd` | Entrada do P2, mira dos inimigos, levantar parceiro, game over, Riff em revezamento, reiniciar no meio do chefe, pause e remover o P2 |
+| `teste_coop.gd` | Entrada do P2, mira dos inimigos, levantar parceiro, game over, Riff independente, reiniciar no meio do chefe, pause e remover o P2 |
 | `teste_combate.gd` | Socos (alcance, faixa, empurrão), carga dos inimigos, atirador, profundidade, guitarra no Riff, tamanhos |
 | `teste_novidades.gd` | Impacto, caixote e comida, ataques do chefe, escudo, fases, nota maldita, cabo de força |
 | `teste_ia.gd` | IA de grupo: no máximo 2 atacando, revezamento, rodear à distância, não empilhar, vagas por jogador no co-op |
