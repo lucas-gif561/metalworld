@@ -1,19 +1,7 @@
-[gd_resource type="Theme" format=3]
+[gd_resource type="Theme" format=3 uid="uid://cg0acrc3bqg6k"]
 
-[ext_resource type="Texture2D" path="res://ui/sprites/botao_menu.png" id="1_apagado"]
-[ext_resource type="Texture2D" path="res://ui/sprites/botao_menu_aceso.png" id="2_aceso"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_apagado"]
-content_margin_left = 28.0
-content_margin_top = 8.0
-content_margin_right = 28.0
-content_margin_bottom = 10.0
-texture = ExtResource("1_apagado")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-axis_stretch_horizontal = 2
+[ext_resource type="Texture2D" uid="uid://0nvcpthestpv" path="res://ui/sprites/botao_menu.png" id="1_apagado"]
+[ext_resource type="Texture2D" uid="uid://b3rl5r7iqh0nf" path="res://ui/sprites/botao_menu_aceso.png" id="2_aceso"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aceso"]
 content_margin_left = 28.0
@@ -21,6 +9,18 @@ content_margin_top = 8.0
 content_margin_right = 28.0
 content_margin_bottom = 10.0
 texture = ExtResource("2_aceso")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
+axis_stretch_horizontal = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_apagado"]
+content_margin_left = 28.0
+content_margin_top = 8.0
+content_margin_right = 28.0
+content_margin_bottom = 10.0
+texture = ExtResource("1_apagado")
 texture_margin_left = 24.0
 texture_margin_top = 24.0
 texture_margin_right = 24.0

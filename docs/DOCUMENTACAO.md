@@ -95,7 +95,7 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 
 ![Rua em dupla](imagens/rua_dupla.png)
 
-- **Socos alternados** (J / X): jab (1 de dano) e direto (2, empurra). O jogador para para bater; apertar durante o golpe guarda o próximo.
+- **Socos alternados** (F / J / X): jab (1 de dano) e direto (2, empurra). O jogador para para bater; apertar durante o golpe guarda o próximo.
 - **Dodge** (K / A) com stamina: atravessa inimigos e tiros.
 - **Inimigos**: normal, rápido, atirador (tiro na faixa) e tanque (granada que estoura em 8 balas). Todos **carregam o golpe** piscando branco: dá para sair da faixa, desviar ou socar para cancelar. **IA de grupo** (estilo Castle Crashers): cada jogador tem 2 vagas de ataque, uma de cada lado; quem pega a vaga bate 2 vezes, recua e dá a vez, e os outros cercam o jogador pelos dois lados, à distância.
 - **Profundidade**: colisão só nos pés; personagens passam na frente/atrás uns dos outros e dos objetos.
@@ -109,9 +109,9 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 
 ![Riff no boss](imagens/boss_riff.png)
 
-- **Riff** (Espaço / LB abre e fecha): notas descem em 4 pistas a 150 BPM, no tempo da música. O P1 toca com A W S D e o P2 com as setas (ou X Y A B). PERFECT e GOOD ferem o chefe. Quanto mais tempo no Riff, mais rápido as notas caem (até 1,6x).
+- **Riff** (Q / I / LB abre e fecha): notas descem em 4 pistas a 150 BPM, no tempo da música. O P1 toca com A W S D e o P2 com as setas (ou X Y A B). PERFECT e GOOD ferem o chefe. Quanto mais tempo no Riff, mais rápido as notas caem (até 1,6x).
 - **Revezamento**: em dupla, blocos de 4 notas alternam P1 (rosa) e P2 (azul); só o dono acerta a própria nota. Às vezes vem uma sequência de notas juntas, uma de cada jogador na mesma batida.
-- **Risco do Riff**: só a tecla do Riff fecha o modo. Qualquer dano em qualquer jogador, inclusive da nota maldita, expulsa os dois e trava o Riff por 30 s; sair por conta própria trava por 10 s. Uma ampulheta no HUD enche até liberar. Com o chefe fora do descanso, um "!" pisca ao lado das pistas: hora de decidir se continua tocando.
+- **Risco do Riff**: só a tecla do Riff fecha o modo. Qualquer dano em qualquer jogador, inclusive da nota maldita, expulsa os dois e trava o Riff por 10 s; sair por conta própria trava por 3 s. Uma ampulheta no HUD enche até liberar. Com o chefe fora do descanso, um "!" pisca ao lado das pistas: hora de decidir se continua tocando.
 - **Descanso**: o chefe se ajoelha e mostra "RIFF!": a hora segura de tocar.
 - **Fases do chefe** (66% e 33% da vida): ataques novos, ritmo mais rápido, nota maldita e escudo.
 - **Escudo de runas**: o Riff não fere até a dupla quebrar as runas no soco.
@@ -280,15 +280,16 @@ classDiagram
 
 ## 9. Controles
 
-| Ação | P1 (teclado) | P2 (controle) |
-|---|---|---|
-| Mover | WASD | Analógico / direcional |
-| Socar | J | X |
-| Dodge | K | A / RB |
-| Interagir / levantar parceiro | E | B |
-| Abrir/fechar Riff | Espaço | LB |
-| Notas do Riff (← ↑ ↓ →) | Setas | X / Y / A / B ou direcional |
-| Entrar na partida / reiniciar | Enter / R | START |
+| Ação | P1 (teclado, esquerda) | P2 (teclado, direita) | P2 (controle) |
+|---|---|---|---|
+| Mover | W A S D | Setas | Analógico / direcional |
+| Socar | F | J | X |
+| Dodge | G | K | A / RB |
+| Interagir / levantar parceiro | E | L | B |
+| Abrir/fechar Riff | Q | I | LB |
+| Notas do Riff (← ↑ ↓ →) | W A S D | Setas | X / Y / A / B ou direcional |
+| Entrar na partida / reiniciar | R | J | START |
+| Pausar | Esc | P | START |
 
 ## 10. Qualidade e testes
 
@@ -338,7 +339,7 @@ O script falha se **qualquer** teste falhar ou se aparecer erro de script durant
 
 1. Instale o **Godot 4.7** (versão padrão, sem .NET).
 2. Abra o arquivo `project.godot` e aperte **F5**.
-3. Para jogar em dupla, conecte um controle (o P2 usa o controle; sem controle, o P2 tem teclado reserva: setas, Ctrl e Shift direitos).
+3. Para jogar em dupla, dividam o teclado (P1 na metade esquerda, P2 na direita) ou conectem um controle para o P2.
 
 ## 14. Créditos e licenças
 

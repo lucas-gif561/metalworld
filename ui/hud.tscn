@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" path="res://ui/sprites/seta.png" id="6_seta"]
 [ext_resource type="PackedScene" path="res://ui/menu_pausa.tscn" id="7_pausa"]
 [ext_resource type="Texture2D" path="res://ui/sprites/botao_a.png" id="8_botao_a"]
-[ext_resource type="Texture2D" path="res://ui/sprites/tecla_ctrl.png" id="9_ctrl"]
+[ext_resource type="Texture2D" path="res://ui/sprites/tecla_j.png" id="9_tecla_j"]
 [ext_resource type="Texture2D" path="res://ui/sprites/ampulheta.png" id="10_ampulheta"]
 
 [sub_resource type="Animation" id="Animation_vaga"]
@@ -492,11 +492,10 @@ expand_mode = 1
 [node name="TeclaTeclado" type="TextureRect" parent="VagaP2/Botoes"]
 visible = false
 layout_mode = 0
-offset_top = 8.0
-offset_right = 64.0
-offset_bottom = 40.0
+offset_right = 48.0
+offset_bottom = 48.0
 mouse_filter = 2
-texture = ExtResource("9_ctrl")
+texture = ExtResource("9_tecla_j")
 expand_mode = 1
 
 [node name="Piscar" type="AnimationPlayer" parent="VagaP2"]

@@ -4,6 +4,9 @@
 [ext_resource type="SpriteFrames" path="res://personagens/dylan/sprites/dylan.tres" id="3_frames"]
 [ext_resource type="Script" path="res://personagens/dylan/anel_jogador.gd" id="4_anel"]
 [ext_resource type="Script" path="res://personagens/dylan/indicador_reviver.gd" id="5_reviver"]
+[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_e.png" id="6_tecla_e"]
+[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_l.png" id="7_tecla_l"]
+[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/botao_b.png" id="8_botao_b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qf7sd"]
 size = Vector2(36, 16)
@@ -51,14 +54,11 @@ visible = false
 z_index = 10
 position = Vector2(0, -35)
 script = ExtResource("5_reviver")
+icone_teclado_p1 = ExtResource("6_tecla_e")
+icone_teclado_p2 = ExtResource("7_tecla_l")
+icone_controle = ExtResource("8_botao_b")
 
-[node name="Texto" type="Label" parent="IndicadorReviver"]
-offset_left = -60.0
-offset_top = -42.0
-offset_right = 60.0
-offset_bottom = -22.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 14
-text = "SEGURE E / B"
-horizontal_alignment = 1
+[node name="Botao" type="Sprite2D" parent="IndicadorReviver"]
+position = Vector2(0, -36)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_tecla_e")

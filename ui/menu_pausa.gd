@@ -1,12 +1,12 @@
 extends CanvasLayer
-## Menu de pause: ESC (P1) ou START (de quem está jogando).
+## Menu de pause: Esc (P1), P (P2 no teclado) ou START (de quem está jogando).
 ##
 ## Continuar, remover o jogador 2 (ele pode entrar de novo com START) ou
 ## voltar ao menu principal. Visual na cena (menu_pausa.tscn), no mesmo tema
 ## do menu principal. Roda com o jogo pausado (process_mode = Sempre).
 ##
 ## Navegação: setas, WASD, direcional ou analógico de qualquer jogador.
-## Confirmar: Enter, Espaço, J, A. Voltar ao jogo: ESC / START de novo.
+## Confirmar: Enter, Espaço, F, J, A. Voltar ao jogo: Esc / P / START de novo.
 
 const ESPERA_NAVEGACAO = 0.18
 

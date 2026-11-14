@@ -27,16 +27,18 @@ Dylan Walker nasceu surdo e descobriu o heavy metal no dia em que ganhou um apar
 
 ## Como jogar
 
-| Ação | P1 (teclado) | P2 (controle) |
-|---|---|---|
-| Mover | WASD | Analógico / direcional |
-| Socar | J | X |
-| Dodge | K | A / RB |
-| Interagir / levantar parceiro | E | B |
-| Abrir/fechar Riff | Espaço | LB |
-| Notas do Riff (← ↑ ↓ →) | A W S D | Setas / X Y A B |
-| Entrar / reiniciar | Enter / R | START |
-| Pausar (e remover o P2) | Esc | START |
+| Ação | P1 (teclado, esquerda) | P2 (teclado, direita) | P2 (controle) |
+|---|---|---|---|
+| Mover | W A S D | Setas | Analógico / direcional |
+| Socar | F | J | X |
+| Dodge | G | K | A / RB |
+| Interagir / levantar parceiro | E | L | B |
+| Abrir/fechar Riff | Q | I | LB |
+| Notas do Riff (← ↑ ↓ →) | W A S D | Setas | Direcional / X Y A B |
+| Entrar / reiniciar | R | J | START |
+| Pausar (e remover o P2) | Esc | P | START |
+
+Dá para jogar em dupla num teclado só: cada um fica com uma metade.
 
 ## Como executar
 

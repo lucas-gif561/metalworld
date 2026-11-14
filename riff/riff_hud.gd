@@ -35,9 +35,9 @@ const TECLAS = ["riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 
 @export_group("Trava")
 ## Segundos sem poder abrir o Riff depois de levar dano tocando
-@export var trava_por_dano: float = 30.0
+@export var trava_por_dano: float = 10.0
 ## Segundos sem poder abrir o Riff depois de fechar por conta própria
-@export var trava_ao_sair: float = 10.0
+@export var trava_ao_sair: float = 3.0
 
 @export_group("Dificuldade")
 ## Quanto a velocidade das notas sobe por segundo de Riff (0,03 = +3%/s)

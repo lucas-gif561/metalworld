@@ -425,7 +425,7 @@ func morrer():
 	sprite.modulate = Color.WHITE
 	Audio.tocar("morte_dylan", 0.0)
 	_tocar_acao("death")
-	_indicador.show()
+	_indicador.mostrar_para(2 if id_jogador == 1 else 1)
 	morreu.emit()
 
 

@@ -6,17 +6,18 @@ extends Control
 ## Controles/Créditos. Aqui fica só o comportamento.
 ##
 ## Navegação: setas, WASD, direcional ou analógico de qualquer jogador.
-## Confirmar: Enter, Espaço, J, A ou START.
+## Confirmar: Enter, Espaço, F, J, A ou START.
 
-const TEXTO_CONTROLES = """P1 (teclado): WASD mover · J socar · K dodge · E interagir e levantar
-Espaço abre e fecha o Riff · A W S D tocam as notas · R reinicia
+const TEXTO_CONTROLES = """P1 (lado esquerdo): W A S D mover · F socar · G dodge · E interagir
+Q abre e fecha o Riff · W A S D tocam as notas · Esc pausa · R reinicia
 
-P2 (controle): analógico mover · X socar · A dodge · B interagir e levantar
-LB abre e fecha o Riff · Direcional ou X Y A B tocam · START entra e reinicia
+P2 (lado direito): setas mover · J socar · K dodge · L interagir
+I abre e fecha o Riff · setas tocam as notas · P pausa · J entra
+No controle: analógico · X socar · A dodge · B interagir · LB Riff · START
 
-ESC / START pausa (e permite remover o P2).
-Caído? O parceiro segura E / B perto para levantar.
-No boss, só o Riff fere: abra quando ele se ajoelhar. Levou dano? O Riff trava."""
+Caído? O parceiro segura o botão de interagir perto para levantar.
+No boss, só o Riff fere: toque quando ele se ajoelhar.
+Levou dano tocando? O Riff trava por um tempo."""
 
 const TEXTO_CREDITOS = """MetalWorld — projeto da disciplina
 

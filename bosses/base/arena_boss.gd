@@ -59,7 +59,7 @@ func _ready() -> void:
 		cabo.hide()
 
 	hud.mostrar_titulo(Jogo.nome_fase_atual().to_upper())
-	hud.mostrar_aviso("ESPAÇO / LB: " + texto_inicio, 6.0)
+	hud.mostrar_aviso("Q / I / LB: " + texto_inicio, 6.0)
 	boss.ciclo_ataques()
 	riff_hud.hide()
 

@@ -394,7 +394,7 @@ func ativar_escudo(prefixo := "") -> bool:
 		runa.quebrada.connect(_ao_quebrar_runa)
 		get_parent().add_child(runa)
 
-	anuncio.emit(prefixo + "Escudo ativo! Quebrem as runas na porrada (J / X)")
+	anuncio.emit(prefixo + "Escudo ativo! Quebrem as runas na porrada (F / J / X)")
 	return true
 
 
@@ -450,7 +450,7 @@ func _criar_sinal_riff():
 		sinal_riff.hide()
 		return
 	sinal_riff = Label.new()
-	sinal_riff.text = "RIFF!\nESPAÇO / LB"
+	sinal_riff.text = "RIFF!\nQ / I / LB"
 	sinal_riff.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sinal_riff.size = Vector2(200, 60)
 	sinal_riff.position = Vector2(-100, -115)

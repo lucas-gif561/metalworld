@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s5knwwac41b0"
-path="res://.godot/imported/tecla_ctrl.png-ec12906593dd91110eeb4a562d2f21e2.ctex"
+uid="uid://c56dr26f6nb8p"
+path="res://.godot/imported/tecla_l.png-b5c9aa95c28fdb66087a94d562785d7d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/sprites/tecla_ctrl.png"
-dest_files=["res://.godot/imported/tecla_ctrl.png-ec12906593dd91110eeb4a562d2f21e2.ctex"]
+source_file="res://personagens/dylan/sprites/tecla_l.png"
+dest_files=["res://.godot/imported/tecla_l.png-b5c9aa95c28fdb66087a94d562785d7d.ctex"]
 
 [params]
 

@@ -70,19 +70,19 @@ O jogo tem **1 ou 2 jogadores**, e o P2 pode entrar no meio da fase. Por isso:
 4. Jogador com vida zero fica **caído** (`jogador.caido == true`), não some da cena. O parceiro pode levantá-lo.
 5. Não crie ações novas no Mapa de Entrada. As ações existentes são:
 
-   | Ação | P1 (teclado) | P2 (controle) |
-   |---|---|---|
-   | `mover_cima` / `mover_baixo` / `mover_esquerda` / `mover_direita` | WASD | analógico e direcional |
-   | `atacar` (socos alternados: esquerdo, direito...) | J | X |
-   | `dodge` | K | A / RB |
-   | `interagir` (portal, levantar parceiro) | E | B |
-   | `riff_mode` | Espaço | LB |
-   | `riff_esquerda` / `riff_cima` / `riff_baixo` / `riff_direita` (pistas ← ↑ ↓ →) | A / W / S / D | X / Y / A / B ou direcional |
-   | `reiniciar` | R | Start |
-   | `entrar` (P2 entra na partida) | — | Start / A |
-   | `pausar` (menu de pause) | Esc | Start |
+   | Ação | P1 (teclado, lado esquerdo) | P2 (teclado, lado direito) | P2 (controle) |
+   |---|---|---|---|
+   | `mover_cima` / `mover_baixo` / `mover_esquerda` / `mover_direita` | W A S D | setas | analógico e direcional |
+   | `atacar` (socos alternados: esquerdo, direito...) | F | J | X |
+   | `dodge` | G | K | A / RB |
+   | `interagir` (portal, levantar parceiro) | E | L | B |
+   | `riff_mode` | Q | I | LB |
+   | `riff_esquerda` / `riff_cima` / `riff_baixo` / `riff_direita` (pistas ← ↑ ↓ →) | A / W / S / D | setas | X / Y / A / B ou direcional |
+   | `reiniciar` | R | J | Start |
+   | `entrar` (P2 entra na partida) | — | J | Start / A |
+   | `pausar` (menu de pause) | Esc | P | Start |
 
-   Sem controle, o P2 tem um teclado reserva para testes: setas, Ctrl direito, Shift direito, Enter e Backspace.
+   Os dois jogadores cabem no mesmo teclado: P1 na metade esquerda, P2 na direita. As teclas do P2 ficam em `sistemas/controles.gd` (`TECLAS_RESERVA_P2`).
 
 ---
 
@@ -149,7 +149,7 @@ A cena `fases/boss_N/boss_N.tscn` já funciona: arena, Riff, barra de vida e vit
 - **Cabo de força** (`usar_cabo_de_forca` no nó raiz da arena, ligado por padrão): a dupla divide uma vida contra o boss. Dano em qualquer jogador enche o boss, e dano no boss enche a dupla.
 - Exemplo com tudo isso junto: `fases/boss_1/chefe_1.gd` (boss 1) e as propriedades do nó `Arena/Boss` em `fases/boss_1/boss_1.tscn`.
 - O boss **só perde vida pelo Riff**. Não dê dano no boss por soco.
-- Para ajustar o Riff de um boss, selecione o nó `HUD/RiffHUD` da arena e mude no Inspector `bpm` (150 por padrão, no tempo da música), `chance_nota_maldita`, `dano_perfect` e `dano_good` (os danos só valem para boss sem fases). Nos grupos "Trava" e "Dificuldade" ficam `trava_por_dano` (30 s), `trava_ao_sair` (10 s), `aceleracao_por_segundo`, `velocidade_maxima` e `chance_notas_juntas`.
+- Para ajustar o Riff de um boss, selecione o nó `HUD/RiffHUD` da arena e mude no Inspector `bpm` (150 por padrão, no tempo da música), `chance_nota_maldita`, `dano_perfect` e `dano_good` (os danos só valem para boss sem fases). Nos grupos "Trava" e "Dificuldade" ficam `trava_por_dano` (10 s), `trava_ao_sair` (3 s), `aceleracao_por_segundo`, `velocidade_maxima` e `chance_notas_juntas`.
 - Regras do Riff: só a tecla do Riff fecha o modo. Qualquer dano em qualquer jogador (inclusive da nota maldita) expulsa os dois e trava o Riff por `trava_por_dano`; sair por conta própria trava por `trava_ao_sair`. Com o Riff aberto e o boss fora do `descansar()`, um "!" pisca ao lado das pistas. Quanto mais tempo no Riff, mais rápido as notas caem.
 - A vida fica em `vida_maxima`, no nó raiz do `chefe_N.tscn`.
 - Exemplo completo: `fases/boss_1/chefe_1.gd` (boss 1).

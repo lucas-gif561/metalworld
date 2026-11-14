@@ -7,9 +7,9 @@ extends Node
 ##
 ## Jogador 1: teclado (teclas definidas no Mapa de Entrada do projeto) e,
 ##            se houver dois controles, o primeiro controle.
-## Jogador 2: o controle que sobrar. Sem controle, usa o teclado reserva
-##            (setas, Ctrl direito, Shift direito, Enter, Backspace),
-##            pensado só para testar sozinho no computador.
+## Jogador 2: o controle que sobrar. Sem controle, usa a metade direita do
+##            teclado: setas mover, J socar, K dodge, L interagir, I Riff,
+##            P pausar (o P1 fica na metade esquerda: W A S D, F, G, E, Q).
 
 signal controles_mudaram
 
@@ -47,22 +47,23 @@ const EIXOS = {
 	"mover_direita": [JOY_AXIS_LEFT_X, 1.0],
 }
 
-# Teclado reserva do jogador 2 (só para testes sem controle)
+# Teclado do jogador 2: metade direita (dupla dividindo o mesmo teclado)
 const TECLAS_RESERVA_P2 = {
 	"mover_cima": [KEY_UP],
 	"mover_baixo": [KEY_DOWN],
 	"mover_esquerda": [KEY_LEFT],
 	"mover_direita": [KEY_RIGHT],
-	"atacar": [KEY_CTRL],
-	"dodge": [KEY_SHIFT],
-	"interagir": [KEY_ENTER],
-	"riff_mode": [KEY_BACKSPACE],
+	"atacar": [KEY_J],
+	"dodge": [KEY_K],
+	"interagir": [KEY_L],
+	"riff_mode": [KEY_I],
 	"riff_cima": [KEY_UP],
 	"riff_baixo": [KEY_DOWN],
 	"riff_esquerda": [KEY_LEFT],
 	"riff_direita": [KEY_RIGHT],
-	"reiniciar": [KEY_BACKSPACE],
-	"entrar": [KEY_CTRL],
+	"reiniciar": [KEY_J],
+	"entrar": [KEY_J],
+	"pausar": [KEY_P],
 }
 
 # Ações do jogador 1 que não estão no Mapa de Entrada do projeto
