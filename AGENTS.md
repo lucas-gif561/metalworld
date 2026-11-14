@@ -2,7 +2,7 @@
 
 Jogo em **Godot 4.7 / GDScript**. Beat 'em up com co-op local de 2 jogadores, em que cada rua leva a um boss que só toma dano pelo **Riff**, um minigame de ritmo. O Riff é o diferencial do jogo e precisa existir nos três bosses.
 
-**MVP (entrega 23/11):** Rua 1 → Boss 1 → Rua 2 → Boss 2 → Rua 3 → Boss 3. A sequência fica em `sistemas/jogo.gd` (`FASES`).
+**MVP (entrega 15/11):** Rua 1 → Boss 1 → Rua 2 → Boss 2 → Rua 3 → Boss 3. A sequência fica em `sistemas/jogo.gd` (`FASES`).
 
 Código, comentários, nomes de nós e textos do jogo são em **português**. Siga o estilo dos arquivos existentes: tabs, `snake_case` e funções privadas com `_`.
 
