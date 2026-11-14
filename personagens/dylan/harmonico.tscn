@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://personagens/dylan/harmonico.gd" id="1_harmonico"]
+
+[node name="RaioEncadeado" type="Node2D"]
+z_index = 1
+script = ExtResource("1_harmonico")
+
+[node name="Traco" type="Node2D" parent="."]
+position = Vector2(0, -34)
+
+[node name="Brilho" type="Line2D" parent="Traco"]
+width = 8.0
+default_color = Color(0.28, 0.63, 1, 0.5)
+joint_mode = 2
+antialiased = true
+
+[node name="Nucleo" type="Line2D" parent="Traco"]
+width = 2.5
+default_color = Color(0.84, 0.98, 1, 1)
+joint_mode = 2
+antialiased = true

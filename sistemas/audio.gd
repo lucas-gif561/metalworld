@@ -2,6 +2,10 @@ extends Node
 ## Sons e música (autoload "Audio"). Ex.: Audio.tocar("tiro_dylan"), Audio.tocar_musica("boss")
 
 const ARQUIVOS_SFX = {
+	"minirriff_grave": "res://assets/audio/sfx/minirriff_grave.wav",
+	"minirriff_agudo": "res://assets/audio/sfx/minirriff_agudo.wav",
+	"minirriff_sucesso": "res://assets/audio/sfx/minirriff_sucesso.wav",
+	"minirriff_falha": "res://assets/audio/sfx/minirriff_falha.wav",
 	"tiro_dylan": "res://assets/audio/sfx/tiro_dylan.wav",
 	"dano_dylan": "res://assets/audio/sfx/dano_dylan.wav",
 	"morte_dylan": "res://assets/audio/sfx/morte_dylan.wav",
@@ -67,13 +71,13 @@ func _ready() -> void:
 		faixa.loop = true
 
 
-func tocar(nome: String, variacao: float = 0.05) -> void:
+func tocar(nome: String, variacao: float = 0.05, intervalo_ms: int = INTERVALO_MINIMO_MS) -> void:
 	if mudo:
 		return
 	var agora = Time.get_ticks_msec()
 
 	# Evita o estouro de som quando o mesmo efeito dispara várias vezes juntas
-	if agora - ultimo_toque_ms.get(nome, -INTERVALO_MINIMO_MS) < INTERVALO_MINIMO_MS:
+	if agora - ultimo_toque_ms.get(nome, -intervalo_ms) < intervalo_ms:
 		return
 
 	ultimo_toque_ms[nome] = agora

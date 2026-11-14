@@ -66,7 +66,7 @@ const COR_ESCUDO = Color(0.5, 0.8, 1.0)
 @onready var sprite = $AnimatedSprite2D
 
 var atacando: bool = false
-var vida_atual: int
+var vida_atual: float
 var vida_referencia: int
 var fase: int = 1
 var escudo_ativo: bool = false
@@ -92,11 +92,11 @@ func ciclo_ataques() -> void:
 
 # ---------------------------------------------------------------- Vida
 
-func receber_dano(valor: int):
+func receber_dano(valor: float):
 	if vida_atual <= 0 or escudo_ativo:
 		return
 	var vida_antes = vida_atual
-	vida_atual = max(vida_atual - valor, 0)
+	vida_atual = maxf(vida_atual - valor, 0.0)
 	vida_atualizada.emit(vida_atual)
 	dano_recebido.emit(vida_antes - vida_atual)
 
@@ -114,14 +114,14 @@ func receber_dano(valor: int):
 func curar(valor: int) -> void:
 	if vida_atual <= 0:
 		return
-	vida_atual = mini(vida_atual + valor, vida_maxima)
+	vida_atual = minf(vida_atual + valor, vida_maxima)
 	vida_atualizada.emit(vida_atual)
 
 
 ## Cabo de força: o boss começa no meio da barra e as fases contam a partir daí
 func iniciar_cabo_de_forca() -> void:
-	vida_atual = vida_maxima / 2
-	vida_referencia = vida_atual
+	vida_atual = floori(vida_maxima / 2.0)
+	vida_referencia = int(vida_atual)
 	vida_atualizada.emit(vida_atual)
 
 
@@ -450,7 +450,7 @@ func _criar_sinal_riff():
 		sinal_riff.hide()
 		return
 	sinal_riff = Label.new()
-	sinal_riff.text = "RIFF!\nQ / I / LB"
+	sinal_riff.text = "RIFF!\nT / I / A"
 	sinal_riff.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	sinal_riff.size = Vector2(200, 60)
 	sinal_riff.position = Vector2(-100, -115)

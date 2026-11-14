@@ -9,10 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://bns8j4jm6robf" path="res://inimigos/rapido/inimigo_rapido.tscn" id="7_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://bo0smysfkbbbw" path="res://inimigos/atirador/inimigo_atirador.tscn" id="8_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://dltkylafufj17" path="res://objetos/portal.tscn" id="9_b1x3f"]
+[ext_resource type="Script" uid="uid://bgs4n7or273cj" path="res://fases/comum/ponto_spawn.gd" id="10_ponto"]
 [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="30_hud"]
-[ext_resource type="Script" path="res://fases/comum/ponto_spawn.gd" id="10_ponto"]
 [ext_resource type="PackedScene" path="res://objetos/barril.tscn" id="41_barril"]
 [ext_resource type="PackedScene" path="res://objetos/caixote.tscn" id="42_caixote"]
+[ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/miniboss/miniboss.tscn" id="43_miniboss"]
 
 [node name="Main" type="Node2D" unique_id=322226560]
 y_sort_enabled = true
@@ -24,8 +25,15 @@ position = Vector2(1622.5001, 215.99998)
 scale = Vector2(1.4986188, 1.1933701)
 texture = ExtResource("2_6q06x")
 
+[node name="BackgroundExtensao" type="Sprite2D" parent="." unique_id=1693534096]
+z_index = -1
+position = Vector2(4877.5, 215.99998)
+scale = Vector2(1.4986188, 1.1933701)
+texture = ExtResource("2_6q06x")
+flip_h = true
+
 [node name="Portal" parent="." unique_id=1925924290 instance=ExtResource("9_b1x3f")]
-position = Vector2(3110, 461)
+position = Vector2(5174, 461)
 
 [node name="Player" parent="." unique_id=1357147288 instance=ExtResource("1_k2fmo")]
 position = Vector2(124, 488)
@@ -40,138 +48,173 @@ position = Vector2(576, 324)
 [node name="Onda1" type="Node2D" parent="Spawns/Arena1" unique_id=1371033652]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=1049145897]
+position = Vector2(1203, 455)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(1203, 455)
 
 [node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=1583691589]
+position = Vector2(1204, 555)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("7_yyfjg")
-position = Vector2(1204, 555)
 
 [node name="Ponto3" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=1746425679]
+position = Vector2(1279, 523)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(1279, 523)
 
 [node name="Ponto4" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=848187716]
+position = Vector2(1198, 600)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("7_yyfjg")
-position = Vector2(1198, 600)
 
 [node name="Onda2" type="Node2D" parent="Spawns/Arena1" unique_id=594765321]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=896063183]
+position = Vector2(-84, 469)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("7_yyfjg")
-position = Vector2(-84, 469)
 
 [node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=485288298]
+position = Vector2(-80, 566)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(-80, 566)
 
 [node name="Ponto3" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=1174825459]
+position = Vector2(1279, 523)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(1279, 523)
 
 [node name="Ponto4" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=279321679]
+position = Vector2(1198, 600)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("7_yyfjg")
-position = Vector2(1198, 600)
 
 [node name="Arena2" type="Node2D" parent="Spawns" unique_id=196938411]
 
 [node name="Onda1" type="Node2D" parent="Spawns/Arena2" unique_id=2022743521]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=809964112]
+position = Vector2(2318, 429)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("8_yyfjg")
-position = Vector2(2318, 429)
 
 [node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=958393027]
+position = Vector2(2348, 568)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("7_yyfjg")
-position = Vector2(2348, 568)
 
 [node name="Ponto3" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=1708826546]
+position = Vector2(923, 600)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(923, 600)
 
 [node name="Ponto4" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=1357527123]
+position = Vector2(857, 446)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("7_yyfjg")
-position = Vector2(857, 446)
 
 [node name="Onda2" type="Node2D" parent="Spawns/Arena2" unique_id=19479986]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena2/Onda2" unique_id=1679391376]
+position = Vector2(2320, 462)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("8_yyfjg")
-position = Vector2(2320, 462)
 
 [node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda2" unique_id=125707530]
+position = Vector2(940, 532)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(940, 532)
 
 [node name="Ponto3" type="Marker2D" parent="Spawns/Arena2/Onda2" unique_id=1478496746]
+position = Vector2(2331, 530)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("8_yyfjg")
-position = Vector2(2331, 530)
 
 [node name="Ponto4" type="Marker2D" parent="Spawns/Arena2/Onda2" unique_id=608243441]
+position = Vector2(959, 472)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(959, 472)
 
 [node name="Arena3" type="Node2D" parent="Spawns" unique_id=1180077061]
 
 [node name="Onda1" type="Node2D" parent="Spawns/Arena3" unique_id=1760018789]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=1834504222]
+position = Vector2(3294, 590)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("6_hujxm")
-position = Vector2(3294, 590)
 
 [node name="Ponto2" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=1352774010]
+position = Vector2(3286, 406)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("7_yyfjg")
-position = Vector2(3286, 406)
 
 [node name="Ponto3" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=170055630]
+position = Vector2(1938, 560)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(1938, 560)
 
 [node name="Ponto4" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=1545605864]
+position = Vector2(1925, 397)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("7_yyfjg")
-position = Vector2(1925, 397)
 
 [node name="Onda2" type="Node2D" parent="Spawns/Arena3" unique_id=1452550229]
 
-[node name="Ponto1" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=264818682]
+[node name="PontoMiniboss" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=264818682]
+position = Vector2(2990, 500)
 script = ExtResource("10_ponto")
-cena_inimigo = ExtResource("6_hujxm")
-position = Vector2(1859, 431)
+cena_inimigo = ExtResource("43_miniboss")
 
-[node name="Ponto2" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=131656599]
+[node name="Arena4" type="Node2D" parent="Spawns" unique_id=548707467]
+position = Vector2(3672, 0)
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena4" unique_id=1033358223]
+
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena4/Onda1" unique_id=210455844]
+position = Vector2(-650, 425)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(1855, 517)
 
-[node name="Ponto3" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=1372435535]
-script = ExtResource("10_ponto")
-cena_inimigo = ExtResource("5_yyfjg")
-position = Vector2(3310, 518)
-
-[node name="Ponto4" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=652139223]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena4/Onda1" unique_id=1991550074]
+position = Vector2(-680, 555)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("7_yyfjg")
-position = Vector2(3346, 493)
+
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena4/Onda1" unique_id=199814864]
+position = Vector2(635, 450)
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("8_yyfjg")
+
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena4/Onda1" unique_id=655376296]
+position = Vector2(660, 545)
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
+
+[node name="Arena5" type="Node2D" parent="Spawns" unique_id=600162621]
+position = Vector2(4704, 0)
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena5" unique_id=1379671261]
+
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena5/Onda1" unique_id=755084197]
+position = Vector2(635, 445)
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("6_hujxm")
+
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena5/Onda1" unique_id=1281793301]
+position = Vector2(-665, 440)
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("8_yyfjg")
+
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena5/Onda1" unique_id=1826560261]
+position = Vector2(-630, 545)
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("7_yyfjg")
+
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena5/Onda1" unique_id=592702871]
+position = Vector2(660, 550)
+script = ExtResource("10_ponto")
+cena_inimigo = ExtResource("5_yyfjg")
 
 [node name="GerenciadorOndas" type="Node2D" parent="." unique_id=278920186]
 script = ExtResource("6_ow5a4")
@@ -179,16 +222,19 @@ cena_inimigo = ExtResource("5_yyfjg")
 
 [node name="PortalSpawn" type="Node2D" parent="." unique_id=1404435575]
 
-[node name="Caixote1" parent="." instance=ExtResource("42_caixote")]
-position = Vector2(430, 540)
+[node name="Caixote1" parent="." unique_id=747238361 instance=ExtResource("42_caixote")]
+position = Vector2(650, 354)
 
-[node name="Barril1" parent="." instance=ExtResource("41_barril")]
+[node name="Barril1" parent="." unique_id=221298518 instance=ExtResource("41_barril")]
 position = Vector2(1440, 383)
 
-[node name="Caixote2" parent="." instance=ExtResource("42_caixote")]
-position = Vector2(2350, 560)
+[node name="Caixote2" parent="." unique_id=1382776661 instance=ExtResource("42_caixote")]
+position = Vector2(2766, 350)
 
-[node name="Barril2" parent="." instance=ExtResource("41_barril")]
-position = Vector2(2850, 383)
+[node name="Barril2" parent="." unique_id=1209474481 instance=ExtResource("41_barril")]
+position = Vector2(2548, 342)
+
+[node name="Caixote3" parent="." unique_id=1017627187 instance=ExtResource("42_caixote")]
+position = Vector2(3930, 540)
 
 [node name="HudJogo" parent="." unique_id=880012347 instance=ExtResource("30_hud")]
