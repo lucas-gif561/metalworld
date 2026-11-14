@@ -39,6 +39,7 @@ func atirar():
 	var direcao = lado_carga
 
 	projetil.direcao = direcao
+	projetil.dano = dano
 
 	get_tree().current_scene.add_child(projetil)
 

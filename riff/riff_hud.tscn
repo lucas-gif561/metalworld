@@ -44,20 +44,29 @@ _data = {
 
 [node name="RiffHUD" type="Control" unique_id=948874030]
 layout_mode = 3
-anchors_preset = 6
-anchor_left = 1.0
+anchors_preset = 4
+anchor_left = 0.0
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.0
 anchor_bottom = 0.5
-offset_left = -285.0
+offset_left = 45.0
 offset_top = -226.0
-offset_right = -56.0
+offset_right = 285.0
 offset_bottom = 178.0
-grow_horizontal = 0
+grow_horizontal = 1
 grow_vertical = 2
 script = ExtResource("7_xtdbn")
 cena_nota = ExtResource("8_mi726")
 bpm = 150.0
+
+[node name="FundoOpaco" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 244.0
+offset_bottom = 384.0
+mouse_filter = 2
+color = Color(0.075, 0.052, 0.12, 1)
 
 [node name="NotasContainer" type="Control" parent="." unique_id=1075832888]
 anchors_preset = 0
@@ -146,8 +155,7 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LabelVez" type="Label" parent="."]
-visible = false
+[node name="LabelJogador" type="Label" parent="."]
 layout_mode = 0
 offset_top = 0.0
 offset_right = 240.0
@@ -155,7 +163,7 @@ offset_bottom = 28.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 20
-text = "VEZ DO P1"
+text = "P1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -163,11 +171,11 @@ vertical_alignment = 1
 visible = false
 self_modulate = Color(1, 0.35, 0.25, 1)
 layout_mode = 0
-offset_left = -72.0
-offset_top = 90.0
-offset_right = -8.0
-offset_bottom = 154.0
-pivot_offset = Vector2(32, 32)
+offset_left = 198.0
+offset_top = 14.0
+offset_right = 238.0
+offset_bottom = 54.0
+pivot_offset = Vector2(20, 20)
 mouse_filter = 2
 texture = ExtResource("21_aviso")
 expand_mode = 1

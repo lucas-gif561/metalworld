@@ -1,12 +1,8 @@
 extends Control
 ## Modo Riff: notas descem e o jogador acerta no ritmo para ferir o boss.
 ##
-## Co-op (revezamento): as notas vêm em blocos de NOTAS_POR_BLOCO, alternando
-## entre P1 e P2. Cada nota tem a cor do dono e só o dono pode acertá-la.
-## Se só um jogador estiver de pé, todas as notas são dele.
+## Cada jogador toca nas suas próprias pistas e tem uma trava independente.
 ##
-## Notas juntas: em dupla, às vezes vem uma sequência de batidas com uma nota
-## de cada jogador ao mesmo tempo (chance_notas_juntas).
 ## Aceleração: quanto mais tempo no Riff, mais rápido as notas caem (sempre
 ## chegando no tempo da música), até velocidade_maxima. Volta ao normal ao sair.
 ##
@@ -19,9 +15,11 @@ extends Control
 ## quando sair; aqui fica o tempo restante (o HUD mostra uma ampulheta).
 ## Aviso: com o Riff aberto e o boss fora do descanso (atacando), um "!" pisca.
 
-const NOTAS_POR_BLOCO = 4
+const DANO_RIFF_SOLO = 0.5
+const DANO_RIFF_EM_DUPLA = 1.0
 const TECLAS = ["riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 
+@export var id_jogador: int = 1
 @export var cena_nota: PackedScene
 @export var bpm: float = 150.0
 ## Atraso da batida da música (segundos), para as notas chegarem no tempo
@@ -49,13 +47,19 @@ const TECLAS = ["riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 
 @onready var notas_container = $NotasContainer
 @onready var label_feedback = $LabelFeedback
-@onready var label_vez = $LabelVez
+@onready var label_jogador = $LabelJogador
 @onready var aviso = $Aviso
 @onready var indicadores = [
 	$NotasContainer/IndicadorEsquerda, $NotasContainer/IndicadorCima,
 	$NotasContainer/IndicadorBaixo, $NotasContainer/IndicadorDireita,
 ]
 
+const INDICADORES_CONTROLE = [
+	preload("res://riff/sprites/botao_lt.svg"),
+	preload("res://riff/sprites/botao_lb.svg"),
+	preload("res://riff/sprites/botao_rb.svg"),
+	preload("res://riff/sprites/botao_rt.svg"),
+]
 const INDICADORES_SETAS = [
 	preload("res://riff/sprites/tecla_esquerda_apagada.png"),
 	preload("res://riff/sprites/tecla_cima_apagada.png"),
@@ -75,20 +79,26 @@ const COR_MISS = Color(1.0, 0.3, 0.3)
 const COR_MALDITA = Color(1.0, 0.15, 0.15)
 const COR_ESCUDO = Color(0.5, 0.8, 1.0)
 
+var parceiro: Control
 var tocando = false
 var posicao_acerto: float = 260.0
 var janela_perfect: float = 12.0
 var janela_good: float = 30.0
 var geracao_id: int = 0
 var tween_feedback: Tween
-var dono_bloco: int = 1
-var notas_no_bloco: int = 0
 var viagem_nota: float = 0.0
 var velocidade_base: float = 200.0
 var tempo_no_riff := 0.0
-var juntas_restantes := 0
 var trava_restante := 0.0
 var trava_total := 0.0
+
+
+func _ready() -> void:
+	label_jogador.text = "P%d" % id_jogador
+	label_jogador.modulate = Jogo.cor(id_jogador)
+	$NotasContainer/LinhaAcerto.color = Jogo.cor(id_jogador)
+	Controles.controles_mudaram.connect(_atualizar_teclas)
+	_atualizar_teclas()
 
 
 func iniciar_riff():
@@ -102,19 +112,14 @@ func iniciar_riff():
 
 	tocando = true
 	tempo_no_riff = 0.0
-	juntas_restantes = 0
 	aviso.hide()
 	geracao_id += 1
-	notas_no_bloco = 0
-	var vivos = _ids_vivos()
-	dono_bloco = vivos[0] if not vivos.is_empty() else 1
 	gerar_notas(geracao_id)
 
 
 func parar_riff():
 	tocando = false
 	label_feedback.text = ""
-	label_vez.hide()
 	aviso.hide()
 
 	for nota in _notas():
@@ -125,40 +130,21 @@ func gerar_notas(id):
 	while tocando and id == geracao_id:
 		# A velocidade é decidida antes de esperar, para a nota cair no tempo
 		var fator = fator_velocidade()
-		await get_tree().create_timer(_tempo_ate_proxima_nota(fator)).timeout
+		await get_tree().create_timer(_tempo_ate_proxima_nota(fator), false).timeout
 
-		if not tocando or id != geracao_id:
+		if not is_inside_tree() or not tocando or id != geracao_id:
 			return
 
 		var coluna = randi_range(0, 3)
 		var outras = [0, 1, 2, 3]
 		outras.erase(coluna)
 
-		if _vem_notas_juntas():
-			_criar_nota(coluna, 1, false, fator)
-			_criar_nota(outras.pick_random(), 2, false, fator)
-			continue
-
-		var dono = _proximo_dono()
 		var maldita = boss.has_method("nota_maldita_disponivel") and boss.nota_maldita_disponivel() and randf() < chance_nota_maldita
 
-		_criar_nota(coluna, dono, maldita, fator)
+		_criar_nota(coluna, id_jogador, maldita, fator)
 
 		if maldita:
-			_criar_nota(outras.pick_random(), dono, false, fator)
-
-
-## Sequência de 1 a 4 batidas com uma nota de cada jogador ao mesmo tempo
-func _vem_notas_juntas() -> bool:
-	if _ids_vivos().size() < 2:
-		juntas_restantes = 0
-		return false
-	if juntas_restantes == 0 and randf() < chance_notas_juntas:
-		juntas_restantes = randi_range(1, 4)
-	if juntas_restantes > 0:
-		juntas_restantes -= 1
-		return true
-	return false
+			_criar_nota(outras.pick_random(), id_jogador, false, fator)
 
 
 ## Quanto mais tempo no Riff, mais rápido (1 = normal)
@@ -179,7 +165,7 @@ func _criar_nota(coluna: int, dono: int, maldita: bool, fator := 1.0) -> void:
 
 	if maldita:
 		nota.modulate = COR_MALDITA
-	elif _em_dupla():
+	else:
 		nota.modulate = Color.WHITE.lerp(Jogo.cor(dono), 0.65)
 
 
@@ -190,28 +176,6 @@ func _tempo_ate_proxima_nota(fator := 1.0) -> float:
 	var falta = periodo - fposmod(chegada, periodo)
 	# Evita duas notas coladas quando o timer acorda logo antes da batida
 	return falta + periodo if falta < 0.05 else falta
-
-
-func _proximo_dono() -> int:
-	var vivos = _ids_vivos()
-	if vivos.size() <= 1:
-		return vivos[0] if vivos.size() == 1 else 1
-
-	notas_no_bloco += 1
-	if notas_no_bloco > NOTAS_POR_BLOCO:
-		notas_no_bloco = 1
-		dono_bloco = 2 if dono_bloco == 1 else 1
-	return dono_bloco
-
-
-func _ids_vivos() -> Array:
-	var ids = Jogo.jogadores_vivos().map(func(j): return j.id_jogador)
-	ids.sort()
-	return ids
-
-
-func _em_dupla() -> bool:
-	return Jogo.jogadores.size() >= 2
 
 
 func _notas() -> Array:
@@ -226,41 +190,26 @@ func _process(delta: float) -> void:
 		return
 
 	tempo_no_riff += delta
+	var multiplicador = "1×" if _tocando_em_dupla() else "0,5×"
+	label_jogador.text = "P%d  ·  %s" % [id_jogador, multiplicador]
 	# "!" piscando: o boss não está descansando, ele pode atacar a qualquer hora
 	aviso.visible = boss != null and not boss.get("descansando")
 
-	for jogador in Jogo.jogadores_vivos():
-		for i in range(4):
-			if Input.is_action_just_pressed(Controles.acao(jogador.id_jogador, TECLAS[i])):
-				verificar_nota(i, jogador.id_jogador)
-
-	_atualizar_vez()
-
-
-func _atualizar_vez():
-	if not _em_dupla():
-		label_vez.hide()
-		_mostrar_teclas_de(1)
-		return
-
-	# Mostra o dono da próxima nota a chegar na linha
-	var proxima = null
-	for nota in _notas():
-		if not nota.acertada and (proxima == null or nota.position.y > proxima.position.y):
-			proxima = nota
-
-	if proxima == null:
-		return
-
-	_mostrar_teclas_de(proxima.dono)
-	label_vez.text = "VEZ DO P%d" % proxima.dono
-	label_vez.modulate = Jogo.cor(proxima.dono)
-	label_vez.show()
+	for i in range(4):
+		if not tocando:
+			return
+		if Input.is_action_just_pressed(Controles.acao(id_jogador, TECLAS[i])):
+			verificar_nota(i, id_jogador)
 
 
-## As teclas na linha de acerto: A W S D do P1 ou as setas do P2
+func _atualizar_teclas() -> void:
+	_mostrar_teclas_de(id_jogador)
+
+
 func _mostrar_teclas_de(id_jogador: int) -> void:
 	var texturas = INDICADORES_P1 if id_jogador == 1 else INDICADORES_SETAS
+	if Controles.controle_do_jogador(id_jogador) >= 0:
+		texturas = INDICADORES_CONTROLE
 	for i in indicadores.size():
 		indicadores[i].texture = texturas[i]
 
@@ -281,13 +230,15 @@ func progresso_trava() -> float:
 	return 1.0 if trava_total <= 0.0 else 1.0 - trava_restante / trava_total
 
 
-func verificar_nota(coluna, id_jogador := 1):
+func verificar_nota(coluna, dono := 1):
+	if not tocando or dono != id_jogador:
+		return
 	var nota_maxima = null
 	var menor_distancia = janela_good
 	var tem_nota_propria = false
 
 	for nota in _notas():
-		if nota.dono != id_jogador or nota.acertada:
+		if nota.dono != id_jogador or nota.acertada or nota.is_queued_for_deletion():
 			continue
 
 		tem_nota_propria = true
@@ -302,7 +253,7 @@ func verificar_nota(coluna, id_jogador := 1):
 			nota_maxima = nota
 
 	if nota_maxima == null:
-		# Apertar fora da sua vez não conta como erro
+		# Sem notas nas pistas, apertar uma tecla não conta como erro
 		if tem_nota_propria:
 			_registrar_miss()
 		return
@@ -334,7 +285,12 @@ func verificar_nota(coluna, id_jogador := 1):
 		Audio.tocar("nota_good", 0.0)
 		_mostrar_feedback("GOOD", COR_GOOD)
 
-	boss.receber_dano(dano)
+	var multiplicador = DANO_RIFF_EM_DUPLA if _tocando_em_dupla() else DANO_RIFF_SOLO
+	boss.receber_dano(dano * multiplicador)
+
+
+func _tocando_em_dupla() -> bool:
+	return is_instance_valid(parceiro) and parceiro.tocando
 
 
 func _registrar_miss():

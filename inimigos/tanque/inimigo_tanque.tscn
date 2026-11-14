@@ -13,9 +13,10 @@ script = ExtResource("2_tanque")
 cena_granada = ExtResource("3_granada")
 velocidade = 80.0
 vida = 7
-dano = 3
+dano = 1
 tempo_preparo = 0.6
 resistencia_empurrao = 0.35
+imune_a_atordoamento = true
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
 scale = Vector2(2.2, 2.2)
