@@ -6,18 +6,7 @@ extends Control
 ## Controles/Créditos. Aqui fica só o comportamento.
 ##
 ## Navegação: setas, WASD, direcional ou analógico de qualquer jogador.
-## Confirmar: Enter, Espaço, F, J, A ou START.
-
-const TEXTO_CONTROLES = """P1 (lado esquerdo): W A S D mover · F socar · G dodge · E interagir
-Q abre e fecha o Riff · W A S D tocam as notas · Esc pausa · R reinicia
-
-P2 (lado direito): setas mover · J socar · K dodge · L interagir
-I abre e fecha o Riff · setas tocam as notas · P pausa · J entra
-No controle: analógico · X socar · A dodge · B interagir · LB Riff · START
-
-Caído? O parceiro segura o botão de interagir perto para levantar.
-No boss, só o Riff fere: toque quando ele se ajoelhar.
-Levou dano tocando? O Riff trava por um tempo."""
+## Confirmar: Enter, Espaço, F, J ou A. No controle, B volta.
 
 const TEXTO_CREDITOS = """MetalWorld — projeto da disciplina
 
@@ -36,6 +25,7 @@ const ESPERA_NAVEGACAO = 0.18
 @onready var menu = $Menu
 @onready var placa = $Placa
 @onready var janela = $Janela
+@onready var controles = $TelaControles
 @onready var titulo_janela = $Janela/Moldura/Titulo
 @onready var texto_janela = $Janela/Moldura/Texto
 
@@ -47,7 +37,8 @@ func _ready() -> void:
 	Audio.tocar_musica("ruas")
 	$Menu/JogarSozinho.pressed.connect(_jogar.bind(false))
 	$Menu/JogarDupla.pressed.connect(_jogar.bind(true))
-	$Menu/Controles.pressed.connect(_abrir_janela.bind("Controles", TEXTO_CONTROLES))
+	$Menu/Controles.pressed.connect(_abrir_controles)
+	controles.fechada.connect(_fechar_controles)
 	$Menu/Creditos.pressed.connect(_abrir_janela.bind("Créditos", TEXTO_CREDITOS))
 	for botao in menu.get_children():
 		botao.focus_entered.connect(_ao_focar)
@@ -77,23 +68,48 @@ func _jogar(em_dupla: bool) -> void:
 	Jogo.iniciar_jogo()
 
 
+func _abrir_controles() -> void:
+	Audio.tocar("ui_confirma", 0.0)
+	menu.hide()
+	controles.abrir()
+
+
+func _fechar_controles() -> void:
+	menu.show()
+	$Menu/Controles.grab_focus()
+
+
 func _abrir_janela(titulo: String, texto: String) -> void:
 	Audio.tocar("ui_confirma", 0.0)
 	titulo_janela.text = titulo
 	texto_janela.text = texto
+	menu.hide()
 	janela.show()
 
 
 func _fechar_janela() -> void:
 	janela.hide()
-	var focado = get_viewport().gui_get_focus_owner()
-	if focado == null:
-		$Menu/JogarSozinho.grab_focus()
+	menu.show()
+	$Menu/Creditos.grab_focus()
+
+
+func _input(event: InputEvent) -> void:
+	if not event is InputEventJoypadButton or controles.visible:
+		return
+	if janela.visible and event.button_index == JOY_BUTTON_B:
+		if event.pressed:
+			_fechar_janela()
+		get_viewport().set_input_as_handled()
+	elif event.button_index == JOY_BUTTON_A:
+		var focado = get_viewport().gui_get_focus_owner()
+		if not janela.visible and event.pressed and focado is Button and focado.is_visible_in_tree():
+			focado.pressed.emit()
+		get_viewport().set_input_as_handled()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if janela.visible:
-		if event.is_pressed() and not event.is_echo() and not event is InputEventMouseMotion and not event is InputEventJoypadMotion:
+		if event.is_pressed() and not event.is_echo() and not event is InputEventJoypadButton and not event is InputEventJoypadMotion:
 			_fechar_janela()
 			get_viewport().set_input_as_handled()
 		return
@@ -103,7 +119,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_navegar(-1)
 	elif _apertou(event, "mover_baixo"):
 		_navegar(1)
-	elif _apertou(event, "atacar") or _apertou(event, "entrar"):
+	elif not event is InputEventJoypadButton and (_apertou(event, "atacar") or _apertou(event, "entrar")):
 		var focado = get_viewport().gui_get_focus_owner()
 		if focado is Button:
 			focado.pressed.emit()

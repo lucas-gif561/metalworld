@@ -10,7 +10,7 @@ const QUANTIDADE_BALAS = 8
 @export var cena_bala: PackedScene
 
 var direcao: Vector2 = Vector2.RIGHT
-var dano: int = 3
+var dano: int = 1
 var estourou = false
 
 

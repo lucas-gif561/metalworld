@@ -81,7 +81,7 @@ func _teste_ruas() -> void:
 		var vida = p1.vida
 		p1.global_position = itens[0].global_position
 		await esperar(0.3)
-		checar(p1.vida == vida + 1 and not is_instance_valid(itens[0]), "comida cura quem pega (%d → %d)" % [vida, p1.vida])
+		checar(p1.vida == vida + 2 and not is_instance_valid(itens[0]), "comida cura quem pega (%d → %d)" % [vida, p1.vida])
 
 
 func _boss_1() -> Node:
@@ -147,8 +147,7 @@ func _teste_riff() -> void:
 	await apertar_tecla(KEY_W)
 	checar(cena.riff_ativo, "W toca nota do P1 e não fecha o Riff")
 	await apertar("p1_atacar")
-	await apertar("p1_dodge")
-	checar(cena.riff_ativo, "outros botões não fecham mais o Riff")
+	checar(cena.riff_ativo, "atacar não fecha o Riff")
 	checar(riff.fator_velocidade() > 1.0, "notas aceleram com o tempo no Riff (%.2fx)" % riff.fator_velocidade())
 
 	await apertar("p1_riff_mode")

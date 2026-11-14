@@ -17,8 +17,18 @@ extends CharacterBody2D
 signal vida_alterada(atual, maxima)
 signal morreu # o jogador caiu (vida chegou a zero)
 signal revivido
+signal esquiva_iniciada
 signal dano_sofrido(valor) # quanto de vida perdeu num golpe
-signal stamina_alterada(atual, maxima)
+signal poder_alterado(atual, maxima)
+
+const ONDA_MINIRRIFF = preload("res://personagens/dylan/onda_minirriff.tscn")
+const ARCO_MINIRRIFF = preload("res://personagens/dylan/arco_minirriff.tscn")
+const RAIO_ENCADEADO = preload("res://personagens/dylan/harmonico.tscn")
+const MINIRRIFFS = {
+	"ABAB": {"nome": "Onda sonora", "custo": 1.0, "dano": 1, "raio": 180.0, "atordoamento": 1.5},
+	"BABA": {"nome": "Acorde cortante", "custo": 3.0, "dano": 4},
+	"BBAB": {"nome": "Raio Encadeado", "custo": 2.0, "dano": 1, "cena": RAIO_ENCADEADO},
+}
 
 const CAMADA_NORMAL = 1
 const MASCARA_NORMAL = 3
@@ -51,11 +61,15 @@ const SOCOS = [
 @export var velocidade_dodge = 350.0
 @export var duracao_dodge = 0.35
 
-@export_group("Stamina")
-@export var stamina_maxima = 100.0
-@export var custo_dodge = 33.0
-@export var recarga_stamina = 25.0
-@export var espera_recarga = 0.5
+@export var recarga_dodge = 1.5
+
+@export_group("Poder")
+@export var poder_maximo = 3.0
+@export var recarga_poder = 0.12
+@export var poder_por_acerto = 0.22
+@export var poder_por_dano = 0.35
+@export var janela_minirriff = 3.5
+@export var atordoamento_minirriff = 0.5
 
 @export_group("Reviver")
 @export var raio_reviver = 90.0
@@ -75,8 +89,16 @@ var invencivel = false
 var em_acao = false
 var caido = false
 var tween_dano: Tween
-var stamina = 0.0
-var espera_stamina = 0.0
+var poder = 0.0
+var recarga_dodge_restante = 0.0
+var sequencia_minirriff := ""
+var minirriff_usando_controle := false
+var tempo_minirriff = 0.0
+var tempo_atordoado = 0.0
+var mensagem_minirriff := ""
+var tempo_mensagem_minirriff = 0.0
+var _especial_pendente := {}
+var _tempo_tocando = 0.0
 var esquivando = false
 var tempo_dodge = 0.0
 var direcao_dodge = Vector2.RIGHT
@@ -96,11 +118,12 @@ var fim_sequencia_ms = 0
 
 func _ready():
 	vida_maxima = vida
-	stamina = stamina_maxima
+	poder = poder_maximo
 	tempo_invencivel_padrao = timer_invencibilidade.wait_time
 	sprite.animation_finished.connect(_ao_terminar_animacao)
 	sprite.frame_changed.connect(_ao_mudar_quadro)
 	_configurar_identificacao()
+	minirriff_usando_controle = Controles.controle_do_jogador(id_jogador) >= 0
 	Jogo.registrar_jogador(self)
 	aplicar_escala.call_deferred(Jogo.escala_da_fase())
 
@@ -151,25 +174,27 @@ func _physics_process(delta):
 		_indicador.progresso = progresso_reviver
 		return
 
+	_alterar_poder(recarga_poder * delta)
+	recarga_dodge_restante = maxf(recarga_dodge_restante - delta, 0.0)
+	if _atualizar_minirriff(delta):
+		velocity = Vector2.ZERO
+		return
+
 	if esquivando:
 		_continuar_dodge(delta)
 		return
-
-	_recarregar_stamina(delta)
 
 	if entrando:
 		_correr_para_entrada()
 		return
 
-	if bloqueado:
+	if bloqueado and not em_riff:
 		velocity = Vector2.ZERO
-		if em_riff:
-			_animar_riff()
-		else:
-			_atualizar_animacao(Vector2.ZERO)
+		_atualizar_animacao(Vector2.ZERO)
 		return
 
-	_tentar_reviver_parceiro(delta)
+	if not em_riff:
+		_tentar_reviver_parceiro(delta)
 
 	var direcao = Input.get_vector(
 		acao("mover_esquerda"),
@@ -179,9 +204,14 @@ func _physics_process(delta):
 	)
 
 	# DODGE (cancela o soco)
-	if Input.is_action_just_pressed(acao("dodge")) and stamina >= custo_dodge:
+	if Input.is_action_just_pressed(acao("dodge")) and recarga_dodge_restante <= 0.0:
 		_cancelar_soco()
 		_iniciar_dodge(direcao)
+		return
+
+	if bloqueado:
+		velocity = Vector2.ZERO
+		_animar_riff()
 		return
 
 	# SOCO: apertar durante um golpe guarda o próximo
@@ -230,9 +260,7 @@ func _iniciar_dodge(direcao):
 	esquivando = true
 	tempo_dodge = duracao_dodge
 	direcao_dodge = direcao.normalized() if direcao != Vector2.ZERO else Vector2(direcao_olhar, 0)
-	stamina -= custo_dodge
-	espera_stamina = espera_recarga
-	stamina_alterada.emit(stamina, stamina_maxima)
+	recarga_dodge_restante = recarga_dodge
 
 	# Sem camada e sem hurtbox, balas e inimigos passam pelo jogador
 	collision_layer = 0
@@ -240,6 +268,7 @@ func _iniciar_dodge(direcao):
 	_hurtbox_ativa(false)
 	Audio.tocar("dodge")
 	_tocar_acao("dodge")
+	esquiva_iniciada.emit()
 
 
 func _continuar_dodge(delta):
@@ -248,21 +277,22 @@ func _continuar_dodge(delta):
 	tempo_dodge -= delta
 
 	if tempo_dodge <= 0.0:
-		esquivando = false
-		em_acao = false
-		collision_layer = CAMADA_NORMAL
-		collision_mask = MASCARA_NORMAL
-		_hurtbox_ativa(true)
+		_encerrar_dodge()
 
 
-func _recarregar_stamina(delta):
-	if espera_stamina > 0.0:
-		espera_stamina -= delta
-		return
+func _encerrar_dodge() -> void:
+	esquivando = false
+	em_acao = false
+	collision_layer = CAMADA_NORMAL
+	collision_mask = MASCARA_NORMAL
+	_hurtbox_ativa(true)
 
-	if stamina < stamina_maxima:
-		stamina = min(stamina + recarga_stamina * delta, stamina_maxima)
-		stamina_alterada.emit(stamina, stamina_maxima)
+
+func _alterar_poder(valor: float) -> void:
+	var novo = clampf(poder + valor, 0.0, poder_maximo)
+	if novo != poder:
+		poder = novo
+		poder_alterado.emit(poder, poder_maximo)
 
 
 func _virar_para(x: float):
@@ -311,6 +341,7 @@ func _ao_mudar_quadro():
 ## Acerta quem estiver à frente, dentro do alcance e na mesma faixa da rua
 func _aplicar_soco(golpe: Dictionary):
 	var acertou = false
+	var acertou_inimigo = false
 
 	for alvo in get_tree().get_nodes_in_group("alvos_golpe"):
 		if not is_instance_valid(alvo) or alvo.get("morto"):
@@ -324,9 +355,165 @@ func _aplicar_soco(golpe: Dictionary):
 				alvo.empurrar(Vector2(direcao_olhar * golpe.empurrao, 0))
 			alvo.receber_dano(golpe.dano)
 			acertou = true
+			acertou_inimigo = acertou_inimigo or alvo.is_in_group("inimigos")
 
+	if acertou_inimigo and usa_minirriff():
+		_alterar_poder(poder_por_acerto)
 	if acertou and golpe.tremor > 0.0:
 		Combate.tremer(golpe.tremor)
+
+
+# ---------------------------------------------------------------- Minirriff
+
+func usa_minirriff() -> bool:
+	var fase = get_tree().current_scene
+	return fase != null and fase.has_node("Spawns") and fase.has_node("Portal")
+
+
+func _input(evento: InputEvent) -> void:
+	if caido or entrando or bloqueado or esquivando or tempo_atordoado > 0.0:
+		return
+	if not _especial_pendente.is_empty() or not usa_minirriff():
+		return
+	if evento is InputEventJoypadButton and evento.device != Controles.controle_do_jogador(id_jogador):
+		return
+
+	var usando_controle = evento is InputEventJoypadButton
+	# O LB toca a segunda pista no Riff dos chefes e a nota grave nas ruas.
+	var comando_grave = "riff_cima" if usando_controle else "riff_mode"
+	if evento.is_action_pressed(acao(comando_grave)):
+		_registrar_nota_minirriff("A", usando_controle)
+	elif evento.is_action_pressed(acao("interagir")):
+		var portal = get_tree().current_scene.get_node("Portal")
+		if portal.pode_interagir(self) or _parceiro_para_reviver() != null:
+			_limpar_sequencia_minirriff()
+			return
+		_registrar_nota_minirriff("B", usando_controle)
+
+
+func _registrar_nota_minirriff(nota: String, usando_controle: bool) -> void:
+	minirriff_usando_controle = usando_controle
+	if sequencia_minirriff.is_empty():
+		tempo_minirriff = janela_minirriff
+		tempo_mensagem_minirriff = 0.0
+	Audio.tocar("minirriff_grave" if nota == "A" else "minirriff_agudo", 0.0, 0)
+	sequencia_minirriff += nota
+
+	for codigo in MINIRRIFFS:
+		if not codigo.begins_with(sequencia_minirriff):
+			continue
+		if codigo == sequencia_minirriff:
+			_preparar_especial(MINIRRIFFS[codigo])
+		return
+	_errar_minirriff("Sequência errada")
+
+
+func _atualizar_minirriff(delta: float) -> bool:
+	tempo_mensagem_minirriff = maxf(tempo_mensagem_minirriff - delta, 0.0)
+	if not sequencia_minirriff.is_empty():
+		if bloqueado:
+			_limpar_sequencia_minirriff()
+		else:
+			tempo_minirriff = maxf(tempo_minirriff - delta, 0.0)
+			if tempo_minirriff <= 0.0:
+				_errar_minirriff("Tempo esgotado")
+				return true
+
+	if tempo_atordoado > 0.0:
+		tempo_atordoado = maxf(tempo_atordoado - delta, 0.0)
+		return true
+
+	if _especial_pendente.is_empty():
+		return false
+	if bloqueado:
+		_cancelar_especial()
+		em_acao = false
+		return false
+	if _tempo_tocando > 0.0:
+		_tempo_tocando -= delta
+		if _tempo_tocando <= 0.0:
+			_soltar_especial()
+	return true
+
+
+func _limpar_sequencia_minirriff() -> void:
+	sequencia_minirriff = ""
+	tempo_minirriff = 0.0
+
+
+func _avisar_minirriff(texto: String) -> void:
+	mensagem_minirriff = texto
+	tempo_mensagem_minirriff = 0.8
+
+
+func _errar_minirriff(texto: String) -> void:
+	Audio.tocar("minirriff_falha", 0.0, 0)
+	_limpar_sequencia_minirriff()
+	_alterar_poder(-1.0)
+	tempo_atordoado = atordoamento_minirriff
+	_cancelar_soco()
+	if esquivando:
+		_encerrar_dodge()
+	_tocar_acao("hurt")
+	_avisar_minirriff(texto)
+
+
+func _preparar_especial(especial: Dictionary) -> void:
+	_limpar_sequencia_minirriff()
+	if poder < especial.custo:
+		Audio.tocar("minirriff_falha", 0.0, 0)
+		_avisar_minirriff("Poder insuficiente")
+		return
+	_cancelar_soco()
+	_especial_pendente = especial
+	Audio.tocar("minirriff_sucesso", 0.0, 0)
+	_avisar_minirriff(especial.nome)
+	_tocar_acao("riff_inicio")
+
+
+func _cancelar_especial() -> void:
+	_especial_pendente = {}
+	_tempo_tocando = 0.0
+
+
+func _soltar_especial() -> void:
+	var especial = _especial_pendente
+	_cancelar_especial()
+	em_acao = false
+	sprite.play("idle")
+	_alterar_poder(-especial.custo)
+	Audio.tocar("tiro_dylan")
+	Combate.tremer(4.0)
+	if especial.has("cena"):
+		var nota = especial.cena.instantiate()
+		get_tree().current_scene.add_child(nota)
+		nota.global_position = global_position
+		nota.disparar(direcao_olhar, especial.dano, escala_personagem)
+		return
+
+	if not especial.has("raio"):
+		var arco = ARCO_MINIRRIFF.instantiate()
+		get_tree().current_scene.add_child(arco)
+		arco.global_position = global_position + Vector2(direcao_olhar * 28.0 * escala_personagem, 0)
+		arco.disparar(direcao_olhar, especial.dano, escala_personagem)
+		return
+
+	var centro = global_position
+	var raio = especial.raio * escala_personagem
+	var onda = ONDA_MINIRRIFF.instantiate()
+	get_tree().current_scene.add_child(onda)
+	onda.global_position = centro
+	onda.expandir(raio)
+	for alvo in get_tree().get_nodes_in_group("alvos_golpe"):
+		if not is_instance_valid(alvo) or alvo.get("morto"):
+			continue
+		if alvo.global_position.distance_to(centro) <= raio:
+			var direcao = centro.direction_to(alvo.global_position)
+			if alvo.has_method("empurrar"):
+				alvo.empurrar(direcao * 360.0)
+			alvo.receber_dano(especial.dano)
+			if alvo is Inimigo:
+				alvo.atordoar(especial.atordoamento)
 
 
 # ---------------------------------------------------------------- Riff
@@ -349,6 +536,10 @@ func _ao_terminar_animacao():
 		return
 
 	if sprite.animation == &"riff_inicio":
+		if not _especial_pendente.is_empty():
+			_tempo_tocando = 0.18
+			sprite.play("riff")
+			return
 		sprite.play("riff" if em_riff else "idle")
 		return
 
@@ -371,6 +562,9 @@ func receber_dano(dano):
 	var vida_antes = vida
 	vida = max(vida - dano, 0)
 	vida_alterada.emit(vida, vida_maxima)
+	if vida < vida_antes and usa_minirriff():
+		_alterar_poder(poder_por_dano)
+	_cancelar_especial()
 	dano_sofrido.emit(vida_antes - vida)
 
 	if vida <= 0:
@@ -412,6 +606,10 @@ func sincronizar_vida(nova_vida: int, nova_maxima: int) -> void:
 func morrer():
 	vida = 0
 	caido = true
+	_limpar_sequencia_minirriff()
+	_cancelar_especial()
+	tempo_atordoado = 0.0
+	tempo_mensagem_minirriff = 0.0
 	em_riff = false
 	_cancelar_soco()
 	esquivando = false
@@ -435,12 +633,17 @@ func _tentar_reviver_parceiro(delta):
 	if not Input.is_action_pressed(acao("interagir")):
 		return
 
+	var parceiro = _parceiro_para_reviver()
+	if parceiro != null:
+		parceiro.ajudar_a_levantar(delta)
+
+
+func _parceiro_para_reviver() -> Node2D:
 	for outro in Jogo.jogadores:
-		if outro == self or not is_instance_valid(outro) or not outro.caido:
-			continue
-		if global_position.distance_to(outro.global_position) <= raio_reviver:
-			outro.ajudar_a_levantar(delta)
-			return
+		if is_instance_valid(outro) and outro != self and outro.caido:
+			if global_position.distance_to(outro.global_position) <= raio_reviver:
+				return outro
+	return null
 
 
 func ajudar_a_levantar(delta):

@@ -1,11 +1,11 @@
 extends CanvasLayer
-## HUD das fases: retrato, corações (vida) e raios (stamina) de cada jogador,
+## HUD das fases: retrato, corações (vida) e raios (poder) de cada jogador,
 ## título da fase, seta de seguir, avisos e tela de fim. Conecta sozinho com os jogadores que
 ## existem e com quem entrar depois.
 ##
 ## Visual inteiro na cena (hud.tscn): cada coração e raio é um
 ## TextureProgressBar; o vazio é a mesma textura escurecida (tint_under) e o
-## raio enche de baixo para cima enquanto a stamina recarrega. A entrada do
+## raio enche de baixo para cima enquanto o poder recarrega. A entrada do
 ## título e o pisca da seta são AnimationPlayers.
 
 const COR_CAIDO = Color(0.3, 0.3, 0.35, 1)
@@ -24,7 +24,7 @@ const COR_CAIDO = Color(0.3, 0.3, 0.35, 1)
 @onready var subtitulo_fim = $TelaFim/Conteudo/Subtitulo
 
 var aviso_id := 0
-var _tween_trava: Tween
+var _tweens_trava: Dictionary = {}
 var paineis := {}
 var conectados := []
 
@@ -46,6 +46,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	for jogador in conectados:
+		if is_instance_valid(jogador) and jogador.usa_minirriff():
+			_atualizar_visor_minirriff(jogador, paineis[jogador.id_jogador])
 	# Vaga do P2: silhueta piscando com o botão de entrar (A no controle;
 	# sem controle, J no teclado). Troca se plugar um controle.
 	vaga_p2.visible = not Jogo.p2_ativo and not tela_fim.visible
@@ -63,9 +66,11 @@ func conectar_jogador(jogador) -> void:
 	var painel = paineis[jogador.id_jogador]
 	painel.show()
 	jogador.vida_alterada.connect(_atualizar_vida.bind(painel))
-	jogador.stamina_alterada.connect(_atualizar_stamina.bind(painel, jogador.custo_dodge))
+	jogador.poder_alterado.connect(_atualizar_poder.bind(painel))
 	_atualizar_vida(jogador.vida, jogador.vida_maxima, painel)
-	_atualizar_stamina(jogador.stamina, jogador.stamina_maxima, painel, jogador.custo_dodge)
+	_atualizar_poder(jogador.poder, jogador.poder_maximo, painel)
+	painel.get_node("Icones/Raios").visible = jogador.usa_minirriff()
+	painel.get_node("Icones/VisorMinirriff").visible = jogador.usa_minirriff()
 
 
 # Quem entra no meio da fase ganha uma entrada com flash
@@ -111,16 +116,39 @@ func _atualizar_vida(atual, maxima, painel) -> void:
 	painel.get_node("Retrato").modulate = COR_CAIDO if atual <= 0 else Color.WHITE
 
 
-## Um raio por dodge: cada raio vale custo_dodge de stamina
-func _atualizar_stamina(atual, maxima, painel, custo) -> void:
+func _atualizar_poder(atual, maxima, painel) -> void:
 	var raios = painel.get_node("Icones/Raios").get_children()
+	var valor_raio = maxima / raios.size()
 	for i in raios.size():
 		var raio = raios[i]
-		raio.visible = (i + 1) * custo <= maxima
 		var antes = raio.value
-		raio.value = clampf((atual - i * custo) / custo, 0.0, 1.0)
+		raio.value = clampf((atual - i * valor_raio) / valor_raio, 0.0, 1.0)
 		if raio.value >= 1.0 and antes < 1.0:
 			_pulsar(raio)
+
+
+func _atualizar_visor_minirriff(jogador, painel) -> void:
+	var visor = painel.get_node("Icones/VisorMinirriff")
+	var usando_controle = jogador.minirriff_usando_controle and Controles.controle_do_jogador(jogador.id_jogador) >= 0
+	var primeira = "LB" if usando_controle else ("T" if jogador.id_jogador == 1 else "I")
+	var segunda = "RB" if usando_controle else ("Y" if jogador.id_jogador == 1 else "L")
+	var visor_texto = visor.get_node("Sequencia")
+	var prazo = visor.get_node("Prazo")
+	prazo.visible = not jogador.sequencia_minirriff.is_empty()
+	prazo.value = jogador.tempo_minirriff / jogador.janela_minirriff
+	if jogador.caido:
+		visor_texto.text = ""
+	elif prazo.visible:
+		var notas := PackedStringArray()
+		for nota in jogador.sequencia_minirriff:
+			notas.append(primeira if nota == "A" else segunda)
+		while notas.size() < 4:
+			notas.append("·")
+		visor_texto.text = "%s   %.1f s" % ["  ".join(notas), jogador.tempo_minirriff]
+	elif jogador.tempo_mensagem_minirriff > 0.0:
+		visor_texto.text = jogador.mensagem_minirriff
+	else:
+		visor_texto.text = "Minirriff  %s / %s" % [primeira, segunda]
 
 
 # Ícone que mudou dá um pulo rápido (efeito da partida, por isso em código)
@@ -130,7 +158,7 @@ func _pulsar(icone: Control) -> void:
 	icone.create_tween().tween_property(icone, "scale", Vector2.ONE, 0.2)
 
 
-## Cabo de força: a vida fica na barra do cabo; aqui sobra só a stamina
+## Cabo de força: a vida fica na barra do cabo; aqui sobra só os indicadores de combate
 func usar_vida_compartilhada() -> void:
 	for painel in paineis.values():
 		painel.get_node("Icones/Coracoes").hide()
@@ -145,22 +173,23 @@ func mostrar_titulo(texto: String) -> void:
 
 
 ## Ampulheta do Riff travado: enche como relógio até liberar (1 = liberado)
-func mostrar_trava_riff(progresso: float) -> void:
-	var trava = $TravaRiff
+func mostrar_trava_riff(progresso: float, id_jogador := 1) -> void:
+	var trava = $TravaRiff if id_jogador == 1 else $TravaRiffP2
 	trava.visible = progresso < 1.0
 	trava.value = progresso
 
 
 ## Tentou abrir o Riff travado: a ampulheta treme
-func recusar_riff() -> void:
+func recusar_riff(id_jogador := 1) -> void:
 	Audio.tocar("nota_miss")
-	var trava = $TravaRiff
-	if _tween_trava:
-		_tween_trava.kill()
+	var trava = $TravaRiff if id_jogador == 1 else $TravaRiffP2
+	if _tweens_trava.has(id_jogador):
+		_tweens_trava[id_jogador].kill()
 	trava.rotation = 0.0
-	_tween_trava = trava.create_tween()
+	var tween = trava.create_tween()
+	_tweens_trava[id_jogador] = tween
 	for angulo in [0.3, -0.3, 0.15, 0.0]:
-		_tween_trava.tween_property(trava, "rotation", angulo, 0.05)
+		tween.tween_property(trava, "rotation", angulo, 0.05)
 
 
 ## Seta piscando para a direita quando a área foi limpa

@@ -60,18 +60,27 @@ func criar_onda():
 			push_warning("Ponto %s sem inimigo e GerenciadorOndas sem cena_inimigo" % ponto.name)
 			continue
 
-		var inimigo = cena.instantiate()
-
-		get_parent().add_child(inimigo)
-		inimigo.global_position = ponto.global_position
-
-		inimigos_vivos += 1
-		inimigo.tree_exited.connect(inimigo_morreu)
+		_criar_inimigo(cena, ponto.global_position)
 
 	print("Inimigos na onda: ", inimigos_vivos)
 
 	if inimigos_vivos == 0:
 		call_deferred("inimigo_morreu", true)
+
+
+func invocar_inimigo(cena: PackedScene, posicao: Vector2) -> Node2D:
+	if reiniciando or esperando_onda or arena_liberada or inimigos_vivos <= 0:
+		return null
+	return _criar_inimigo(cena, posicao)
+
+
+func _criar_inimigo(cena: PackedScene, posicao: Vector2) -> Node2D:
+	var inimigo = cena.instantiate()
+	inimigos_vivos += 1
+	inimigo.tree_exited.connect(inimigo_morreu)
+	get_parent().add_child(inimigo)
+	inimigo.global_position = posicao
+	return inimigo
 
 
 func inimigo_morreu(sem_inimigos := false):

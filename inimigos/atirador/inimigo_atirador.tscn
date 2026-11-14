@@ -10,7 +10,7 @@ script = ExtResource("2_aqhvr")
 cena_projetil_inimigo = ExtResource("3_fi8rl")
 distancia_ideal = 230.0
 distancia_ataque = 230.0
-dano = 2
+dano = 1
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
 scale = Vector2(2.2, 2.2)

@@ -2,7 +2,7 @@
 extends Node2D
 ## Círculo "segure para levantar" que aparece sobre o jogador caído
 ## e enche enquanto o parceiro segura interagir perto dele. Em cima, o ícone
-## do botão de interagir do PARCEIRO (E do P1, L do P2 ou B no controle),
+## do botão de interagir do PARCEIRO (Y do P1, L do P2 ou RB no controle),
 ## pulsando. Os ícones ficam no Inspector; o tamanho na tela é altura_icone.
 
 @export var icone_teclado_p1: Texture2D

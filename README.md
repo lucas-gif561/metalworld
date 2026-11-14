@@ -10,7 +10,7 @@
 
 ---
 
-Dylan Walker nasceu surdo e descobriu o heavy metal no dia em que ganhou um aparelho auditivo. Agora ele atravessa as ruas no soco, e quando chega a hora do chefe, saca a guitarra: **o chefe só perde vida no Riff**, um minigame de ritmo. Em dupla, os dois jogadores revezam as notas e dividem uma vida só contra o chefe.
+Dylan Walker nasceu surdo e descobriu o heavy metal no dia em que ganhou um aparelho auditivo. Agora ele atravessa as ruas no soco, e quando chega a hora do chefe, saca a guitarra: **o chefe só perde vida no Riff**, um minigame de ritmo. Em dupla, cada jogador tem suas próprias pistas e a dupla divide uma vida só contra o chefe.
 
 ![Rua em dupla](docs/imagens/rua_dupla.png)
 
@@ -19,7 +19,7 @@ Dylan Walker nasceu surdo e descobriu o heavy metal no dia em que ganhou um apar
 - **Co-op local para 2 jogadores**: o P2 entra a qualquer momento; quem cai é levantado pelo parceiro.
 - **Combate justo**: inimigos piscam antes de atacar; dá para desviar, sair da faixa ou socar para cancelar.
 - **Profundidade de beat 'em up**: personagens passam na frente e atrás uns dos outros.
-- **Riff**: notas a 150 BPM no tempo da música, acelerando quanto mais tempo vocês ficam tocando; em dupla, blocos alternam entre P1 (rosa) e P2 (azul) e às vezes os dois tocam juntos. Levou dano? Expulso do Riff e ele trava por um tempo.
+- **Riff**: notas a 150 BPM no tempo da música, acelerando quanto mais tempo vocês ficam tocando; em dupla, as pistas ficam à esquerda para o P1 e à direita para o P2. Cada nota causa 0,5× de dano no Riff solo e 1× quando os dois estão tocando. Esquivar fecha o próprio Riff. Dano interrompe e trava o Riff de quem foi atingido.
 - **Chefe em 3 fases**: escudo de runas, capangas, teleporte, nota maldita e cabo de força (vida compartilhada).
 - **6 fases**: Rua 1 → Boss 1 → Rua 2 → Boss 2 → Rua 3 → Boss 3.
 
@@ -31,10 +31,10 @@ Dylan Walker nasceu surdo e descobriu o heavy metal no dia em que ganhou um apar
 |---|---|---|---|
 | Mover | W A S D | Setas | Analógico / direcional |
 | Socar | F | J | X |
-| Dodge | G | K | A / RB |
-| Interagir / levantar parceiro | E | L | B |
-| Abrir/fechar Riff | Q | I | LB |
-| Notas do Riff (← ↑ ↓ →) | W A S D | Setas | Direcional / X Y A B |
+| Dodge | G | K | B |
+| Interagir / levantar parceiro | Y | L | RB |
+| Abrir/fechar Riff | T | I | A |
+| Notas do Riff (← ↑ ↓ →) | W A S D | Setas | LT / LB / RB / RT |
 | Entrar / reiniciar | R | J | START |
 | Pausar (e remover o P2) | Esc | P | START |
 

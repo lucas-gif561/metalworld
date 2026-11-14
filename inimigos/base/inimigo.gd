@@ -62,6 +62,7 @@ const COR_CARGA = Color(1.8, 1.8, 1.8)
 @export var pausa_ao_acertar = 0.03
 @export var pausa_ao_morrer = 0.07
 @export var tremor_ao_morrer = 5.0
+@export var imune_a_atordoamento = false
 
 @onready var timer_ataque = $TimerAtaque
 @onready var sprite = $AnimatedSprite2D
@@ -71,6 +72,7 @@ var jogador: Node2D = null
 var morto = false
 var em_acao = false
 var preparando = false
+var tempo_atordoado = 0.0
 ## Lado para onde ele olhava ao começar a carga (1 = direita, -1 = esquerda).
 ## Fica travado durante a carga: o golpe sai para esse lado.
 var lado_carga = 1
@@ -116,6 +118,11 @@ func aplicar_escala(fator: float) -> void:
 
 
 func _physics_process(delta):
+	if not morto and tempo_atordoado > 0.0:
+		tempo_atordoado = maxf(tempo_atordoado - delta, 0.0)
+		velocity = Vector2.ZERO
+		return
+
 	# O empurrão vale até para o corpo caindo
 	if _processar_empurrao(delta) or morto:
 		return
@@ -339,6 +346,8 @@ func _cancelar_carga() -> void:
 
 
 func empurrar(forca: Vector2) -> void:
+	if tempo_atordoado > 0.0:
+		return
 	empurrao = forca * resistencia_empurrao
 	_cancelar_carga()
 
@@ -400,16 +409,30 @@ func receber_dano(valor):
 		return
 
 	vida -= valor
-	_cancelar_carga()
-
 	if vida <= 0:
+		_cancelar_carga()
 		morrer()
 	else:
-		Audio.tocar("dano_inimigo")
-		Combate.pausar(pausa_ao_acertar)
-		_tocar_acao("hurt")
-		sprite.modulate = Color(1, 0.4, 0.4)
-		create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.2)
+		_reagir_ao_dano()
+
+
+func _reagir_ao_dano() -> void:
+	_cancelar_carga()
+	Audio.tocar("dano_inimigo")
+	Combate.pausar(pausa_ao_acertar)
+	_tocar_acao("hurt")
+	sprite.modulate = Color(1, 0.4, 0.4)
+	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.2)
+
+
+func atordoar(duracao: float) -> void:
+	if morto or imune_a_atordoamento:
+		return
+	_cancelar_carga()
+	_liberar_vaga()
+	empurrao = Vector2.ZERO
+	velocity = Vector2.ZERO
+	tempo_atordoado = maxf(tempo_atordoado, duracao)
 
 
 func _exit_tree():
