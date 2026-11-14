@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://inimigos/base/inimigo.tscn" id="1_base"]
+[ext_resource type="SpriteFrames" path="res://inimigos/tanque/sprites/tanque.tres" id="2_frames"]
+[ext_resource type="Script" path="res://fases/rua_2/inimigos/tubista/tubista.gd" id="3_tubista"]
+
+[sub_resource type="RectangleShape2D" id="ColisaoTubista"]
+size = Vector2(64, 18)
+
+[node name="Tubista" instance=ExtResource("1_base")]
+script = ExtResource("3_tubista")
+modulate = Color(0.94, 0.68, 1.0, 1)
+velocidade = 82.0
+vida = 7
+tempo_preparo = 0.85
+resistencia_empurrao = 0.35
+imune_a_atordoamento = true
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(2.2, 2.2)
+sprite_frames = ExtResource("2_frames")
+offset = Vector2(0, -27)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -9)
+shape = SubResource("ColisaoTubista")
+
+[node name="TimerAtaque" parent="." index="2"]
+wait_time = 2.1
+
+[node name="SaidaTuba" type="Marker2D" parent="." index="3"]
+position = Vector2(48, -43)
