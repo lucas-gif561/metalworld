@@ -1,0 +1,25 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://fases/boss_3/padrao_blaster.gd" id="1_padrao"]
+[ext_resource type="Script" path="res://fases/boss_3/disparo_blaster.gd" id="2_disparo"]
+[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_parede.tscn" id="3_feixe"]
+
+[sub_resource type="Resource" id="Resource_laterais"]
+script = ExtResource("2_disparo")
+cena_feixe = ExtResource("3_feixe")
+faixas_da_parede = PackedInt32Array(0, 2)
+intervalo_anterior = 0.45
+tempo_aviso = 1.45
+tempo_carga = 0.3
+
+[sub_resource type="Resource" id="Resource_centro"]
+script = ExtResource("2_disparo")
+cena_feixe = ExtResource("3_feixe")
+faixas_da_parede = PackedInt32Array(1)
+intervalo_anterior = 0.16
+tempo_aviso = 0.95
+tempo_carga = 0.25
+
+[resource]
+script = ExtResource("1_padrao")
+disparos = Array[ExtResource("2_disparo")]([SubResource("Resource_laterais"), SubResource("Resource_centro")])

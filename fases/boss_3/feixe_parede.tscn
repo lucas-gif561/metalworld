@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+
+[node name="FeixeParede" instance=ExtResource("1_feixe")]
+tempo_ativo = 0.25
+
+[node name="Aviso" parent="." index="1"]
+default_color = Color(1, 0.83, 0.31, 0.32)
+
+[node name="Carga" parent="." index="2"]
+width = 7.0
+default_color = Color(1, 0.89, 0.52, 0.94)
+
+[node name="Faixa" parent="." index="3"]
+default_color = Color(0.97, 0.7, 0.24, 0.62)
+
+[node name="Nucleo" parent="." index="4"]
+width = 16.0
+default_color = Color(1, 0.97, 0.75, 0.96)
+
+[node name="Instrucao" parent="." index="5"]
+visible = true
+theme_override_colors/font_color = Color(1, 0.89, 0.52, 1)
+text = "PAREDE DE FEIXES"

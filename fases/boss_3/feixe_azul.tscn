@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amplo"]
+resource_local_to_scene = true
+size = Vector2(128, 425)
+
+[node name="FeixeAzul" instance=ExtResource("1_feixe")]
+regra_dano = 1
+limite_proporcional_de_largura = 0.78
+
+[node name="Colisor" parent="." index="0"]
+shape = SubResource("RectangleShape2D_amplo")
+
+[node name="Aviso" parent="." index="1"]
+width = 425.0
+default_color = Color(0.33, 0.72, 1, 0.23)
+
+[node name="Mira" parent="Aviso" index="0"]
+visible = true
+
+[node name="Carga" parent="." index="2"]
+default_color = Color(0.55, 0.84, 1, 0.95)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Faixa" parent="." index="3"]
+width = 425.0
+default_color = Color(0.22, 0.62, 1, 0.45)
+
+[node name="Nucleo" parent="." index="4"]
+default_color = Color(0.75, 0.92, 1, 0.96)
+
+[node name="Instrucao" parent="." index="5"]
+visible = true
+theme_override_colors/font_color = Color(0.65, 0.87, 1, 1)
+text = "AZUL · FIQUE PARADO"

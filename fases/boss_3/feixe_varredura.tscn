@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+[ext_resource type="Script" path="res://fases/boss_3/feixe_varredura.gd" id="2_varredura"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_varredura"]
+resource_local_to_scene = true
+size = Vector2(128, 46)
+
+[node name="FeixeVarredura" instance=ExtResource("1_feixe")]
+monitoring = false
+script = ExtResource("2_varredura")
+tempo_ativo = 1.0
+abertura_em_graus = 70.0
+
+[node name="Colisor" parent="." index="0"]
+shape = SubResource("RectangleShape2D_varredura")
+
+[node name="Aviso" parent="." index="1"]
+width = 46.0
+default_color = Color(0.79, 0.55, 1, 0.46)
+
+[node name="Setor" type="Polygon2D" parent="Aviso" index="1"]
+z_index = -1
+color = Color(0.74, 0.39, 1, 0.22)
+polygon = PackedVector2Array(0, 0, 128, -50, 128, 50)
+
+[node name="Fim" type="Line2D" parent="Aviso" index="2"]
+z_index = -1
+points = PackedVector2Array(0, 0, 128, 50)
+width = 46.0
+default_color = Color(0.74, 0.39, 1, 0.22)
+
+[node name="Carga" parent="." index="2"]
+default_color = Color(0.89, 0.73, 1, 0.93)
+
+[node name="Faixa" parent="." index="3"]
+width = 46.0
+default_color = Color(0.68, 0.33, 1, 0.82)
+
+[node name="Nucleo" parent="." index="4"]
+width = 12.0
+default_color = Color(0.95, 0.87, 1, 0.96)
+
+[node name="Instrucao" parent="." index="5"]
+visible = true
+theme_override_colors/font_color = Color(0.89, 0.73, 1, 1)
+text = "VARREDURA"

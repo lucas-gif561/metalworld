@@ -1,0 +1,16 @@
+[gd_resource type="Resource" format=3]
+
+[ext_resource type="Script" path="res://fases/boss_3/padrao_blaster.gd" id="1_padrao"]
+[ext_resource type="Script" path="res://fases/boss_3/disparo_blaster.gd" id="2_disparo"]
+[ext_resource type="PackedScene" path="res://fases/boss_3/pulso_central.tscn" id="3_pulso"]
+
+[sub_resource type="Resource" id="Resource_pulso"]
+script = ExtResource("2_disparo")
+cena_pulso = ExtResource("3_pulso")
+intervalo_anterior = 0.42
+tempo_aviso = 1.5
+tempo_carga = 0.4
+
+[resource]
+script = ExtResource("1_padrao")
+disparos = Array[ExtResource("2_disparo")]([SubResource("Resource_pulso")])

@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_blaster"]
+size = Vector2(128, 78)
+
+[node name="FeixeBlaster" instance=ExtResource("1_feixe")]
+
+[node name="Colisor" parent="." index="0"]
+shape = SubResource("RectangleShape2D_blaster")
+
+[node name="Aviso" parent="." index="1"]
+width = 78.0
+
+[node name="Faixa" parent="." index="3"]
+width = 78.0

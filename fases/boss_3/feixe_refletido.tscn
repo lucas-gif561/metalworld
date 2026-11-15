@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fino"]
+resource_local_to_scene = true
+size = Vector2(128, 42)
+
+[node name="FeixeRefletido" instance=ExtResource("1_feixe")]
+
+[node name="Colisor" parent="." index="0"]
+shape = SubResource("RectangleShape2D_fino")
+
+[node name="Aviso" parent="." index="1"]
+width = 42.0
+default_color = Color(0.68, 0.95, 0.55, 0.38)
+joint_mode = 2
+
+[node name="Carga" parent="." index="2"]
+default_color = Color(0.8, 1, 0.62, 0.93)
+joint_mode = 2
+
+[node name="Faixa" parent="." index="3"]
+width = 42.0
+default_color = Color(0.64, 0.94, 0.4, 0.77)
+joint_mode = 2
+
+[node name="Nucleo" parent="." index="4"]
+width = 9.0
+default_color = Color(0.94, 1, 0.76, 0.96)
+joint_mode = 2
+
+[node name="Instrucao" parent="." index="5"]
+visible = true
+theme_override_colors/font_color = Color(0.8, 1, 0.62, 1)
+text = "RICOCHETE"
