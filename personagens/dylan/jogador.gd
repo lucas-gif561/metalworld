@@ -33,12 +33,11 @@ const MINIRRIFFS = {
 const CAMADA_NORMAL = 1
 const MASCARA_NORMAL = 3
 const MASCARA_DODGE = 1 # Durante o dodge colide apenas com o cenário
-const SHADER_TROCA_COR = preload("res://personagens/dylan/troca_cor.gdshader")
-
-# Socos alternados. quadro = quadro do impacto (quando o dano sai)
+# Combo de três golpes. O quadro do cross depende da animação do personagem.
 const SOCOS = [
-	{"animacao": &"soco_esquerdo", "quadro": 1, "dano": 1, "empurrao": 260.0, "tremor": 0.0},
-	{"animacao": &"soco_direito", "quadro": 3, "dano": 2, "empurrao": 520.0, "tremor": 3.0},
+	{"animacao": &"soco_esquerdo", "quadro": 1, "dano": 1, "empurrao": 0.0, "tremor": 0.0},
+	{"animacao": &"soco_direito", "dano": 2, "empurrao": 0.0, "tremor": 3.0},
+	{"animacao": &"chute", "quadro": 4, "dano": 2, "empurrao": 620.0, "tremor": 4.0},
 ]
 
 @export var id_jogador := 1
@@ -54,6 +53,7 @@ const SOCOS = [
 @export var faixa_soco = 34.0
 ## Depois disso sem bater, a sequência volta para o soco esquerdo
 @export var tempo_sequencia = 0.6
+@export var quadro_cross: int = 3
 
 @export_group("Dodge")
 ## Velocidade no tamanho normal (boss). Acompanha o tamanho do personagem:
@@ -334,7 +334,7 @@ func _ao_mudar_quadro():
 	if not _socando():
 		return
 	var golpe = SOCOS[soco_atual]
-	if sprite.animation == golpe.animacao and sprite.frame == golpe.quadro:
+	if sprite.animation == golpe.animacao and sprite.frame == golpe.get("quadro", quadro_cross):
 		_aplicar_soco(golpe)
 
 
@@ -351,7 +351,7 @@ func _aplicar_soco(golpe: Dictionary):
 		var frente = distancia.x * direcao_olhar
 
 		if frente >= -10.0 and frente <= alcance_soco and abs(distancia.y) <= faixa_soco:
-			if alvo.has_method("empurrar"):
+			if golpe.empurrao > 0.0 and alvo.has_method("empurrar"):
 				alvo.empurrar(Vector2(direcao_olhar * golpe.empurrao, 0))
 			alvo.receber_dano(golpe.dano)
 			acertou = true
@@ -674,15 +674,8 @@ func reviver():
 # ---------------------------------------------------------------- Visual
 
 ## Cores do P1/P2 nos marcadores da cena (Anel e IndicadorReviver).
-## A cor do P2 fica em código porque P1 e P2 usam a mesma cena.
 func _configurar_identificacao():
 	var cor = Jogo.cor(id_jogador)
-
-	if id_jogador == 2:
-		var material = ShaderMaterial.new()
-		material.shader = SHADER_TROCA_COR
-		material.set_shader_parameter("cor_destaque", cor)
-		sprite.material = material
 
 	_anel.cor = Color(cor, 0.85)
 	_indicador.cor = cor

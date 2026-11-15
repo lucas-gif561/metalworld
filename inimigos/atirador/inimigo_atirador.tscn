@@ -13,7 +13,7 @@ distancia_ataque = 230.0
 dano = 1
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
-scale = Vector2(2.2, 2.2)
+scale = Vector2(2.55, 2.55)
 sprite_frames = ExtResource("9_frames")
 offset = Vector2(0, -22)
 
