@@ -46,6 +46,7 @@ const FormaPinball = preload("res://fases/boss_2/forma_pinball.tres")
 @onready var aviso_pinball_piso: Line2D = $AnimatedSprite2D/AvisoPinballPiso
 @onready var aviso_pinball_curto: Line2D = $AnimatedSprite2D/AvisoPinballCurto
 @onready var diabo: Duelista = $Diabo
+@onready var _cor_diabo: Color = diabo.self_modulate
 @onready var projeteis: Node2D = $Projeteis
 @onready var cordas: Array[Node] = $Cordas.get_children()
 @onready var dissonancias: Node2D = $Dissonancias
@@ -57,10 +58,12 @@ var _primeira_corda := 0
 
 
 func _ready() -> void:
+	# A vida é compartilhada, mas é o Diabo que reage aos acertos do Riff.
+	sprite = diabo
 	super._ready()
 	paganini.rival = diabo
 	diabo.rival = paganini
-	sprite.animation_changed.connect(_sincronizar_animacao)
+	diabo.animation_changed.connect(_sincronizar_derrota)
 	derrotado.connect(hide)
 
 
@@ -427,6 +430,14 @@ func _physics_process(_delta: float) -> void:
 	diabo.movimento_ativo = movimento_ativo
 
 
-func _sincronizar_animacao() -> void:
-	diabo.stop()
-	diabo.play(sprite.animation)
+func _ao_quebrar_runa() -> void:
+	super._ao_quebrar_runa()
+	if not escudo_ativo:
+		diabo.self_modulate = _cor_diabo
+
+
+func _sincronizar_derrota() -> void:
+	if diabo.animation == &"death":
+		diabo.self_modulate = _cor_diabo
+		paganini.stop()
+		paganini.play(&"death")
