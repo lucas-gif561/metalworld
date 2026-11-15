@@ -8,6 +8,12 @@ extends Boss
 @export_range(0.0, 1.0) var chance_correr := 0.75
 @export var velocidade_corrida := 320.0
 
+@export_group("Microfonia")
+## Aviso da microfonia grande (área quádrupla), do círculo aparecer até o dano
+@export var tempo_microfonia_grande := 1.2
+## Aviso de cada círculo da trilha que persegue os jogadores
+@export var tempo_microfonia_trilha := 0.7
+
 ## Animação de cada ataque (cai no "cast" se a animação não existir)
 const ANIMACAO_DO_ATAQUE = {
 	"rajada": "arremessar",
@@ -141,6 +147,30 @@ func morrer():
 	correndo = false
 	sprite.flip_h = false
 	await super()
+
+
+## Microfonia grande embaixo de um jogador, com aviso mais curto que o padrão
+## (tempo_microfonia_grande). A animação acende até o dano no mesmo tempo.
+func area_no_chao(raio := 90.0) -> void:
+	var mira = alvo()
+	if not pode_atacar() or mira == null:
+		return
+	_conjurar()
+	criar_circulo(mira.global_position, 2, tempo_microfonia_grande, raio)
+	await esperar(tempo_microfonia_grande)
+
+
+## Microfonia que persegue: a trilha segue os dois jogadores ao mesmo tempo
+## (um círculo embaixo de cada jogador vivo a cada passo), em vez de só um.
+func trilha_no_chao(circulos := 6) -> void:
+	for i in range(circulos):
+		var vivos = Jogo.jogadores_vivos()
+		if not pode_atacar() or vivos.is_empty():
+			return
+		_conjurar()
+		for jogador in vivos:
+			criar_circulo(jogador.global_position, 1, tempo_microfonia_trilha)
+		await esperar(0.3)
 
 
 ## Parede de som: colunas inteiras de microfonia varrendo o chão livre do galpão

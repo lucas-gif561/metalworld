@@ -14,7 +14,7 @@ shape = SubResource("CircleShape2D_onda")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(1.5, 1.5)
+scale = Vector2(2.045, 2.045)
 sprite_frames = ExtResource("2_onda")
 animation = &"ataque"
 autoplay = "ataque"

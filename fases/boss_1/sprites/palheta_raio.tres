@@ -1,0 +1,35 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://fases/boss_1/sprites/palheta_raio.png" id="1_palheta"]
+
+[sub_resource type="AtlasTexture" id="palheta_0"]
+atlas = ExtResource("1_palheta")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="palheta_1"]
+atlas = ExtResource("1_palheta")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="palheta_2"]
+atlas = ExtResource("1_palheta")
+region = Rect2(96, 0, 48, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("palheta_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("palheta_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("palheta_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("palheta_1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]

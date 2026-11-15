@@ -8,5 +8,5 @@ const ANGULO_DA_ARTE := -PI / 2
 
 
 func _physics_process(delta):
-	$Sprite2D.rotation = direcao.angle() - ANGULO_DA_ARTE
+	$Animacao.rotation = direcao.angle() - ANGULO_DA_ARTE
 	super(delta)

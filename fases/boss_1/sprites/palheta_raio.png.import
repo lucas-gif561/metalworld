@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0ddh37osf00b"
-path="res://.godot/imported/palheta.png-4681e993ee6867d4772ec93544753a55.ctex"
+uid="uid://7hldee076frc"
+path="res://.godot/imported/palheta_raio.png-1eb2ee390e7597ffc09bca00aa843ae4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://fases/boss_1/sprites/palheta.png"
-dest_files=["res://.godot/imported/palheta.png-4681e993ee6867d4772ec93544753a55.ctex"]
+source_file="res://fases/boss_1/sprites/palheta_raio.png"
+dest_files=["res://.godot/imported/palheta_raio.png-1eb2ee390e7597ffc09bca00aa843ae4.ctex"]
 
 [params]
 
