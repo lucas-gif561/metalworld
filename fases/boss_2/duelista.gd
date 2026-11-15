@@ -5,12 +5,16 @@ enum Estado { VAGAR, SEGUIR, ESPELHAR, PARAR, FINTAR }
 
 @export var limites_y := Vector2(205.0, 550.0)
 @export var distancia_minima: float = 70.0
-@export var velocidades := Vector2(95.0, 150.0)
-@export var duracao_movimento := Vector2(1.0, 2.6)
-@export var duracao_pausa := Vector2(0.35, 1.0)
+@export var velocidades := Vector2(55.0, 95.0)
+@export var duracao_movimento := Vector2(1.4, 3.0)
+@export var duracao_pausa := Vector2(0.6, 1.4)
 @export var atraso_seguir: float = 0.35
-@export var velocidade_finta: float = 230.0
-@export var duracao_arrancada: float = 0.22
+@export var velocidade_finta: float = 150.0
+@export var duracao_arrancada: float = 0.4
+## Quanto a velocidade muda por segundo: começa e termina cada movimento devagar
+@export var aceleracao: float = 140.0
+## Freia perto do destino: velocidade máxima = distância restante × frenagem
+@export var frenagem: float = 2.5
 ## Ordem: vagar, seguir, espelhar, parar e fintar. Peso zero desativa o estado.
 @export var pesos: Array[float] = [5.0, 2.0, 1.0, 1.0, 2.0]
 ## Alturas de início e fim dos disparos coreografados.
@@ -51,6 +55,7 @@ var _retorno_finta := false
 var _origem_finta: float
 var _ultima_regiao := -1
 var _ultima_animacao: StringName = &"idle"
+var _velocidade_atual := 0.0
 
 
 func _ready() -> void:
@@ -123,13 +128,14 @@ func encerrar_preparo() -> void:
 
 func _physics_process(delta: float) -> void:
 	if not movimento_ativo or movimento_coreografado or aviso_mira.visible:
+		_velocidade_atual = 0.0
 		return
 	if _atraso_restante > 0.0:
 		_atraso_restante -= delta
 		return
 
 	_tempo_restante -= delta
-	position.y = move_toward(position.y, _destino_y, _velocidade * delta)
+	_mover_suave(delta)
 	if _tempo_restante > 0.0 and (_estado == Estado.PARAR or not is_equal_approx(position.y, _destino_y)):
 		return
 
@@ -139,6 +145,18 @@ func _physics_process(delta: float) -> void:
 		_tempo_restante = duracao_arrancada
 	else:
 		_escolher_movimento()
+
+
+## Acelera aos poucos até a velocidade sorteada e freia ao se aproximar do destino
+func _mover_suave(delta: float) -> void:
+	var distancia = _destino_y - position.y
+	if absf(distancia) < 0.5 and absf(_velocidade_atual) < 8.0:
+		position.y = _destino_y
+		_velocidade_atual = 0.0
+		return
+	var alvo = signf(distancia) * minf(_velocidade, absf(distancia) * frenagem)
+	_velocidade_atual = move_toward(_velocidade_atual, alvo, aceleracao * delta)
+	position.y += _velocidade_atual * delta
 
 
 func _escolher_movimento() -> void:

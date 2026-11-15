@@ -14,6 +14,9 @@ const FormaPinball = preload("res://fases/boss_2/forma_pinball.tres")
 @export var intervalo_entre_ataques: float = 0.65
 @export var intervalo_staccato: float = 0.28
 @export var angulos_leque_diabo := PackedFloat32Array([-29.0, 7.0, 38.0])
+## Na fase 1 o leque tem menos tiros na mesma abertura: sobram vãos largos
+## para aprender a desviar. A partir da fase 2 vale o tiros_por_leque de cada um.
+@export_range(1, 12) var tiros_leque_fase_1: int = 3
 @export var tempo_extra_riff: float = 1.0
 @export var cena_dissonancia: PackedScene
 
@@ -390,6 +393,8 @@ func _leque(atirador: Duelista, rival: Duelista, simultaneo := false) -> void:
 func _disparar_leque(atirador: Duelista, rival: Duelista, direcao: Vector2) -> void:
 	var metade_abertura = deg_to_rad(atirador.abertura_leque * 0.5)
 	var quantidade = atirador.tiros_por_leque
+	if fase == 1:
+		quantidade = mini(quantidade, tiros_leque_fase_1)
 	for i in quantidade:
 		var fracao = float(i) / (quantidade - 1) if quantidade > 1 else 0.5
 		var angulo = lerpf(-metade_abertura, metade_abertura, fracao)
