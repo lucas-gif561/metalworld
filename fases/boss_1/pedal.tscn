@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://bosses/base/runa.gd" id="1_runa"]
+[ext_resource type="Texture2D" path="res://fases/boss_1/sprites/pedal.png" id="2_pedal"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pedal"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pedal")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pedal"]
+size = Vector2(56, 14)
+
+[node name="Pedal" type="StaticBody2D" groups=["runas"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_runa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -35)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_pedal")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_pedal")

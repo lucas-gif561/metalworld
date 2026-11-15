@@ -18,6 +18,9 @@ extends Node2D
 @export var usar_cabo_de_forca := true
 ## Vida inicial da dupla no cabo de força (a barra vai até o dobro)
 @export var vida_inicial_da_dupla: int = 5
+## Chão onde dá para andar (capangas e granadas ficam dentro dele).
+## Ajuste quando o fundo da arena tiver palco ou cenário nas bordas.
+@export var limites: Rect2 = Rect2(20, 60, 1130, 560)
 
 @onready var boss: Boss = get_tree().get_first_node_in_group("boss")
 @onready var boss_health_bar = $HUD/BossHealthBar
@@ -69,7 +72,7 @@ func _ready() -> void:
 
 
 func limites_arena() -> Rect2:
-	return Rect2(20, 60, 1130, 560)
+	return limites
 
 
 func _ao_jogador_entrar(jogador) -> void:

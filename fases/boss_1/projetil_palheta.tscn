@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/boss_1/projetil_palheta.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://fases/boss_1/sprites/palheta.png" id="2_palheta"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_palheta"]
+radius = 11.0
+
+[node name="ProjetilPalheta" type="Area2D"]
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_palheta")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_palheta")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://davnwkwebe4qc"]
 
-[ext_resource type="SpriteFrames" path="res://fases/boss_1/sprites/chefe_1.tres" id="1_dplu8"]
+[ext_resource type="SpriteFrames" path="res://fases/boss_1/sprites/guitarrista/guitarrista.tres" id="1_dplu8"]
 [ext_resource type="Script" uid="uid://7gibm27uqoor" path="res://fases/boss_1/chefe_1.gd" id="1_rdia2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ec6vt"]
@@ -9,8 +9,8 @@
 script = ExtResource("1_rdia2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1052912172]
-position = Vector2(0, -14)
-scale = Vector2(4, 4)
+position = Vector2(0, -76)
+scale = Vector2(2, 2)
 sprite_frames = ExtResource("1_dplu8")
 animation = &"idle"
 autoplay = "idle"
@@ -25,9 +25,9 @@ shape = SubResource("RectangleShape2D_ec6vt")
 visible = false
 z_index = 5
 offset_left = -100.0
-offset_top = -115.0
+offset_top = 20.0
 offset_right = 100.0
-offset_bottom = -55.0
+offset_bottom = 80.0
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
