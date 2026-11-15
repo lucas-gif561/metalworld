@@ -71,6 +71,18 @@ z_index = 1
 width = 5.0
 default_color = Color(0.42, 0.87, 1, 0.65)
 
+[node name="AvisoPinballPiso" type="Line2D" parent="AnimatedSprite2D"]
+visible = false
+z_index = 1
+width = 5.0
+default_color = Color(0.42, 0.87, 1, 0.65)
+
+[node name="AvisoPinballCurto" type="Line2D" parent="AnimatedSprite2D"]
+visible = false
+z_index = 1
+width = 5.0
+default_color = Color(0.42, 0.87, 1, 0.65)
+
 [node name="Nome" type="Label" parent="AnimatedSprite2D"]
 offset_left = -120.0
 offset_top = -114.0
