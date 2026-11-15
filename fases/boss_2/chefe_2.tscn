@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Texture2D" path="res://icon.svg" id="1_icone"]
+[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/paganini.tres" id="1_paganini"]
+[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/diabo.tres" id="1_diabo"]
 [ext_resource type="Script" path="res://fases/boss_2/chefe_2.gd" id="2_script"]
 [ext_resource type="Script" path="res://fases/boss_2/duelista.gd" id="3_duelista"]
 [ext_resource type="PackedScene" path="res://bosses/base/runa.tscn" id="4_runa"]
@@ -9,34 +10,56 @@
 [ext_resource type="PackedScene" path="res://fases/boss_2/projetil_pinball.tscn" id="7_pinball"]
 [ext_resource type="PackedScene" path="res://fases/boss_2/projetil_contratempo.tscn" id="8_contratempo"]
 [ext_resource type="PackedScene" path="res://fases/boss_2/dissonancia.tscn" id="9_dissonancia"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_duelistas"]
-animations = [{
-"frames": [{"duration": 1.0, "texture": ExtResource("1_icone")}],
-"loop": true,
-"name": &"idle",
-"speed": 4.0
-}, {
-"frames": [{"duration": 1.0, "texture": ExtResource("1_icone")}],
-"loop": false,
-"name": &"cast",
-"speed": 4.0
-}, {
-"frames": [{"duration": 1.0, "texture": ExtResource("1_icone")}],
-"loop": false,
-"name": &"hurt",
-"speed": 4.0
-}, {
-"frames": [{"duration": 1.0, "texture": ExtResource("1_icone")}],
-"loop": false,
-"name": &"death",
-"speed": 2.0
-}]
+[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/sombra_flutuar.png" id="10_sombra"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nome"]
 font_size = 32
 outline_size = 10
 outline_color = Color(0.06, 0.04, 0.12, 1)
+
+[sub_resource type="Animation" id="Animation_flutuar_paganini"]
+resource_name = "flutuar"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -8), Vector2(0, -26), Vector2(0, -8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_paganini"]
+_data = {
+&"flutuar": SubResource("Animation_flutuar_paganini")
+}
+
+[sub_resource type="Animation" id="Animation_flutuar_diabo"]
+resource_name = "flutuar"
+length = 2.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.3, 2.6),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -26), Vector2(0, -8), Vector2(0, -26)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_diabo"]
+_data = {
+&"flutuar": SubResource("Animation_flutuar_diabo")
+}
 
 [node name="Chefe2" type="Node2D"]
 script = ExtResource("2_script")
@@ -52,7 +75,7 @@ cena_dissonancia = ExtResource("9_dissonancia")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(90, 265)
 scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_duelistas")
+sprite_frames = ExtResource("1_paganini")
 animation = &"idle"
 autoplay = "idle"
 script = ExtResource("3_duelista")
@@ -85,19 +108,30 @@ default_color = Color(0.42, 0.87, 1, 0.65)
 
 [node name="Nome" type="Label" parent="AnimatedSprite2D"]
 offset_left = -120.0
-offset_top = -114.0
+offset_top = -160.0
 offset_right = 120.0
-offset_bottom = -70.0
+offset_bottom = -116.0
 mouse_filter = 2
 text = "Paganini"
 label_settings = SubResource("LabelSettings_nome")
 horizontal_alignment = 1
 
+[node name="Sombra" type="Sprite2D" parent="AnimatedSprite2D"]
+show_behind_parent = true
+modulate = Color(0.42, 0.87, 1, 0.55)
+position = Vector2(0, 150)
+texture = ExtResource("10_sombra")
+
+[node name="Flutuar" type="AnimationPlayer" parent="AnimatedSprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_paganini")
+}
+autoplay = &"flutuar"
+
 [node name="Diabo" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(1.25, 0.55, 0.48, 1)
 position = Vector2(1062, 435)
 scale = Vector2(0.6, 0.6)
-sprite_frames = SubResource("SpriteFrames_duelistas")
+sprite_frames = ExtResource("1_diabo")
 animation = &"idle"
 autoplay = "idle"
 script = ExtResource("3_duelista")
@@ -121,13 +155,25 @@ default_color = Color(1, 0.38, 0.41, 0.65)
 
 [node name="Nome" type="Label" parent="Diabo"]
 offset_left = -120.0
-offset_top = -114.0
+offset_top = -160.0
 offset_right = 120.0
-offset_bottom = -70.0
+offset_bottom = -116.0
 mouse_filter = 2
 text = "O Diabo"
 label_settings = SubResource("LabelSettings_nome")
 horizontal_alignment = 1
+
+[node name="Sombra" type="Sprite2D" parent="Diabo"]
+show_behind_parent = true
+modulate = Color(1, 0.38, 0.41, 0.55)
+position = Vector2(0, 150)
+texture = ExtResource("10_sombra")
+
+[node name="Flutuar" type="AnimationPlayer" parent="Diabo"]
+libraries = {
+&"": SubResource("AnimationLibrary_diabo")
+}
+autoplay = &"flutuar"
 
 [node name="SinalRiff" type="Label" parent="."]
 visible = false
