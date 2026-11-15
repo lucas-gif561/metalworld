@@ -1,6 +1,7 @@
 extends Control
 ## Cabo de força: uma barra só, a dupla de um lado e o boss (vermelho) do
-## outro. Visual na cena: barra dentro da moldura dos botões do menu.
+## outro. Visual na cena: barra dentro do braço de guitarra (barra_boss.png),
+## espelhado para a caveira ficar do lado do boss.
 ## O lado da dupla é azul com só o P1 e, com o P2 na partida, um gradiente
 ## do rosa (P2) ao azul (P1), com o azul encostando no vermelho do boss.
 
