@@ -27,12 +27,12 @@ scale = Vector2(1, 0.35)
 script = ExtResource("4_anel")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=918612811]
-position = Vector2(0, -43)
-scale = Vector2(1.85, 1.85)
+position = Vector2(0, -3)
+scale = Vector2(1.65, 1.65)
 sprite_frames = ExtResource("3_frames")
 animation = &"idle"
 autoplay = "idle"
-offset = Vector2(-3, -1)
+offset = Vector2(0, -40)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728486600]
 position = Vector2(0, -8)
