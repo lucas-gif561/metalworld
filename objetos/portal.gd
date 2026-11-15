@@ -5,13 +5,14 @@ extends Area2D
 var ativado: bool = false
 var jogadores_perto: Array = []
 
-@onready var label_interacao = $LabelInteracao
+## Ícone de interagir de quem está jogando + "entrar" (só aparece perto do portal)
+@onready var aviso_interacao = $AvisoInteracao
 
 
 func _ready():
 	hide()
 	monitoring = false
-	label_interacao.hide()
+	aviso_interacao.hide()
 
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
@@ -26,13 +27,13 @@ func ativar_portal():
 func _on_body_entered(body):
 	if body.is_in_group("jogador") and ativado and not body in jogadores_perto:
 		jogadores_perto.append(body)
-		label_interacao.show()
+		aviso_interacao.show()
 
 
 func _on_body_exited(body):
 	jogadores_perto.erase(body)
 	if jogadores_perto.is_empty():
-		label_interacao.hide()
+		aviso_interacao.hide()
 
 
 func _process(_delta):

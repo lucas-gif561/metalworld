@@ -127,7 +127,7 @@ func _ready():
 	sprite.animation_finished.connect(_ao_terminar_animacao)
 	sprite.frame_changed.connect(_ao_mudar_quadro)
 	_configurar_identificacao()
-	minirriff_usando_controle = Controles.controle_do_jogador(id_jogador) >= 0
+	minirriff_usando_controle = Controles.usa_controle(id_jogador)
 	Jogo.registrar_jogador(self)
 	aplicar_escala.call_deferred(Jogo.escala_da_fase())
 

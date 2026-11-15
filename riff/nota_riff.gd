@@ -15,6 +15,13 @@ const TECLAS_P1 = [
 	preload("res://riff/sprites/tecla_s.png"),
 	preload("res://riff/sprites/tecla_d.png"),
 ]
+# No controle (qualquer jogador): gatilhos e botões superiores, LT LB RB RT
+const BOTOES_CONTROLE = [
+	preload("res://riff/sprites/botao_lt.svg"),
+	preload("res://riff/sprites/botao_lb.svg"),
+	preload("res://riff/sprites/botao_rb.svg"),
+	preload("res://riff/sprites/botao_rt.svg"),
+]
 
 @export var velocidade: float = 200.0
 
@@ -27,11 +34,21 @@ var acertada = false
 
 
 func _ready() -> void:
+	# Mesmo dispositivo das pistas (riff_hud.gd): troca até no meio da queda
+	Controles.dispositivo_mudou.connect(_ao_mudar_dispositivo)
 	atualizar_seta()
 
 
+func _ao_mudar_dispositivo(id_jogador: int) -> void:
+	if id_jogador == dono:
+		atualizar_seta()
+
+
 func atualizar_seta():
-	seta.texture = (TECLAS_P1 if dono == 1 else SETAS)[coluna]
+	if Controles.usa_controle(dono):
+		seta.texture = BOTOES_CONTROLE[coluna]
+	else:
+		seta.texture = (TECLAS_P1 if dono == 1 else SETAS)[coluna]
 
 
 func _process(delta: float) -> void:

@@ -64,6 +64,7 @@ func _jogar(em_dupla: bool) -> void:
 		return
 	_iniciando = true
 	Jogo.p2_ativo = em_dupla
+	Controles.preparar_partida(em_dupla)
 	Audio.tocar("ui_confirma", 0.0)
 	Jogo.iniciar_jogo()
 

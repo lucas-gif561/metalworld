@@ -46,11 +46,12 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	# Vaga do P2: silhueta piscando com o botão de entrar (A no controle;
-	# sem controle, J no teclado). Troca se plugar um controle.
+	# Vaga do P2: silhueta piscando com o botão de entrar (START num controle
+	# livre; sem controle livre, J no teclado). Troca se plugar um controle ou
+	# se o P1 passar a usar o controle único.
 	vaga_p2.visible = not Jogo.p2_ativo and not tela_fim.visible
 	if vaga_p2.visible:
-		var tem_controle = Controles.controle_do_jogador(2) >= 0
+		var tem_controle = Controles.controle_do_jogador(2) >= 0 or Controles.controle_livre_para_p2()
 		vaga_p2.get_node("Botoes/BotaoControle").visible = tem_controle
 		vaga_p2.get_node("Botoes/TeclaTeclado").visible = not tem_controle
 

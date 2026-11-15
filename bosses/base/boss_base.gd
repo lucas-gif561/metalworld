@@ -28,6 +28,7 @@ signal fase_avancou
 signal dano_recebido(valor)
 
 const COR_ESCUDO = Color(0.5, 0.8, 1.0)
+const CENA_SINAL_RIFF = preload("res://riff/sinal_riff.tscn")
 
 @export var vida_maxima: int = 100
 
@@ -74,7 +75,7 @@ var descansando: bool = false
 var runas_restantes: int = 0
 var tween_teleporte: Tween
 var tween_sinal: Tween
-var sinal_riff: Label
+var sinal_riff: Control
 
 
 func _ready() -> void:
@@ -394,7 +395,7 @@ func ativar_escudo(prefixo := "") -> bool:
 		runa.quebrada.connect(_ao_quebrar_runa)
 		get_parent().add_child(runa)
 
-	anuncio.emit(prefixo + "Escudo ativo! Quebrem as runas na porrada (F / J / X)")
+	anuncio.emit(prefixo + "Escudo ativo! Quebrem as runas na porrada (%s)" % Controles.texto_comando("atacar"))
 	return true
 
 
@@ -444,20 +445,15 @@ func _encerrar_descanso():
 
 ## Usa o nó "SinalRiff" da cena do boss (Label). Se o boss não tiver um,
 ## cria um igual ao do boss 1 para o descansar() funcionar mesmo assim.
+## Aviso "RIFF!" com o ícone de abrir o Riff de quem está jogando
+## (riff/sinal_riff.tscn). Se o boss não tiver um SinalRiff na cena, usa o padrão
+## acima da cabeça.
 func _criar_sinal_riff():
 	if has_node("SinalRiff"):
 		sinal_riff = $SinalRiff
 		sinal_riff.hide()
 		return
-	sinal_riff = Label.new()
-	sinal_riff.text = "RIFF!\nT / I / A"
-	sinal_riff.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	sinal_riff.size = Vector2(200, 60)
-	sinal_riff.position = Vector2(-100, -115)
-	sinal_riff.z_index = 5
-	sinal_riff.add_theme_color_override("font_color", Color(1, 0.85, 0.3))
-	sinal_riff.add_theme_color_override("font_outline_color", Color.BLACK)
-	sinal_riff.add_theme_constant_override("outline_size", 8)
-	sinal_riff.add_theme_font_size_override("font_size", 24)
+	sinal_riff = CENA_SINAL_RIFF.instantiate()
+	sinal_riff.position = Vector2(-100, -135)
 	sinal_riff.hide()
 	add_child(sinal_riff)

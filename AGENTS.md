@@ -70,7 +70,7 @@ O jogo tem **1 ou 2 jogadores**, e o P2 pode entrar no meio da fase. Por isso:
 4. Jogador com vida zero fica **caído** (`jogador.caido == true`), não some da cena. O parceiro pode levantá-lo.
 5. Não crie ações novas no Mapa de Entrada. As ações existentes são:
 
-   | Ação | P1 (teclado, lado esquerdo) | P2 (teclado, lado direito) | P2 (controle) |
+   | Ação | P1 (teclado, lado esquerdo) | P2 (teclado, lado direito) | Controle (P1 ou P2) |
    |---|---|---|---|
    | `mover_cima` / `mover_baixo` / `mover_esquerda` / `mover_direita` | W A S D | setas | analógico e direcional |
    | `atacar` (socos alternados: esquerdo, direito...) | F | J | X |
@@ -79,10 +79,14 @@ O jogo tem **1 ou 2 jogadores**, e o P2 pode entrar no meio da fase. Por isso:
    | `riff_mode` | T | I | A |
    | `riff_esquerda` / `riff_cima` / `riff_baixo` / `riff_direita` (pistas ← ↑ ↓ →) | A / W / S / D | setas | LT / LB / RB / RT |
    | `reiniciar` | R | J | Start |
-   | `entrar` (P2 entra na partida) | — | J | Start |
+   | `entrar` (P2 entra na partida) | — | J | Start (num controle livre) |
    | `pausar` (menu de pause) | Esc | P | Start |
 
-   Os dois jogadores cabem no mesmo teclado: P1 na metade esquerda, P2 na direita. As teclas do P2 ficam em `sistemas/controles.gd` (`TECLAS_RESERVA_P2`).
+   Os dois jogadores cabem no mesmo teclado: P1 na metade esquerda, P2 na direita. As teclas do P2 ficam em `sistemas/controles.gd` (`TECLAS_RESERVA_P2`). O controle serve ao P1 ou ao P2: com dois controles, um para cada; com um só, ele é do P1 até o P2 entrar apertando START nele (com o P1 no teclado). Cada jogador troca sozinho entre teclado e controle: vale o último que tocou.
+6. **Nunca escreva todas as teclas fixas** ("T / I / A", "Y / L / RB"). Mostre só as de quem está jogando, no dispositivo que ele usou por último:
+   - ícones: instancie `ui/icones_comando.tscn` e escolha o `comando` e os ícones no Inspector (como em `riff/sinal_riff.tscn` e `objetos/portal.tscn`);
+   - texto: `Controles.texto_comando("interagir")` devolve, por exemplo, "Y", "Y / L" ou "RB";
+   - um jogador só: `Controles.usa_controle(id_jogador)` e `Controles.nome_comando(id_jogador, "atacar")`.
 
 ---
 
@@ -180,7 +184,7 @@ Os sprites finais são feitos pelo responsável pela base. Até lá, use **arte 
 - **Profundidade: origem e colisão nos pés.** Todo personagem e objeto da rua tem a **origem do nó nos pés**: o `AnimatedSprite2D` fica deslocado para cima, e a `CollisionShape2D` é **só uma faixa fina no chão**, com uns 16 px de altura. Assim dá para passar na frente ou atrás dos outros, e a ordem de desenho (y-sort) fica certa. Ao criar um inimigo ou objeto novo, mexa na `position` do sprite até os pés ficarem na origem e deixe a colisão como uma faixa na base. Veja `inimigos/base/inimigo.tscn` e `objetos/caixote.tscn`.
 - **Tiros acertam o corpo, e não os pés.** O jogador tem uma `Hurtbox` (Area2D na camada 5, grupo `hurtbox_jogador`) na altura do peito. Projéteis devem ter `collision_mask = 16` e usar `area_entered`, verificando `area.is_in_group("hurtbox_jogador")`, e nascer na altura do peito de quem atira (veja `inimigo_atirador.gd`, `altura_tiro`). Para mirar no jogador use `jogador.posicao_do_corpo()`. `jogador.global_position` é a posição dos pés, boa para ataques no chão.
 
-- O aviso "RIFF!" do descanso é o nó `SinalRiff` (um Label) no `fases/boss_1/chefe_1.tscn`. Copie esse nó para o seu boss se quiser mudar o texto ou o lugar; sem ele, o boss cria um igual sozinho.
+- O aviso "RIFF!" do descanso é o nó `SinalRiff` (uma instância de `riff/sinal_riff.tscn`, com o texto e o ícone de abrir o Riff de quem está jogando) no `fases/boss_1/chefe_1.tscn`. Instancie essa cena no seu boss se quiser mudar o lugar; sem ela, o boss cria uma igual sozinho.
 
 - Prefira editar cenas (`.tscn`) **pelo editor**. Se editar como texto, não invente `uid="uid://..."`: deixe só o `path`, e o Godot gera o resto.
 - Em cena herdada, a linha `script = ...` vem **antes** das propriedades exportadas, senão os valores se perdem.

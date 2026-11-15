@@ -67,7 +67,7 @@ func _ready() -> void:
 		cabo.hide()
 
 	hud.mostrar_titulo(Jogo.nome_fase_atual().to_upper())
-	hud.mostrar_aviso("T / I / A: " + texto_inicio, 6.0)
+	hud.mostrar_aviso(Controles.texto_comando("riff_mode") + ": " + texto_inicio, 6.0)
 	boss.ciclo_ataques()
 
 
@@ -170,7 +170,7 @@ func _ao_game_over():
 	_encerrar_riff()
 	fim_de_jogo = true
 	Audio.parar_musica()
-	hud.mostrar_fim("GAME OVER", "R / START para tentar de novo", Color(1, 0.25, 0.25))
+	hud.mostrar_fim("GAME OVER", Controles.texto_comando("reiniciar") + " para tentar de novo", Color(1, 0.25, 0.25))
 
 
 func _ao_derrotar_boss():
@@ -178,7 +178,8 @@ func _ao_derrotar_boss():
 	venceu = true
 	Audio.parar_musica()
 	Audio.tocar("vitoria", 0.0)
-	var subtitulo = "R / START para voltar ao início" if Jogo.eh_ultima_fase() else "R / START para seguir"
+	var tecla = Controles.texto_comando("reiniciar")
+	var subtitulo = tecla + (" para voltar ao início" if Jogo.eh_ultima_fase() else " para seguir")
 	hud.mostrar_fim("VITÓRIA!", subtitulo, Color(1, 0.3, 0.72))
 
 

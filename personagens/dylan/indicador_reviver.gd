@@ -36,7 +36,7 @@ func _draw() -> void:
 ## Mostra o círculo com o botão de quem pode levantar (o parceiro)
 func mostrar_para(id_parceiro: int) -> void:
 	var botao = $Botao
-	if Controles.controle_do_jogador(id_parceiro) >= 0:
+	if Controles.usa_controle(id_parceiro):
 		botao.texture = icone_controle
 	else:
 		botao.texture = icone_teclado_p1 if id_parceiro == 1 else icone_teclado_p2

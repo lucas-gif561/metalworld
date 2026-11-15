@@ -280,7 +280,7 @@ classDiagram
 
 ## 9. Controles
 
-| Ação | P1 (teclado, esquerda) | P2 (teclado, direita) | P2 (controle) |
+| Ação | P1 (teclado, esquerda) | P2 (teclado, direita) | Controle (P1 ou P2) |
 |---|---|---|---|
 | Mover | W A S D | Setas | Analógico / direcional |
 | Socar | F | J | X |
@@ -290,6 +290,8 @@ classDiagram
 | Notas do Riff (← ↑ ↓ →) | W A S D | Setas | LT / LB / RB / RT |
 | Entrar na partida / reiniciar | R | J | START |
 | Pausar | Esc | P | START |
+
+O controle serve ao P1 ou ao P2: com dois controles, um para cada; com um só, ele é do P1 até o P2 entrar apertando START nele (com o P1 no teclado). Cada jogador troca sozinho entre teclado e controle: vale o último que tocou.
 
 ## 10. Qualidade e testes
 

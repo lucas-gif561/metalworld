@@ -121,7 +121,7 @@ theme_override_font_sizes/font_size = 22
 
 [node name="Controle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
 layout_mode = 2
-text = "Analógico ou direcional: mover  •  X socar  •  B esquivar  •  RB interagir\nA abre e fecha o Riff  •  Pistas: LT, LB, RB, RT da esquerda para a direita\nStart entra como P2, pausa ou reinicia"
+text = "Analógico ou direcional: mover  •  X socar  •  B esquivar  •  RB interagir\nA abre e fecha o Riff  •  Pistas: LT, LB, RB, RT da esquerda para a direita\nStart pausa ou reinicia  •  Num controle livre, Start chama o P2\nP1 e P2 trocam sozinhos entre teclado e controle: vale o último que tocar"
 autowrap_mode = 3
 
 [node name="Interacao" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]

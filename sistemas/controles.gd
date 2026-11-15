@@ -5,11 +5,14 @@ extends Node
 ## Use sempre jogador.acao("atacar") ou Controles.acao(id, "atacar"),
 ## nunca Input.is_action_pressed("atacar") direto.
 ##
-## Jogador 1: teclado (teclas definidas no Mapa de Entrada do projeto) e,
-##            se houver dois controles, o primeiro controle.
-## Jogador 2: o controle que sobrar. Sem controle, usa a metade direita do
-##            teclado: setas mover, J socar, K dodge, L interagir, I Riff,
-##            P pausar (o P1 fica na metade esquerda: W A S D, F, G, Y, T).
+## Os dois jogadores sempre têm teclado (P1 na metade esquerda: W A S D, F, G,
+## Y, T; P2 na direita: setas, J, K, L, I, P) e podem ter um controle:
+##   - dois controles: um para cada.
+##   - um controle: é do P1 enquanto o P2 não joga. O P2 fica com ele se entrar
+##     apertando START nesse controle (com o P1 no teclado) ou em "Jogar em
+##     dupla" quando o P1 não estava usando o controle. O P2 saiu: volta ao P1.
+## Cada jogador troca sozinho entre teclado e controle: vale o último que tocou
+## (usa_controle). Telas e avisos mostram só as teclas desse dispositivo.
 
 signal controles_mudaram
 
@@ -72,13 +75,133 @@ const TECLAS_EXTRAS_P1 = {
 	"pausar": [KEY_ESCAPE],
 }
 
+## Nome de cada comando, para avisos e ícones que mostram só a tecla de quem joga
+const NOMES_TECLADO = {
+	1: {"atacar": "F", "dodge": "G", "interagir": "Y", "riff_mode": "T", "reiniciar": "R", "pausar": "Esc"},
+	2: {"atacar": "J", "dodge": "K", "interagir": "L", "riff_mode": "I", "reiniciar": "J", "pausar": "P"},
+}
+const NOMES_CONTROLE = {
+	"atacar": "X", "dodge": "B", "interagir": "RB", "riff_mode": "A", "reiniciar": "START", "pausar": "START",
+}
+
+## Avisa quando um jogador passa do teclado para o controle (ou volta)
+signal dispositivo_mudou(id_jogador)
+
 var controle_p1 := -1
 var controle_p2 := -1
+## Último dispositivo que cada jogador usou (true = controle). Os dois têm
+## teclado; quem tem controle começa no controle e troca ao apertar uma tecla.
+var _usando_controle := {1: false, 2: false}
+## Com um controle só: de quem ele é (1 ou 2)
+var _dono_controle_unico := 1
+## Só para os testes: finge que estes controles estão plugados (null = os reais)
+var _controles_de_teste = null
 
 
 func _ready() -> void:
 	Input.joy_connection_changed.connect(func(_id, _conectado): _montar())
+	# A janela avisa de TODA tecla/botão antes das telas (que às vezes "consomem"
+	# o botão do controle); assim o dispositivo de cada um nunca fica errado.
+	get_tree().root.window_input.connect(_ao_receber_entrada)
+	# O autoload Jogo carrega depois deste
+	(func(): Jogo.jogador_saiu.connect(_ao_jogador_sair)).call_deferred()
 	_montar()
+
+
+## Começo da partida (tela inicial): sozinho, o controle é do P1. Em dupla com um
+## controle só, fica com o P1 se ele estava usando o controle no menu; senão, P2.
+func preparar_partida(em_dupla: bool) -> void:
+	_dar_controle_unico(1 if not em_dupla or _usando_controle[1] else 2)
+
+
+## O P2 saiu da partida: o controle único volta para o P1
+func _ao_jogador_sair(id_jogador: int) -> void:
+	if id_jogador == 2:
+		_dar_controle_unico(1)
+
+
+func _dar_controle_unico(id_jogador: int) -> void:
+	if _dono_controle_unico != id_jogador:
+		_dono_controle_unico = id_jogador
+		_montar()
+
+
+## Com um controle só e o P1 no teclado, START nesse controle chama o P2 para a
+## partida com o controle (em vez de pausar o jogo do P1).
+func controle_livre_para_p2() -> bool:
+	return _controles_conectados().size() == 1 and _dono_controle_unico == 1 and not _usando_controle[1]
+
+
+func _ao_receber_entrada(evento: InputEvent) -> void:
+	if evento is InputEventJoypadButton and evento.pressed and evento.button_index == JOY_BUTTON_START \
+			and not Jogo.p2_ativo and Jogo.esta_em_fase() and controle_livre_para_p2():
+		_dar_controle_unico(2)
+		_usando_controle[2] = true
+		# Depois deste evento: assim o START não pausa o jogo do P1
+		Jogo.entrar_p2.call_deferred()
+		return
+	_registrar_dispositivo(evento)
+
+
+## Registra o dispositivo que cada jogador usou por último
+func _registrar_dispositivo(evento: InputEvent) -> void:
+	var de_controle = evento is InputEventJoypadButton or evento is InputEventJoypadMotion
+	if evento is InputEventJoypadMotion:
+		if absf(evento.axis_value) < 0.5:
+			return
+	elif not (de_controle or evento is InputEventKey) or not evento.is_pressed():
+		return
+
+	for id_jogador in [1, 2]:
+		if de_controle and evento.device != controle_do_jogador(id_jogador):
+			continue
+		if not _evento_do_jogador(evento, id_jogador):
+			continue
+		if _usando_controle[id_jogador] != de_controle:
+			_usando_controle[id_jogador] = de_controle
+			dispositivo_mudou.emit(id_jogador)
+
+
+func _evento_do_jogador(evento: InputEvent, id_jogador: int) -> bool:
+	for nome in ACOES:
+		if evento.is_action(acao(id_jogador, nome)):
+			return true
+	return false
+
+
+## O jogador está no controle? (último dispositivo usado; sem controle, false)
+func usa_controle(id_jogador: int) -> bool:
+	return controle_do_jogador(id_jogador) >= 0 and _usando_controle[id_jogador]
+
+
+## Nome da tecla ou botão do comando para este jogador: "T", "I", "A", "RB"...
+func nome_comando(id_jogador: int, comando: String) -> String:
+	if usa_controle(id_jogador):
+		return NOMES_CONTROLE.get(comando, "?")
+	return NOMES_TECLADO[id_jogador].get(comando, "?")
+
+
+## Teclas do comando só de quem está jogando, sem repetir:
+## sozinho no teclado "T"; dupla no controle "A"; misturado "T / A".
+func texto_comando(comando: String) -> String:
+	var nomes := PackedStringArray()
+	for id_jogador in ids_jogando():
+		var nome = nome_comando(id_jogador, comando)
+		if not nome in nomes:
+			nomes.append(nome)
+	return " / ".join(nomes)
+
+
+## Ids dos jogadores na partida (pelo menos o P1)
+func ids_jogando() -> Array:
+	var ids := []
+	for jogador in Jogo.jogadores:
+		if is_instance_valid(jogador) and not jogador.id_jogador in ids:
+			ids.append(jogador.id_jogador)
+	if ids.is_empty():
+		ids.append(1)
+	ids.sort()
+	return ids
 
 
 func acao(id_jogador: int, nome: String) -> StringName:
@@ -89,15 +212,39 @@ func controle_do_jogador(id_jogador: int) -> int:
 	return controle_p1 if id_jogador == 1 else controle_p2
 
 
+## Só para os testes: simula controles plugados (ids de dispositivo)
+func simular_controles(ids: Array) -> void:
+	_controles_de_teste = ids
+	_montar()
+
+
+func _controles_conectados() -> Array:
+	return Input.get_connected_joypads() if _controles_de_teste == null else _controles_de_teste
+
+
 func _montar() -> void:
-	var controles = Input.get_connected_joypads()
-	controle_p1 = controles[0] if controles.size() >= 2 else -1
-	controle_p2 = controles[1] if controles.size() >= 2 else (controles[0] if controles.size() == 1 else -1)
+	var controles = _controles_conectados()
+	var antes = {1: controle_p1, 2: controle_p2}
+	if controles.size() >= 2:
+		controle_p1 = controles[0]
+		controle_p2 = controles[1]
+	elif controles.size() == 1:
+		controle_p1 = controles[0] if _dono_controle_unico == 1 else -1
+		controle_p2 = controles[0] if _dono_controle_unico == 2 else -1
+	else:
+		controle_p1 = -1
+		controle_p2 = -1
 
 	for nome in ACOES:
 		_montar_acao(1, nome, controle_p1)
 		_montar_acao(2, nome, controle_p2)
 
+	# Só muda o dispositivo de quem ganhou ou perdeu um controle: o P2 com
+	# controle novo começa nele; o P1 continua no que estava usando.
+	for id_jogador in [1, 2]:
+		var agora = controle_do_jogador(id_jogador)
+		if agora != antes[id_jogador]:
+			_usando_controle[id_jogador] = agora >= 0 and (id_jogador == 2 or _usando_controle[id_jogador])
 	controles_mudaram.emit()
 
 

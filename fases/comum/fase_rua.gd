@@ -62,7 +62,7 @@ func _ao_jogador_entrar(jogador):
 func _ao_game_over():
 	fim_de_jogo = true
 	Audio.parar_musica()
-	hud.mostrar_fim("GAME OVER", "R / START para tentar de novo", Color(1, 0.25, 0.25))
+	hud.mostrar_fim("GAME OVER", Controles.texto_comando("reiniciar") + " para tentar de novo", Color(1, 0.25, 0.25))
 
 
 func _process(_delta):
@@ -140,4 +140,4 @@ func concluir_fase():
 	fase_concluida = true
 
 	portal.ativar_portal()
-	hud.mostrar_aviso("O portal abriu! Vá até ele e pressione Y / L / RB")
+	hud.mostrar_aviso("O portal abriu! Vá até ele e pressione " + Controles.texto_comando("interagir"))

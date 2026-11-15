@@ -101,6 +101,7 @@ func _ready() -> void:
 	label_jogador.modulate = Jogo.cor(id_jogador)
 	$NotasContainer/LinhaAcerto.color = Jogo.cor(id_jogador)
 	Controles.controles_mudaram.connect(_atualizar_teclas)
+	Controles.dispositivo_mudou.connect(_ao_mudar_dispositivo)
 	_atualizar_teclas()
 
 
@@ -205,13 +206,17 @@ func _process(delta: float) -> void:
 			verificar_nota(i, id_jogador)
 
 
+func _ao_mudar_dispositivo(_id_jogador: int) -> void:
+	_atualizar_teclas()
+
+
 func _atualizar_teclas() -> void:
 	_mostrar_teclas_de(id_jogador)
 
 
 func _mostrar_teclas_de(id_jogador: int) -> void:
 	var texturas = INDICADORES_P1 if id_jogador == 1 else INDICADORES_SETAS
-	if Controles.controle_do_jogador(id_jogador) >= 0:
+	if Controles.usa_controle(id_jogador):
 		texturas = INDICADORES_CONTROLE
 	for i in indicadores.size():
 		indicadores[i].texture = texturas[i]

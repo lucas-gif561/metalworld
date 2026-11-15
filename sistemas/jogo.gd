@@ -2,7 +2,7 @@ extends Node
 ## Estado geral da partida (autoload "Jogo").
 ##
 ## - Sequência das 6 fases e troca entre elas
-## - Quem está jogando (P2 entra a qualquer momento apertando START/A no controle)
+## - Quem está jogando (P2 entra a qualquer momento: J no teclado ou START num controle livre)
 ## - Consultas para inimigos e bosses: jogador_mais_proximo(), jogador_aleatorio()
 ## - Game over quando todos os jogadores caem
 
@@ -34,6 +34,8 @@ var _game_over_emitido := false
 
 func _process(_delta: float) -> void:
 	# Depois do game over ninguém entra: só na partida reiniciada
+	# (Com um controle só e o P1 no teclado, START nesse controle também chama o
+	# P2: ver Controles._ao_receber_entrada.)
 	if not p2_ativo and esta_em_fase() and not jogadores.is_empty() and not _game_over_emitido:
 		if Input.is_action_just_pressed(Controles.acao(2, "entrar")):
 			entrar_p2()

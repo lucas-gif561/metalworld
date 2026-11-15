@@ -21,4 +21,4 @@ Tudo está no Trello (quadro MetalWorld). Arte fica no checklist do card [Sprite
 
 ## Controles
 
-- [ ] Permitir que o player 1 também jogue pelo controle. [Trello](https://trello.com/c/rJctCSuV)
+- [x] Permitir que o player 1 também jogue pelo controle. [Trello](https://trello.com/c/rJctCSuV)

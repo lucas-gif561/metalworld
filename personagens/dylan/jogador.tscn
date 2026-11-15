@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://c2bsg4u16o7b" path="res://personagens/dylan/sprites/dylan.tres" id="3_frames"]
 [ext_resource type="Script" uid="uid://bmdfq5a5ijvrj" path="res://personagens/dylan/anel_jogador.gd" id="4_anel"]
 [ext_resource type="Script" uid="uid://brdxte5yg6kds" path="res://personagens/dylan/indicador_reviver.gd" id="5_reviver"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_y.svg" id="6_tecla_y"]
+[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_y_pixel.png" id="6_tecla_y"]
 [ext_resource type="Texture2D" uid="uid://c56dr26f6nb8p" path="res://personagens/dylan/sprites/tecla_l.png" id="7_tecla_l"]
 [ext_resource type="Texture2D" path="res://riff/sprites/botao_rb.svg" id="8_botao_rb"]
 [ext_resource type="PackedScene" path="res://personagens/dylan/visor_minirriff.tscn" id="9_visor_minirriff"]
