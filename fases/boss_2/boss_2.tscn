@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b1p3hon7djp20"]
 
-[ext_resource type="Texture2D" uid="uid://be8d45abhogdi" path="res://assets/fundos/arena_neon.png" id="1_6tvee"]
+[ext_resource type="Texture2D" uid="uid://b3g4qvntlqfv2" path="res://fases/boss_2/sprites/arena_duelo.png" id="1_6tvee"]
 [ext_resource type="Script" uid="uid://cefx3gl0nkig5" path="res://bosses/base/arena_boss.gd" id="1_df7gq"]
 [ext_resource type="PackedScene" path="res://fases/boss_2/chefe_2.tscn" id="2_df7gq"]
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="3_8xsta"]
@@ -15,9 +15,6 @@ size = Vector2(1222, 133.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8l2qr"]
 size = Vector2(1212, 91)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lateral"]
-size = Vector2(180, 500)
-
 [node name="Boss2" type="Node2D" unique_id=1072854072]
 y_sort_enabled = true
 script = ExtResource("1_df7gq")
@@ -27,10 +24,9 @@ y_sort_enabled = true
 metadata/_edit_group_ = true
 
 [node name="BackGround" type="Sprite2D" parent="Arena" unique_id=1230644980]
-modulate = Color(0.75, 0.9, 1.2, 1)
 z_index = -2
-position = Vector2(574.80566, 321.99997)
-scale = Vector2(0.6950055, 0.6950053)
+position = Vector2(576, 324)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_6tvee")
 
 [node name="Chefe" parent="Arena" unique_id=647068640 node_paths=PackedStringArray("teto_ricochete", "piso_ricochete") instance=ExtResource("2_df7gq")]
@@ -44,7 +40,7 @@ position = Vector2(576, 528)
 
 [node name="ParedeSuperior" type="StaticBody2D" parent="Arena/Paredes" unique_id=1488684478]
 position = Vector2(568, 37)
-collision_layer = 129
+collision_layer = 128
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeSuperior" unique_id=536414275]
@@ -52,56 +48,18 @@ position = Vector2(0, 38.25)
 shape = SubResource("RectangleShape2D_mi726")
 
 [node name="ParedeInferior" type="StaticBody2D" parent="Arena/Paredes" unique_id=1440596223]
-collision_layer = 129
+collision_layer = 128
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeInferior" unique_id=981719831]
 position = Vector2(574, 649.5)
 shape = SubResource("RectangleShape2D_8l2qr")
 
-[node name="ParedeEsquerda" type="StaticBody2D" parent="Arena/Paredes" unique_id=1163257233]
-position = Vector2(90, 373)
-metadata/_edit_group_ = true
+[node name="AreaJogador" type="StaticBody2D" parent="Arena/Paredes"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeEsquerda" unique_id=1554902316]
-shape = SubResource("RectangleShape2D_lateral")
-
-[node name="FaixaPaganini" type="Polygon2D" parent="Arena/Paredes/ParedeEsquerda" unique_id=1562245552]
-z_index = -1
-color = Color(0.13, 0.37, 0.72, 0.3)
-polygon = PackedVector2Array(-90, -231, 90, -231, 90, 231, -90, 231)
-
-[node name="LimitePaganini" type="Line2D" parent="Arena/Paredes/ParedeEsquerda" unique_id=1994955348]
-points = PackedVector2Array(90, -231, 90, 231)
-width = 5.0
-default_color = Color(0.38, 0.79, 1, 0.9)
-
-[node name="ParedeDireita" type="StaticBody2D" parent="Arena/Paredes" unique_id=1145410349]
-position = Vector2(1062, 373)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeDireita" unique_id=1515332814]
-shape = SubResource("RectangleShape2D_lateral")
-
-[node name="FaixaDiabo" type="Polygon2D" parent="Arena/Paredes/ParedeDireita" unique_id=552844310]
-z_index = -1
-color = Color(0.69, 0.16, 0.28, 0.3)
-polygon = PackedVector2Array(-90, -231, 90, -231, 90, 231, -90, 231)
-
-[node name="LimiteDiabo" type="Line2D" parent="Arena/Paredes/ParedeDireita" unique_id=86144412]
-points = PackedVector2Array(-90, -231, -90, 231)
-width = 5.0
-default_color = Color(1, 0.4, 0.52, 0.9)
-
-[node name="LimiteSuperior" type="Line2D" parent="Arena/Paredes" unique_id=2137119224]
-points = PackedVector2Array(180, 142, 972, 142)
-width = 4.0
-default_color = Color(0.74, 0.58, 0.95, 0.75)
-
-[node name="LimiteInferior" type="Line2D" parent="Arena/Paredes" unique_id=978460658]
-points = PackedVector2Array(180, 604, 972, 604)
-width = 4.0
-default_color = Color(0.74, 0.58, 0.95, 0.75)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/Paredes/AreaJogador"]
+build_mode = 1
+polygon = PackedVector2Array(294, 208, 852, 208, 882, 221, 910, 245, 937, 284, 955, 331, 961, 388, 955, 448, 940, 501, 916, 519, 855, 546, 776, 570, 697, 588, 606, 600, 515, 600, 424, 588, 345, 567, 285, 543, 221, 516, 206, 471, 195, 412, 195, 352, 206, 299, 230, 257, 260, 227)
 
 [node name="Player" parent="." unique_id=1357147288 instance=ExtResource("3_8xsta")]
 position = Vector2(577, 566)
