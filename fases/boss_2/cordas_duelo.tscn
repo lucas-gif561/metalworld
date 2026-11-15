@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://fases/boss_2/corda_duelo.tscn" id="1_corda"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nota"]
+font_size = 24
+font_color = Color(1, 0.91, 0.65, 1)
+outline_size = 8
+outline_color = Color(0.14, 0.06, 0.16, 1)
+
+[node name="Cordas" type="Node2D"]
+
+[node name="Sol" parent="." instance=ExtResource("1_corda")]
+position = Vector2(576, 199.75)
+
+[node name="Nota" type="Label" parent="Sol"]
+offset_left = -52.0
+offset_top = -18.0
+offset_right = 52.0
+offset_bottom = 18.0
+mouse_filter = 2
+text = "SOL"
+label_settings = SubResource("LabelSettings_nota")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Re" parent="." instance=ExtResource("1_corda")]
+position = Vector2(576, 315.25)
+
+[node name="Nota" type="Label" parent="Re"]
+offset_left = -52.0
+offset_top = -18.0
+offset_right = 52.0
+offset_bottom = 18.0
+mouse_filter = 2
+text = "RÉ"
+label_settings = SubResource("LabelSettings_nota")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="La" parent="." instance=ExtResource("1_corda")]
+position = Vector2(576, 430.75)
+
+[node name="Nota" type="Label" parent="La"]
+offset_left = -52.0
+offset_top = -18.0
+offset_right = 52.0
+offset_bottom = 18.0
+mouse_filter = 2
+text = "LÁ"
+label_settings = SubResource("LabelSettings_nota")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mi" parent="." instance=ExtResource("1_corda")]
+position = Vector2(576, 546.25)
+
+[node name="Nota" type="Label" parent="Mi"]
+offset_left = -52.0
+offset_top = -18.0
+offset_right = 52.0
+offset_bottom = 18.0
+mouse_filter = 2
+text = "MI"
+label_settings = SubResource("LabelSettings_nota")
+horizontal_alignment = 1
+vertical_alignment = 1

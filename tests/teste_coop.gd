@@ -158,7 +158,7 @@ func _teste_boss() -> void:
 	vida = cena.boss.vida_atual
 	_nota_na_linha(riff_p1)
 	await apertar("p1_riff_esquerda")
-	checar(is_equal_approx(cena.boss.vida_atual, vida - dano), "acerto em dupla causa 1x de dano")
+	checar(is_equal_approx(cena.boss.vida_atual, vida - dano * 1.5), "acerto em dupla causa 1,5x de dano")
 
 	await apertar("p1_dodge")
 	checar(not riff_p1.tocando and riff_p1.travado() and not p1.bloqueado and p1.recarga_dodge_restante > 0.0, "P1 sai do próprio Riff esquivando")
