@@ -140,4 +140,4 @@ func concluir_fase():
 	fase_concluida = true
 
 	portal.ativar_portal()
-	hud.mostrar_aviso("O portal abriu! Vá até ele e pressione " + Controles.texto_comando("interagir"))
+	hud.mostrar_aviso(portal.texto_liberacao % Controles.texto_comando("interagir"))

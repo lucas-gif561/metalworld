@@ -1,0 +1,32 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://objetos/portal.tscn" id="1_portal"]
+[ext_resource type="PackedScene" path="res://ui/transicao_fase.tscn" id="2_transicao"]
+[ext_resource type="Texture2D" path="res://ui/sprites/seta.png" id="3_seta"]
+[ext_resource type="AnimationLibrary" path="res://ui/animacao_seta.tres" id="4_animacao_seta"]
+
+[node name="PortaoSaida" instance=ExtResource("1_portal")]
+texto_liberacao = "O portão foi liberado! Vá até ele e pressione %s"
+cena_transicao = ExtResource("2_transicao")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+visible = false
+
+[node name="AvisoInteracao" parent="." index="2"]
+offset_top = -112.0
+offset_bottom = -84.0
+
+[node name="Seta" type="Node2D" parent="." index="3"]
+position = Vector2(0, -314)
+rotation = 1.5707964
+
+[node name="Imagem" type="Sprite2D" parent="Seta"]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("3_seta")
+
+[node name="Piscar" type="AnimationPlayer" parent="Seta"]
+libraries = {
+&"": ExtResource("4_animacao_seta")
+}
+autoplay = &"piscar"
