@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="1_k2fmo"]
 [ext_resource type="Script" uid="uid://dqwep2au7svfk" path="res://fases/comum/fase_rua.gd" id="1_l3cfh"]
-[ext_resource type="Texture2D" uid="uid://wyje6x10trew" path="res://assets/fundos/rua_noite.png" id="2_6q06x"]
+[ext_resource type="Texture2D" path="res://assets/fundos/rua_metal.png" id="2_6q06x"]
 [ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="5_yyfjg"]
 [ext_resource type="PackedScene" uid="uid://dh5fwt2atm5of" path="res://inimigos/tanque/inimigo_tanque.tscn" id="6_hujxm"]
 [ext_resource type="Script" uid="uid://c2r13nvu5ypje" path="res://fases/comum/gerenciador_ondas.gd" id="6_ow5a4"]
@@ -21,16 +21,9 @@ script = ExtResource("1_l3cfh")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1117690434]
 z_index = -1
-position = Vector2(1622.5001, 215.99998)
-scale = Vector2(1.4986188, 1.1933701)
+position = Vector2(2632.8, 280.6)
+scale = Vector2(1.1, 1.1)
 texture = ExtResource("2_6q06x")
-
-[node name="BackgroundExtensao" type="Sprite2D" parent="." unique_id=1693534096]
-z_index = -1
-position = Vector2(4877.5, 215.99998)
-scale = Vector2(1.4986188, 1.1933701)
-texture = ExtResource("2_6q06x")
-flip_h = true
 
 [node name="Portal" parent="." unique_id=1925924290 instance=ExtResource("9_b1x3f")]
 position = Vector2(5174, 461)
