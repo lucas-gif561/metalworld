@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://inimigos/rapido/inimigo_rapido.tscn" id="1_base"]
+[ext_resource type="SpriteFrames" path="res://fases/rua_1/sprites/corredor/corredor.tres" id="2_frames"]
+
+[node name="Corredor" instance=ExtResource("1_base")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(1.95, 1.95)
+sprite_frames = ExtResource("2_frames")
+offset = Vector2(0, -32)

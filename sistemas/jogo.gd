@@ -19,7 +19,7 @@ const FASES = [
 	{"nome": "Boss 3", "cena": "res://fases/boss_3/boss_3.tscn"},
 ]
 const CENA_INICIO = "res://ui/tela_inicial.tscn"
-const CENA_JOGADOR = "res://personagens/dylan/jogador.tscn"
+const CENA_BATERISTA = "res://personagens/baterista/baterista.tscn"
 
 const CORES = {
 	1: Color(1.0, 0.3, 0.72),
@@ -137,8 +137,7 @@ func remover_p2() -> void:
 ## correndo: entrou no meio da fase, então chega correndo pela esquerda da tela
 func _criar_p2(fase: Node, correndo := false) -> void:
 	var p1 = jogador_por_id(1)
-	var p2 = load(CENA_JOGADOR).instantiate()
-	p2.id_jogador = 2
+	var p2 = load(CENA_BATERISTA).instantiate()
 	var destino = (p1.position if p1 else Vector2(200, 500)) + Vector2(-70, 0)
 	p2.position = destino
 	if correndo:

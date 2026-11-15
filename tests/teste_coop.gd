@@ -70,7 +70,8 @@ func _teste_rua() -> void:
 	checar(not cena.hud.vaga_p2.visible, "vaga do P2 sumiu")
 	checar(p2 != null and jogo.p2_ativo, "P2 entrou apertando START")
 	checar(cena.hud.paineis[2].visible, "painel de vida do P2 apareceu")
-	checar(p2.sprite.material != null, "P2 com outra cor")
+	checar(p2 != null and p2.sprite.sprite_frames.resource_path == "res://personagens/baterista/sprites/baterista.tres",
+		"P2 usa os sprites do Kevin")
 
 	# Mira: o inimigo persegue quem está mais perto
 	await esperar(1.0)

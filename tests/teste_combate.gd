@@ -77,16 +77,24 @@ func _teste_socos() -> void:
 	checar(p1.sprite.animation == &"soco_esquerdo", "1º soco: esquerdo (jab)")
 	await esperar(0.35)
 	checar(alvo.vida == 98, "jab tira 1 de quem está na frente")
+	checar(alvo.empurrao == Vector2.ZERO, "jab não empurra")
 	checar(atras.vida == 99, "não acerta quem está atrás")
 	checar(outra_faixa.vida == 99, "não acerta quem está em outra faixa da rua")
 
 	await apertar("p1_atacar")
 	checar(p1.sprite.animation == &"soco_direito", "2º soco: direito (direto)")
-	var x_antes = alvo.global_position.x
-	alvo.set_physics_process(true)
 	await esperar(0.45)
 	checar(alvo.vida == 96, "direto tira 2")
-	checar(alvo.global_position.x > x_antes + 15, "direto empurra o inimigo para trás (%.0f px)" % (alvo.global_position.x - x_antes))
+	checar(alvo.empurrao == Vector2.ZERO, "direto não empurra")
+
+	var x_antes = alvo.global_position.x
+	await apertar("p1_atacar")
+	checar(p1.sprite.animation == &"chute", "3º golpe: chute")
+	await esperar(0.32)
+	checar(alvo.vida == 94, "chute tira 2")
+	alvo.set_physics_process(true)
+	await esperar(0.18)
+	checar(alvo.global_position.x > x_antes + 15, "chute empurra o inimigo para trás (%.0f px)" % (alvo.global_position.x - x_antes))
 	alvo.set_physics_process(false)
 
 	await esperar(0.8)
