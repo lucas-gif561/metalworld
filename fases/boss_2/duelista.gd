@@ -22,6 +22,11 @@ enum Estado { VAGAR, SEGUIR, ESPELHAR, PARAR, FINTAR }
 @export_range(0.0, 80.0) var abertura_leque: float = 52.0
 @export var velocidade_projetil: float = 600.0
 @export var cor_projetil: Color = Color.WHITE
+## Desenho dos tiros deste duelista (em tons de cinza: a cor_projetil tinge por cima).
+## Sem textura, os tiros usam a bola padrão da cena do projétil.
+@export var textura_projetil: Texture2D
+## Tamanho do desenho em relação à bola padrão (1 = mesmo tamanho na tela)
+@export var escala_projetil: float = 1.5
 
 @onready var origem_tiro: Marker2D = $OrigemTiro
 @onready var aviso_mira: Line2D = $AvisoMira

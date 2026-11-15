@@ -418,10 +418,23 @@ func _preparar_projetil(atirador: Duelista, rival: Duelista, cena: PackedScene) 
 	projetil.position = projeteis.to_local(atirador.origem_tiro.global_position)
 	projetil.velocidade = atirador.velocidade_projetil
 	projetil.modulate = atirador.cor_projetil
+	_aplicar_desenho_do_tiro(projetil, atirador)
 	projetil.limite_lateral = rival.global_position.x
 	projetil.habilitar_dissonancia(atirador == paganini)
 	projetil.encontro_de_notas.connect(_ao_colidir_notas)
 	return projetil
+
+
+## Troca a bola padrão pela nota de quem atira. O tamanho acompanha a escala
+## que cada cena de projétil dá à bola (o pinball é maior), então muda durante
+## a partida conforme o tiro e fica em código.
+func _aplicar_desenho_do_tiro(projetil: ProjetilDuelo, atirador: Duelista) -> void:
+	if atirador.textura_projetil == null:
+		return
+	var desenho: Sprite2D = projetil.get_node("Sprite2D")
+	var largura_antiga = desenho.texture.get_width() * desenho.scale.x
+	desenho.texture = atirador.textura_projetil
+	desenho.scale = Vector2.ONE * largura_antiga * atirador.escala_projetil / atirador.textura_projetil.get_width()
 
 
 func morrer() -> void:
