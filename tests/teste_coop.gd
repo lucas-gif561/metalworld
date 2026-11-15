@@ -130,6 +130,8 @@ func _teste_boss() -> void:
 	print("== Boss: Riffs independentes")
 	change_scene_to_file("res://fases/boss_1/boss_1.tscn")
 	await esperar(0.6)
+	for riff_jogador in current_scene.riffs.values():
+		riff_jogador.trava_restante = 0.0 # pula a trava de entrada na arena
 	var cena = current_scene
 	var riff_p1 = cena.riffs[1]
 	var riff_p2 = cena.riffs[2]

@@ -29,11 +29,10 @@ Arquivos: `personagens/dylan/sprites/`, `ui/sprites/` (menos `coracao.png`, `rai
 Licença: CC0 (domínio público). Coração (vida) e raio (stamina).
 Arquivos: `ui/sprites/coracao.png`, `ui/sprites/raio.png`
 
-## Ampulheta
+## Cadeado
 
-**Additional Art for Godot 4 tutorials**, por MakerTech: <https://makertech.itch.io/additional-art-for-kenny-top-down-pixel-art-assets>
-Licença: CC0 (domínio público).
-Arquivos: `ui/sprites/ampulheta.png`
+Cadeado do Riff travado gerado pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
+Arquivos: `ui/sprites/cadeado.png`
 
 ## Seta
 
