@@ -89,6 +89,10 @@ func _boss_1() -> Node:
 	await esperar(0.6)
 	for jogador in jogo.jogadores:
 		jogador.invencivel = true
+	var riff_p1 = current_scene.riffs[1]
+	checar(riff_p1.travado() and is_equal_approx(riff_p1.trava_total, current_scene.trava_inicial), "ao entrar na arena, o cadeado fica ativo por %d s" % current_scene.trava_inicial)
+	for riff_jogador in current_scene.riffs.values():
+		riff_jogador.trava_restante = 0.0 # pula a trava de entrada na arena
 	return current_scene
 
 

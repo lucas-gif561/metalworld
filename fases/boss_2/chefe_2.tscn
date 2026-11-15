@@ -167,11 +167,12 @@ libraries = {
 }
 autoplay = &"flutuar"
 
-[node name="SinalRiff" parent="." instance=ExtResource("20_sinal_riff")]
-offset_left = 476.0
-offset_top = 158.0
-offset_right = 676.0
-offset_bottom = 228.0
+[node name="SinalRiff" parent="Diabo" instance=ExtResource("20_sinal_riff")]
+offset_left = -166.67
+offset_top = -203.0
+offset_right = 33.33
+offset_bottom = -171.0
+scale = Vector2(1.6667, 1.6667)
 
 [node name="Projeteis" type="Node2D" parent="."]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b66p20wji45ue"
-path="res://.godot/imported/ampulheta.png-7361bf7ee602f6a846f4bed32aa9c457.ctex"
+uid="uid://bx5vvxsh2esa3"
+path="res://.godot/imported/cadeado.png-57eeab478a07811646f14ff65386a5c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/sprites/ampulheta.png"
-dest_files=["res://.godot/imported/ampulheta.png-7361bf7ee602f6a846f4bed32aa9c457.ctex"]
+source_file="res://ui/sprites/cadeado.png"
+dest_files=["res://.godot/imported/cadeado.png-57eeab478a07811646f14ff65386a5c1.ctex"]
 
 [params]
 

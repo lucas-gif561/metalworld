@@ -193,8 +193,9 @@ func _atualizar_fase():
 
 	if vida_atual <= limite_da_fase(fase):
 		fase += 1
-		if not (escudo_ao_mudar_fase and ativar_escudo("FASE %d! " % fase)):
-			anuncio.emit("FASE %d! O boss enfureceu!" % fase)
+		# Sem texto: a troca de fase se mostra pelos marcadores da barra e pelos totens
+		if escudo_ao_mudar_fase:
+			ativar_escudo()
 		fase_avancou.emit()
 
 
@@ -487,14 +488,14 @@ func _encerrar_descanso():
 		tween_sinal.kill()
 
 
-## Usa o nó "SinalRiff" da cena do boss (Label). Se o boss não tiver um,
-## cria um igual ao do boss 1 para o descansar() funcionar mesmo assim.
-## Aviso "RIFF!" com o ícone de abrir o Riff de quem está jogando
-## (riff/sinal_riff.tscn). Se o boss não tiver um SinalRiff na cena, usa o padrão
-## acima da cabeça.
+## Aviso do descanso: só o ícone de abrir o Riff de quem está jogando
+## (riff/sinal_riff.tscn). Usa o nó "SinalRiff" da cena do boss, em qualquer
+## lugar dela; sem ele, cria um padrão acima da cabeça.
 func _criar_sinal_riff():
-	if has_node("SinalRiff"):
-		sinal_riff = $SinalRiff
+	# Pode estar em qualquer nó da cena do boss (no boss 2 fica preso ao Diabo)
+	var na_cena = find_child("SinalRiff", true, false)
+	if na_cena:
+		sinal_riff = na_cena
 		sinal_riff.hide()
 		return
 	sinal_riff = CENA_SINAL_RIFF.instantiate()
