@@ -15,8 +15,11 @@ extends Control
 ## quando sair; aqui fica o tempo restante (o HUD mostra uma ampulheta).
 ## Aviso: com o Riff aberto e o boss fora do descanso (atacando), um "!" pisca.
 
-const DANO_RIFF_SOLO = 0.5
-const DANO_RIFF_EM_DUPLA = 1.0
+## Dano por nota: jogando sozinho, 1,5×. Em dupla, 0,5× com só um Riff aberto
+## e 1,5× com os dois tocando juntos.
+const DANO_RIFF_SINGLEPLAYER = 1.5
+const DANO_RIFF_SOLO_EM_DUPLA = 0.5
+const DANO_RIFF_EM_DUPLA = 1.5
 const TECLAS = ["riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 
 @export var id_jogador: int = 1
@@ -33,9 +36,9 @@ const TECLAS = ["riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 
 @export_group("Trava")
 ## Segundos sem poder abrir o Riff depois de levar dano tocando
-@export var trava_por_dano: float = 10.0
+@export var trava_por_dano: float = 5.0
 ## Segundos sem poder abrir o Riff depois de fechar por conta própria
-@export var trava_ao_sair: float = 3.0
+@export var trava_ao_sair: float = 1.0
 
 @export_group("Dificuldade")
 ## Quanto a velocidade das notas sobe por segundo de Riff (0,03 = +3%/s)
@@ -190,7 +193,7 @@ func _process(delta: float) -> void:
 		return
 
 	tempo_no_riff += delta
-	var multiplicador = "1×" if _tocando_em_dupla() else "0,5×"
+	var multiplicador = str(multiplicador_de_dano()).replace(".", ",") + "×"
 	label_jogador.text = "P%d  ·  %s" % [id_jogador, multiplicador]
 	# "!" piscando: o boss não está descansando, ele pode atacar a qualquer hora
 	aviso.visible = boss != null and not boss.get("descansando")
@@ -285,8 +288,13 @@ func verificar_nota(coluna, dono := 1):
 		Audio.tocar("nota_good", 0.0)
 		_mostrar_feedback("GOOD", COR_GOOD)
 
-	var multiplicador = DANO_RIFF_EM_DUPLA if _tocando_em_dupla() else DANO_RIFF_SOLO
-	boss.receber_dano(dano * multiplicador)
+	boss.receber_dano(dano * multiplicador_de_dano())
+
+
+func multiplicador_de_dano() -> float:
+	if Jogo.jogadores.size() < 2:
+		return DANO_RIFF_SINGLEPLAYER
+	return DANO_RIFF_EM_DUPLA if _tocando_em_dupla() else DANO_RIFF_SOLO_EM_DUPLA
 
 
 func _tocando_em_dupla() -> bool:

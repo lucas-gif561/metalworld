@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b1p3hon7djp20"]
 
-[ext_resource type="Texture2D" uid="uid://be8d45abhogdi" path="res://assets/fundos/arena_neon.png" id="1_6tvee"]
+[ext_resource type="Texture2D" uid="uid://b3g4qvntlqfv2" path="res://fases/boss_2/sprites/arena_duelo.png" id="1_6tvee"]
 [ext_resource type="Script" uid="uid://cefx3gl0nkig5" path="res://bosses/base/arena_boss.gd" id="1_df7gq"]
 [ext_resource type="PackedScene" path="res://fases/boss_2/chefe_2.tscn" id="2_df7gq"]
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="3_8xsta"]
@@ -9,21 +9,11 @@
 [ext_resource type="PackedScene" path="res://ui/cabo_de_forca.tscn" id="44_cabo"]
 [ext_resource type="PackedScene" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vyw2r"]
-radius = 108.0
-height = 296.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mi726"]
 size = Vector2(1222, 133.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8l2qr"]
 size = Vector2(1212, 91)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lj0mq"]
-size = Vector2(53, 723)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rk34g"]
-size = Vector2(75, 728.5)
 
 [node name="Boss2" type="Node2D" unique_id=1072854072]
 y_sort_enabled = true
@@ -34,21 +24,14 @@ y_sort_enabled = true
 metadata/_edit_group_ = true
 
 [node name="BackGround" type="Sprite2D" parent="Arena" unique_id=1230644980]
-z_index = -1
-modulate = Color(0.75, 0.9, 1.2, 1)
-position = Vector2(574.80566, 321.99997)
-scale = Vector2(0.6950055, 0.6950053)
+z_index = -2
+position = Vector2(576, 324)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_6tvee")
 
-[node name="BarreiraPalco" type="StaticBody2D" parent="Arena" unique_id=1220937588]
-position = Vector2(576, 160)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/BarreiraPalco" unique_id=940301841]
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_vyw2r")
-
-[node name="Chefe" parent="Arena" unique_id=647068640 instance=ExtResource("2_df7gq")]
-position = Vector2(576, 160)
+[node name="Chefe" parent="Arena" unique_id=647068640 node_paths=PackedStringArray("teto_ricochete", "piso_ricochete") instance=ExtResource("2_df7gq")]
+teto_ricochete = NodePath("../Paredes/ParedeSuperior/CollisionShape2D")
+piso_ricochete = NodePath("../Paredes/ParedeInferior/CollisionShape2D")
 
 [node name="SpawnPlayer" type="Marker2D" parent="Arena" unique_id=126301520]
 position = Vector2(576, 528)
@@ -57,6 +40,7 @@ position = Vector2(576, 528)
 
 [node name="ParedeSuperior" type="StaticBody2D" parent="Arena/Paredes" unique_id=1488684478]
 position = Vector2(568, 37)
+collision_layer = 128
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeSuperior" unique_id=536414275]
@@ -64,25 +48,18 @@ position = Vector2(0, 38.25)
 shape = SubResource("RectangleShape2D_mi726")
 
 [node name="ParedeInferior" type="StaticBody2D" parent="Arena/Paredes" unique_id=1440596223]
+collision_layer = 128
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeInferior" unique_id=981719831]
 position = Vector2(574, 649.5)
 shape = SubResource("RectangleShape2D_8l2qr")
 
-[node name="ParedeEsquerda" type="StaticBody2D" parent="Arena/Paredes" unique_id=1163257233]
-position = Vector2(-24, 328)
-metadata/_edit_group_ = true
+[node name="AreaJogador" type="StaticBody2D" parent="Arena/Paredes"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeEsquerda" unique_id=1554902316]
-shape = SubResource("RectangleShape2D_lj0mq")
-
-[node name="ParedeDireita" type="StaticBody2D" parent="Arena/Paredes" unique_id=1145410349]
-position = Vector2(1187, 312)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeDireita" unique_id=1515332814]
-shape = SubResource("RectangleShape2D_rk34g")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/Paredes/AreaJogador"]
+build_mode = 1
+polygon = PackedVector2Array(294, 208, 852, 208, 882, 221, 910, 245, 937, 284, 955, 331, 961, 388, 955, 448, 940, 501, 916, 519, 855, 546, 776, 570, 697, 588, 606, 600, 515, 600, 424, 588, 345, 567, 285, 543, 221, 516, 206, 471, 195, 412, 195, 352, 206, 299, 230, 257, 260, 227)
 
 [node name="Player" parent="." unique_id=1357147288 instance=ExtResource("3_8xsta")]
 position = Vector2(577, 566)
@@ -91,17 +68,19 @@ position = Vector2(577, 566)
 
 [node name="BossHealthBar" parent="HUD" unique_id=817409153 instance=ExtResource("90_barra_boss")]
 
-[node name="CaboDeForca" parent="HUD" instance=ExtResource("44_cabo")]
+[node name="CaboDeForca" parent="HUD" unique_id=1979194449 instance=ExtResource("44_cabo")]
 visible = false
 
 [node name="RiffHUD" parent="HUD" unique_id=948874030 instance=ExtResource("40_riff")]
 
-[node name="RiffHUDP2" parent="HUD" instance=ExtResource("40_riff")]
+[node name="RiffHUDP2" parent="HUD" unique_id=506191084 instance=ExtResource("40_riff")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -285.0
+offset_top = -202.0
 offset_right = -45.0
+offset_bottom = 202.0
 grow_horizontal = 0
 id_jogador = 2
 
