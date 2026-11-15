@@ -4,12 +4,17 @@
 [ext_resource type="Texture2D" path="res://ui/sprites/coracao.png" id="2_coracao"]
 [ext_resource type="Texture2D" path="res://ui/sprites/raio.png" id="3_raio"]
 [ext_resource type="Texture2D" path="res://ui/sprites/retrato_dylan.png" id="4_retrato"]
-[ext_resource type="Texture2D" path="res://personagens/baterista/sprites/retrato.png" id="5_baterista"]
+[ext_resource type="Texture2D" path="res://personagens/baterista/sprites/idle.png" id="5_baterista"]
 [ext_resource type="Texture2D" path="res://ui/sprites/seta.png" id="6_seta"]
 [ext_resource type="PackedScene" path="res://ui/menu_pausa.tscn" id="7_pausa"]
 [ext_resource type="Texture2D" path="res://ui/sprites/botao_a.png" id="8_botao_a"]
 [ext_resource type="Texture2D" path="res://ui/sprites/tecla_j.png" id="9_tecla_j"]
 [ext_resource type="Texture2D" path="res://ui/sprites/ampulheta.png" id="10_ampulheta"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_retrato_kevin"]
+atlas = ExtResource("5_baterista")
+region = Rect2(39, 32, 28, 28)
+filter_clip = true
 
 [sub_resource type="Animation" id="Animation_vaga"]
 resource_name = "esperar"
@@ -341,7 +346,7 @@ offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("5_baterista")
+texture = SubResource("AtlasTexture_retrato_kevin")
 expand_mode = 1
 stretch_mode = 5
 
@@ -510,7 +515,7 @@ offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("5_baterista")
+texture = SubResource("AtlasTexture_retrato_kevin")
 expand_mode = 1
 stretch_mode = 5
 

@@ -1,5 +1,8 @@
 [gd_resource type="SpriteFrames" format=3]
 
+[ext_resource type="Texture2D" path="res://personagens/baterista/sprites/invocar_bateria.png" id="invocar_bateria"]
+[ext_resource type="Texture2D" path="res://personagens/baterista/sprites/tocar_bateria.png" id="tocar_bateria"]
+
 [ext_resource type="Texture2D" path="res://personagens/baterista/sprites/death.png" id="death"]
 
 [ext_resource type="Texture2D" path="res://personagens/baterista/sprites/dodge.png" id="dodge"]
@@ -226,6 +229,78 @@ region = Rect2(480, 0, 96, 80)
 atlas = ExtResource("chute")
 region = Rect2(576, 0, 96, 80)
 
+[sub_resource type="AtlasTexture" id="invocar_bateria_0"]
+atlas = ExtResource("invocar_bateria")
+region = Rect2(0, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="invocar_bateria_1"]
+atlas = ExtResource("invocar_bateria")
+region = Rect2(96, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="invocar_bateria_2"]
+atlas = ExtResource("invocar_bateria")
+region = Rect2(192, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="invocar_bateria_3"]
+atlas = ExtResource("invocar_bateria")
+region = Rect2(288, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="invocar_bateria_4"]
+atlas = ExtResource("invocar_bateria")
+region = Rect2(384, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="invocar_bateria_5"]
+atlas = ExtResource("invocar_bateria")
+region = Rect2(480, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="invocar_bateria_6"]
+atlas = ExtResource("invocar_bateria")
+region = Rect2(576, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="invocar_bateria_7"]
+atlas = ExtResource("invocar_bateria")
+region = Rect2(672, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="invocar_bateria_8"]
+atlas = ExtResource("invocar_bateria")
+region = Rect2(768, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="tocar_bateria_0"]
+atlas = ExtResource("tocar_bateria")
+region = Rect2(0, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="tocar_bateria_1"]
+atlas = ExtResource("tocar_bateria")
+region = Rect2(96, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="tocar_bateria_2"]
+atlas = ExtResource("tocar_bateria")
+region = Rect2(192, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="tocar_bateria_3"]
+atlas = ExtResource("tocar_bateria")
+region = Rect2(288, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="tocar_bateria_4"]
+atlas = ExtResource("tocar_bateria")
+region = Rect2(384, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="tocar_bateria_5"]
+atlas = ExtResource("tocar_bateria")
+region = Rect2(480, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="tocar_bateria_6"]
+atlas = ExtResource("tocar_bateria")
+region = Rect2(576, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="tocar_bateria_7"]
+atlas = ExtResource("tocar_bateria")
+region = Rect2(672, 0, 96, 80)
+
+[sub_resource type="AtlasTexture" id="tocar_bateria_8"]
+atlas = ExtResource("tocar_bateria")
+region = Rect2(768, 0, 96, 80)
+
 [resource]
 animations = [{
 "frames": [{ "duration": 1.0, "texture": SubResource("death_0") },
@@ -316,17 +391,42 @@ animations = [{
 "name": &"chute",
 "speed": 20.0
 }, {
-"frames": [{ "duration": 1.0, "texture": SubResource("idle_0") },
-{ "duration": 1.0, "texture": SubResource("idle_1") }],
+"frames": [{ "duration": 1.0, "texture": SubResource("invocar_bateria_0") },
+{ "duration": 1.0, "texture": SubResource("invocar_bateria_1") },
+{ "duration": 1.0, "texture": SubResource("invocar_bateria_2") },
+{ "duration": 1.0, "texture": SubResource("invocar_bateria_3") },
+{ "duration": 1.0, "texture": SubResource("invocar_bateria_4") },
+{ "duration": 1.0, "texture": SubResource("invocar_bateria_5") },
+{ "duration": 1.0, "texture": SubResource("invocar_bateria_6") },
+{ "duration": 1.0, "texture": SubResource("invocar_bateria_7") },
+{ "duration": 1.0, "texture": SubResource("invocar_bateria_8") }],
 "loop": false,
 "name": &"riff_inicio",
-"speed": 8.0
+"speed": 14.0
 }, {
-"frames": [{ "duration": 1.0, "texture": SubResource("idle_0") },
-{ "duration": 1.0, "texture": SubResource("idle_1") },
-{ "duration": 1.0, "texture": SubResource("idle_2") },
-{ "duration": 1.0, "texture": SubResource("idle_3") }],
+"frames": [{ "duration": 1.0, "texture": SubResource("tocar_bateria_0") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_1") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_2") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_3") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_4") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_5") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_6") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_7") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_8") }],
 "loop": true,
 "name": &"riff",
-"speed": 8.0
+"speed": 11.25
+}, {
+"frames": [{ "duration": 1.0, "texture": SubResource("tocar_bateria_0") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_1") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_2") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_3") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_4") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_5") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_6") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_7") },
+{ "duration": 1.0, "texture": SubResource("tocar_bateria_8") }],
+"loop": false,
+"name": &"minirriff",
+"speed": 30.0
 }]

@@ -427,4 +427,17 @@ animations = [{
 "loop": false,
 "name": &"riff_inicio",
 "speed": 14.0
+}, {
+"frames": [{ "duration": 1.0, "texture": SubResource("riff_0") },
+{ "duration": 1.0, "texture": SubResource("riff_1") },
+{ "duration": 1.0, "texture": SubResource("riff_2") },
+{ "duration": 1.0, "texture": SubResource("riff_3") },
+{ "duration": 1.0, "texture": SubResource("riff_4") },
+{ "duration": 1.0, "texture": SubResource("riff_5") },
+{ "duration": 1.0, "texture": SubResource("riff_6") },
+{ "duration": 1.0, "texture": SubResource("riff_7") },
+{ "duration": 1.0, "texture": SubResource("riff_8") }],
+"loop": false,
+"name": &"minirriff",
+"speed": 30.0
 }]

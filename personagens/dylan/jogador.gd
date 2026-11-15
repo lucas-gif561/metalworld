@@ -45,6 +45,7 @@ const SOCOS = [
 ## nas ruas (1,5x) vira 249, e ele anda sempre ~2 corpos por segundo
 @export var velocidade = 166.0
 @export var vida = 5
+@export var animar_entrada_no_riff := true
 
 @export_group("Soco")
 ## Até onde o soco alcança à frente do corpo (px)
@@ -98,7 +99,6 @@ var tempo_atordoado = 0.0
 var mensagem_minirriff := ""
 var tempo_mensagem_minirriff = 0.0
 var _especial_pendente := {}
-var _tempo_tocando = 0.0
 var esquivando = false
 var tempo_dodge = 0.0
 var direcao_dodge = Vector2.RIGHT
@@ -429,10 +429,6 @@ func _atualizar_minirriff(delta: float) -> bool:
 		_cancelar_especial()
 		em_acao = false
 		return false
-	if _tempo_tocando > 0.0:
-		_tempo_tocando -= delta
-		if _tempo_tocando <= 0.0:
-			_soltar_especial()
 	return true
 
 
@@ -473,7 +469,6 @@ func _preparar_especial(especial: Dictionary) -> void:
 
 func _cancelar_especial() -> void:
 	_especial_pendente = {}
-	_tempo_tocando = 0.0
 
 
 func _soltar_especial() -> void:
@@ -522,7 +517,7 @@ func _animar_riff():
 	if sprite.animation != &"riff_inicio" and sprite.animation != &"riff":
 		_cancelar_soco()
 		em_acao = false
-		sprite.play("riff_inicio")
+		sprite.play("riff_inicio" if animar_entrada_no_riff else "riff")
 
 
 func _tocar_acao(nome):
@@ -537,10 +532,13 @@ func _ao_terminar_animacao():
 
 	if sprite.animation == &"riff_inicio":
 		if not _especial_pendente.is_empty():
-			_tempo_tocando = 0.18
-			sprite.play("riff")
+			sprite.play("minirriff")
 			return
 		sprite.play("riff" if em_riff else "idle")
+		return
+
+	if sprite.animation == &"minirriff" and not _especial_pendente.is_empty() and not bloqueado:
+		_soltar_especial()
 		return
 
 	em_acao = false

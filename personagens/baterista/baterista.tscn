@@ -5,6 +5,7 @@
 
 [node name="Baterista" instance=ExtResource("1_base")]
 id_jogador = 2
+animar_entrada_no_riff = false
 quadro_cross = 5
 
 [node name="AnimatedSprite2D" parent="." index="1"]
