@@ -5,6 +5,7 @@ const Duelista = preload("res://fases/boss_2/duelista.gd")
 const ProjetilDuelo = preload("res://fases/boss_2/projetil_duelo.gd")
 const ProjetilContratempo = preload("res://fases/boss_2/projetil_contratempo.gd")
 const CordaDuelo = preload("res://fases/boss_2/corda_duelo.gd")
+const Dissonancia = preload("res://fases/boss_2/dissonancia.gd")
 const FormaPinball = preload("res://fases/boss_2/forma_pinball.tres")
 
 @export var tempo_preparo: float = 0.5
@@ -14,13 +15,14 @@ const FormaPinball = preload("res://fases/boss_2/forma_pinball.tres")
 @export var intervalo_staccato: float = 0.28
 @export var angulos_leque_diabo := PackedFloat32Array([-29.0, 7.0, 38.0])
 @export var tempo_extra_riff: float = 1.0
+@export var cena_dissonancia: PackedScene
 
 @export_group("Glissando")
 @export var atraso_paganini: float = 0.54
 @export var atraso_paganini_onda_alta: float = 0.23
 @export var intervalos_diabo := PackedFloat32Array([0.13, 0.24, 0.27, 0.34])
 @export var intervalos_paganini := PackedFloat32Array([0.24, 0.24, 0.24, 0.24])
-@export var intervalos_diabo_onda_alta := PackedFloat32Array([0.16, 0.31])
+@export var intervalos_diabo_onda_alta := PackedFloat32Array([0.29, 0.18])
 @export var intervalos_paganini_onda_alta := PackedFloat32Array([0.24, 0.24])
 @export_range(50.0, 600.0) var velocidade_posicionamento: float = 320.0
 @export var teto_ricochete: CollisionShape2D
@@ -39,12 +41,14 @@ const FormaPinball = preload("res://fases/boss_2/forma_pinball.tres")
 @export var distancia_contratempo: float = 110.0
 @export var tempo_deslocamento_contratempo: float = 0.48
 @export var aviso_nota_rapida: float = 0.32
+@export var intervalo_notas_rapidas: float = 0.18
 @export var velocidade_nota_rapida: float = 700.0
 
 @onready var paganini: Duelista = $AnimatedSprite2D
 @onready var diabo: Duelista = $Diabo
 @onready var projeteis: Node2D = $Projeteis
 @onready var cordas: Array[Node] = $Cordas.get_children()
+@onready var dissonancias: Node2D = $Dissonancias
 
 var _staccato_alcancou_o_diabo := false
 var _pinball_alcancou_o_diabo := false
@@ -87,7 +91,7 @@ func _sequencia_de_ataques(fase_da_sequencia: int) -> void:
 			if not pode_atacar():
 				return
 		await ataques[indice].call()
-		await _esperar_projeteis()
+		await _esperar_projeteis(true)
 
 
 func _duelo_de_leques(simultaneo: bool) -> void:
@@ -195,6 +199,22 @@ func _disparar_glissando(atirador: Duelista, rival: Duelista, parede: CollisionS
 		_disparar(atirador, rival, direcao, int(parede != null), parede)
 
 
+func _ao_colidir_notas(primeira: ProjetilDuelo, segunda: ProjetilDuelo) -> void:
+	if not pode_atacar():
+		return
+	var encontro = primeira.global_position.lerp(segunda.global_position, 0.5)
+	primeira.queue_free()
+	segunda.queue_free()
+	_iniciar_dissonancia.call_deferred(encontro)
+
+
+func _iniciar_dissonancia(encontro: Vector2) -> void:
+	if pode_atacar():
+		var dissonancia: Dissonancia = cena_dissonancia.instantiate()
+		dissonancia.position = dissonancias.to_local(encontro)
+		dissonancias.add_child(dissonancia)
+
+
 func _esperar_coreografia() -> void:
 	while pode_atacar() and _movimentos_coreografados.any(func(tween): return tween.is_running()):
 		await esperar(0.03)
@@ -276,15 +296,18 @@ func _contratempo() -> void:
 	_movimentos_coreografados = [deslocamento]
 	await _esperar_coreografia()
 
-	if pode_atacar():
+	for i in 3:
+		if not pode_atacar():
+			break
 		var direcao = diabo.preparar_tiro(paganini.origem_tiro.global_position)
-		await esperar(aviso_nota_rapida)
-		if pode_atacar():
-			var nota = _preparar_projetil(diabo, paganini, cena_projetil)
-			nota.direcao = direcao
-			nota.velocidade = velocidade_nota_rapida
-			nota.maximo_quiques = 0
-			projeteis.add_child(nota)
+		await esperar(aviso_nota_rapida if i == 0 else intervalo_notas_rapidas)
+		if not pode_atacar():
+			break
+		var nota = _preparar_projetil(diabo, paganini, cena_projetil)
+		nota.direcao = direcao
+		nota.velocidade = velocidade_nota_rapida
+		nota.maximo_quiques = 0
+		projeteis.add_child(nota)
 	_encerrar_coreografia()
 
 
@@ -305,8 +328,10 @@ func descansar() -> void:
 	duracao_descanso = duracao_original
 
 
-func _esperar_projeteis() -> void:
-	while pode_atacar() and projeteis.get_child_count() > 0:
+func _esperar_projeteis(esperar_dissonancias := false) -> void:
+	while pode_atacar() and (
+		projeteis.get_child_count() > 0 or (esperar_dissonancias and dissonancias.get_child_count() > 0)
+	):
 		await esperar(0.1)
 
 
@@ -361,11 +386,15 @@ func _preparar_projetil(atirador: Duelista, rival: Duelista, cena: PackedScene) 
 	projetil.velocidade = atirador.velocidade_projetil
 	projetil.modulate = atirador.cor_projetil
 	projetil.limite_lateral = rival.global_position.x
+	projetil.habilitar_dissonancia(1 if atirador == paganini else -1)
+	projetil.encontro_de_notas.connect(_ao_colidir_notas)
 	return projetil
 
 
 func morrer() -> void:
 	_encerrar_coreografia()
+	for dissonancia in dissonancias.get_children():
+		dissonancia.queue_free()
 	for corda in cordas:
 		corda.hide()
 	for projetil in projeteis.get_children():

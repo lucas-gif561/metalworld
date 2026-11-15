@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" path="res://fases/boss_2/cordas_duelo.tscn" id="6_cordas"]
 [ext_resource type="PackedScene" path="res://fases/boss_2/projetil_pinball.tscn" id="7_pinball"]
 [ext_resource type="PackedScene" path="res://fases/boss_2/projetil_contratempo.tscn" id="8_contratempo"]
+[ext_resource type="PackedScene" path="res://fases/boss_2/dissonancia.tscn" id="9_dissonancia"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_duelistas"]
 animations = [{
@@ -46,6 +47,7 @@ usar_fases = true
 usar_nota_maldita = true
 cena_pinball = ExtResource("7_pinball")
 cena_contratempo = ExtResource("8_contratempo")
+cena_dissonancia = ExtResource("9_dissonancia")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(90, 265)
@@ -133,3 +135,5 @@ horizontal_alignment = 1
 [node name="Projeteis" type="Node2D" parent="."]
 
 [node name="Cordas" parent="." instance=ExtResource("6_cordas")]
+
+[node name="Dissonancias" type="Node2D" parent="."]
