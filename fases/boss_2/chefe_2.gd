@@ -34,17 +34,17 @@ const FormaPinball = preload("res://fases/boss_2/forma_pinball.tres")
 
 @export_group("Pinball")
 @export var cena_pinball: PackedScene
-@export var velocidade_pinball: float = 540.0
+@export var velocidade_pinball: float = 650.0
 
 @export_group("Contratempo")
 @export var cena_contratempo: PackedScene
 @export var distancia_contratempo: float = 110.0
 @export var tempo_deslocamento_contratempo: float = 0.48
-@export var aviso_nota_rapida: float = 0.32
-@export var intervalo_notas_rapidas: float = 0.18
-@export var velocidade_nota_rapida: float = 700.0
+@export var aviso_segunda_salva: float = 0.32
 
 @onready var paganini: Duelista = $AnimatedSprite2D
+@onready var aviso_pinball_piso: Line2D = $AnimatedSprite2D/AvisoPinballPiso
+@onready var aviso_pinball_curto: Line2D = $AnimatedSprite2D/AvisoPinballCurto
 @onready var diabo: Duelista = $Diabo
 @onready var projeteis: Node2D = $Projeteis
 @onready var cordas: Array[Node] = $Cordas.get_children()
@@ -203,8 +203,6 @@ func _ao_colidir_notas(primeira: ProjetilDuelo, segunda: ProjetilDuelo) -> void:
 	if not pode_atacar():
 		return
 	var encontro = primeira.global_position.lerp(segunda.global_position, 0.5)
-	primeira.queue_free()
-	segunda.queue_free()
 	_iniciar_dissonancia.call_deferred(encontro)
 
 
@@ -228,6 +226,8 @@ func _encerrar_coreografia() -> void:
 	diabo.movimento_coreografado = false
 	paganini.encerrar_preparo()
 	diabo.encerrar_preparo()
+	aviso_pinball_piso.hide()
+	aviso_pinball_curto.hide()
 
 
 func _quatro_cordas() -> void:
@@ -251,29 +251,49 @@ func _pinball_com_resposta() -> void:
 	_pinball_alcancou_o_diabo = false
 	var origem = paganini.origem_tiro.global_position
 	var destino = Vector2(diabo.global_position.x, diabo.origem_tiro.global_position.y)
-	var centro_y = (diabo.limites_y.x + diabo.limites_y.y) * 0.5
-	var primeira_parede = teto_ricochete if origem.y < centro_y else piso_ricochete
-	var segunda_parede = piso_ricochete if primeira_parede == teto_ricochete else teto_ricochete
-	var paredes: Array[CollisionShape2D] = [primeira_parede, segunda_parede, primeira_parede, segunda_parede]
-	var direcao = ProjetilDuelo.calcular_direcao_com_ricochetes(origem, destino, paredes, FormaPinball.radius)
-	var altura_quique = ProjetilDuelo.altura_ricochete(origem.y, primeira_parede, FormaPinball.radius)
-	var primeiro_quique = origem + direcao * ((altura_quique - origem.y) / direcao.y)
-	paganini.preparar_tiro(primeiro_quique)
+	var paredes: Array[CollisionShape2D] = [teto_ricochete, piso_ricochete, teto_ricochete, piso_ricochete]
+	var direcao_teto = ProjetilDuelo.calcular_direcao_com_ricochetes(origem, destino, paredes, FormaPinball.radius)
+	paredes.reverse()
+	var direcao_piso = ProjetilDuelo.calcular_direcao_com_ricochetes(origem, destino, paredes, FormaPinball.radius)
+	var paredes_curtas: Array[CollisionShape2D] = [teto_ricochete, piso_ricochete, teto_ricochete]
+	var direcao_curta = ProjetilDuelo.calcular_direcao_com_ricochetes(origem, destino, paredes_curtas, FormaPinball.radius)
+	paganini.preparar_tiro(_ponto_primeiro_quique(origem, direcao_teto, teto_ricochete))
+	_mostrar_aviso_pinball(aviso_pinball_piso, origem, _ponto_primeiro_quique(origem, direcao_piso, piso_ricochete))
+	_mostrar_aviso_pinball(aviso_pinball_curto, origem, _ponto_primeiro_quique(origem, direcao_curta, teto_ricochete))
 	Audio.tocar("boss_conjura")
 	await esperar(tempo_preparo)
 	paganini.encerrar_preparo()
+	aviso_pinball_piso.hide()
+	aviso_pinball_curto.hide()
 	if not pode_atacar():
 		return
 
-	var bola = _preparar_projetil(paganini, diabo, cena_pinball)
-	bola.velocidade = velocidade_pinball
-	bola.direcao = direcao
-	bola.alcancou_lateral.connect(func(): _pinball_alcancou_o_diabo = true)
-	projeteis.add_child(bola)
+	_lancar_pinball(direcao_teto, paredes.size())
+	_lancar_pinball(direcao_piso, paredes.size())
+	_lancar_pinball(direcao_curta, paredes_curtas.size())
 
 	await _esperar_projeteis()
 	if _pinball_alcancou_o_diabo and pode_atacar():
 		await _contratempo()
+
+
+func _ponto_primeiro_quique(origem: Vector2, direcao: Vector2, parede: CollisionShape2D) -> Vector2:
+	var altura = ProjetilDuelo.altura_ricochete(origem.y, parede, FormaPinball.radius)
+	return origem + direcao * ((altura - origem.y) / direcao.y)
+
+
+func _mostrar_aviso_pinball(aviso: Line2D, origem: Vector2, destino: Vector2) -> void:
+	aviso.points = PackedVector2Array([aviso.to_local(origem), aviso.to_local(destino)])
+	aviso.show()
+
+
+func _lancar_pinball(direcao: Vector2, maximo_quiques: int) -> void:
+	var bola = _preparar_projetil(paganini, diabo, cena_pinball)
+	bola.velocidade = velocidade_pinball
+	bola.direcao = direcao
+	bola.maximo_quiques = maximo_quiques
+	bola.alcancou_lateral.connect(func(): _pinball_alcancou_o_diabo = true)
+	projeteis.add_child(bola)
 
 
 func _contratempo() -> void:
@@ -284,8 +304,7 @@ func _contratempo() -> void:
 	if not pode_atacar():
 		return
 
-	_disparar_curva_contratempo(teto_ricochete)
-	_disparar_curva_contratempo(piso_ricochete)
+	_disparar_leque_contratempo()
 
 	diabo.movimento_coreografado = true
 	var limites = diabo.limites_y
@@ -296,28 +315,28 @@ func _contratempo() -> void:
 	_movimentos_coreografados = [deslocamento]
 	await _esperar_coreografia()
 
-	for i in 3:
-		if not pode_atacar():
-			break
-		var direcao = diabo.preparar_tiro(paganini.origem_tiro.global_position)
-		await esperar(aviso_nota_rapida if i == 0 else intervalo_notas_rapidas)
-		if not pode_atacar():
-			break
-		var nota = _preparar_projetil(diabo, paganini, cena_projetil)
-		nota.direcao = direcao
-		nota.velocidade = velocidade_nota_rapida
-		nota.maximo_quiques = 0
-		projeteis.add_child(nota)
+	if pode_atacar():
+		diabo.preparar_tiro(paganini.origem_tiro.global_position)
+		await esperar(aviso_segunda_salva)
+		if pode_atacar():
+			_disparar_leque_contratempo()
 	_encerrar_coreografia()
 
 
-func _disparar_curva_contratempo(parede: CollisionShape2D) -> void:
-	var nota = _preparar_projetil(diabo, paganini, cena_contratempo) as ProjetilContratempo
+func _disparar_leque_contratempo() -> void:
+	const QUANTIDADE_NOTAS = 5
 	var origem = diabo.origem_tiro.global_position
-	nota.direcao = Vector2(signf(nota.limite_lateral - origem.x), 0.0)
-	nota.destino_y = paganini.origem_tiro.global_position.y
-	nota.controle_y = ProjetilDuelo.altura_ricochete(origem.y, parede, nota.raio_ricochete())
-	projeteis.add_child(nota)
+	var destino_y = paganini.origem_tiro.global_position.y
+	for i in QUANTIDADE_NOTAS:
+		var nota = _preparar_projetil(diabo, paganini, cena_contratempo) as ProjetilContratempo
+		var raio = nota.raio_ricochete()
+		var topo = ProjetilDuelo.altura_ricochete(origem.y, teto_ricochete, raio)
+		var fundo = ProjetilDuelo.altura_ricochete(origem.y, piso_ricochete, raio)
+		var fracao = float(i) / (QUANTIDADE_NOTAS - 1)
+		nota.direcao = Vector2(signf(nota.limite_lateral - origem.x), 0.0)
+		nota.destino_y = destino_y
+		nota.controle_y = lerpf(topo, fundo, fracao)
+		projeteis.add_child(nota)
 
 
 func descansar() -> void:
@@ -386,7 +405,7 @@ func _preparar_projetil(atirador: Duelista, rival: Duelista, cena: PackedScene) 
 	projetil.velocidade = atirador.velocidade_projetil
 	projetil.modulate = atirador.cor_projetil
 	projetil.limite_lateral = rival.global_position.x
-	projetil.habilitar_dissonancia(1 if atirador == paganini else -1)
+	projetil.habilitar_dissonancia(atirador == paganini)
 	projetil.encontro_de_notas.connect(_ao_colidir_notas)
 	return projetil
 
