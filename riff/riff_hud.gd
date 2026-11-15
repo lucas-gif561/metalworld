@@ -15,11 +15,11 @@ extends Control
 ## quando sair; aqui fica o tempo restante (o HUD mostra uma ampulheta).
 ## Aviso: com o Riff aberto e o boss fora do descanso (atacando), um "!" pisca.
 
-## Dano por nota: jogando sozinho, 1,5×. Em dupla, 0,5× com só um Riff aberto
-## e 1,5× com os dois tocando juntos.
-const DANO_RIFF_SINGLEPLAYER = 1.5
+## Dano por nota: jogando sozinho, 1×. Em dupla, 0,5× com só um Riff aberto
+## e 1× com os dois tocando juntos.
+const DANO_RIFF_SINGLEPLAYER = 1.0
 const DANO_RIFF_SOLO_EM_DUPLA = 0.5
-const DANO_RIFF_EM_DUPLA = 1.5
+const DANO_RIFF_EM_DUPLA = 1.0
 const TECLAS = ["riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 
 @export var id_jogador: int = 1
