@@ -4,10 +4,19 @@
 [ext_resource type="Texture2D" path="res://ui/sprites/botao_menu.png" id="2_moldura"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_boss"]
-bg_color = Color(1, 0.3, 0.72, 1)
+bg_color = Color(0.894, 0.208, 0.29, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dylan"]
 bg_color = Color(0.2, 0.68, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_dupla"]
+colors = PackedColorArray(1, 0.3, 0.72, 1, 0.2, 0.68, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dupla"]
+gradient = SubResource("Gradient_dupla")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dupla"]
+texture = SubResource("GradientTexture1D_dupla")
 
 [node name="CaboDeForca" type="Control"]
 layout_mode = 3
@@ -21,6 +30,8 @@ offset_bottom = 68.0
 grow_horizontal = 0
 mouse_filter = 2
 script = ExtResource("1_cabo")
+estilo_solo = SubResource("StyleBoxFlat_dylan")
+estilo_dupla = SubResource("StyleBoxTexture_dupla")
 
 [node name="Barra" type="ProgressBar" parent="."]
 layout_mode = 1

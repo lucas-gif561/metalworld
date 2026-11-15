@@ -21,9 +21,10 @@ const FASES = [
 const CENA_INICIO = "res://ui/tela_inicial.tscn"
 const CENA_BATERISTA = "res://personagens/baterista/baterista.tscn"
 
+## P1 azul e P2 rosa (anel, reviver, Riff e a vida da dupla no cabo de força)
 const CORES = {
-	1: Color(1.0, 0.3, 0.72),
-	2: Color(0.35, 0.9, 1.0),
+	1: Color(0.2, 0.68, 1.0),
+	2: Color(1.0, 0.3, 0.72),
 }
 
 var p2_ativo := false
