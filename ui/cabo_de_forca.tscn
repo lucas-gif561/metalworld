@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/cabo_de_forca.gd" id="1_cabo"]
 [ext_resource type="Texture2D" path="res://ui/sprites/barra_boss.png" id="2_moldura"]
+[ext_resource type="Script" path="res://ui/marcadores_fase.gd" id="3_marcadores"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_boss"]
 bg_color = Color(0.894, 0.208, 0.29, 1)
@@ -51,6 +52,16 @@ max_value = 1.0
 step = 0.001
 value = 0.5
 show_percentage = false
+
+[node name="MarcadoresFase" type="Control" parent="Barra"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_marcadores")
 
 [node name="Moldura" type="NinePatchRect" parent="."]
 layout_mode = 1

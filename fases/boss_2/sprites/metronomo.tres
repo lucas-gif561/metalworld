@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" load_steps=11 format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://dsjqbgrjcv4qr"]
 
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/metronomo.png" id="1_folha"]
+[ext_resource type="Texture2D" uid="uid://dou3m51twcmi8" path="res://fases/boss_2/sprites/metronomo.png" id="1_folha"]
 
 [sub_resource type="AtlasTexture" id="quadro_0"]
 atlas = ExtResource("1_folha")
@@ -43,68 +43,53 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("quadro_0")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_1")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_2")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_3")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_4")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_5")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_6")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_7")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_8")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_7")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_6")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_5")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_4")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_3")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_2")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 12.0
 }]

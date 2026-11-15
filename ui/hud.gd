@@ -24,6 +24,9 @@ const COR_CAIDO = Color(0.3, 0.3, 0.35, 1)
 @onready var subtitulo_fim = $TelaFim/Conteudo/Subtitulo
 
 var aviso_id := 0
+## Onde o cadeado do Riff fica em relação aos pés do jogador
+@export var deslocamento_trava := Vector2(0, 30)
+
 var _tweens_trava: Dictionary = {}
 var paineis := {}
 var conectados := []
@@ -146,14 +149,22 @@ func mostrar_titulo(texto: String) -> void:
 	titulo_fase.get_node("Animacao").play("entrar")
 
 
-## Ampulheta do Riff travado: enche como relógio até liberar (1 = liberado)
-func mostrar_trava_riff(progresso: float, id_jogador := 1) -> void:
+## Cadeado do Riff travado, embaixo do jogador: esvazia de cima para baixo até
+## liberar (1 = liberado). Vale para a trava do Riff e para os instrumentos
+## desligados pelos totens do boss. Segue o jogador, por isso a posição é em código.
+func mostrar_trava_riff(progresso: float, id_jogador := 1, jogador: Node2D = null) -> void:
 	var trava = $TravaRiff if id_jogador == 1 else $TravaRiffP2
-	trava.visible = progresso < 1.0
-	trava.value = progresso
+	trava.visible = progresso < 1.0 and jogador != null
+	# O cadeado começa cheio e esvazia até liberar
+	trava.value = 1.0 - progresso
+	if trava.visible:
+		var pes = jogador.get_global_transform_with_canvas().origin
+		# position (e não global_position): com o cadeado girando ao tremer, o
+		# global_position conta a rotação em volta do pivô e o tira do lugar
+		trava.position = pes + deslocamento_trava - trava.size / 2.0
 
 
-## Tentou abrir o Riff travado: a ampulheta treme
+## Tentou abrir o Riff travado: o cadeado treme
 func recusar_riff(id_jogador := 1) -> void:
 	Audio.tocar("nota_miss")
 	var trava = $TravaRiff if id_jogador == 1 else $TravaRiffP2

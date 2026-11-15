@@ -96,7 +96,18 @@ func _vencer_boss() -> void:
 	var cena = current_scene
 	var boss = cena.boss
 	checar(boss != null, "boss encontrado")
-	boss.receber_dano(boss.vida_atual)
+	# A trava não deixa um golpe atravessar fases: bate até morrer,
+	# quebrando o escudo de cada fase no caminho
+	var golpes := 0
+	while boss.vida_atual > 0 and golpes < 10:
+		for runa in get_nodes_in_group("runas"):
+			runa.receber_dano(99)
+		await process_frame
+		boss._liberar_restante = 0.0 # pula a contagem dos instrumentos
+		await process_frame
+		await process_frame
+		boss.receber_dano(boss.vida_atual)
+		golpes += 1
 	var limite = Time.get_ticks_msec() + 8000
 	while not cena.venceu and Time.get_ticks_msec() < limite:
 		await esperar(0.2)

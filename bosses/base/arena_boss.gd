@@ -60,6 +60,8 @@ func _ready() -> void:
 	boss.derrotado.connect(_ao_derrotar_boss)
 	boss.anuncio.connect(func(texto): hud.mostrar_aviso(texto, 4.0))
 	boss.fase_avancou.connect(_encerrar_riff)
+	boss.fase_avancou.connect(_atualizar_marcadores_fase)
+	_atualizar_marcadores_fase()
 
 	if usar_cabo_de_forca:
 		_iniciar_cabo_de_forca()
@@ -129,10 +131,18 @@ func _sincronizar_dupla(exceto) -> void:
 			jogador.sincronizar_vida(vida_dupla, vida_dupla_maxima)
 
 
+## Riscos na barra comum (sem cabo de força) onde o boss muda de fase
+func _atualizar_marcadores_fase() -> void:
+	var marcadores = boss_health_bar.get_node_or_null("MarcadoresFase")
+	if marcadores:
+		marcadores.definir(boss.limites_restantes().map(func(vida): return vida / boss_health_bar.max_value))
+
+
 # ---------------------------------------------------------------- Riff e fim
 
 func _atualizar_barra_boss(vida):
 	boss_health_bar.value = vida
+	_atualizar_marcadores_fase()
 
 	if vida <= 0:
 		_encerrar_riff()
@@ -229,11 +239,15 @@ func _process(_delta: float) -> void:
 		if not jogador.entrando and Input.is_action_just_pressed(jogador.acao("riff_mode")):
 			if riff.tocando:
 				_ao_sair_do_riff(id_jogador)
-			elif riff.travado():
+			elif riff.travado() or boss.escudo_ativo:
+				# Totens de pé (ou na contagem depois deles): instrumentos desligados
 				hud.recusar_riff(id_jogador)
 			elif not jogador.esquivando:
 				_abrir_riff(jogador)
 
 	for id_jogador in riffs:
-		var progresso: float = riffs[id_jogador].progresso_trava() if Jogo.jogador_por_id(id_jogador) != null else 1.0
-		hud.mostrar_trava_riff(progresso, id_jogador)
+		var jogador = Jogo.jogador_por_id(id_jogador)
+		var progresso := 1.0
+		if jogador != null:
+			progresso = minf(riffs[id_jogador].progresso_trava(), boss.progresso_instrumentos())
+		hud.mostrar_trava_riff(progresso, id_jogador, jogador)

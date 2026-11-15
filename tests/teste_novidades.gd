@@ -125,10 +125,16 @@ func _teste_ataques_do_boss() -> void:
 	var vida = boss.vida_atual
 	boss.receber_dano(10)
 	checar(boss.vida_atual == vida, "com escudo o boss não perde vida")
+	await apertar("p1_riff_mode")
+	checar(not cena.riff_ativo, "com os totens de pé o Riff não abre")
 	for runa in get_nodes_in_group("runas"):
 		runa.receber_dano(99)
-	await process_frame
-	checar(not boss.escudo_ativo, "quebrar as runas derruba o escudo")
+	await esperar(0.5)
+	checar(boss.escudo_ativo and boss.progresso_instrumentos() > 0.0, "totens no chão: instrumentos religando")
+	await apertar("p1_riff_mode")
+	checar(not cena.riff_ativo, "durante a contagem o Riff ainda não abre")
+	await esperar(boss.tempo_para_liberar)
+	checar(not boss.escudo_ativo, "%d s depois dos totens, os instrumentos voltam" % boss.tempo_para_liberar)
 
 	boss.descansar()
 	await esperar(0.2)
@@ -154,7 +160,10 @@ func _teste_riff() -> void:
 	checar(not cena.riff_ativo and not p1.bloqueado, "a mesma tecla fecha o Riff")
 	checar(riff.travado() and is_equal_approx(riff.trava_total, riff.trava_ao_sair), "sair trava o Riff por %d s" % riff.trava_ao_sair)
 	await process_frame
-	checar(cena.hud.get_node("TravaRiff").visible, "ampulheta aparece no HUD")
+	var cadeado = cena.hud.get_node("TravaRiff")
+	var centro = cadeado.global_position + cadeado.size / 2.0
+	var pes = p1.get_global_transform_with_canvas().origin
+	checar(cadeado.visible and centro.distance_to(pes) < 60.0, "cadeado aparece embaixo do jogador")
 	await apertar("p1_riff_mode")
 	checar(not cena.riff_ativo, "travado, o Riff não abre")
 
@@ -188,6 +197,9 @@ func _teste_riff() -> void:
 	# Nota maldita machuca quem toca, não fere o boss e expulsa do Riff
 	for runa in get_nodes_in_group("runas"):
 		runa.receber_dano(99)
+	await process_frame
+	boss._liberar_restante = 0.0 # pula a contagem dos instrumentos
+	await process_frame
 	await process_frame
 	riff.trava_restante = 0.0
 	if not cena.riff_ativo:

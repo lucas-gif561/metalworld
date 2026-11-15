@@ -654,12 +654,6 @@ func _physics_process(_delta: float) -> void:
 	diabo.movimento_ativo = movimento_ativo
 
 
-func _ao_quebrar_runa() -> void:
-	super._ao_quebrar_runa()
-	if not escudo_ativo:
-		diabo.self_modulate = _cor_diabo
-
-
 ## Troca de fase: clarão, tremor forte e os dois duelistas piscam na cor do tiro
 func _ao_avancar_fase() -> void:
 	Combate.tremer(tremor_fase, 0.45)

@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" load_steps=8 format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://tf2766ssjovy"]
 
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/dissonancia_anel.png" id="1_folha"]
+[ext_resource type="Texture2D" uid="uid://bqmyoa02gs7yj" path="res://fases/boss_2/sprites/dissonancia_anel.png" id="1_folha"]
 
 [sub_resource type="AtlasTexture" id="quadro_0"]
 atlas = ExtResource("1_folha")
@@ -31,28 +31,23 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("quadro_0")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_1")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_2")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_3")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_4")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quadro_5")
 }],
-"loop": false,
+"loop": 0,
 "name": &"pulso",
 "speed": 15.0
 }]

@@ -26,8 +26,8 @@ signal derrotado
 signal anuncio(texto) # aviso na tela (a arena mostra no HUD)
 signal fase_avancou
 signal dano_recebido(valor)
+signal instrumentos_liberados # os totens caíram e a contagem acabou
 
-const COR_ESCUDO = Color(0.5, 0.8, 1.0)
 const CENA_SINAL_RIFF = preload("res://riff/sinal_riff.tscn")
 
 @export var vida_maxima: int = 100
@@ -38,7 +38,7 @@ const CENA_SINAL_RIFF = preload("res://riff/sinal_riff.tscn")
 @export var cena_ataque_area: PackedScene
 ## Inimigo invocado por invocar_capangas()
 @export var cena_capanga: PackedScene
-## Runa que segura o escudo (quebra no soco)
+## Totem que desliga os instrumentos dos jogadores enquanto estiver de pé (quebra no soco)
 @export var cena_runa: PackedScene
 ## Partículas do teleporte e das invocações
 @export var cena_particulas: PackedScene
@@ -49,8 +49,10 @@ const CENA_SINAL_RIFF = preload("res://riff/sinal_riff.tscn")
 ## Com fases, o dano do Riff é calibrado para um Riff bom valer uma fase inteira
 @export var perfects_por_fase: int = 6
 @export var goods_por_fase: int = 9
-## Ao mudar de fase, levanta o escudo (precisa de cena_runa)
+## Ao mudar de fase, ergue os totens (precisa de cena_runa): sem Riff até quebrarem
 @export var escudo_ao_mudar_fase := true
+## Segundos entre quebrar o último totem e os instrumentos voltarem
+@export var tempo_para_liberar: float = 5.0
 
 @export_group("Riff")
 ## Notas vermelhas que machucam quem tocar (sempre vêm com uma normal junto)
@@ -73,6 +75,7 @@ var fase: int = 1
 var escudo_ativo: bool = false
 var descansando: bool = false
 var runas_restantes: int = 0
+var _liberar_restante := 0.0
 var tween_teleporte: Tween
 var tween_sinal: Tween
 var sinal_riff: Control
@@ -97,7 +100,12 @@ func receber_dano(valor: float):
 	if vida_atual <= 0 or escudo_ativo:
 		return
 	var vida_antes = vida_atual
-	vida_atual = maxf(vida_atual - valor, 0.0)
+	# Trava: o dano para no limite da fase e a sobra se perde. Assim nenhuma
+	# nota atravessa duas fases e cada fase vale a mesma fatia de vida.
+	var piso = 0.0
+	if usar_fases and fase < 3:
+		piso = minf(limite_da_fase(fase), vida_antes)
+	vida_atual = maxf(vida_atual - valor, piso)
 	vida_atualizada.emit(vida_atual)
 	dano_recebido.emit(vida_antes - vida_atual)
 
@@ -160,15 +168,31 @@ func _conjurar():
 
 # ---------------------------------------------------------------- Fases
 
+## Fração da vida de referência em que o boss passa para a fase 2 e para a 3
+const LIMITES_DAS_FASES = [0.66, 0.33]
+
+
+## Vida em que a fase dada (1 ou 2) termina
+func limite_da_fase(numero: int) -> float:
+	return vida_referencia * LIMITES_DAS_FASES[numero - 1]
+
+
+## Vidas em que o boss ainda vai mudar de fase (vazio sem fases ou na fase 3).
+## As barras de vida desenham um marcador em cada uma.
+func limites_restantes() -> Array[float]:
+	var limites: Array[float] = []
+	if usar_fases:
+		for numero in range(fase, LIMITES_DAS_FASES.size() + 1):
+			limites.append(limite_da_fase(numero))
+	return limites
+
+
 func _atualizar_fase():
-	if not usar_fases:
+	if not usar_fases or fase > LIMITES_DAS_FASES.size():
 		return
 
-	var porcentagem = float(vida_atual) / vida_referencia
-	var nova_fase = 1 if porcentagem > 0.66 else (2 if porcentagem > 0.33 else 3)
-
-	if nova_fase > fase:
-		fase = nova_fase
+	if vida_atual <= limite_da_fase(fase):
+		fase += 1
 		if not (escudo_ao_mudar_fase and ativar_escudo("FASE %d! " % fase)):
 			anuncio.emit("FASE %d! O boss enfureceu!" % fase)
 		fase_avancou.emit()
@@ -387,7 +411,6 @@ func ativar_escudo(prefixo := "") -> bool:
 	escudo_ativo = true
 	Audio.tocar("escudo", 0.0)
 	runas_restantes = pontos_runa.size()
-	sprite.self_modulate = COR_ESCUDO
 
 	for ponto in pontos_runa:
 		var runa = cena_runa.instantiate()
@@ -395,16 +418,37 @@ func ativar_escudo(prefixo := "") -> bool:
 		runa.quebrada.connect(_ao_quebrar_runa)
 		get_parent().add_child(runa)
 
-	anuncio.emit(prefixo + "Escudo ativo! Quebrem as runas na porrada (%s)" % Controles.texto_comando("atacar"))
+	# Os totens falam por si: o cadeado embaixo de cada jogador mostra que os
+	# instrumentos estão desligados. Só a troca de fase ganha aviso.
+	if not prefixo.strip_edges().is_empty():
+		anuncio.emit(prefixo.strip_edges())
 	return true
 
 
 func _ao_quebrar_runa():
 	runas_restantes -= 1
-	if runas_restantes <= 0:
-		escudo_ativo = false
-		sprite.self_modulate = Color.WHITE
-		anuncio.emit("Escudo quebrado! Voltem ao Riff!")
+	if runas_restantes > 0:
+		return
+	# Com o último totem no chão, os instrumentos religam só depois de um tempo
+	_liberar_restante = tempo_para_liberar
+	while _liberar_restante > 0.0 and is_inside_tree() and vida_atual > 0:
+		await get_tree().process_frame
+		if not is_inside_tree():
+			return
+		_liberar_restante -= get_process_delta_time()
+	_liberar_restante = 0.0
+	escudo_ativo = false
+	instrumentos_liberados.emit()
+
+
+## 0 = instrumentos desligados (totens de pé), sobe até 1 na contagem depois
+## do último totem. 1 = liberados. O cadeado de cada jogador mostra isso.
+func progresso_instrumentos() -> float:
+	if not escudo_ativo:
+		return 1.0
+	if runas_restantes > 0 or tempo_para_liberar <= 0.0:
+		return 0.0
+	return 1.0 - _liberar_restante / tempo_para_liberar
 
 
 ## O boss se ajoelha e para de atacar por duracao_descanso: a hora do Riff
