@@ -1,0 +1,97 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/boss_2/dissonancia.gd" id="1_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pulso"]
+radius = 62.0
+
+[sub_resource type="Animation" id="Animation_dissonancia"]
+resource_name = "dissonancia"
+length = 1.22
+tracks/0/type = "value"
+tracks/0/path = NodePath("Aviso:visible")
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Aviso/Carga:scale")
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.18, 0.18), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pulso:visible")
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Pulso:modulate:a")
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 1.0, 0.0]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{"args": [], "method": &"_aplicar_dano"}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dissonancia"]
+_data = {&"dissonancia": SubResource("Animation_dissonancia")}
+
+[node name="Dissonancia" type="Area2D"]
+visible = false
+z_index = -1
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="Colisor" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pulso")
+
+[node name="Aviso" type="Node2D" parent="."]
+visible = false
+
+[node name="AreaMarcada" type="Polygon2D" parent="Aviso"]
+color = Color(0.68, 0.26, 0.8, 0.24)
+polygon = PackedVector2Array(62, 0, 60.8, 12.1, 57.3, 23.7, 51.6, 34.4, 43.8, 43.8, 34.4, 51.6, 23.7, 57.3, 12.1, 60.8, 0, 62, -12.1, 60.8, -23.7, 57.3, -34.4, 51.6, -43.8, 43.8, -51.6, 34.4, -57.3, 23.7, -60.8, 12.1, -62, 0, -60.8, -12.1, -57.3, -23.7, -51.6, -34.4, -43.8, -43.8, -34.4, -51.6, -23.7, -57.3, -12.1, -60.8, 0, -62, 12.1, -60.8, 23.7, -57.3, 34.4, -51.6, 43.8, -43.8, 51.6, -34.4, 57.3, -23.7, 60.8, -12.1)
+
+[node name="Borda" type="Line2D" parent="Aviso"]
+points = PackedVector2Array(62, 0, 60.8, 12.1, 57.3, 23.7, 51.6, 34.4, 43.8, 43.8, 34.4, 51.6, 23.7, 57.3, 12.1, 60.8, 0, 62, -12.1, 60.8, -23.7, 57.3, -34.4, 51.6, -43.8, 43.8, -51.6, 34.4, -57.3, 23.7, -60.8, 12.1, -62, 0, -60.8, -12.1, -57.3, -23.7, -51.6, -34.4, -43.8, -43.8, -34.4, -51.6, -23.7, -57.3, -12.1, -60.8, 0, -62, 12.1, -60.8, 23.7, -57.3, 34.4, -51.6, 43.8, -43.8, 51.6, -34.4, 57.3, -23.7, 60.8, -12.1)
+closed = true
+width = 3.0
+default_color = Color(1, 0.63, 0.95, 0.92)
+antialiased = true
+
+[node name="Carga" type="Node2D" parent="Aviso"]
+scale = Vector2(0.18, 0.18)
+
+[node name="Anel" type="Line2D" parent="Aviso/Carga"]
+points = PackedVector2Array(62, 0, 60.8, 12.1, 57.3, 23.7, 51.6, 34.4, 43.8, 43.8, 34.4, 51.6, 23.7, 57.3, 12.1, 60.8, 0, 62, -12.1, 60.8, -23.7, 57.3, -34.4, 51.6, -43.8, 43.8, -51.6, 34.4, -57.3, 23.7, -60.8, 12.1, -62, 0, -60.8, -12.1, -57.3, -23.7, -51.6, -34.4, -43.8, -43.8, -34.4, -51.6, -23.7, -57.3, -12.1, -60.8, 0, -62, 12.1, -60.8, 23.7, -57.3, 34.4, -51.6, 43.8, -43.8, 51.6, -34.4, 57.3, -23.7, 60.8, -12.1)
+closed = true
+width = 8.0
+default_color = Color(0.85, 0.53, 1, 0.9)
+antialiased = true
+
+[node name="Pulso" type="Polygon2D" parent="."]
+visible = false
+color = Color(0.96, 0.72, 1, 0.84)
+polygon = PackedVector2Array(62, 0, 60.8, 12.1, 57.3, 23.7, 51.6, 34.4, 43.8, 43.8, 34.4, 51.6, 23.7, 57.3, 12.1, 60.8, 0, 62, -12.1, 60.8, -23.7, 57.3, -34.4, 51.6, -43.8, 43.8, -51.6, 34.4, -57.3, 23.7, -60.8, 12.1, -62, 0, -60.8, -12.1, -57.3, -23.7, -51.6, -34.4, -43.8, -43.8, -34.4, -51.6, -23.7, -57.3, -12.1, -60.8, 0, -62, 12.1, -60.8, 23.7, -57.3, 34.4, -51.6, 43.8, -43.8, 51.6, -34.4, 57.3, -23.7, 60.8, -12.1)
+
+[node name="Animacao" type="AnimationPlayer" parent="."]
+libraries = {&"": SubResource("AnimationLibrary_dissonancia")}
+
+[connection signal="animation_finished" from="Animacao" to="." method="_ao_terminar_animacao"]

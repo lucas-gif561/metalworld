@@ -2,6 +2,9 @@ extends CharacterBody2D
 ## O corpo bate no teto e no piso. A área interna detecta a Hurtbox do jogador.
 
 signal alcancou_lateral
+signal encontro_de_notas(primeira: Node2D, segunda: Node2D)
+
+const CAMADA_DISSONANCIA = 9
 
 @export var dano: int = 1
 @export var tempo_vida: float = 2.0
@@ -10,6 +13,7 @@ signal alcancou_lateral
 var direcao: Vector2
 var velocidade: float
 var limite_lateral: float
+var _lado_dissonancia := 0
 
 var _tempo_restante: float
 var _quiques := 0
@@ -19,6 +23,14 @@ var _quiques := 0
 
 func _ready() -> void:
 	_tempo_restante = tempo_vida
+
+
+func habilitar_dissonancia(lado: int) -> void:
+	_lado_dissonancia = lado
+	var area: Area2D = $AreaDeDano
+	area.set_collision_layer_value(CAMADA_DISSONANCIA, true)
+	area.set_collision_mask_value(CAMADA_DISSONANCIA, true)
+	area.monitorable = true
 
 
 func direcao_com_ricochetes(origem: Vector2, destino: Vector2, paredes: Array[CollisionShape2D]) -> Vector2:
@@ -77,10 +89,15 @@ func _calcular_movimento(distancia: float) -> Vector2:
 
 
 func _ao_entrar_na_area(area: Area2D) -> void:
-	if is_queued_for_deletion() or not area.is_in_group("hurtbox_jogador"):
+	if is_queued_for_deletion():
 		return
-	area.get_parent().receber_dano(dano)
-	queue_free()
+	if area.is_in_group("hurtbox_jogador"):
+		area.get_parent().receber_dano(dano)
+		queue_free()
+	elif area.get_collision_layer_value(CAMADA_DISSONANCIA):
+		var outra_nota = area.get_parent()
+		if _lado_dissonancia != outra_nota._lado_dissonancia and not outra_nota.is_queued_for_deletion():
+			encontro_de_notas.emit(self, outra_nota)
 
 
 func _dissipar() -> void:
