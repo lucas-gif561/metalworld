@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://fases/boss_2/projetil_duelo.tscn" id="1_projetil"]
+
+[ext_resource type="CircleShape2D" path="res://fases/boss_2/forma_pinball.tres" id="2_forma"]
+
+[node name="ProjetilPinball" instance=ExtResource("1_projetil")]
+tempo_vida = 5.4
+maximo_quiques = 4
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(8, 8)
+
+[node name="ColisaoRicochete" parent="." index="1"]
+shape = ExtResource("2_forma")
+
+[node name="CollisionShape2D" parent="AreaDeDano" index="0"]
+shape = ExtResource("2_forma")
