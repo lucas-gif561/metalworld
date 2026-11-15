@@ -102,7 +102,8 @@ func _ao_entrar_na_area(area: Area2D) -> void:
 func _dissipar() -> void:
 	# As faíscas terminam de tocar depois que o projétil deixa a árvore.
 	faiscas.reparent(get_parent().get_parent())
-	faiscas.modulate = modulate
+	# Fora do projétil, as faíscas perdem a cor herdada dele: leva junto
+	faiscas.modulate = faiscas.modulate * modulate
 	faiscas.finished.connect(faiscas.queue_free)
 	faiscas.emitting = true
 	queue_free()

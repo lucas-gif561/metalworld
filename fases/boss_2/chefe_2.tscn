@@ -4,7 +4,6 @@
 [ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/diabo.tres" id="1_diabo"]
 [ext_resource type="Script" path="res://fases/boss_2/chefe_2.gd" id="2_script"]
 [ext_resource type="Script" path="res://fases/boss_2/duelista.gd" id="3_duelista"]
-[ext_resource type="PackedScene" path="res://bosses/base/runa.tscn" id="4_runa"]
 [ext_resource type="PackedScene" path="res://fases/boss_2/projetil_duelo.tscn" id="5_projetil"]
 [ext_resource type="PackedScene" path="res://fases/boss_2/cordas_duelo.tscn" id="6_cordas"]
 [ext_resource type="PackedScene" path="res://fases/boss_2/projetil_pinball.tscn" id="7_pinball"]
@@ -14,6 +13,10 @@
 [ext_resource type="Texture2D" path="res://fases/boss_2/sprites/nota_paganini.png" id="11_nota_paganini"]
 [ext_resource type="Texture2D" path="res://fases/boss_2/sprites/nota_diabo.png" id="12_nota_diabo"]
 [ext_resource type="PackedScene" path="res://riff/sinal_riff.tscn" id="20_sinal_riff"]
+[ext_resource type="PackedScene" path="res://fases/boss_2/metronomo.tscn" id="21_metronomo"]
+[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/nota_paganini_animada.tres" id="22_nota_paganini"]
+[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/nota_diabo_animada.tres" id="23_nota_diabo"]
+[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/orbe_pinball.tres" id="24_orbe"]
 
 [sub_resource type="Animation" id="Animation_flutuar_paganini"]
 resource_name = "flutuar"
@@ -63,12 +66,15 @@ _data = {
 script = ExtResource("2_script")
 vida_maxima = 60
 cena_projetil = ExtResource("5_projetil")
-cena_runa = ExtResource("4_runa")
+cena_runa = ExtResource("21_metronomo")
 usar_fases = true
 usar_nota_maldita = true
-tempo_preparo = 0.7
+pontos_runa = Array[Vector2]([Vector2(576, 286), Vector2(576, 422), Vector2(576, 558)])
+tiros_leque_fase_1 = 4
+tempo_extra_riff = 0.5
 velocidade_pinball = 490.0
 cena_pinball = ExtResource("7_pinball")
+frames_pinball = ExtResource("24_orbe")
 cena_contratempo = ExtResource("8_contratempo")
 cena_dissonancia = ExtResource("9_dissonancia")
 
@@ -85,6 +91,8 @@ percurso_glissando_alto = Vector2(365, 205)
 velocidade_projetil = 450.0
 cor_projetil = Color(0.42, 0.87, 1, 1)
 textura_projetil = ExtResource("11_nota_paganini")
+frames_projetil = ExtResource("22_nota_paganini")
+escala_projetil = 2.5
 
 [node name="OrigemTiro" type="Marker2D" parent="AnimatedSprite2D"]
 position = Vector2(57, 0)
@@ -135,6 +143,8 @@ abertura_leque = 64.0
 velocidade_projetil = 410.0
 cor_projetil = Color(1, 0.38, 0.41, 1)
 textura_projetil = ExtResource("12_nota_diabo")
+frames_projetil = ExtResource("23_nota_diabo")
+escala_projetil = 2.5
 
 [node name="OrigemTiro" type="Marker2D" parent="Diabo"]
 position = Vector2(-57, 0)
@@ -168,3 +178,41 @@ offset_bottom = 228.0
 [node name="Cordas" parent="." instance=ExtResource("6_cordas")]
 
 [node name="Dissonancias" type="Node2D" parent="."]
+
+[node name="Avisos" type="Node2D" parent="."]
+z_index = 1
+
+[node name="Modelos" type="Node2D" parent="Avisos"]
+visible = false
+
+[node name="Leque" type="Line2D" parent="Avisos/Modelos"]
+width = 3.0
+default_color = Color(1, 1, 1, 0.55)
+
+[node name="Staccato" type="Line2D" parent="Avisos/Modelos"]
+width = 12.0
+default_color = Color(1, 1, 1, 0.6)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Glissando" type="Line2D" parent="Avisos/Modelos"]
+width = 7.0
+default_color = Color(1, 1, 1, 0.5)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Contratempo" type="Line2D" parent="Avisos/Modelos"]
+width = 4.0
+default_color = Color(1, 1, 1, 0.6)
+joint_mode = 2
+
+[node name="FlashFase" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 20
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 1212.0
+offset_bottom = 708.0
+mouse_filter = 2
+color = Color(1, 0.78, 0.95, 1)

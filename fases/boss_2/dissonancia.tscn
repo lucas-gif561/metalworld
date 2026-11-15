@@ -1,13 +1,14 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://fases/boss_2/dissonancia.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/dissonancia_anel.tres" id="2_anel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pulso"]
 radius = 62.0
 
 [sub_resource type="Animation" id="Animation_dissonancia"]
 resource_name = "dissonancia"
-length = 1.22
+length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Aviso:visible")
 tracks/0/keys = {
@@ -35,7 +36,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/path = NodePath("Pulso:modulate:a")
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1, 1.22),
+"times": PackedFloat32Array(0, 1, 1.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [1.0, 1.0, 0.0]
@@ -46,6 +47,13 @@ tracks/4/keys = {
 "times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{"args": [], "method": &"_aplicar_dano"}]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath("Pulso")
+tracks/5/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{"args": [&"pulso"], "method": &"play"}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dissonancia"]
@@ -86,10 +94,12 @@ width = 8.0
 default_color = Color(0.85, 0.53, 1, 0.9)
 antialiased = true
 
-[node name="Pulso" type="Polygon2D" parent="."]
+[node name="Pulso" type="AnimatedSprite2D" parent="."]
 visible = false
-color = Color(0.96, 0.72, 1, 0.84)
-polygon = PackedVector2Array(62, 0, 60.8, 12.1, 57.3, 23.7, 51.6, 34.4, 43.8, 43.8, 34.4, 51.6, 23.7, 57.3, 12.1, 60.8, 0, 62, -12.1, 60.8, -23.7, 57.3, -34.4, 51.6, -43.8, 43.8, -51.6, 34.4, -57.3, 23.7, -60.8, 12.1, -62, 0, -60.8, -12.1, -57.3, -23.7, -51.6, -34.4, -43.8, -43.8, -34.4, -51.6, -23.7, -57.3, -12.1, -60.8, 0, -62, 12.1, -60.8, 23.7, -57.3, 34.4, -51.6, 43.8, -43.8, 51.6, -34.4, 57.3, -23.7, 60.8, -12.1)
+texture_filter = 1
+scale = Vector2(2.1, 2.1)
+sprite_frames = ExtResource("2_anel")
+animation = &"pulso"
 
 [node name="Animacao" type="AnimationPlayer" parent="."]
 libraries = {&"": SubResource("AnimationLibrary_dissonancia")}
