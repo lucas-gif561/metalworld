@@ -182,6 +182,7 @@ func _physics_process(delta):
 
 	_alterar_poder(recarga_poder * delta)
 	recarga_dodge_restante = maxf(recarga_dodge_restante - delta, 0.0)
+	_anel.progresso = 1.0 - recarga_dodge_restante / recarga_dodge if recarga_dodge > 0.0 else 1.0
 	if _atualizar_minirriff(delta):
 		velocity = Vector2.ZERO
 		return
