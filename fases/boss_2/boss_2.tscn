@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b1p3hon7djp20"]
 
 [ext_resource type="Texture2D" uid="uid://be8d45abhogdi" path="res://assets/fundos/arena_neon.png" id="1_6tvee"]
 [ext_resource type="Script" uid="uid://cefx3gl0nkig5" path="res://bosses/base/arena_boss.gd" id="1_df7gq"]
@@ -9,21 +9,14 @@
 [ext_resource type="PackedScene" path="res://ui/cabo_de_forca.tscn" id="44_cabo"]
 [ext_resource type="PackedScene" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vyw2r"]
-radius = 108.0
-height = 296.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mi726"]
 size = Vector2(1222, 133.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8l2qr"]
 size = Vector2(1212, 91)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lj0mq"]
-size = Vector2(53, 723)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rk34g"]
-size = Vector2(75, 728.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lateral"]
+size = Vector2(180, 500)
 
 [node name="Boss2" type="Node2D" unique_id=1072854072]
 y_sort_enabled = true
@@ -34,21 +27,15 @@ y_sort_enabled = true
 metadata/_edit_group_ = true
 
 [node name="BackGround" type="Sprite2D" parent="Arena" unique_id=1230644980]
-z_index = -1
 modulate = Color(0.75, 0.9, 1.2, 1)
+z_index = -2
 position = Vector2(574.80566, 321.99997)
 scale = Vector2(0.6950055, 0.6950053)
 texture = ExtResource("1_6tvee")
 
-[node name="BarreiraPalco" type="StaticBody2D" parent="Arena" unique_id=1220937588]
-position = Vector2(576, 160)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/BarreiraPalco" unique_id=940301841]
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_vyw2r")
-
-[node name="Chefe" parent="Arena" unique_id=647068640 instance=ExtResource("2_df7gq")]
-position = Vector2(576, 160)
+[node name="Chefe" parent="Arena" unique_id=647068640 node_paths=PackedStringArray("teto_ricochete", "piso_ricochete") instance=ExtResource("2_df7gq")]
+teto_ricochete = NodePath("../Paredes/ParedeSuperior/CollisionShape2D")
+piso_ricochete = NodePath("../Paredes/ParedeInferior/CollisionShape2D")
 
 [node name="SpawnPlayer" type="Marker2D" parent="Arena" unique_id=126301520]
 position = Vector2(576, 528)
@@ -57,6 +44,7 @@ position = Vector2(576, 528)
 
 [node name="ParedeSuperior" type="StaticBody2D" parent="Arena/Paredes" unique_id=1488684478]
 position = Vector2(568, 37)
+collision_layer = 129
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeSuperior" unique_id=536414275]
@@ -64,6 +52,7 @@ position = Vector2(0, 38.25)
 shape = SubResource("RectangleShape2D_mi726")
 
 [node name="ParedeInferior" type="StaticBody2D" parent="Arena/Paredes" unique_id=1440596223]
+collision_layer = 129
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeInferior" unique_id=981719831]
@@ -71,18 +60,48 @@ position = Vector2(574, 649.5)
 shape = SubResource("RectangleShape2D_8l2qr")
 
 [node name="ParedeEsquerda" type="StaticBody2D" parent="Arena/Paredes" unique_id=1163257233]
-position = Vector2(-24, 328)
+position = Vector2(90, 373)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeEsquerda" unique_id=1554902316]
-shape = SubResource("RectangleShape2D_lj0mq")
+shape = SubResource("RectangleShape2D_lateral")
+
+[node name="FaixaPaganini" type="Polygon2D" parent="Arena/Paredes/ParedeEsquerda" unique_id=1562245552]
+z_index = -1
+color = Color(0.13, 0.37, 0.72, 0.3)
+polygon = PackedVector2Array(-90, -231, 90, -231, 90, 231, -90, 231)
+
+[node name="LimitePaganini" type="Line2D" parent="Arena/Paredes/ParedeEsquerda" unique_id=1994955348]
+points = PackedVector2Array(90, -231, 90, 231)
+width = 5.0
+default_color = Color(0.38, 0.79, 1, 0.9)
 
 [node name="ParedeDireita" type="StaticBody2D" parent="Arena/Paredes" unique_id=1145410349]
-position = Vector2(1187, 312)
+position = Vector2(1062, 373)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeDireita" unique_id=1515332814]
-shape = SubResource("RectangleShape2D_rk34g")
+shape = SubResource("RectangleShape2D_lateral")
+
+[node name="FaixaDiabo" type="Polygon2D" parent="Arena/Paredes/ParedeDireita" unique_id=552844310]
+z_index = -1
+color = Color(0.69, 0.16, 0.28, 0.3)
+polygon = PackedVector2Array(-90, -231, 90, -231, 90, 231, -90, 231)
+
+[node name="LimiteDiabo" type="Line2D" parent="Arena/Paredes/ParedeDireita" unique_id=86144412]
+points = PackedVector2Array(-90, -231, -90, 231)
+width = 5.0
+default_color = Color(1, 0.4, 0.52, 0.9)
+
+[node name="LimiteSuperior" type="Line2D" parent="Arena/Paredes" unique_id=2137119224]
+points = PackedVector2Array(180, 142, 972, 142)
+width = 4.0
+default_color = Color(0.74, 0.58, 0.95, 0.75)
+
+[node name="LimiteInferior" type="Line2D" parent="Arena/Paredes" unique_id=978460658]
+points = PackedVector2Array(180, 604, 972, 604)
+width = 4.0
+default_color = Color(0.74, 0.58, 0.95, 0.75)
 
 [node name="Player" parent="." unique_id=1357147288 instance=ExtResource("3_8xsta")]
 position = Vector2(577, 566)
@@ -91,17 +110,19 @@ position = Vector2(577, 566)
 
 [node name="BossHealthBar" parent="HUD" unique_id=817409153 instance=ExtResource("90_barra_boss")]
 
-[node name="CaboDeForca" parent="HUD" instance=ExtResource("44_cabo")]
+[node name="CaboDeForca" parent="HUD" unique_id=1979194449 instance=ExtResource("44_cabo")]
 visible = false
 
 [node name="RiffHUD" parent="HUD" unique_id=948874030 instance=ExtResource("40_riff")]
 
-[node name="RiffHUDP2" parent="HUD" instance=ExtResource("40_riff")]
+[node name="RiffHUDP2" parent="HUD" unique_id=506191084 instance=ExtResource("40_riff")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -285.0
+offset_top = -202.0
 offset_right = -45.0
+offset_bottom = 202.0
 grow_horizontal = 0
 id_jogador = 2
 

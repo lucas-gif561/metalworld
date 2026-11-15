@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://fases/boss_2/corda_duelo.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_faixa"]
+size = Vector2(792, 115.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aviso"]
+bg_color = Color(0.95, 0.36, 0.18, 0.22)
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color(1, 0.68, 0.31, 0.85)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pulso"]
+bg_color = Color(1, 0.32, 0.18, 0.48)
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(1, 0.93, 0.68, 0.95)
+
+[node name="Corda" type="Area2D"]
+visible = false
+z_index = -1
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="FaixaDeDano" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_faixa")
+
+[node name="Aviso" type="Panel" parent="."]
+offset_left = -396.0
+offset_top = -57.75
+offset_right = 396.0
+offset_bottom = 57.75
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aviso")
+
+[node name="Pulso" type="Panel" parent="."]
+visible = false
+offset_left = -396.0
+offset_top = -57.75
+offset_right = 396.0
+offset_bottom = 57.75
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pulso")
