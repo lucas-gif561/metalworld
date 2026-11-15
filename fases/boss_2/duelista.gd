@@ -31,6 +31,9 @@ enum Estado { VAGAR, SEGUIR, ESPELHAR, PARAR, FINTAR }
 @export var textura_projetil: Texture2D
 ## Tamanho do desenho em relação à bola padrão (1 = mesmo tamanho na tela)
 @export var escala_projetil: float = 1.5
+## Animação dos tiros (animação "default"), já colorida na arte. Tem prioridade
+## sobre textura_projetil; a cor_projetil passa a tingir só faíscas e rastro.
+@export var frames_projetil: SpriteFrames
 
 @onready var origem_tiro: Marker2D = $OrigemTiro
 @onready var aviso_mira: Line2D = $AvisoMira
@@ -45,6 +48,8 @@ const ANIMACOES_AJOELHADO = [&"ajoelhar", &"descanso", &"hurt_ajoelhado"]
 var rival: Node2D
 var movimento_ativo := false
 var movimento_coreografado := false
+## Mirando um tiro: fica parado até encerrar_preparo()
+var preparando := false
 
 var _estado := Estado.PARAR
 var _destino_y: float
@@ -113,21 +118,24 @@ func _pousar(no_chao: bool) -> void:
 		_flutuar.play(&"flutuar")
 
 
-func preparar_tiro(destino: Vector2) -> Vector2:
+## Para o duelista e mira. Sem a linha reta, o chefe desenha o aviso próprio do ataque.
+func preparar_tiro(destino: Vector2, mostrar_linha := true) -> Vector2:
+	preparando = true
 	aviso_mira.points = PackedVector2Array([
 		aviso_mira.to_local(origem_tiro.global_position),
 		aviso_mira.to_local(destino),
 	])
-	aviso_mira.show()
+	aviso_mira.visible = mostrar_linha
 	return origem_tiro.global_position.direction_to(destino)
 
 
 func encerrar_preparo() -> void:
+	preparando = false
 	aviso_mira.hide()
 
 
 func _physics_process(delta: float) -> void:
-	if not movimento_ativo or movimento_coreografado or aviso_mira.visible:
+	if not movimento_ativo or movimento_coreografado or preparando:
 		_velocidade_atual = 0.0
 		return
 	if _atraso_restante > 0.0:

@@ -55,9 +55,9 @@ metadata/_edit_group_ = true
 position = Vector2(574, 649.5)
 shape = SubResource("RectangleShape2D_8l2qr")
 
-[node name="AreaJogador" type="StaticBody2D" parent="Arena/Paredes"]
+[node name="AreaJogador" type="StaticBody2D" parent="Arena/Paredes" unique_id=91720156]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/Paredes/AreaJogador"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arena/Paredes/AreaJogador" unique_id=893675234]
 build_mode = 1
 polygon = PackedVector2Array(294, 208, 852, 208, 882, 221, 910, 245, 937, 284, 955, 331, 961, 388, 955, 448, 940, 501, 916, 519, 855, 546, 776, 570, 697, 588, 606, 600, 515, 600, 424, 588, 345, 567, 285, 543, 221, 516, 206, 471, 195, 412, 195, 352, 206, 299, 230, 257, 260, 227)
 

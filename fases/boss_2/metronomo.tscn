@@ -1,0 +1,23 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://bosses/base/runa.gd" id="1_runa"]
+[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/metronomo.tres" id="2_metronomo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_metronomo"]
+size = Vector2(52, 14)
+
+[node name="Metronomo" type="StaticBody2D" groups=["runas"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_runa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -35)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("2_metronomo")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_metronomo")

@@ -12,6 +12,7 @@ collision_layer = 0
 collision_mask = 128
 motion_mode = 1
 script = ExtResource("1_script")
+tempo_vida = 3.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(4, 4)
@@ -42,5 +43,9 @@ initial_velocity_min = 30.0
 initial_velocity_max = 85.0
 scale_amount_min = 2.0
 scale_amount_max = 5.0
+
+[node name="Animacao" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
 
 [connection signal="area_entered" from="AreaDeDano" to="." method="_ao_entrar_na_area"]

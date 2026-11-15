@@ -1,9 +1,9 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bhhmkriy8nx8r"]
 
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/paganini_ajoelhar.png" id="1_mii8q"]
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/paganini_cast.png" id="2_pc5gm"]
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/paganini_idle.png" id="3_1ioob"]
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/paganini_descanso.png" id="4_w1tsl"]
+[ext_resource type="Texture2D" uid="uid://dw4omcoxl2odj" path="res://fases/boss_2/sprites/paganini_ajoelhar.png" id="1_mii8q"]
+[ext_resource type="Texture2D" uid="uid://djoia51w4hknv" path="res://fases/boss_2/sprites/paganini_cast.png" id="2_pc5gm"]
+[ext_resource type="Texture2D" uid="uid://du8ulkab67a3l" path="res://fases/boss_2/sprites/paganini_idle.png" id="3_1ioob"]
+[ext_resource type="Texture2D" uid="uid://d252f4h8170b2" path="res://fases/boss_2/sprites/paganini_descanso.png" id="4_w1tsl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bxdav"]
 atlas = ExtResource("1_mii8q")
