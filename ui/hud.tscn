@@ -523,7 +523,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Imagem" type="TextureRect" parent="Siga"]
-self_modulate = Color(1, 0.85, 0.3, 1)
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 80.0

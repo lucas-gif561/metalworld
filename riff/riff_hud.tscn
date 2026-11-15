@@ -169,7 +169,6 @@ vertical_alignment = 1
 
 [node name="Aviso" type="TextureRect" parent="."]
 visible = false
-self_modulate = Color(1, 0.35, 0.25, 1)
 layout_mode = 0
 offset_left = 198.0
 offset_top = 14.0
