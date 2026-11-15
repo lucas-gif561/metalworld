@@ -25,6 +25,13 @@ enum Estado { VAGAR, SEGUIR, ESPELHAR, PARAR, FINTAR }
 
 @onready var origem_tiro: Marker2D = $OrigemTiro
 @onready var aviso_mira: Line2D = $AvisoMira
+## Balanço de flutuar e sombra no chão (opcionais, montados na cena)
+@onready var _flutuar: AnimationPlayer = get_node_or_null("Flutuar")
+@onready var _sombra: Node2D = get_node_or_null("Sombra")
+
+## Animações em que o duelista está no chão: o balanço para e a sombra some
+const ANIMACOES_NO_CHAO = [&"ajoelhar", &"descanso", &"hurt_ajoelhado", &"levantar", &"death"]
+const ANIMACOES_AJOELHADO = [&"ajoelhar", &"descanso", &"hurt_ajoelhado"]
 
 var rival: Node2D
 var movimento_ativo := false
@@ -38,11 +45,62 @@ var _atraso_restante: float
 var _retorno_finta := false
 var _origem_finta: float
 var _ultima_regiao := -1
+var _ultima_animacao: StringName = &"idle"
 
 
 func _ready() -> void:
 	_destino_y = position.y
 	_tempo_restante = randf_range(duracao_pausa.x, duracao_pausa.y)
+	animation_finished.connect(_ao_terminar_animacao)
+	animation_changed.connect(_ao_mudar_animacao)
+
+
+## Toca o golpe de arco ao disparar. Rajadas seguidas não reiniciam o golpe, e
+## dano, derrota e o descanso têm prioridade.
+func tocar_ataque() -> void:
+	if animation in [&"hurt", &"death"] + ANIMACOES_AJOELHADO and is_playing():
+		return
+	if animation == &"cast" and is_playing():
+		return
+	play(&"cast")
+
+
+func _ao_terminar_animacao() -> void:
+	match animation:
+		&"cast", &"levantar":
+			play(&"idle")
+		&"ajoelhar":
+			if sprite_frames.has_animation(&"descanso"):
+				play(&"descanso")
+
+
+## Apanhar ajoelhado usa o dano de joelhos; ao sair do descanso, levanta antes de
+## voltar a flutuar; no chão, o balanço para e a sombra de flutuar some. O dano
+## em pé (hurt) mantém o estado em que estava.
+func _ao_mudar_animacao() -> void:
+	if animation == &"hurt" and _ultima_animacao in ANIMACOES_AJOELHADO and sprite_frames.has_animation(&"hurt_ajoelhado"):
+		_ultima_animacao = &"hurt_ajoelhado"
+		play(&"hurt_ajoelhado")
+		return
+	if animation == &"idle" and _ultima_animacao in ANIMACOES_AJOELHADO and sprite_frames.has_animation(&"levantar"):
+		_ultima_animacao = &"levantar"
+		play(&"levantar")
+		return
+	if animation != &"hurt":
+		_pousar(animation in ANIMACOES_NO_CHAO)
+	_ultima_animacao = animation
+
+
+func _pousar(no_chao: bool) -> void:
+	if _sombra:
+		_sombra.visible = not no_chao
+	if not _flutuar:
+		return
+	if no_chao:
+		_flutuar.pause()
+		offset = Vector2.ZERO
+	elif not _flutuar.is_playing():
+		_flutuar.play(&"flutuar")
 
 
 func preparar_tiro(destino: Vector2) -> Vector2:

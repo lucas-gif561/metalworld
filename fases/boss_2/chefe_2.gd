@@ -243,6 +243,9 @@ func _quatro_cordas() -> void:
 	await esperar(tempo_aviso_cordas)
 
 	if pode_atacar():
+		# As cordas são tocadas pelos dois ao mesmo tempo
+		paganini.tocar_ataque()
+		diabo.tocar_ataque()
 		for corda in selecionadas:
 			corda.pulsar()
 		await esperar(duracao_pulso_cordas)
@@ -346,8 +349,15 @@ func descansar() -> void:
 	# O Boss base multiplica o descanso pelo ritmo. O segundo extra é inteiro em toda fase.
 	var duracao_original = duracao_descanso
 	duracao_descanso += tempo_extra_riff / ritmo()
+	# O Boss base ajoelha o Diabo; o Paganini cai junto e levanta no fim
+	var vai_descansar = pode_atacar() and not escudo_ativo
+	if vai_descansar:
+		paganini.stop()
+		paganini.play(&"ajoelhar")
 	await super.descansar()
 	duracao_descanso = duracao_original
+	if vai_descansar and vida_atual > 0:
+		paganini.play(&"idle")
 
 
 func _esperar_projeteis(esperar_dissonancias := false) -> void:
@@ -403,6 +413,7 @@ func _disparar(
 
 
 func _preparar_projetil(atirador: Duelista, rival: Duelista, cena: PackedScene) -> ProjetilDuelo:
+	atirador.tocar_ataque()
 	var projetil: ProjetilDuelo = cena.instantiate()
 	projetil.position = projeteis.to_local(atirador.origem_tiro.global_position)
 	projetil.velocidade = atirador.velocidade_projetil
