@@ -12,7 +12,7 @@ extends Control
 ##
 ## Trava: sair do Riff trava ele por trava_ao_sair segundos; ser expulso por
 ## dano (inclusive da nota maldita), por trava_por_dano. A arena controla
-## quando sair; aqui fica o tempo restante (o HUD mostra uma ampulheta).
+## quando sair; aqui fica o tempo restante (o HUD mostra um cadeado embaixo do jogador).
 ## Aviso: com o Riff aberto e o boss fora do descanso (atacando), um "!" pisca.
 
 ## Dano por nota: jogando sozinho, 1×. Em dupla, 0,5× com só um Riff aberto
@@ -233,7 +233,7 @@ func travado() -> bool:
 	return trava_restante > 0.0
 
 
-## 0 = acabou de travar, 1 = liberado (para a ampulheta do HUD)
+## 0 = acabou de travar, 1 = liberado (para o cadeado do HUD)
 func progresso_trava() -> float:
 	return 1.0 if trava_total <= 0.0 else 1.0 - trava_restante / trava_total
 

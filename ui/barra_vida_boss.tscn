@@ -1,6 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ddtnejbelew1b"]
 
-[ext_resource type="Texture2D" path="res://ui/sprites/barra_boss.png" id="1_moldura"]
+[ext_resource type="Texture2D" uid="uid://c7ccmbw1a575w" path="res://ui/sprites/barra_boss.png" id="1_moldura"]
+[ext_resource type="Script" uid="uid://dq66t4651loq6" path="res://ui/marcadores_fase.gd" id="2_marcadores"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fundo"]
 bg_color = Color(0.12, 0.05, 0.16, 1)
@@ -8,7 +9,7 @@ bg_color = Color(0.12, 0.05, 0.16, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vida"]
 bg_color = Color(0.894, 0.208, 0.29, 1)
 
-[node name="BarraVidaBoss" type="ProgressBar"]
+[node name="BarraVidaBoss" type="ProgressBar" unique_id=957788875]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -23,18 +24,27 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_vida")
 value = 100.0
 show_percentage = false
 
-[node name="Moldura" type="NinePatchRect" parent="."]
+[node name="MarcadoresFase" type="Control" parent="." unique_id=1256046108]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -42.0
-offset_top = -23.0
-offset_right = 58.0
-offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("2_marcadores")
+
+[node name="Moldura" type="NinePatchRect" parent="." unique_id=1345237920]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -43.0
+offset_top = -23.0
+offset_right = 57.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_moldura")
 patch_margin_left = 42
 patch_margin_right = 58

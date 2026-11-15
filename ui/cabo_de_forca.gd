@@ -12,6 +12,7 @@ extends Control
 
 @onready var barra = $Barra
 @onready var marcador = $Marcador
+@onready var marcadores_fase = $Barra/MarcadoresFase
 
 var jogador
 var boss
@@ -47,6 +48,17 @@ func _atualizar_estilo() -> void:
 
 func _process(_delta: float) -> void:
 	marcador.position.x = barra.position.x + barra.value * barra.size.x - marcador.size.x / 2.0
+	if boss and jogador:
+		marcadores_fase.definir(boss.limites_restantes().map(_posicao_na_barra))
+
+
+## Onde a barra vai estar quando o boss chegar a essa vida, com a vida atual da
+## dupla. Muda quando a dupla apanha ou se cura, por isso fica em código.
+func _posicao_na_barra(vida_boss: float) -> float:
+	var vida_dylan = clampf(float(jogador.vida) / jogador.vida_maxima, 0.0, 1.0)
+	var lado_boss = clampf(vida_boss / boss.vida_maxima, 0.0, 1.0)
+	var total = vida_dylan + lado_boss
+	return vida_dylan / total if total > 0.0 else 0.5
 
 
 # 0 = boss venceu, 1 = Dylan venceu, 0,5 = empate
