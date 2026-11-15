@@ -47,27 +47,27 @@ _data = {
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_retrato_p1"]
 bg_color = Color(0.08, 0.03, 0.12, 0.85)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0.2, 0.68, 1, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_retrato_p2"]
 bg_color = Color(0.08, 0.03, 0.12, 0.85)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(1, 0.3, 0.72, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="Animation" id="Animation_entrar"]
 resource_name = "entrar"
@@ -155,14 +155,15 @@ script = ExtResource("1_hud")
 [node name="PainelVida" type="HBoxContainer" parent="."]
 offset_left = 12.0
 offset_top = 8.0
-offset_right = 342.0
-offset_bottom = 86.0
+offset_right = 193.0
+offset_bottom = 67.0
 mouse_filter = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="Retrato" type="Panel" parent="PainelVida"]
-custom_minimum_size = Vector2(78, 78)
+custom_minimum_size = Vector2(59, 59)
 layout_mode = 2
+size_flags_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_retrato_p1")
 
@@ -171,29 +172,30 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = -3.0
-offset_bottom = -3.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_retrato")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="Icones" type="VBoxContainer" parent="PainelVida"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 2
 alignment = 1
 
 [node name="Coracoes" type="HBoxContainer" parent="PainelVida/Icones"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 2
 
 [node name="Coracao1" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -204,7 +206,7 @@ texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Coracao2" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -215,7 +217,7 @@ texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Coracao3" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -226,7 +228,7 @@ texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Coracao4" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -237,7 +239,7 @@ texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Coracao5" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -250,10 +252,10 @@ tint_under = Color(0.12, 0.08, 0.16, 0.85)
 [node name="Raios" type="HBoxContainer" parent="PainelVida/Icones"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 2
 
 [node name="Raio1" type="TextureProgressBar" parent="PainelVida/Icones/Raios"]
-custom_minimum_size = Vector2(26, 28)
+custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -266,7 +268,7 @@ texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Raio2" type="TextureProgressBar" parent="PainelVida/Icones/Raios"]
-custom_minimum_size = Vector2(26, 28)
+custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -279,7 +281,7 @@ texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Raio3" type="TextureProgressBar" parent="PainelVida/Icones/Raios"]
-custom_minimum_size = Vector2(26, 28)
+custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -291,41 +293,20 @@ texture_under = ExtResource("3_raio")
 texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="VisorMinirriff" type="VBoxContainer" parent="PainelVida/Icones"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 2
-mouse_filter = 2
-
-[node name="Sequencia" type="Label" parent="PainelVida/Icones/VisorMinirriff"]
-custom_minimum_size = Vector2(176, 0)
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.05, 0.05, 0.09, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 15
-text = "Minirriff"
-
-[node name="Prazo" type="ProgressBar" parent="PainelVida/Icones/VisorMinirriff"]
-visible = false
-custom_minimum_size = Vector2(0, 4)
-layout_mode = 2
-mouse_filter = 2
-max_value = 1.0
-step = 0.0
-show_percentage = false
 
 [node name="PainelVidaP2" type="HBoxContainer" parent="."]
 visible = false
-offset_left = 370.0
+offset_left = 210.0
 offset_top = 8.0
-offset_right = 700.0
-offset_bottom = 86.0
+offset_right = 391.0
+offset_bottom = 67.0
 mouse_filter = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="Retrato" type="Panel" parent="PainelVidaP2"]
-custom_minimum_size = Vector2(78, 78)
+custom_minimum_size = Vector2(59, 59)
 layout_mode = 2
+size_flags_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_retrato_p2")
 
@@ -334,10 +315,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = -3.0
-offset_bottom = -3.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -348,16 +329,16 @@ stretch_mode = 5
 [node name="Icones" type="VBoxContainer" parent="PainelVidaP2"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 2
 alignment = 1
 
 [node name="Coracoes" type="HBoxContainer" parent="PainelVidaP2/Icones"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 2
 
 [node name="Coracao1" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -368,7 +349,7 @@ texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Coracao2" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -379,7 +360,7 @@ texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Coracao3" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -390,7 +371,7 @@ texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Coracao4" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -401,7 +382,7 @@ texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Coracao5" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
-custom_minimum_size = Vector2(45, 42)
+custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -414,10 +395,10 @@ tint_under = Color(0.12, 0.08, 0.16, 0.85)
 [node name="Raios" type="HBoxContainer" parent="PainelVidaP2/Icones"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 2
 
 [node name="Raio1" type="TextureProgressBar" parent="PainelVidaP2/Icones/Raios"]
-custom_minimum_size = Vector2(26, 28)
+custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -430,7 +411,7 @@ texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Raio2" type="TextureProgressBar" parent="PainelVidaP2/Icones/Raios"]
-custom_minimum_size = Vector2(26, 28)
+custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -443,7 +424,7 @@ texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
 [node name="Raio3" type="TextureProgressBar" parent="PainelVidaP2/Icones/Raios"]
-custom_minimum_size = Vector2(26, 28)
+custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
 max_value = 1.0
@@ -455,36 +436,14 @@ texture_under = ExtResource("3_raio")
 texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="VisorMinirriff" type="VBoxContainer" parent="PainelVidaP2/Icones"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 2
-mouse_filter = 2
-
-[node name="Sequencia" type="Label" parent="PainelVidaP2/Icones/VisorMinirriff"]
-custom_minimum_size = Vector2(176, 0)
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.05, 0.05, 0.09, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 15
-text = "Minirriff"
-
-[node name="Prazo" type="ProgressBar" parent="PainelVidaP2/Icones/VisorMinirriff"]
-visible = false
-custom_minimum_size = Vector2(0, 4)
-layout_mode = 2
-mouse_filter = 2
-max_value = 1.0
-step = 0.0
-show_percentage = false
 
 [node name="VagaP2" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 370.0
+offset_left = 210.0
 offset_top = 8.0
-offset_right = 448.0
-offset_bottom = 86.0
+offset_right = 269.0
+offset_bottom = 67.0
 mouse_filter = 2
 
 [node name="Retrato" type="Panel" parent="VagaP2"]
@@ -503,10 +462,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = -3.0
-offset_bottom = -3.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -517,17 +476,17 @@ stretch_mode = 5
 [node name="Botoes" type="Control" parent="VagaP2"]
 layout_mode = 1
 anchors_preset = 0
-offset_left = 86.0
-offset_top = 15.0
-offset_right = 150.0
-offset_bottom = 63.0
-pivot_offset = Vector2(24, 24)
+offset_left = 63.0
+offset_top = 17.5
+offset_right = 95.0
+offset_bottom = 41.5
+pivot_offset = Vector2(12, 12)
 mouse_filter = 2
 
 [node name="BotaoControle" type="TextureRect" parent="VagaP2/Botoes"]
 layout_mode = 0
-offset_right = 48.0
-offset_bottom = 48.0
+offset_right = 24.0
+offset_bottom = 24.0
 mouse_filter = 2
 texture = ExtResource("8_botao_a")
 expand_mode = 1
@@ -535,8 +494,8 @@ expand_mode = 1
 [node name="TeclaTeclado" type="TextureRect" parent="VagaP2/Botoes"]
 visible = false
 layout_mode = 0
-offset_right = 48.0
-offset_bottom = 48.0
+offset_right = 24.0
+offset_bottom = 24.0
 mouse_filter = 2
 texture = ExtResource("9_tecla_j")
 expand_mode = 1

@@ -46,9 +46,6 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	for jogador in conectados:
-		if is_instance_valid(jogador) and jogador.usa_minirriff():
-			_atualizar_visor_minirriff(jogador, paineis[jogador.id_jogador])
 	# Vaga do P2: silhueta piscando com o botão de entrar (A no controle;
 	# sem controle, J no teclado). Troca se plugar um controle.
 	vaga_p2.visible = not Jogo.p2_ativo and not tela_fim.visible
@@ -69,8 +66,8 @@ func conectar_jogador(jogador) -> void:
 	jogador.poder_alterado.connect(_atualizar_poder.bind(painel))
 	_atualizar_vida(jogador.vida, jogador.vida_maxima, painel)
 	_atualizar_poder(jogador.poder, jogador.poder_maximo, painel)
+	# O Minirriff em si aparece em cima do jogador (personagens/dylan/visor_minirriff.tscn)
 	painel.get_node("Icones/Raios").visible = jogador.usa_minirriff()
-	painel.get_node("Icones/VisorMinirriff").visible = jogador.usa_minirriff()
 
 
 # Quem entra no meio da fase ganha uma entrada com flash
@@ -125,30 +122,6 @@ func _atualizar_poder(atual, maxima, painel) -> void:
 		raio.value = clampf((atual - i * valor_raio) / valor_raio, 0.0, 1.0)
 		if raio.value >= 1.0 and antes < 1.0:
 			_pulsar(raio)
-
-
-func _atualizar_visor_minirriff(jogador, painel) -> void:
-	var visor = painel.get_node("Icones/VisorMinirriff")
-	var usando_controle = jogador.minirriff_usando_controle and Controles.controle_do_jogador(jogador.id_jogador) >= 0
-	var primeira = "LB" if usando_controle else ("T" if jogador.id_jogador == 1 else "I")
-	var segunda = "RB" if usando_controle else ("Y" if jogador.id_jogador == 1 else "L")
-	var visor_texto = visor.get_node("Sequencia")
-	var prazo = visor.get_node("Prazo")
-	prazo.visible = not jogador.sequencia_minirriff.is_empty()
-	prazo.value = jogador.tempo_minirriff / jogador.janela_minirriff
-	if jogador.caido:
-		visor_texto.text = ""
-	elif prazo.visible:
-		var notas := PackedStringArray()
-		for nota in jogador.sequencia_minirriff:
-			notas.append(primeira if nota == "A" else segunda)
-		while notas.size() < 4:
-			notas.append("·")
-		visor_texto.text = "%s   %.1f s" % ["  ".join(notas), jogador.tempo_minirriff]
-	elif jogador.tempo_mensagem_minirriff > 0.0:
-		visor_texto.text = jogador.mensagem_minirriff
-	else:
-		visor_texto.text = "Minirriff  %s / %s" % [primeira, segunda]
 
 
 # Ícone que mudou dá um pulo rápido (efeito da partida, por isso em código)

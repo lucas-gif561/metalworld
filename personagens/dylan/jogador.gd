@@ -92,6 +92,9 @@ var tween_dano: Tween
 var poder = 0.0
 var recarga_dodge_restante = 0.0
 var sequencia_minirriff := ""
+## A sequência como ficou na última nota (a sequência é limpa no mesmo quadro
+## em que acerta ou erra; o VisorMinirriff usa esta para mostrar o resultado)
+var ultima_sequencia_minirriff := ""
 var minirriff_usando_controle := false
 var tempo_minirriff = 0.0
 var tempo_atordoado = 0.0
@@ -113,6 +116,7 @@ var soco_guardado = false
 var fim_sequencia_ms = 0
 @onready var _anel = $Anel
 @onready var _indicador = $IndicadorReviver
+@onready var _visor_minirriff = $VisorMinirriff
 @onready var hurtbox = $Hurtbox
 
 
@@ -141,6 +145,8 @@ func aplicar_escala(fator: float) -> void:
 	_anel.position *= razao
 	_anel.scale *= razao
 	_indicador.position *= razao
+	_visor_minirriff.position *= razao
+	_visor_minirriff.scale *= razao
 	alcance_soco *= razao
 	velocidade_dodge *= razao
 	velocidade *= razao
@@ -398,6 +404,7 @@ func _registrar_nota_minirriff(nota: String, usando_controle: bool) -> void:
 		tempo_mensagem_minirriff = 0.0
 	Audio.tocar("minirriff_grave" if nota == "A" else "minirriff_agudo", 0.0, 0)
 	sequencia_minirriff += nota
+	ultima_sequencia_minirriff = sequencia_minirriff
 
 	for codigo in MINIRRIFFS:
 		if not codigo.begins_with(sequencia_minirriff):

@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_y.svg" id="6_tecla_y"]
 [ext_resource type="Texture2D" uid="uid://c56dr26f6nb8p" path="res://personagens/dylan/sprites/tecla_l.png" id="7_tecla_l"]
 [ext_resource type="Texture2D" path="res://riff/sprites/botao_rb.svg" id="8_botao_rb"]
+[ext_resource type="PackedScene" path="res://personagens/dylan/visor_minirriff.tscn" id="9_visor_minirriff"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qf7sd"]
 size = Vector2(36, 16)
@@ -63,3 +64,5 @@ icone_controle = ExtResource("8_botao_rb")
 position = Vector2(0, -36)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_tecla_y")
+
+[node name="VisorMinirriff" parent="." instance=ExtResource("9_visor_minirriff")]

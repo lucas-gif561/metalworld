@@ -70,3 +70,4 @@ Arquivos: `assets/audio/sfx/`
 **Input Prompts Pixel 16×**, por Kenney: <https://kenney.nl/assets/input-prompts-pixel>
 Licença: CC0 (domínio público).
 Arquivos: `riff/sprites/`, `ui/sprites/botao_a.png`, `ui/sprites/tecla_j.png`, `personagens/dylan/sprites/tecla_e.png`, `tecla_l.png`, `botao_b.png`
+`personagens/dylan/sprites/tecla_t.png`, `tecla_i.png`, `tecla_y_pixel.png` e `tecla_vazia.png` foram feitas a partir da tecla L do pacote, trocando só a letra.
