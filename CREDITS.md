@@ -23,6 +23,12 @@ Arquivos: `objetos/sprites/carne.png`, `objetos/sprites/maca.png`
 Sprites do Dylan e peças da interface (placa do título e botões do menu) gerados pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
 Arquivos: `personagens/dylan/sprites/`, `ui/sprites/` (menos `coracao.png`, `raio.png` e `seta.png`; o retrato é um recorte do sprite do Dylan)
 
+## Fonte
+
+**Silkscreen**, por Jason Kottke (via Google Fonts): <https://fonts.google.com/specimen/Silkscreen>
+Licença: SIL Open Font License 1.1 (texto em `assets/fontes/OFL.txt`). Fonte padrão de todos os textos do jogo.
+Arquivos: `assets/fontes/`
+
 ## Ícones do HUD
 
 **Critters - Pixel UI**, por Foozle (arte de Baldur): <https://foozlecc.itch.io/critters-pixel-ui>

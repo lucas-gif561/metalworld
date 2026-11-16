@@ -25,8 +25,12 @@ Combate="*res://sistemas/combate.gd"
 [display]
 
 window/size/mode=3
-window/size/mode.editor=0
 window/stretch/mode="canvas_items"
+window/size/mode.editor=0
+
+[gui]
+
+theme/custom_font="res://assets/fontes/Silkscreen-Regular.ttf"
 
 [input]
 
