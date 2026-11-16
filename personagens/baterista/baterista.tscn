@@ -3,10 +3,12 @@
 [ext_resource type="PackedScene" path="res://personagens/dylan/jogador.tscn" id="1_base"]
 [ext_resource type="SpriteFrames" path="res://personagens/baterista/sprites/baterista.tres" id="2_frames"]
 [ext_resource type="Script" path="res://personagens/baterista/baterista.gd" id="3_script"]
+[ext_resource type="Texture2D" path="res://personagens/baterista/sprites/retrato.png" id="4_retrato"]
 
 [node name="Baterista" instance=ExtResource("1_base")]
 script = ExtResource("3_script")
 id_jogador = 2
+retrato = ExtResource("4_retrato")
 quadro_cross = 5
 
 [node name="AnimatedSprite2D" parent="." index="1"]

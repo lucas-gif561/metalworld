@@ -10,7 +10,6 @@ const Baterista = preload("res://personagens/baterista/baterista.gd")
 ## cena. A tabela de minirriffs é montada no código porque sai das constantes
 ## dos personagens (MINIRRIFFS); o resto da tela fica todo no .tscn.
 @export var notas_p1: Array[Texture2D] = []
-@export var notas_p2: Array[Texture2D] = []
 @export var notas_controle: Array[Texture2D] = []
 @export var icone_poder: Texture2D
 
@@ -22,7 +21,9 @@ const Baterista = preload("res://personagens/baterista/baterista.gd")
 func _ready() -> void:
 	voltar.pressed.connect(_fechar)
 	_adicionar_combos("Dylan", Jogador.MINIRRIFFS, notas_p1)
-	_adicionar_combos("Kevin", Baterista.MINIRRIFFS_KEVIN, notas_p2)
+	# Qualquer jogador pode ser qualquer personagem: a tabela mostra as teclas
+	# do P1, e o texto abaixo dela diz quais o P2 usa
+	_adicionar_combos("Kevin", Baterista.MINIRRIFFS_KEVIN, notas_p1)
 
 
 func _adicionar_combos(personagem: String, minirriffs: Dictionary, teclado: Array[Texture2D]) -> void:

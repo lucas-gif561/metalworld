@@ -41,6 +41,8 @@ const SOCOS = [
 ]
 
 @export var id_jogador := 1
+## Rosto mostrado no painel de vida do HUD
+@export var retrato: Texture2D
 ## Velocidade no tamanho normal (boss). Acompanha o tamanho do personagem:
 ## nas ruas (1,5x) vira 249, e ele anda sempre ~2 corpos por segundo
 @export var velocidade = 166.0

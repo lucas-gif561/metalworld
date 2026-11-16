@@ -61,7 +61,6 @@ theme = ExtResource("2_tema")
 color = Color(0.03, 0.01, 0.06, 0.75)
 script = ExtResource("1_script")
 notas_p1 = Array[Texture2D]([ExtResource("t_t"), ExtResource("t_y")])
-notas_p2 = Array[Texture2D]([ExtResource("t_i"), ExtResource("t_l")])
 notas_controle = Array[Texture2D]([ExtResource("t_LB"), ExtResource("t_RB")])
 icone_poder = ExtResource("t_raio")
 
@@ -915,7 +914,7 @@ theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
 [node name="RegraMinirriff" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
 layout_mode = 2
 size_flags_vertical = 4
-text = "Complete em até 3,5 s. Erro ou tempo esgotado custa 1 poder e atordoa por 0,5 s."
+text = "No teclado do P2, I e L no lugar de T e Y. Complete em até 3,5 s. Erro ou tempo esgotado custa 1 poder e atordoa por 0,5 s."
 theme_override_colors/font_color = Color(0.66, 0.6, 0.76, 1)
 autowrap_mode = 3
 

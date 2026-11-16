@@ -1,0 +1,265 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/tela_selecao.gd" id="1_script"]
+[ext_resource type="Theme" path="res://ui/tema_menu.tres" id="2_tema"]
+[ext_resource type="Texture2D" path="res://ui/sprites/botao_menu.png" id="3_moldura"]
+[ext_resource type="SpriteFrames" path="res://personagens/dylan/sprites/dylan.tres" id="4_dylan"]
+[ext_resource type="SpriteFrames" path="res://personagens/baterista/sprites/baterista.tres" id="5_kevin"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_painel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dylan"]
+bg_color = Color(0.13, 0.08, 0.16, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45, 0.38, 0.55, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kevin"]
+bg_color = Color(0.13, 0.08, 0.16, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45, 0.38, 0.55, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1"]
+bg_color = Color(0.2, 0.68, 1, 1)
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2"]
+bg_color = Color(1, 0.3, 0.72, 1)
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+content_margin_bottom = 3.0
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="TelaSelecao" type="ColorRect"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_tema")
+color = Color(0.03, 0.01, 0.06, 0.75)
+script = ExtResource("1_script")
+
+[node name="Margens" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -250.0
+offset_right = 330.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Painel" type="PanelContainer" parent="Margens"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_painel")
+
+[node name="Moldura" type="NinePatchRect" parent="Margens/Painel"]
+layout_mode = 2
+texture = ExtResource("3_moldura")
+draw_center = false
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Centro" type="ColorRect" parent="Margens/Painel/Moldura"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 22.0
+offset_right = -22.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.286, 0.188, 0.314, 1)
+
+[node name="Respiro" type="MarginContainer" parent="Margens/Painel"]
+layout_mode = 2
+theme_override_constants/margin_left = 44
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 44
+theme_override_constants/margin_bottom = 40
+
+[node name="Coluna" type="VBoxContainer" parent="Margens/Painel/Respiro"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Titulo" type="Label" parent="Margens/Painel/Respiro/Coluna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 34
+text = "Escolha seu músico"
+horizontal_alignment = 1
+
+[node name="Cartoes" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 36
+alignment = 1
+
+[node name="Dylan" type="PanelContainer" parent="Margens/Painel/Respiro/Coluna/Cartoes"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dylan")
+
+[node name="Conteudo" type="VBoxContainer" parent="Margens/Painel/Respiro/Coluna/Cartoes/Dylan"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Palco" type="Control" parent="Margens/Painel/Respiro/Coluna/Cartoes/Dylan/Conteudo"]
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Margens/Painel/Respiro/Coluna/Cartoes/Dylan/Conteudo/Palco"]
+texture_filter = 1
+position = Vector2(121, 214)
+scale = Vector2(3.6, 3.6)
+sprite_frames = ExtResource("4_dylan")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -40)
+
+[node name="Nome" type="Label" parent="Margens/Painel/Respiro/Coluna/Cartoes/Dylan/Conteudo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 28
+text = "Dylan"
+horizontal_alignment = 1
+
+[node name="Papel" type="Label" parent="Margens/Painel/Respiro/Coluna/Cartoes/Dylan/Conteudo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.68, 0.85, 1)
+theme_override_font_sizes/font_size = 16
+text = "Guitarrista"
+horizontal_alignment = 1
+
+[node name="Marcas" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Cartoes/Dylan/Conteudo"]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="P1" type="Label" parent="Margens/Painel/Respiro/Coluna/Cartoes/Dylan/Conteudo/Marcas"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_p1")
+text = "P1"
+
+[node name="P2" type="Label" parent="Margens/Painel/Respiro/Coluna/Cartoes/Dylan/Conteudo/Marcas"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_p2")
+text = "P2"
+
+[node name="Kevin" type="PanelContainer" parent="Margens/Painel/Respiro/Coluna/Cartoes"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kevin")
+
+[node name="Conteudo" type="VBoxContainer" parent="Margens/Painel/Respiro/Coluna/Cartoes/Kevin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Palco" type="Control" parent="Margens/Painel/Respiro/Coluna/Cartoes/Kevin/Conteudo"]
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Margens/Painel/Respiro/Coluna/Cartoes/Kevin/Conteudo/Palco"]
+texture_filter = 1
+position = Vector2(121, 214)
+scale = Vector2(3.3, 3.3)
+sprite_frames = ExtResource("5_kevin")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -40)
+
+[node name="Nome" type="Label" parent="Margens/Painel/Respiro/Coluna/Cartoes/Kevin/Conteudo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 28
+text = "Kevin"
+horizontal_alignment = 1
+
+[node name="Papel" type="Label" parent="Margens/Painel/Respiro/Coluna/Cartoes/Kevin/Conteudo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.68, 0.85, 1)
+theme_override_font_sizes/font_size = 16
+text = "Baterista"
+horizontal_alignment = 1
+
+[node name="Marcas" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Cartoes/Kevin/Conteudo"]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="P1" type="Label" parent="Margens/Painel/Respiro/Coluna/Cartoes/Kevin/Conteudo/Marcas"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_p1")
+text = "P1"
+
+[node name="P2" type="Label" parent="Margens/Painel/Respiro/Coluna/Cartoes/Kevin/Conteudo/Marcas"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_p2")
+text = "P2"

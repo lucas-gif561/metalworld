@@ -6,7 +6,8 @@ extends Control
 ## Controles/Créditos. Aqui fica só o comportamento.
 ##
 ## "Jogar" abre a escolha do modo (Solo ou Dueto) no lugar dos botões do
-## menu; "Sair" fecha o jogo.
+## menu, e o modo abre a seleção de personagem (tela_selecao.tscn); "Sair"
+## fecha o jogo.
 ##
 ## Navegação: setas, WASD, direcional ou analógico de qualquer jogador.
 ## Confirmar: Enter, Espaço, F, J ou A. Voltar: Esc ou B no controle.
@@ -30,6 +31,7 @@ const ESPERA_NAVEGACAO = 0.18
 @onready var placa = $Placa
 @onready var janela = $Janela
 @onready var controles = $TelaControles
+@onready var selecao = $TelaSelecao
 @onready var titulo_janela = $Janela/Moldura/Titulo
 @onready var texto_janela = $Janela/Moldura/Texto
 
@@ -46,8 +48,10 @@ func _ready() -> void:
 	$Menu/Sair.pressed.connect(_sair)
 	# No navegador não dá para fechar a aba pelo jogo
 	$Menu/Sair.visible = not OS.has_feature("web")
-	$MenuModo/Solo.pressed.connect(_jogar.bind(false))
-	$MenuModo/Dueto.pressed.connect(_jogar.bind(true))
+	$MenuModo/Solo.pressed.connect(_escolher_personagens.bind(false))
+	$MenuModo/Dueto.pressed.connect(_escolher_personagens.bind(true))
+	selecao.confirmada.connect(func(): _jogar(selecao.em_dupla))
+	selecao.cancelada.connect(_ao_cancelar_selecao)
 	$MenuModo/Voltar.pressed.connect(_fechar_modos)
 	for botao in _botoes(menu) + _botoes(menu_modo):
 		botao.focus_entered.connect(_ao_focar)
@@ -67,6 +71,20 @@ func _animar_placa() -> void:
 
 func _ao_focar() -> void:
 	Audio.tocar("nota_good", 0.0)
+
+
+func _escolher_personagens(em_dupla: bool) -> void:
+	Audio.tocar("ui_confirma", 0.0)
+	# Já define de quem é o controle único: na seleção cada um usa o seu
+	Controles.preparar_partida(em_dupla)
+	menu_modo.hide()
+	get_viewport().gui_release_focus()
+	selecao.abrir(em_dupla)
+
+
+func _ao_cancelar_selecao() -> void:
+	menu_modo.show()
+	(menu_modo.get_node("Dueto") if selecao.em_dupla else menu_modo.get_node("Solo")).grab_focus()
 
 
 func _jogar(em_dupla: bool) -> void:
@@ -123,7 +141,7 @@ func _fechar_janela() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if not event is InputEventJoypadButton or controles.visible:
+	if not event is InputEventJoypadButton or controles.visible or selecao.visible:
 		return
 	if (janela.visible or menu_modo.visible) and event.button_index == JOY_BUTTON_B:
 		if event.pressed:
@@ -144,6 +162,8 @@ func _voltar() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if selecao.visible:
+		return
 	if menu_modo.visible and event.is_action_pressed("ui_cancel"):
 		_fechar_modos()
 		get_viewport().set_input_as_handled()

@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" path="res://ui/sprites/botao_menu.png" id="5_moldura"]
 
 [ext_resource type="PackedScene" path="res://ui/tela_controles.tscn" id="6_controles"]
+[ext_resource type="PackedScene" path="res://ui/tela_selecao.tscn" id="7_selecao"]
 
 [node name="TelaInicial" type="Control"]
 layout_mode = 3
@@ -207,3 +208,5 @@ text = "B no controle ou qualquer tecla para voltar"
 horizontal_alignment = 1
 
 [node name="TelaControles" parent="." instance=ExtResource("6_controles")]
+
+[node name="TelaSelecao" parent="." instance=ExtResource("7_selecao")]
