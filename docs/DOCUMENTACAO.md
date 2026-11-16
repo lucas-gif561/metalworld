@@ -29,12 +29,13 @@
 
 **MetalWorld: The Last Riff** é um jogo 2D de pancadaria lateral (*beat 'em up*) em pixel art, com **co-op local para 2 jogadores** e um diferencial: os chefes **só são derrotados no ritmo**, num minigame de guitarra chamado **Riff**.
 
-A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a paixão pela música quando recebe um aparelho auditivo e ouve heavy metal pela primeira vez. Nas ruas, ele abre caminho no soco; diante de cada chefe, saca a guitarra e luta com música.
+A história, criada pelo Leonardo, acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a paixão pela música quando recebe um aparelho auditivo e ouve heavy metal pela primeira vez. Ao lado do baterista **Kevin**, ele abre caminho nas ruas no soco; diante de cada chefe, os dois sacam os instrumentos e lutam com música.
 
 | | |
 |---|---|
 | Gênero | Beat 'em up + ritmo |
 | Jogadores | 1 ou 2 (co-op local, mesma tela) |
+| Personagens | Dylan (guitarra) e Kevin (bateria) |
 | Plataforma | PC (Windows/Linux) |
 | Motor | Godot 4.7 (GDScript), renderizador de compatibilidade |
 | Estrutura | Rua 1 → Boss 1 → Rua 2 → Boss 2 → Rua 3 → Boss 3 |
@@ -62,26 +63,29 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 
 | ID | Requisito | Situação |
 |---|---|---|
-| RF01 | Menu principal com jogar sozinho, jogar em dupla, controles e créditos | ✅ Implementado |
+| RF01 | Menu principal com Jogar (Solo ou Dueto), Controles, Créditos e Sair | ✅ Implementado |
 | RF02 | Jogar com 1 ou 2 jogadores; o 2º pode entrar no meio da fase (START) | ✅ Implementado |
-| RF03 | Teclado para o P1 e controle para o P2 (com teclado reserva para testes) | ✅ Implementado |
-| RF04 | Combate corpo a corpo: socos alternados (jab e direto), esquiva (dodge) com stamina | ✅ Implementado |
+| RF03 | Teclado dividido ao meio para os dois jogadores e controle para qualquer um deles (vale o último dispositivo que o jogador tocou) | ✅ Implementado |
+| RF04 | Combate corpo a corpo: combo de soco, soco e chute, esquiva (dodge) com stamina | ✅ Implementado |
 | RF05 | Inimigos com ataque telegrafado (piscam antes de bater), alvo no jogador mais próximo e IA de grupo (2 atacam por vez, os outros cercam) | ✅ Implementado |
 | RF06 | Fases de rua em arenas e ondas, com portal para o chefe | ✅ Implementado |
 | RF07 | Objetos quebráveis (barris e caixotes) que soltam comida que cura | ✅ Implementado |
 | RF08 | Jogador caído pode ser levantado pelo parceiro; game over só com os dois caídos | ✅ Implementado |
 | RF09 | Chefe que só toma dano pelo minigame de ritmo (Riff) | ✅ Implementado |
 | RF10 | Riff independente para cada jogador, com pistas por cor | ✅ Implementado |
-| RF11 | Chefe com fases, escudo de runas, capangas, teleporte e nota maldita | ✅ Implementado (Boss 1) |
+| RF11 | Chefe com fases, totens que desligam os instrumentos, ataques próprios e nota maldita | ✅ Implementado (Bosses 1 e 2) |
 | RF12 | Vida compartilhada da dupla contra o chefe (cabo de força) | ✅ Implementado |
 | RF13 | Sequência de 6 fases, voltando ao menu ao fim | ✅ Implementado |
-| RF14 | Ruas 2 e 3 e Bosses 2 e 3 com conteúdo próprio | 🛠 Em desenvolvimento (modelos jogáveis prontos) |
+| RF14 | Ruas e chefes com inimigos, cenário e ataques próprios | ✅ Ruas 1 e 2, Bosses 1 e 2 · 🛠 Rua 3 e Boss 3 em desenvolvimento (modelos jogáveis) |
+| RF15 | Seleção de personagem: cada jogador escolhe Dylan ou Kevin, sem repetir | ✅ Implementado |
+| RF16 | Minirriff nas ruas: sequências de 4 notas viram golpes especiais com barra de poder | ✅ Implementado |
+| RF17 | Minibosses nas ruas com barra de vida própria (o da Rua 1 tem postura que quebra) | ✅ Implementado (Ruas 1 e 2) |
 
 ### 4.2 Não funcionais
 
 | ID | Requisito |
 |---|---|
-| RNF01 | Rodar em PCs modestos: renderizador de compatibilidade (OpenGL), resolução base 1152×648 |
+| RNF01 | Rodar em PCs modestos: renderizador de compatibilidade (OpenGL), resolução base 1152×648 ampliada para tela cheia (16:9, com barras pretas em outras proporções) |
 | RNF02 | Pixel art nítida: filtro *nearest*, sem borrão ao ampliar |
 | RNF03 | Jogável com teclado e controle; menus navegáveis pelos dois |
 | RNF04 | Testes automatizados sem janela (*headless*) cobrindo fases, co-op, combate e menu |
@@ -95,34 +99,50 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 
 ![Rua em dupla](imagens/rua_dupla.png)
 
-- **Socos alternados** (F / J / X): jab (1 de dano) e direto (2, empurra). O jogador para para bater; apertar durante o golpe guarda o próximo.
-- **Dodge** (K / A) com stamina: atravessa inimigos e tiros.
-- **Inimigos**: normal, rápido, atirador (tiro na faixa) e tanque (granada que estoura em 8 balas). Todos **carregam o golpe** piscando branco: dá para sair da faixa, desviar ou socar para cancelar. **IA de grupo** (estilo Castle Crashers): cada jogador tem 2 vagas de ataque, uma de cada lado; quem pega a vaga bate 2 vezes, recua e dá a vez, e os outros cercam o jogador pelos dois lados, à distância.
+- **Combo** (F / J / X): soco (1 de dano), soco (2) e chute (2, empurra). O jogador para para bater; apertar durante o golpe guarda o próximo.
+- **Dodge** (G / K / B) com stamina: atravessa inimigos e tiros. O anel no pé mostra a recarga.
+- **Minirriff**: nas ruas, cada jogador toca notas A (T / I / LB) e B (Y / L / RB). Uma sequência de 4 notas dentro do prazo vira um golpe especial e gasta a barra de poder, que enche com o tempo, acertando socos e levando dano. As notas aparecem como teclas em cima do jogador e piscam douradas no acerto ou vermelhas no erro.
+
+  | Personagem | Sequência | Golpe |
+  |---|---|---|
+  | Dylan | A B A B | Onda sonora: dano em volta e atordoa |
+  | Dylan | B B A B | Raio encadeado: ricocheteia em até 3 inimigos |
+  | Dylan | B A B A | Acorde cortante: arco que avança e atravessa até 2 inimigos (4 de dano) |
+  | Kevin | A B A B | Bumbo: duas batidas que empurram em volta |
+  | Kevin | A B B A | Caixa: projétil forte |
+  | Kevin | A A B B | Virada: três projéteis, o último empurra |
+
+- **Inimigos**: todos **carregam o golpe** piscando branco: dá para sair da faixa, desviar ou socar para cancelar. **IA de grupo** (estilo Castle Crashers): cada jogador tem 2 vagas de ataque, uma de cada lado; quem pega a vaga bate 2 vezes, recua e dá a vez, e os outros cercam o jogador pelos dois lados, à distância. Quem nasce atrás do jogador surge longe da tela.
+  - **Rua 1 (gangue punk)**: brigão, corredor, atirador (tiro na faixa) e grandão (granada em arco que explode), além do **miniboss**: postura que quebra com golpes seguidos, áreas de dano no chão e barra de vida.
+  - **Rua 2 (orquestra possuída)**: violinista (atira notas), trombonista, tubista (bola demoníaca) e o **Maestro**, que rege notas contra os jogadores e tem barra de vida.
 - **Profundidade**: colisão só nos pés; personagens passam na frente/atrás uns dos outros e dos objetos.
 - **Impacto**: pausa curta e tremor de tela nos acertos; câmera lenta no último inimigo da rua.
 - **Barris e caixotes** quebram na porrada e soltam maçã ou carne.
-- **HUD com ícones, quase sem texto**: retrato do Dylan de cada jogador (moldura rosa ou azul, apagado quando cai), corações para a vida e raios para a stamina (um raio por dodge, enchendo enquanto recarrega). O nome da fase entra na tela no começo e uma seta pisca para a direita quando a área está limpa. A barra do chefe usa a moldura dos botões do menu.
-- **Entrada do P2 sem texto**: o lugar do P2 no HUD mostra uma silhueta piscando com o botão de entrar (A no controle; sem controle, a tecla do teclado reserva). Ao entrar, o Dylan 2 chega correndo pela esquerda, o retrato acende e os corações enchem um por um.
+- **Portões**: entre as arenas, uma seta pisca para a direita quando a área está limpa e o portão leva à próxima.
+- **HUD com ícones, quase sem texto**: retrato do personagem de cada jogador (moldura azul para o P1 e rosa para o P2, apagado quando cai), corações para a vida e raios para a stamina (um raio por dodge, enchendo enquanto recarrega). A barra do chefe tem moldura de braço de guitarra.
+- **Entrada do P2 sem texto**: o lugar do P2 no HUD mostra uma silhueta piscando com o botão de entrar, no dispositivo que ele está usando. Ao entrar, o personagem do P2 chega correndo pela esquerda, o retrato acende e os corações enchem um por um.
 - **Pause** (Esc / START): continuar, remover o jogador 2 (ele pode voltar com START) ou ir ao menu principal.
 
 ### Chefes (Riff)
 
 ![Riff no boss](imagens/boss_riff.png)
 
-- **Riff** (T / I / A abre e fecha): notas descem em 4 pistas a 150 BPM, no tempo da música. O P1 toca com A W S D e o P2 com as setas (ou LT LB RB RT). PERFECT e GOOD ferem o chefe. Quanto mais tempo no Riff, mais rápido as notas caem (até 1,6x).
+- **Riff** (T / I / A abre e fecha): o Dylan puxa a guitarra e o Kevin puxa a bateria do chão. Notas descem em 4 pistas a 150 BPM, no tempo da música. O P1 toca com A W S D e o P2 com as setas (ou LT LB RB RT). PERFECT e GOOD ferem o chefe. Quanto mais tempo no Riff, mais rápido as notas caem (até 1,6x).
 - **Riff em dupla**: P1 toca à esquerda e P2 à direita. Cada acerto causa 1× de dano jogando sozinho; em dupla, 0,5× com um jogador tocando ou 1× com os dois tocando.
 - **Risco do Riff**: dano, inclusive de nota maldita, encerra o Riff de quem foi atingido e trava suas pistas por 5 s. Sair voluntariamente, inclusive com uma esquiva, trava por 1 s. Cada jogador tem seu cadeado, embaixo dos pés. O "!" pisca enquanto o chefe está fora do descanso.
 - **Descanso**: o chefe se ajoelha e mostra "RIFF!": a hora segura de tocar.
-- **Fases do chefe** (66% e 33% da vida): ataques novos, ritmo mais rápido, nota maldita e escudo.
-- **Escudo de runas**: o Riff não fere até a dupla quebrar as runas no soco.
+- **Fases do chefe** (66% e 33% da vida, marcadas na barra): ataques novos, ritmo mais rápido, nota maldita e totens.
+- **Totens**: ao mudar de fase, o chefe ergue totens que desligam os instrumentos. O Riff só volta depois que a dupla quebra todos no soco; o cadeado embaixo de cada jogador mostra a espera.
 - **Cabo de força**: uma barra só, dupla × chefe. Dano em qualquer jogador cura o chefe; dano no chefe cura a dupla.
+- **Boss 1, o guitarrista morto-vivo do galpão**: palhetas em rajada, leque e espiral, microfonia (círculos no chão), trilha que persegue os dois jogadores, corrida pelo palco e pedais como totens.
+- **Boss 2, Paganini contra o Diabo**: um duelo no salão de concertos com uma vida só. Os dois trocam leques de notas, staccato, pinball que ricocheteia nas paredes e contratempo; a partir da fase 2 as Quatro Cordas vibram junto, e notas que se chocam abrem a Dissonância. O metrônomo é o totem.
 
-![Escudo de runas](imagens/boss_escudo.png)
+![Escudo do chefe](imagens/boss_escudo.png)
 
 ### Co-op
 
-- P2 entra a qualquer momento; Dylan do P2 tem outra cor e anel azul.
-- Quem cai fica no chão; o parceiro segura **E / B** perto para levantar (com metade da vida).
+- P2 entra a qualquer momento. Cada jogador escolhe o personagem no menu (os dois não podem pegar o mesmo); anel e Riff do P1 em azul e do P2 em rosa.
+- Quem cai fica no chão; o parceiro segura **interagir** (Y / L / RB) perto para levantar (com metade da vida).
 - Inimigos e chefe miram sempre um jogador **vivo**.
 
 ## 6. Mecânicas em detalhe
@@ -137,11 +157,13 @@ stateDiagram-v2
     Livre --> Esquivando: dodge (gasta stamina)
     Esquivando --> Livre: 0,35 s
     Livre --> TocandoRiff: abrir Riff
-    TocandoRiff --> Livre: fechar Riff / qualquer outro botão
+    TocandoRiff --> Livre: fechar Riff / dodge / dano (trava)
+    Livre --> Minirriff: 4 notas certas (ruas)
+    Minirriff --> Livre: fim do golpe especial
     Livre --> Ferido: levou dano
     Ferido --> Livre
     Livre --> Caido: vida = 0
-    Caido --> Livre: parceiro segura E / B por 2 s
+    Caido --> Livre: parceiro segura interagir por 2 s
     Caido --> [*]: todos caídos = game over
 ```
 
@@ -153,8 +175,8 @@ flowchart LR
     B -- sim --> C[Dupla abre o Riff]
     C --> D[Notas acertadas<br/>ferem o chefe]
     D --> E{Passou de 66% / 33%?}
-    E -- sim --> F[Nova fase:<br/>Riff fecha, escudo sobe]
-    F --> G[Quebrar runas no soco]
+    E -- sim --> F[Nova fase:<br/>Riff fecha, totens sobem]
+    F --> G[Quebrar totens no soco]
     G --> A
     E -- não --> A
     B -- não --> A
@@ -165,7 +187,8 @@ flowchart LR
 | Item | Valor |
 |---|---|
 | Vida do jogador | 5 (cabo de força no chefe: dupla com 5 de 10) |
-| Jab / direto | 1 / 2 de dano |
+| Combo (soco / soco / chute) | 1 / 2 / 2 de dano |
+| Barra de poder (Minirriff) | 3; golpes especiais custam 1 a 3 |
 | Carga do ataque inimigo | 0,45 s (tanque 0,6 s) |
 | Atacantes por jogador | 2 (um de cada lado), 2 golpes cada antes de dar a vez |
 | Riff | 150 BPM; com fases, 6 PERFECT ≈ 1 fase do chefe |
@@ -175,9 +198,11 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    M[Menu principal] -->|Jogar → Solo / Dueto → personagem| R1[Rua 1]
+    M[Menu principal] -->|Jogar → Solo / Dueto| S[Seleção de personagem]
+    S --> R1[Rua 1]
     M --> CT[Controles]
     M --> CR[Créditos]
+    M --> SA[Sair]
     R1 -->|portal| B1[Boss 1]
     B1 -->|vitória| R2[Rua 2]
     R2 -->|portal| B2[Boss 2]
@@ -190,6 +215,8 @@ flowchart TD
 
 Cada **rua** tem arenas (uma tela cada) com ondas de inimigos; a câmera só avança quando a arena é limpa. Na última arena abre o **portal** para o chefe.
 
+Na seleção, cada jogador anda entre os cartões com os próprios comandos e confirma com atacar; no Dueto os dois confirmam e não podem pegar o mesmo personagem. A fase troca o Dylan gravado na cena pelo personagem escolhido.
+
 ## 8. Arquitetura
 
 ### 8.1 Organização de pastas
@@ -199,14 +226,14 @@ Organizada **por funcionalidade** (recomendação do guia oficial do Godot): cen
 | Pasta | Conteúdo |
 |---|---|
 | `sistemas/` | Autoloads (serviços globais): `Jogo`, `Controles`, `Audio`, `Combate` |
-| `personagens/dylan/` | Jogador (cena, script, marcadores, shader do P2, sprites) |
-| `inimigos/` | `base/` (modelo `Inimigo`), `rapido/`, `atirador/`, `tanque/` |
-| `bosses/base/` | Classe `Boss` (caixa de ferramentas de ataques), arena, runa, projéteis |
+| `personagens/` | `dylan/` (jogador base: cena, script, Minirriff, marcadores, sprites), `baterista/` (Kevin) e `miku/` (personagem secreta) |
+| `inimigos/` | `base/` (modelos `Inimigo` e miniboss), `rapido/`, `atirador/`, `tanque/` |
+| `bosses/base/` | Classe `Boss` (caixa de ferramentas de ataques), arena, totem, projéteis |
 | `riff/` | HUD do Riff e notas |
 | `objetos/` | Barril, caixote, comida, portal |
-| `ui/` | Menu principal, HUD, cabo de força |
-| `fases/` | `comum/` (script das ruas, ondas), `rua_1..3/`, `boss_1..3/` |
-| `assets/` | Áudio, fundos, efeitos e projéteis compartilhados |
+| `ui/` | Menu principal, seleção de personagem, controles, pausa, HUD, barras de vida, cabo de força, ícones de comando |
+| `fases/` | `comum/` (script das ruas, ondas), `rua_1..3/` e `boss_1..3/`, cada uma com os próprios inimigos, ataques e sprites |
+| `assets/` | Áudio, fontes, fundos, efeitos e projéteis compartilhados |
 | `tests/` | Testes automatizados |
 
 ### 8.2 Serviços globais (autoloads)
@@ -245,8 +272,19 @@ classDiagram
     }
     class InimigoAtirador
     class InimigoTanque
+    class Miniboss {
+      +postura
+    }
     Inimigo <|-- InimigoAtirador
     Inimigo <|-- InimigoTanque
+    Inimigo <|-- Miniboss
+
+    class Jogador {
+      +combo, dodge, Riff
+      #_minirriffs_disponiveis()
+    }
+    class Kevin
+    Jogador <|-- Kevin
 
     class Boss {
       +vida_maxima, usar_fases
@@ -267,6 +305,7 @@ classDiagram
 - **Inimigo novo**: cena herdada de `inimigos/base/inimigo.tscn`. Se só bate de perto, não precisa de script (já vem com a IA de grupo); com comportamento diferente, um script `extends Inimigo` que só escreve `_comportamento()`.
 - **Chefe novo**: script `extends Boss` que só escreve `ciclo_ataques()` combinando os ataques prontos.
 - **Rua nova**: ondas montadas no editor com nós `PontoSpawn`; sem script novo.
+- **Personagem novo**: cena que herda o jogador; com golpes especiais próprios, um script que troca só a tabela de Minirriffs (como o Kevin). Entra na lista `Jogo.PERSONAGENS` e ganha um cartão na seleção.
 
 ### 8.4 Decisões técnicas
 
@@ -288,13 +327,18 @@ classDiagram
 | Interagir / levantar parceiro | Y | L | RB |
 | Abrir/fechar Riff | T | I | A |
 | Notas do Riff (← ↑ ↓ →) | W A S D | Setas | LT / LB / RB / RT |
+| Minirriff nas ruas (notas A e B) | T e Y | I e L | LB e RB |
 | Entrar na partida / reiniciar | R | J | START |
 | Pausar | Esc | P | START |
 | Tela cheia / janela | F11 ou Alt+Enter | F11 ou Alt+Enter | — |
 
 O controle serve ao P1 ou ao P2: com dois controles, um para cada; com um só, ele é do P1 até o P2 entrar apertando START nele (com o P1 no teclado). Cada jogador troca sozinho entre teclado e controle: vale o último que tocou.
 
-O jogo abre em tela cheia. Em telas que não são 16:9 aparecem barras pretas nas bordas, para o cenário ficar igual em qualquer monitor.
+As telas e avisos mostram só as teclas de quem está jogando, no dispositivo que ele usou por último (ícones de teclado ou de controle).
+
+O jogo exportado abre em tela cheia; pelo editor abre em janela, para os botões de depuração da aba Game funcionarem. Em telas que não são 16:9 aparecem barras pretas nas bordas, para o cenário ficar igual em qualquer monitor.
+
+**Atalhos**: F9 derrota os inimigos da fase (no chefe, esvazia a vida dele e dá a vitória) para testar rápido; só funciona no editor e em builds de depuração, nunca no jogo exportado. F10 na seleção revela a personagem secreta.
 
 ## 10. Qualidade e testes
 
@@ -312,12 +356,14 @@ tests/rodar_testes.sh
 | `teste_novidades.gd` | Impacto, caixote e comida, ataques do chefe, escudo, fases, nota maldita, cabo de força |
 | `teste_ia.gd` | IA de grupo: no máximo 2 atacando, revezamento, rodear à distância, não empilhar, vagas por jogador no co-op |
 | `teste_menu.gd` | Navegação do menu, janelas de controles/créditos, iniciar sozinho/em dupla |
+| `teste_controles.gd` | P1 no controle, troca entre teclado e controle e controle único passando ao P2 quando ele entra |
+| `teste_selecao.gd` | Seleção de personagem: cada jogador escolhe o seu, sem repetir, e a fase usa o escolhido |
 
 O script falha se **qualquer** teste falhar ou se aparecer erro de script durante a execução. Além disso, cada mudança visual é conferida por captura de tela.
 
 ## 11. Processo de desenvolvimento
 
-- **Divisão**: Lucas (base do jogo, sprites no PixelLab, integração e revisão), Leonardo (Ruas 2 e 3), Arthur (Bosses 2 e 3).
+- **Divisão**: Lucas (base do jogo, sprites no PixelLab, integração e revisão), Leonardo (história original, Ruas 2 e 3), Arthur (Bosses 2 e 3).
 - **Trello**: Ideias → Backlog aprovado → To do → Doing → Testando → Done. Cada cartão em Testando tem checklist de teste manual.
 - **GitHub**: um branch por tarefa e Pull Requests pequenos a cada 2–3 dias, revisados antes de entrar na `main` (guia em [`GUIA_GIT.md`](GUIA_GIT.md); modelo de PR em `.github/pull_request_template.md`).
 - **Regras do projeto** para a equipe e para assistentes de código: [`AGENTS.md`](../AGENTS.md).
@@ -330,11 +376,13 @@ O script falha se **qualquer** teste falhar ou se aparecer erro de script durant
 - **Conceito**: palco de show de heavy metal: aço rebitado, letreiro com lâmpadas e neon rosa.
 - **Logo**: placa "METAL WORLD" em letras góticas rosa (`docs/identidade/logo_metalworld.png`, também usada no menu).
 - **Pixel art** em todo o jogo, ampliada sem filtro.
+- **Fonte**: Silkscreen (pixel, licença OFL) em todos os textos do jogo.
 
 | Cor | Uso |
 |---|---|
-| `#FF4DB8` rosa | Marca, P1, títulos, notas do P1 |
-| `#59E6FF` azul-ciano | P2, notas do P2 |
+| `#FF4DB8` rosa | Marca, títulos e P2 (anel, Riff e retrato) |
+| `#33ADFF` azul | P1 (anel, Riff, retrato e vida da dupla) |
+| `#E4354A` vermelho | Vida dos chefes |
 | `#E71982` rosa-choque | Botão aceso, destaques |
 | `#493050` roxo-placa | Botões e molduras |
 | `#292636` aço escuro | Placa do título |
@@ -344,15 +392,15 @@ O script falha se **qualquer** teste falhar ou se aparecer erro de script durant
 
 1. Instale o **Godot 4.7** (versão padrão, sem .NET).
 2. Abra o arquivo `project.godot` e aperte **F5**.
-3. Para jogar em dupla, dividam o teclado (P1 na metade esquerda, P2 na direita) ou conectem um controle para o P2.
+3. Para jogar em dupla, dividam o teclado (P1 na metade esquerda, P2 na direita) ou usem controles: um para cada jogador ou um só para o P2, com o P1 no teclado.
 
 ## 14. Créditos e licenças
 
-Todos os assets de terceiros, autores e licenças estão em [`CREDITS.md`](../CREDITS.md). Os sprites do Dylan e a interface foram gerados pela equipe no PixelLab; as músicas são CC0 e os efeitos sonoros foram criados no Bfxr.
+Todos os assets de terceiros, autores e licenças estão em [`CREDITS.md`](../CREDITS.md). Os sprites dos personagens e a interface foram gerados pela equipe no PixelLab; os demais assets são de licença livre, as músicas são CC0, os efeitos sonoros foram criados no Bfxr e a fonte é a Silkscreen (OFL).
 
 ## 15. Próximos passos
 
-- Conteúdo próprio das Ruas 2 e 3 (inimigos novos) e dos Bosses 2 e 3 (padrões de ataque).
-- Sprites próprios para inimigos e chefes (PixelLab).
-- Game over e vitória no mesmo estilo do menu.
-- Ideias em avaliação: Riff com guitarra e bateria ao mesmo tempo; golpes especiais por sequência de setas.
+- **Rua 3 e Boss 3**: conteúdo próprio (hoje são modelos jogáveis); o Boss 3 está em desenvolvimento num branch separado.
+- **História do jogo**: trazer mais da história original para dentro do jogo, como cenas entre as fases.
+- **Arte própria** para os inimigos genéricos, objetos e efeitos que ainda usam pacotes de licença livre.
+- Game over e vitória com arte própria, no mesmo estilo do menu.
