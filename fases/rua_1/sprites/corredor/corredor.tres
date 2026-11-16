@@ -66,18 +66,6 @@ region = Rect2(288, 0, 96, 64)
 atlas = ExtResource("attack")
 region = Rect2(384, 0, 96, 64)
 
-[sub_resource type="AtlasTexture" id="attack_5"]
-atlas = ExtResource("attack")
-region = Rect2(480, 0, 96, 64)
-
-[sub_resource type="AtlasTexture" id="attack_6"]
-atlas = ExtResource("attack")
-region = Rect2(576, 0, 96, 64)
-
-[sub_resource type="AtlasTexture" id="attack_7"]
-atlas = ExtResource("attack")
-region = Rect2(672, 0, 96, 64)
-
 [sub_resource type="AtlasTexture" id="hurt_0"]
 atlas = ExtResource("hurt")
 region = Rect2(0, 0, 96, 64)
@@ -153,13 +141,10 @@ animations = [{
 { "duration": 1.0, "texture": SubResource("attack_1") },
 { "duration": 1.0, "texture": SubResource("attack_2") },
 { "duration": 1.0, "texture": SubResource("attack_3") },
-{ "duration": 1.0, "texture": SubResource("attack_4") },
-{ "duration": 1.0, "texture": SubResource("attack_5") },
-{ "duration": 1.0, "texture": SubResource("attack_6") },
-{ "duration": 1.0, "texture": SubResource("attack_7") }],
+{ "duration": 3.0, "texture": SubResource("attack_4") }],
 "loop": false,
 "name": &"attack",
-"speed": 24.0
+"speed": 12.0
 }, {
 "frames": [{ "duration": 1.0, "texture": SubResource("hurt_0") },
 { "duration": 1.0, "texture": SubResource("hurt_1") },

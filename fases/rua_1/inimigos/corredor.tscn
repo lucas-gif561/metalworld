@@ -4,6 +4,8 @@
 [ext_resource type="SpriteFrames" path="res://fases/rua_1/sprites/corredor/corredor.tres" id="2_frames"]
 
 [node name="Corredor" instance=ExtResource("1_base")]
+quadro_carga = 3
+quadro_impacto = 4
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(1.95, 1.95)

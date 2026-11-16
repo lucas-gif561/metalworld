@@ -51,4 +51,3 @@ func atirar():
 
 	granada.global_position = global_position + Vector2(60.0 * lado, -43.0) * escala_personagem
 	Audio.tocar("tiro_inimigo", 0.0)
-	_tocar_acao("attack")

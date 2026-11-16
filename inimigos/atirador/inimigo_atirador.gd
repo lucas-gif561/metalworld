@@ -45,4 +45,3 @@ func atirar():
 
 	projetil.global_position = global_position + Vector2(45 * direcao, -altura_tiro) * escala_personagem
 	Audio.tocar("tiro_inimigo")
-	_tocar_acao("attack")

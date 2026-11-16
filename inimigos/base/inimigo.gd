@@ -54,6 +54,12 @@ const COR_CARGA = Color(1.8, 1.8, 1.8)
 @export_group("Carga do ataque")
 ## Quanto tempo o inimigo avisa (congelado e piscando) antes de atacar
 @export var tempo_preparo = 0.45
+## Quadro do "attack" em que ele congela piscando durante a carga (a pose
+## parada do windup). Depois da carga a animação segue a partir dele.
+@export var quadro_carga := 0
+## Quadro do "attack" em que o golpe acerta (ou o tiro sai), para o dano
+## bater com a arte. -1 = logo que a carga termina.
+@export var quadro_impacto := -1
 ## 1 = voa longe com o soco; 0,3 = pesado; 0 = não se mexe
 @export var resistencia_empurrao = 1.0
 
@@ -313,8 +319,9 @@ func _dentro_da_arena(ponto: Vector2) -> Vector2:
 	return ponto
 
 
-## Avisa o ataque (congela no 1º quadro do "attack", piscando branco) e depois
-## chama "golpe". Se o inimigo apanhar durante a carga, o golpe é cancelado.
+## Avisa o ataque (congela no quadro_carga do "attack", piscando branco) e
+## chama "golpe" quando a animação chega no quadro_impacto. Se o inimigo
+## apanhar antes disso, o golpe é cancelado.
 func carregar_ataque(golpe: Callable) -> void:
 	preparando = true
 	_preparo_id += 1
@@ -323,6 +330,8 @@ func carregar_ataque(golpe: Callable) -> void:
 	velocity = Vector2.ZERO
 	_tocar_acao("attack")
 	sprite.pause()
+	if sprite.animation == &"attack":
+		sprite.frame = quadro_carga
 	sprite.modulate = COR_CARGA
 
 	await get_tree().create_timer(tempo_preparo).timeout
@@ -334,6 +343,15 @@ func carregar_ataque(golpe: Callable) -> void:
 	sprite.modulate = Color.WHITE
 	sprite.play()
 	timer_ataque.start()
+
+	# Espera a arte chegar no golpe; apanhar no caminho troca a animação e cancela
+	var animacao = sprite.animation
+	while quadro_impacto > sprite.frame and sprite.animation == animacao and sprite.is_playing():
+		await sprite.frame_changed
+		if id != _preparo_id or morto or not is_inside_tree():
+			return
+	if sprite.animation != animacao:
+		return
 	golpe.call()
 
 

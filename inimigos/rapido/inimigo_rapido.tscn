@@ -6,6 +6,8 @@
 [node name="InimigoRapido" unique_id=577347522 instance=ExtResource("1_erp6p")]
 velocidade = 170.0
 vida = 2
+quadro_carga = 1
+quadro_impacto = 2
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
 scale = Vector2(1.75, 1.75)

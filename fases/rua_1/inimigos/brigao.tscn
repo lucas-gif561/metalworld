@@ -4,6 +4,8 @@
 [ext_resource type="SpriteFrames" path="res://fases/rua_1/sprites/brigao/brigao.tres" id="2_frames"]
 
 [node name="Brigao" instance=ExtResource("1_base")]
+quadro_carga = 3
+quadro_impacto = 4
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(2, 2)
