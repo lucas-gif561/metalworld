@@ -27,6 +27,11 @@ func _cena_limpa(p2: bool) -> Node:
 	jogo.p2_ativo = p2
 	change_scene_to_file("res://fases/rua_1/rua_1.tscn")
 	await esperar(0.6)
+	# A rua pode demorar a carregar: espera a 1ª onda nascer antes de limpar,
+	# senão ela aparece depois da limpeza e rouba as vagas dos inimigos do teste
+	var limite = Time.get_ticks_msec() + 5000
+	while get_nodes_in_group("inimigos").is_empty() and Time.get_ticks_msec() < limite:
+		await process_frame
 	# Sem ondas da fase: só os inimigos criados pelo teste
 	for no in current_scene.find_children("*", "", true, false):
 		if no.has_method("criar_onda"):
