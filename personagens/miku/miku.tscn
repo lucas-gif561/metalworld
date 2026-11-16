@@ -1,14 +1,25 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://yx3474yjxytw"]
 
-[ext_resource type="PackedScene" path="res://personagens/dylan/jogador.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://personagens/miku/sprites/miku.tres" id="2_frames"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/retrato.png" id="3_retrato"]
+[ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="1_base"]
+[ext_resource type="SpriteFrames" uid="uid://nuabmydgd65b" path="res://personagens/miku/sprites/miku.tres" id="2_frames"]
+[ext_resource type="Texture2D" uid="uid://b42mo6drui122" path="res://personagens/miku/sprites/retrato.png" id="3_retrato"]
 
-[node name="Miku" instance=ExtResource("1_base")]
+[node name="Miku" unique_id=1767862286 instance=ExtResource("1_base")]
 retrato = ExtResource("3_retrato")
 quadro_cross = 2
 
-[node name="AnimatedSprite2D" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1" unique_id=918612811]
 scale = Vector2(1.9, 1.9)
 sprite_frames = ExtResource("2_frames")
+animation = &"run"
+frame_progress = 0.8521704
 offset = Vector2(0, -22)
+
+[node name="CollisionShape2D" parent="." index="2" unique_id=728486600]
+visible = false
+
+[node name="Hurtbox" parent="." index="3" unique_id=840653201]
+visible = false
+
+[node name="VisorMinirriff" parent="." index="6"]
+visible = false

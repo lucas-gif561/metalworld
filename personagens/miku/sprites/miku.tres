@@ -1,81 +1,17 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://nuabmydgd65b"]
 
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/idle.png" id="idle"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/run.png" id="run"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/soco_esquerdo.png" id="soco_esquerdo"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/soco_direito.png" id="soco_direito"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/chute.png" id="chute"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/dodge.png" id="dodge"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/hurt.png" id="hurt"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/death.png" id="death"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/levantar.png" id="levantar"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/riff_inicio.png" id="riff_inicio"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/riff.png" id="riff"]
-[ext_resource type="Texture2D" path="res://personagens/miku/sprites/minirriff.png" id="minirriff"]
-
-[sub_resource type="AtlasTexture" id="idle_0"]
-atlas = ExtResource("idle")
-region = Rect2(0, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="idle_1"]
-atlas = ExtResource("idle")
-region = Rect2(42, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="idle_2"]
-atlas = ExtResource("idle")
-region = Rect2(84, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="idle_3"]
-atlas = ExtResource("idle")
-region = Rect2(126, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="run_0"]
-atlas = ExtResource("run")
-region = Rect2(0, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="run_1"]
-atlas = ExtResource("run")
-region = Rect2(42, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="run_2"]
-atlas = ExtResource("run")
-region = Rect2(84, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="run_3"]
-atlas = ExtResource("run")
-region = Rect2(126, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="run_4"]
-atlas = ExtResource("run")
-region = Rect2(168, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="soco_esquerdo_0"]
-atlas = ExtResource("soco_esquerdo")
-region = Rect2(0, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="soco_esquerdo_1"]
-atlas = ExtResource("soco_esquerdo")
-region = Rect2(42, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="soco_esquerdo_2"]
-atlas = ExtResource("soco_esquerdo")
-region = Rect2(84, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="soco_direito_0"]
-atlas = ExtResource("soco_direito")
-region = Rect2(0, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="soco_direito_1"]
-atlas = ExtResource("soco_direito")
-region = Rect2(42, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="soco_direito_2"]
-atlas = ExtResource("soco_direito")
-region = Rect2(84, 0, 42, 44)
-
-[sub_resource type="AtlasTexture" id="soco_direito_3"]
-atlas = ExtResource("soco_direito")
-region = Rect2(126, 0, 42, 44)
+[ext_resource type="Texture2D" uid="uid://cpo7yend0k4fd" path="res://personagens/miku/sprites/chute.png" id="chute"]
+[ext_resource type="Texture2D" uid="uid://byi2r4sogx4ks" path="res://personagens/miku/sprites/death.png" id="death"]
+[ext_resource type="Texture2D" uid="uid://cj2otd8s5ctlv" path="res://personagens/miku/sprites/dodge.png" id="dodge"]
+[ext_resource type="Texture2D" uid="uid://dxotycfn88qhr" path="res://personagens/miku/sprites/hurt.png" id="hurt"]
+[ext_resource type="Texture2D" uid="uid://3fvvr426ksmc" path="res://personagens/miku/sprites/idle.png" id="idle"]
+[ext_resource type="Texture2D" uid="uid://dwca018vhao6r" path="res://personagens/miku/sprites/levantar.png" id="levantar"]
+[ext_resource type="Texture2D" uid="uid://blrc4415nu7r2" path="res://personagens/miku/sprites/minirriff.png" id="minirriff"]
+[ext_resource type="Texture2D" uid="uid://cnjookxaq4x3e" path="res://personagens/miku/sprites/riff.png" id="riff"]
+[ext_resource type="Texture2D" uid="uid://bgthqbfxeeynx" path="res://personagens/miku/sprites/riff_inicio.png" id="riff_inicio"]
+[ext_resource type="Texture2D" uid="uid://po68esc68fj" path="res://personagens/miku/sprites/run.png" id="run"]
+[ext_resource type="Texture2D" uid="uid://85lcj838qqiv" path="res://personagens/miku/sprites/soco_direito.png" id="soco_direito"]
+[ext_resource type="Texture2D" uid="uid://c0lqtur1xh6t0" path="res://personagens/miku/sprites/soco_esquerdo.png" id="soco_esquerdo"]
 
 [sub_resource type="AtlasTexture" id="chute_0"]
 atlas = ExtResource("chute")
@@ -104,6 +40,22 @@ region = Rect2(210, 0, 42, 44)
 [sub_resource type="AtlasTexture" id="chute_6"]
 atlas = ExtResource("chute")
 region = Rect2(252, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="death_0"]
+atlas = ExtResource("death")
+region = Rect2(0, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="death_1"]
+atlas = ExtResource("death")
+region = Rect2(42, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="death_2"]
+atlas = ExtResource("death")
+region = Rect2(84, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="death_3"]
+atlas = ExtResource("death")
+region = Rect2(126, 0, 42, 44)
 
 [sub_resource type="AtlasTexture" id="dodge_0"]
 atlas = ExtResource("dodge")
@@ -137,20 +89,20 @@ region = Rect2(84, 0, 42, 44)
 atlas = ExtResource("hurt")
 region = Rect2(126, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="death_0"]
-atlas = ExtResource("death")
+[sub_resource type="AtlasTexture" id="idle_0"]
+atlas = ExtResource("idle")
 region = Rect2(0, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="death_1"]
-atlas = ExtResource("death")
+[sub_resource type="AtlasTexture" id="idle_1"]
+atlas = ExtResource("idle")
 region = Rect2(42, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="death_2"]
-atlas = ExtResource("death")
+[sub_resource type="AtlasTexture" id="idle_2"]
+atlas = ExtResource("idle")
 region = Rect2(84, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="death_3"]
-atlas = ExtResource("death")
+[sub_resource type="AtlasTexture" id="idle_3"]
+atlas = ExtResource("idle")
 region = Rect2(126, 0, 42, 44)
 
 [sub_resource type="AtlasTexture" id="levantar_0"]
@@ -173,16 +125,16 @@ region = Rect2(126, 0, 42, 44)
 atlas = ExtResource("levantar")
 region = Rect2(168, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="riff_inicio_0"]
-atlas = ExtResource("riff_inicio")
+[sub_resource type="AtlasTexture" id="minirriff_0"]
+atlas = ExtResource("minirriff")
 region = Rect2(0, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="riff_inicio_1"]
-atlas = ExtResource("riff_inicio")
+[sub_resource type="AtlasTexture" id="minirriff_1"]
+atlas = ExtResource("minirriff")
 region = Rect2(42, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="riff_inicio_2"]
-atlas = ExtResource("riff_inicio")
+[sub_resource type="AtlasTexture" id="minirriff_2"]
+atlas = ExtResource("minirriff")
 region = Rect2(84, 0, 42, 44)
 
 [sub_resource type="AtlasTexture" id="riff_0"]
@@ -201,88 +153,64 @@ region = Rect2(84, 0, 42, 44)
 atlas = ExtResource("riff")
 region = Rect2(126, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="minirriff_0"]
-atlas = ExtResource("minirriff")
+[sub_resource type="AtlasTexture" id="riff_inicio_0"]
+atlas = ExtResource("riff_inicio")
 region = Rect2(0, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="minirriff_1"]
-atlas = ExtResource("minirriff")
+[sub_resource type="AtlasTexture" id="riff_inicio_1"]
+atlas = ExtResource("riff_inicio")
 region = Rect2(42, 0, 42, 44)
 
-[sub_resource type="AtlasTexture" id="minirriff_2"]
-atlas = ExtResource("minirriff")
+[sub_resource type="AtlasTexture" id="riff_inicio_2"]
+atlas = ExtResource("riff_inicio")
+region = Rect2(84, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="run_4"]
+atlas = ExtResource("run")
+region = Rect2(168, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="run_1"]
+atlas = ExtResource("run")
+region = Rect2(42, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="run_2"]
+atlas = ExtResource("run")
+region = Rect2(84, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="run_3"]
+atlas = ExtResource("run")
+region = Rect2(126, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="soco_direito_0"]
+atlas = ExtResource("soco_direito")
+region = Rect2(0, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="soco_direito_1"]
+atlas = ExtResource("soco_direito")
+region = Rect2(42, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="soco_direito_2"]
+atlas = ExtResource("soco_direito")
+region = Rect2(84, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="soco_direito_3"]
+atlas = ExtResource("soco_direito")
+region = Rect2(126, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="soco_esquerdo_0"]
+atlas = ExtResource("soco_esquerdo")
+region = Rect2(0, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="soco_esquerdo_1"]
+atlas = ExtResource("soco_esquerdo")
+region = Rect2(42, 0, 42, 44)
+
+[sub_resource type="AtlasTexture" id="soco_esquerdo_2"]
+atlas = ExtResource("soco_esquerdo")
 region = Rect2(84, 0, 42, 44)
 
 [resource]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("idle_0")
-}, {
-"duration": 1.0,
-"texture": SubResource("idle_1")
-}, {
-"duration": 1.0,
-"texture": SubResource("idle_2")
-}, {
-"duration": 1.0,
-"texture": SubResource("idle_3")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("run_0")
-}, {
-"duration": 1.0,
-"texture": SubResource("run_1")
-}, {
-"duration": 1.0,
-"texture": SubResource("run_2")
-}, {
-"duration": 1.0,
-"texture": SubResource("run_3")
-}, {
-"duration": 1.0,
-"texture": SubResource("run_4")
-}],
-"loop": true,
-"name": &"run",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("soco_esquerdo_0")
-}, {
-"duration": 1.0,
-"texture": SubResource("soco_esquerdo_1")
-}, {
-"duration": 1.0,
-"texture": SubResource("soco_esquerdo_2")
-}],
-"loop": false,
-"name": &"soco_esquerdo",
-"speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("soco_direito_0")
-}, {
-"duration": 1.0,
-"texture": SubResource("soco_direito_1")
-}, {
-"duration": 1.0,
-"texture": SubResource("soco_direito_2")
-}, {
-"duration": 1.0,
-"texture": SubResource("soco_direito_3")
-}],
-"loop": false,
-"name": &"soco_direito",
-"speed": 14.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("chute_0")
@@ -305,9 +233,26 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("chute_6")
 }],
-"loop": false,
+"loop": 0,
 "name": &"chute",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("death_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("death_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("death_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("death_3")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -322,7 +267,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("dodge_3")
 }],
-"loop": false,
+"loop": 0,
 "name": &"dodge",
 "speed": 12.0
 }, {
@@ -339,26 +284,26 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("hurt_3")
 }],
-"loop": false,
+"loop": 0,
 "name": &"hurt",
 "speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("death_0")
+"texture": SubResource("idle_0")
 }, {
 "duration": 1.0,
-"texture": SubResource("death_1")
+"texture": SubResource("idle_1")
 }, {
 "duration": 1.0,
-"texture": SubResource("death_2")
+"texture": SubResource("idle_2")
 }, {
 "duration": 1.0,
-"texture": SubResource("death_3")
+"texture": SubResource("idle_3")
 }],
-"loop": false,
-"name": &"death",
-"speed": 7.0
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -376,23 +321,23 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("levantar_4")
 }],
-"loop": false,
+"loop": 0,
 "name": &"levantar",
 "speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("riff_inicio_0")
+"texture": SubResource("minirriff_0")
 }, {
 "duration": 1.0,
-"texture": SubResource("riff_inicio_1")
+"texture": SubResource("minirriff_1")
 }, {
 "duration": 1.0,
-"texture": SubResource("riff_inicio_2")
+"texture": SubResource("minirriff_2")
 }],
-"loop": false,
-"name": &"riff_inicio",
-"speed": 5.0
+"loop": 0,
+"name": &"minirriff",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -407,21 +352,69 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("riff_3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"riff",
 "speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("minirriff_0")
+"texture": SubResource("riff_inicio_0")
 }, {
 "duration": 1.0,
-"texture": SubResource("minirriff_1")
+"texture": SubResource("riff_inicio_1")
 }, {
 "duration": 1.0,
-"texture": SubResource("minirriff_2")
+"texture": SubResource("riff_inicio_2")
 }],
-"loop": false,
-"name": &"minirriff",
-"speed": 10.0
+"loop": 0,
+"name": &"riff_inicio",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("run_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("run_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("run_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("run_3")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("soco_direito_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("soco_direito_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("soco_direito_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("soco_direito_3")
+}],
+"loop": 0,
+"name": &"soco_direito",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("soco_esquerdo_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("soco_esquerdo_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("soco_esquerdo_2")
+}],
+"loop": 0,
+"name": &"soco_esquerdo",
+"speed": 15.0
 }]
