@@ -334,7 +334,7 @@ func carregar_ataque(golpe: Callable) -> void:
 		sprite.frame = quadro_carga
 	sprite.modulate = COR_CARGA
 
-	await get_tree().create_timer(tempo_preparo).timeout
+	await get_tree().create_timer(tempo_preparo, false).timeout
 
 	if id != _preparo_id or morto or not is_inside_tree():
 		return

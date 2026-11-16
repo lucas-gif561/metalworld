@@ -237,7 +237,8 @@ func alvo_mais_proximo():
 func esperar(segundos: float) -> void:
 	if not is_inside_tree():
 		return
-	await get_tree().create_timer(segundos).timeout
+	# false: o timer para junto com o menu de pausa (o padrão do Godot ignora a pausa)
+	await get_tree().create_timer(segundos, false).timeout
 
 
 ## Igual a esperar(), mas encurta conforme a fase (ver ritmo())
@@ -436,7 +437,9 @@ func _ao_quebrar_runa():
 		await get_tree().process_frame
 		if not is_inside_tree():
 			return
-		_liberar_restante -= get_process_delta_time()
+		# process_frame continua vindo com o jogo pausado: só conta tempo rodando
+		if can_process():
+			_liberar_restante -= get_process_delta_time()
 	_liberar_restante = 0.0
 	escudo_ativo = false
 	instrumentos_liberados.emit()
@@ -473,7 +476,9 @@ func descansar() -> void:
 		await get_tree().process_frame
 		if not is_inside_tree():
 			return
-		restante -= get_process_delta_time()
+		# process_frame continua vindo com o jogo pausado: só conta tempo rodando
+		if can_process():
+			restante -= get_process_delta_time()
 
 	_encerrar_descanso()
 	if vida_atual > 0:

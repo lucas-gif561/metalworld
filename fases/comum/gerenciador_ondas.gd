@@ -104,7 +104,7 @@ func iniciar_proxima_onda():
 	if reiniciando or not is_inside_tree():
 		return
 
-	await get_tree().create_timer(intervalo_ondas).timeout
+	await get_tree().create_timer(intervalo_ondas, false).timeout
 
 	if reiniciando or not is_inside_tree():
 		return
