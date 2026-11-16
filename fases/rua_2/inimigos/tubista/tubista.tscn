@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://inimigos/base/inimigo.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://inimigos/tanque/sprites/tanque.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" path="res://fases/rua_2/sprites/tubista/tubista.tres" id="2_frames"]
 [ext_resource type="Script" path="res://fases/rua_2/inimigos/tubista/tubista.gd" id="3_tubista"]
 
 [sub_resource type="RectangleShape2D" id="ColisaoTubista"]
@@ -9,7 +9,6 @@ size = Vector2(64, 18)
 
 [node name="Tubista" instance=ExtResource("1_base")]
 script = ExtResource("3_tubista")
-modulate = Color(0.94, 0.68, 1.0, 1)
 velocidade = 82.0
 vida = 7
 tempo_preparo = 0.85

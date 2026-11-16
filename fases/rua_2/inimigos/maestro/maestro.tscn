@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://inimigos/base/inimigo.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://inimigos/tanque/sprites/tanque.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" path="res://fases/rua_2/sprites/maestro/maestro.tres" id="2_frames"]
 [ext_resource type="Script" path="res://fases/rua_2/inimigos/pulso_orquestra.gd" id="3_pulso"]
 
 [sub_resource type="RectangleShape2D" id="ColisaoMaestro"]
@@ -9,7 +9,6 @@ size = Vector2(64, 18)
 
 [node name="Maestro" instance=ExtResource("1_base")]
 script = ExtResource("3_pulso")
-modulate = Color(0.78, 0.48, 1.0, 1)
 velocidade = 100.0
 vida = 30
 dano = 2
@@ -33,10 +32,3 @@ wait_time = 3.4
 
 [node name="SaidaBatuta" type="Marker2D" parent="." index="3"]
 position = Vector2(48, -43)
-
-[node name="AvisoTrombone" type="Polygon2D" parent="." index="4"]
-visible = false
-show_behind_parent = true
-color = Color(1, 0.28, 0.58, 0.45)
-polygon = PackedVector2Array(0, -24, 440, -24, 440, 24, 0, 24)
-antialiased = true
