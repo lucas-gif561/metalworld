@@ -137,7 +137,7 @@ A história, criada pelo Leonardo, acompanha **Dylan Walker**, um jovem que nasc
 - **Boss 1, o guitarrista morto-vivo do galpão**: palhetas em rajada, leque e espiral, microfonia (círculos no chão), trilha que persegue os dois jogadores, corrida pelo palco e pedais como totens.
 - **Boss 2, Paganini contra o Diabo**: um duelo no salão de concertos com uma vida só. Os dois trocam leques de notas, staccato, pinball que ricocheteia nas paredes e contratempo; a partir da fase 2 as Quatro Cordas vibram junto, e notas que se chocam abrem a Dissonância. O metrônomo é o totem.
 
-![Escudo do chefe](imagens/boss_escudo.png)
+![Totens (pedais) no Boss 1](imagens/boss_escudo.png)
 
 ### Co-op
 
