@@ -2,6 +2,9 @@ extends Area2D
 ## Portal do fim da rua: qualquer jogador perto aperta "interagir"
 ## e todos vão para a próxima fase da sequência (Jogo.FASES).
 
+@export var texto_liberacao: String
+@export var cena_transicao: PackedScene
+
 var ativado: bool = false
 var jogadores_perto: Array = []
 
@@ -51,6 +54,22 @@ func pode_interagir(jogador) -> bool:
 
 
 func entrar_portal():
+	if not ativado:
+		return
 	ativado = false
 	Audio.tocar("portal", 0.0)
-	Jogo.proxima_fase()
+	if cena_transicao == null:
+		Jogo.proxima_fase()
+		return
+
+	hide()
+	for jogador in Jogo.jogadores:
+		_ocultar_jogador(jogador)
+	Jogo.jogador_entrou.connect(_ocultar_jogador)
+	get_tree().root.add_child(cena_transicao.instantiate())
+
+
+func _ocultar_jogador(jogador) -> void:
+	jogador.hide()
+	jogador.bloqueado = true
+	jogador.invencivel = true

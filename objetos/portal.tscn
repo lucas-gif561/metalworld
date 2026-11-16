@@ -12,6 +12,7 @@ size = Vector2(88, 87)
 
 [node name="Portal" type="Area2D" unique_id=1925924290]
 script = ExtResource("1_th3qj")
+texto_liberacao = "O portal abriu! Vá até ele e pressione %s"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=911228269]

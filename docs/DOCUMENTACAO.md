@@ -111,7 +111,7 @@ A história acompanha **Dylan Walker**, um jovem que nasceu surdo e descobre a p
 
 - **Riff** (T / I / A abre e fecha): notas descem em 4 pistas a 150 BPM, no tempo da música. O P1 toca com A W S D e o P2 com as setas (ou LT LB RB RT). PERFECT e GOOD ferem o chefe. Quanto mais tempo no Riff, mais rápido as notas caem (até 1,6x).
 - **Riff em dupla**: P1 toca à esquerda e P2 à direita. Cada acerto causa 1× de dano jogando sozinho; em dupla, 0,5× com um jogador tocando ou 1× com os dois tocando.
-- **Risco do Riff**: dano, inclusive de nota maldita, encerra o Riff de quem foi atingido e trava suas pistas por 5 s. Sair voluntariamente, inclusive com uma esquiva, trava por 1 s. Cada jogador tem sua ampulheta. O "!" pisca enquanto o chefe está fora do descanso.
+- **Risco do Riff**: dano, inclusive de nota maldita, encerra o Riff de quem foi atingido e trava suas pistas por 5 s. Sair voluntariamente, inclusive com uma esquiva, trava por 1 s. Cada jogador tem seu cadeado, embaixo dos pés. O "!" pisca enquanto o chefe está fora do descanso.
 - **Descanso**: o chefe se ajoelha e mostra "RIFF!": a hora segura de tocar.
 - **Fases do chefe** (66% e 33% da vida): ataques novos, ritmo mais rápido, nota maldita e escudo.
 - **Escudo de runas**: o Riff não fere até a dupla quebrar as runas no soco.

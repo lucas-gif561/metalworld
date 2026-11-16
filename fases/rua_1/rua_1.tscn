@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://c2r13nvu5ypje" path="res://fases/comum/gerenciador_ondas.gd" id="6_ow5a4"]
 [ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/corredor.tscn" id="7_yyfjg"]
 [ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/atirador.tscn" id="8_yyfjg"]
-[ext_resource type="PackedScene" uid="uid://dltkylafufj17" path="res://objetos/portal.tscn" id="9_b1x3f"]
+[ext_resource type="PackedScene" path="res://objetos/portao_saida.tscn" id="9_b1x3f"]
 [ext_resource type="Script" uid="uid://bgs4n7or273cj" path="res://fases/comum/ponto_spawn.gd" id="10_ponto"]
 [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="30_hud"]
 [ext_resource type="PackedScene" path="res://objetos/barril.tscn" id="41_barril"]
@@ -62,6 +62,9 @@ size = Vector2(120, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_carro"]
 size = Vector2(255, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_portao"]
+size = Vector2(296, 70)
 
 [node name="Main" type="Node2D" unique_id=322226560]
 y_sort_enabled = true
@@ -204,7 +207,11 @@ position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_carro")
 
 [node name="Portal" parent="." unique_id=1925924290 instance=ExtResource("9_b1x3f")]
-position = Vector2(5174, 461)
+position = Vector2(4993, 400)
+
+[node name="CollisionShape2D" parent="Portal" index="0"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_portao")
 
 [node name="Player" parent="." unique_id=1357147288 instance=ExtResource("1_k2fmo")]
 position = Vector2(124, 488)
@@ -409,3 +416,5 @@ position = Vector2(3620, 390)
 position = Vector2(4575, 390)
 
 [node name="HudJogo" parent="." unique_id=880012347 instance=ExtResource("30_hud")]
+
+[editable path="Portal"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b66p20wji45ue"
-path="res://.godot/imported/ampulheta.png-7361bf7ee602f6a846f4bed32aa9c457.ctex"
+uid="uid://bhql6qiccmem"
+path="res://.godot/imported/pedal_ligado.png-ba882a6dbd92fdb6daea425ef4734bdf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/sprites/ampulheta.png"
-dest_files=["res://.godot/imported/ampulheta.png-7361bf7ee602f6a846f4bed32aa9c457.ctex"]
+source_file="res://fases/boss_1/sprites/pedal_ligado.png"
+dest_files=["res://.godot/imported/pedal_ligado.png-ba882a6dbd92fdb6daea425ef4734bdf.ctex"]
 
 [params]
 

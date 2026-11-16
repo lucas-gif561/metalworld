@@ -14,7 +14,10 @@ extends Node2D
 ## Dano em qualquer jogador enche o boss; dano no boss enche a dupla.
 ## Se a vida da dupla zerar, os dois caem juntos.
 
-@export var texto_inicio = "Modo Riff — só as notas ferem o boss!"
+## Aviso no começo da luta (vazio = sem aviso). Sai com a tecla do Riff na frente.
+@export var texto_inicio := ""
+## Segundos com o cadeado ativo ao entrar na arena, antes do primeiro Riff
+@export var trava_inicial: float = 5.0
 @export var usar_cabo_de_forca := true
 ## Vida inicial da dupla no cabo de força (a barra vai até o dobro)
 @export var vida_inicial_da_dupla: int = 5
@@ -54,6 +57,8 @@ func _ready() -> void:
 		riff.boss = boss
 		riff.parceiro = riffs[3 - id_jogador]
 		riff.hide()
+		if trava_inicial > 0.0:
+			riff.travar(trava_inicial)
 	boss_health_bar.max_value = boss.vida_maxima
 	boss_health_bar.value = boss.vida_atual
 	boss.vida_atualizada.connect(_atualizar_barra_boss)
@@ -69,7 +74,8 @@ func _ready() -> void:
 		cabo.hide()
 
 	hud.mostrar_titulo(Jogo.nome_fase_atual().to_upper())
-	hud.mostrar_aviso(Controles.texto_comando("riff_mode") + ": " + texto_inicio, 6.0)
+	if not texto_inicio.is_empty():
+		hud.mostrar_aviso(Controles.texto_comando("riff_mode") + ": " + texto_inicio, 6.0)
 	boss.ciclo_ataques()
 
 

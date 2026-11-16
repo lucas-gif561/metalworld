@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dqwep2au7svfk" path="res://fases/comum/fase_rua.gd" id="1_main"]
 [ext_resource type="Texture2D" path="res://fases/rua_2/sprites/rua_2_fundo.png" id="2_fundo"]
-[ext_resource type="PackedScene" uid="uid://dltkylafufj17" path="res://objetos/portal.tscn" id="3_portal"]
+[ext_resource type="PackedScene" path="res://objetos/portao_saida.tscn" id="3_portal"]
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="4_player"]
 [ext_resource type="Script" uid="uid://bgs4n7or273cj" path="res://fases/comum/ponto_spawn.gd" id="5_ponto"]
 [ext_resource type="Script" uid="uid://c2r13nvu5ypje" path="res://fases/comum/gerenciador_ondas.gd" id="6_manager"]
@@ -52,6 +52,9 @@ size = Vector2(24, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lampiao8"]
 size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_portao"]
+size = Vector2(226, 70)
 
 [node name="Rua2" type="Node2D" unique_id=1021271979]
 y_sort_enabled = true
@@ -170,7 +173,11 @@ position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_lampiao8")
 
 [node name="Portal" parent="." unique_id=1149001400 instance=ExtResource("3_portal")]
-position = Vector2(4716, 461)
+position = Vector2(4713, 400)
+
+[node name="CollisionShape2D" parent="Portal" index="0"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_portao")
 
 [node name="Player" parent="." unique_id=1082712324 instance=ExtResource("4_player")]
 position = Vector2(124, 488)
@@ -330,3 +337,5 @@ position = Vector2(4400, 392)
 position = Vector2(4560, 390)
 
 [node name="HudJogo" parent="." unique_id=1045768769 instance=ExtResource("9_hud")]
+
+[editable path="Portal"]

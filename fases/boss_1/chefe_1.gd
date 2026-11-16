@@ -92,22 +92,23 @@ func _executar(nome: String) -> void:
 ## Corrida no palco: em vez de teleportar, ele corre até outro dos três pontos
 ## do palco (esquerda, meio e direita, em pontos_teleporte). Só acontece em
 ## chance_correr das vezes, a não ser que seja obrigatória (troca de fase).
+## Os pontos são locais à arena, que pode estar deslocada na cena.
 ## A arte corre para a direita; para a esquerda, espelha.
 func correr_no_palco(obrigatoria := false) -> void:
 	if not sprite.sprite_frames.has_animation("correr"):
 		return
 	if not obrigatoria and randf() >= chance_correr:
 		return
-	var destinos = pontos_teleporte.filter(func(p): return p.distance_to(global_position) > 1.0)
+	var destinos = pontos_teleporte.filter(func(p): return p.distance_to(position) > 1.0)
 	if destinos.is_empty():
 		return
 
 	var destino: Vector2 = destinos.pick_random()
 	correndo = true
-	sprite.flip_h = destino.x < global_position.x
+	sprite.flip_h = destino.x < position.x
 	sprite.play("correr")
 	tween_teleporte = create_tween()
-	tween_teleporte.tween_property(self, "global_position", destino, global_position.distance_to(destino) / velocidade_corrida)
+	tween_teleporte.tween_property(self, "position", destino, position.distance_to(destino) / velocidade_corrida)
 	await tween_teleporte.finished
 
 	correndo = false
