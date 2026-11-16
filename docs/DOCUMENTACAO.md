@@ -290,8 +290,11 @@ classDiagram
 | Notas do Riff (← ↑ ↓ →) | W A S D | Setas | LT / LB / RB / RT |
 | Entrar na partida / reiniciar | R | J | START |
 | Pausar | Esc | P | START |
+| Tela cheia / janela | F11 ou Alt+Enter | F11 ou Alt+Enter | — |
 
 O controle serve ao P1 ou ao P2: com dois controles, um para cada; com um só, ele é do P1 até o P2 entrar apertando START nele (com o P1 no teclado). Cada jogador troca sozinho entre teclado e controle: vale o último que tocou.
+
+O jogo abre em tela cheia. Em telas que não são 16:9 aparecem barras pretas nas bordas, para o cenário ficar igual em qualquer monitor.
 
 ## 10. Qualidade e testes
 

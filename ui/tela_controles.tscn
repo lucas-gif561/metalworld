@@ -110,7 +110,7 @@ theme_override_font_sizes/font_size = 22
 
 [node name="Teclado" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
 layout_mode = 2
-text = "P1   WASD mover e tocar no Riff  •  F socar  •  G esquivar\n       Y interagir  •  T Riff  •  Esc pausar  •  R reiniciar\nP2   Setas mover e tocar no Riff  •  J socar, entrar e reiniciar  •  K esquivar\n       L interagir  •  I Riff  •  P pausar"
+text = "P1   WASD mover e tocar no Riff  •  F socar  •  G esquivar\n       Y interagir  •  T Riff  •  Esc pausar  •  R reiniciar\nP2   Setas mover e tocar no Riff  •  J socar, entrar e reiniciar  •  K esquivar\n       L interagir  •  I Riff  •  P pausar\nF11 ou Alt+Enter: tela cheia ou janela"
 autowrap_mode = 3
 
 [node name="TituloControle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
