@@ -63,15 +63,10 @@ offset_bottom = 544.0
 grow_horizontal = 2
 theme_override_constants/separation = 10
 
-[node name="JogarSozinho" type="Button" parent="Menu"]
+[node name="Jogar" type="Button" parent="Menu"]
 custom_minimum_size = Vector2(340, 72)
 layout_mode = 2
-text = "Jogar sozinho"
-
-[node name="JogarDupla" type="Button" parent="Menu"]
-custom_minimum_size = Vector2(340, 72)
-layout_mode = 2
-text = "Jogar em dupla"
+text = "Jogar"
 
 [node name="Controles" type="Button" parent="Menu"]
 custom_minimum_size = Vector2(340, 72)
@@ -83,25 +78,38 @@ custom_minimum_size = Vector2(340, 72)
 layout_mode = 2
 text = "Créditos"
 
-[node name="Dica" type="Label" parent="."]
+[node name="Sair" type="Button" parent="Menu"]
+custom_minimum_size = Vector2(340, 72)
+layout_mode = 2
+text = "Sair"
+
+[node name="MenuModo" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -60.0
-offset_right = 300.0
-offset_bottom = -30.0
+offset_left = -170.0
+offset_top = 226.0
+offset_right = 170.0
+offset_bottom = 544.0
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 18
-text = "W S / ↑ ↓ escolher  ·  Enter / F / J / A confirmar"
-horizontal_alignment = 1
+theme_override_constants/separation = 10
+
+[node name="Solo" type="Button" parent="MenuModo"]
+custom_minimum_size = Vector2(340, 72)
+layout_mode = 2
+text = "Solo"
+
+[node name="Dueto" type="Button" parent="MenuModo"]
+custom_minimum_size = Vector2(340, 72)
+layout_mode = 2
+text = "Dueto"
+
+[node name="Voltar" type="Button" parent="MenuModo"]
+custom_minimum_size = Vector2(340, 72)
+layout_mode = 2
+text = "Voltar"
 
 [node name="Janela" type="ColorRect" parent="."]
 visible = false

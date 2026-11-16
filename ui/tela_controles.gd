@@ -5,30 +5,40 @@ signal fechada
 
 const Jogador = preload("res://personagens/dylan/jogador.gd")
 const Baterista = preload("res://personagens/baterista/baterista.gd")
-const NOTAS_POR_DISPOSITIVO = [["T", "Y"], ["I", "L"], ["LB", "RB"]]
 
-@onready var combos = $Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos
+## Ícones das duas notas dos minirriffs ("A" e "B" na sequência), escolhidos na
+## cena. A tabela de minirriffs é montada no código porque sai das constantes
+## dos personagens (MINIRRIFFS); o resto da tela fica todo no .tscn.
+@export var notas_p1: Array[Texture2D] = []
+@export var notas_p2: Array[Texture2D] = []
+@export var notas_controle: Array[Texture2D] = []
+@export var icone_poder: Texture2D
+
+@onready var combos = $Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaCombos/Respiro/Combos
 @onready var conteudo = $Margens/Painel/Respiro/Coluna/Conteudo
 @onready var voltar = $Margens/Painel/Respiro/Coluna/Voltar
 
 
 func _ready() -> void:
 	voltar.pressed.connect(_fechar)
-	_adicionar_combos("Dylan", Jogador.MINIRRIFFS, NOTAS_POR_DISPOSITIVO[0])
-	_adicionar_combos("Kevin", Baterista.MINIRRIFFS_KEVIN, NOTAS_POR_DISPOSITIVO[1])
+	_adicionar_combos("Dylan", Jogador.MINIRRIFFS, notas_p1)
+	_adicionar_combos("Kevin", Baterista.MINIRRIFFS_KEVIN, notas_p2)
 
 
-func _adicionar_combos(personagem: String, minirriffs: Dictionary, teclado: Array) -> void:
+func _adicionar_combos(personagem: String, minirriffs: Dictionary, teclado: Array[Texture2D]) -> void:
 	for sequencia in minirriffs:
 		var especial: Dictionary = minirriffs[sequencia]
 		_adicionar_celula(personagem)
-		_adicionar_celula(especial.nome)
-		for teclas in [teclado, NOTAS_POR_DISPOSITIVO[2]]:
-			var notas := PackedStringArray()
+		_adicionar_celula(especial.nome).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		for notas in [teclado, notas_controle]:
+			var icones: Array[Texture2D] = []
 			for nota in sequencia:
-				notas.append(teclas[0] if nota == "A" else teclas[1])
-			_adicionar_celula(" ".join(notas))
-		_adicionar_celula(str(especial.custo).trim_suffix(".0"))
+				icones.append(notas[0] if nota == "A" else notas[1])
+			_adicionar_icones(icones, 28.0)
+		var poder: Array[Texture2D] = []
+		poder.resize(int(especial.custo))
+		poder.fill(icone_poder)
+		_adicionar_icones(poder, 20.0)
 
 
 func abrir() -> void:
@@ -65,9 +75,29 @@ func _input(evento: InputEvent) -> void:
 			return
 
 
-func _adicionar_celula(texto: String) -> void:
+func _adicionar_celula(texto: String) -> Label:
 	var celula := Label.new()
 	celula.text = texto
-	celula.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	celula.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	celula.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	combos.add_child(celula)
+	return celula
+
+
+## Uma célula com vários ícones lado a lado, no mesmo estilo da tabela de
+## comandos da cena (pixel art ampliada sem borrar).
+func _adicionar_icones(texturas: Array[Texture2D], altura: float) -> void:
+	var celula := HBoxContainer.new()
+	celula.add_theme_constant_override("separation", 2)
+	celula.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for textura in texturas:
+		var icone := TextureRect.new()
+		icone.texture = textura
+		icone.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		icone.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		icone.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icone.custom_minimum_size = Vector2(0, altura)
+		icone.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		icone.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		celula.add_child(icone)
 	combos.add_child(celula)

@@ -175,7 +175,7 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    M[Menu principal] -->|Jogar sozinho / em dupla| R1[Rua 1]
+    M[Menu principal] -->|Jogar → Solo / Dueto| R1[Rua 1]
     M --> CT[Controles]
     M --> CR[Créditos]
     R1 -->|portal| B1[Boss 1]
