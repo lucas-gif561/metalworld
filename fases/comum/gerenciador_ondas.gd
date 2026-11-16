@@ -10,6 +10,10 @@ signal arena_concluida
 
 @export var cena_inimigo: PackedScene
 @export var intervalo_ondas = 1.5
+## Quem nasce atrás (à esquerda da tela, por onde o jogador acabou de entrar)
+## nasce pelo menos isso fora da tela, para não surgir em cima dele.
+## Vale também para pontos colados na borda esquerda.
+@export var margem_atras = 260.0
 
 @onready var spawns = $"../Spawns"
 
@@ -60,12 +64,24 @@ func criar_onda():
 			push_warning("Ponto %s sem inimigo e GerenciadorOndas sem cena_inimigo" % ponto.name)
 			continue
 
-		_criar_inimigo(cena, ponto.global_position)
+		_criar_inimigo(cena, _afastar_de_tras(ponto.global_position))
 
 	print("Inimigos na onda: ", inimigos_vivos)
 
 	if inimigos_vivos == 0:
 		call_deferred("inimigo_morreu", true)
+
+
+## Empurra para longe os pontos que ficariam colados na borda esquerda da tela
+func _afastar_de_tras(posicao: Vector2) -> Vector2:
+	var fase = get_parent()
+	if not fase.has_method("limites_arena"):
+		return posicao
+	# limites_arena() tem 40 px de folga para dentro da tela
+	var borda_esquerda = fase.limites_arena().position.x - 40.0
+	if posicao.x < borda_esquerda + 60.0:
+		posicao.x = minf(posicao.x, borda_esquerda - margem_atras)
+	return posicao
 
 
 func invocar_inimigo(cena: PackedScene, posicao: Vector2) -> Node2D:
