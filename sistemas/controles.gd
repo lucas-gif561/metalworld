@@ -141,7 +141,8 @@ func _input(evento: InputEvent) -> void:
 	if not (evento is InputEventKey and evento.pressed and not evento.echo):
 		return
 	var alt_enter = evento.alt_pressed and evento.keycode in [KEY_ENTER, KEY_KP_ENTER]
-	if evento.keycode == KEY_F11 or alt_enter:
+	# Dentro da aba Game do editor o jogo só roda em janela (o Godot recusa e avisa)
+	if (evento.keycode == KEY_F11 or alt_enter) and not Engine.is_embedded_in_editor():
 		alternar_tela_cheia()
 		get_viewport().set_input_as_handled()
 
