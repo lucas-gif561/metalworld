@@ -428,5 +428,5 @@ animations = [{
 { "duration": 1.0, "texture": SubResource("tocar_bateria_8") }],
 "loop": false,
 "name": &"minirriff",
-"speed": 30.0
+"speed": 18.0
 }]

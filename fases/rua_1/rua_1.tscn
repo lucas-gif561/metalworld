@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dqwep2au7svfk" path="res://fases/comum/fase_rua.gd" id="1_l3cfh"]
 [ext_resource type="Texture2D" path="res://assets/fundos/rua_metal.png" id="2_6q06x"]
 [ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/brigao.tscn" id="5_yyfjg"]
-[ext_resource type="PackedScene" uid="uid://dh5fwt2atm5of" path="res://inimigos/tanque/inimigo_tanque.tscn" id="6_hujxm"]
+[ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/grande.tscn" id="6_hujxm"]
 [ext_resource type="Script" uid="uid://c2r13nvu5ypje" path="res://fases/comum/gerenciador_ondas.gd" id="6_ow5a4"]
 [ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/corredor.tscn" id="7_yyfjg"]
 [ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/atirador.tscn" id="8_yyfjg"]
@@ -340,7 +340,7 @@ cena_inimigo = ExtResource("7_yyfjg")
 [node name="Onda2" type="Node2D" parent="Spawns/Arena3" unique_id=1452550229]
 
 [node name="PontoMiniboss" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=264818682]
-position = Vector2(2990, 500)
+position = Vector2(3410, 500)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("43_miniboss")
 

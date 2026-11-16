@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="PackedScene" path="res://inimigos/base/inimigo.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://inimigos/tanque/sprites/tanque.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" path="res://fases/rua_1/sprites/miniboss/miniboss.tres" id="2_frames"]
 [ext_resource type="Script" path="res://fases/rua_1/inimigos/miniboss/miniboss.gd" id="3_miniboss"]
 
 [sub_resource type="RectangleShape2D" id="ColisaoMiniboss"]
@@ -9,7 +9,6 @@ size = Vector2(64, 18)
 
 [node name="Miniboss" instance=ExtResource("1_base")]
 script = ExtResource("3_miniboss")
-modulate = Color(1, 0.65, 0.8, 1)
 velocidade = 120.0
 vida = 34
 dano = 2
@@ -19,7 +18,7 @@ imune_a_atordoamento = true
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(2.2, 2.2)
 sprite_frames = ExtResource("2_frames")
-offset = Vector2(0, -27)
+offset = Vector2(0, -30)
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, -9)

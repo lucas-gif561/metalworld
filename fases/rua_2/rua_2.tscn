@@ -197,7 +197,24 @@ script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
 [node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=694403647]
-position = Vector2(1280, 535)
+position = Vector2(-65, 535)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_trombone")
+
+[node name="Onda2" type="Node2D" parent="Spawns/Arena1"]
+
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda2"]
+position = Vector2(1280, 505)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("8_violino")
+
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda2"]
+position = Vector2(1250, 450)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_trombone")
+
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena1/Onda2"]
+position = Vector2(-100, 550)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
@@ -209,6 +226,11 @@ cena_inimigo = ExtResource("7_trombone")
 position = Vector2(1900, 480)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("12_tuba")
+
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda1"]
+position = Vector2(995, 525)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_trombone")
 
 [node name="Onda2" type="Node2D" parent="Spawns/Arena2" unique_id=10177873]
 
@@ -227,6 +249,11 @@ position = Vector2(2280, 465)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena2/Onda2"]
+position = Vector2(910, 550)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("8_violino")
+
 [node name="Arena3" type="Node2D" parent="Spawns" unique_id=1574568621]
 
 [node name="Onda1" type="Node2D" parent="Spawns/Arena3" unique_id=1098447467]
@@ -241,10 +268,20 @@ position = Vector2(3320, 520)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_violino")
 
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena3/Onda1"]
+position = Vector2(1940, 540)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_trombone")
+
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena3/Onda1"]
+position = Vector2(2870, 465)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("12_tuba")
+
 [node name="Onda2" type="Node2D" parent="Spawns/Arena3" unique_id=738462970]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=2087036955]
-position = Vector2(2900, 490)
+position = Vector2(3410, 490)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("13_maestro")
 
@@ -257,13 +294,30 @@ position = Vector2(3100, 465)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
-[node name="Ponto2" type="Marker2D" parent="Spawns/Arena4/Onda1" unique_id=1185236898]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena4/Onda1" unique_id=182283305]
+position = Vector2(4320, 550)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("8_violino")
+
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena4/Onda1"]
+position = Vector2(3060, 545)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_trombone")
+
+[node name="Onda2" type="Node2D" parent="Spawns/Arena4"]
+
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena4/Onda2" unique_id=1185236898]
 position = Vector2(4250, 500)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("12_tuba")
 
-[node name="Ponto3" type="Marker2D" parent="Spawns/Arena4/Onda1" unique_id=182283305]
-position = Vector2(4320, 550)
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena4/Onda2"]
+position = Vector2(4355, 445)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_trombone")
+
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena4/Onda2"]
+position = Vector2(3090, 520)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_violino")
 
@@ -286,6 +340,11 @@ position = Vector2(5000, 460)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("12_tuba")
 
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena5/Onda1"]
+position = Vector2(5390, 450)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("8_violino")
+
 [node name="Onda2" type="Node2D" parent="Spawns/Arena5" unique_id=1173008759]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena5/Onda2" unique_id=1351473745]
@@ -304,7 +363,12 @@ script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("12_tuba")
 
 [node name="Ponto4" type="Marker2D" parent="Spawns/Arena5/Onda2" unique_id=2050056165]
-position = Vector2(5370, 550)
+position = Vector2(4630, 420)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("12_tuba")
+
+[node name="Ponto5" type="Marker2D" parent="Spawns/Arena5/Onda2"]
+position = Vector2(3980, 455)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 

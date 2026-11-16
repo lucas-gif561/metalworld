@@ -4,6 +4,7 @@ extends ColorRect
 signal fechada
 
 const Jogador = preload("res://personagens/dylan/jogador.gd")
+const Baterista = preload("res://personagens/baterista/baterista.gd")
 const NOTAS_POR_DISPOSITIVO = [["T", "Y"], ["I", "L"], ["LB", "RB"]]
 
 @onready var combos = $Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos
@@ -13,10 +14,16 @@ const NOTAS_POR_DISPOSITIVO = [["T", "Y"], ["I", "L"], ["LB", "RB"]]
 
 func _ready() -> void:
 	voltar.pressed.connect(_fechar)
-	for sequencia in Jogador.MINIRRIFFS:
-		var especial: Dictionary = Jogador.MINIRRIFFS[sequencia]
+	_adicionar_combos("Dylan", Jogador.MINIRRIFFS, NOTAS_POR_DISPOSITIVO[0])
+	_adicionar_combos("Kevin", Baterista.MINIRRIFFS_KEVIN, NOTAS_POR_DISPOSITIVO[1])
+
+
+func _adicionar_combos(personagem: String, minirriffs: Dictionary, teclado: Array) -> void:
+	for sequencia in minirriffs:
+		var especial: Dictionary = minirriffs[sequencia]
+		_adicionar_celula(personagem)
 		_adicionar_celula(especial.nome)
-		for teclas in NOTAS_POR_DISPOSITIVO:
+		for teclas in [teclado, NOTAS_POR_DISPOSITIVO[2]]:
 			var notas := PackedStringArray()
 			for nota in sequencia:
 				notas.append(teclas[0] if nota == "A" else teclas[1])
