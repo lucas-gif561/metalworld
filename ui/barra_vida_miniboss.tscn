@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/barra_vida_miniboss.gd" id="1_barra"]
+[ext_resource type="Texture2D" path="res://ui/sprites/barra_miniboss.png" id="2_moldura"]
+
+[node name="BarraVidaMiniboss" type="CanvasLayer"]
+layer = 5
+script = ExtResource("1_barra")
+
+[node name="Barra" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -502.0
+offset_top = 24.0
+offset_right = -10.0
+offset_bottom = 45.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="Moldura" type="NinePatchRect" parent="Barra"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_moldura")
+patch_margin_left = 30
+patch_margin_right = 8
+
+[node name="Enchimento" type="ColorRect" parent="Barra"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 5.0
+offset_right = 487.0
+offset_bottom = 14.0
+mouse_filter = 2
+color = Color(0.894, 0.208, 0.29, 1)

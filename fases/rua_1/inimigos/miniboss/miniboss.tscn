@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" path="res://inimigos/base/inimigo.tscn" id="1_base"]
 [ext_resource type="SpriteFrames" path="res://fases/rua_1/sprites/miniboss/miniboss.tres" id="2_frames"]
 [ext_resource type="Script" path="res://fases/rua_1/inimigos/miniboss/miniboss.gd" id="3_miniboss"]
+[ext_resource type="PackedScene" path="res://ui/barra_vida_miniboss.tscn" id="4_barra"]
 
 [sub_resource type="RectangleShape2D" id="ColisaoMiniboss"]
 size = Vector2(64, 18)
@@ -27,17 +28,14 @@ shape = SubResource("ColisaoMiniboss")
 [node name="TimerAtaque" parent="." index="2"]
 wait_time = 2.2
 
-[node name="AvisoInvestida" type="Line2D" parent="." index="3"]
+[node name="AvisoArea" type="Polygon2D" parent="." index="3"]
 visible = false
 show_behind_parent = true
-width = 54.0
-default_color = Color(1, 0.06, 0.12, 0.72)
+color = Color(1, 0.06, 0.12, 0.08)
 antialiased = true
 
-[node name="AvisoArea" type="Polygon2D" parent="." index="4"]
-visible = false
-show_behind_parent = true
-color = Color(1, 0.06, 0.12, 0.26)
+[node name="Preenchimento" type="Polygon2D" parent="AvisoArea"]
+color = Color(1, 0.06, 0.12, 0.45)
 antialiased = true
 
 [node name="Contorno" type="Line2D" parent="AvisoArea"]
@@ -45,3 +43,5 @@ width = 3.0
 closed = true
 default_color = Color(1, 0.06, 0.12, 0.85)
 antialiased = true
+
+[node name="BarraVida" parent="." instance=ExtResource("4_barra")]

@@ -322,7 +322,8 @@ func _dentro_da_arena(ponto: Vector2) -> Vector2:
 ## Avisa o ataque (congela no quadro_carga do "attack", piscando branco) e
 ## chama "golpe" quando a animação chega no quadro_impacto. Se o inimigo
 ## apanhar antes disso, o golpe é cancelado.
-func carregar_ataque(golpe: Callable) -> void:
+## "tempo" troca o tempo_preparo só para este ataque (-1 = usa o tempo_preparo).
+func carregar_ataque(golpe: Callable, tempo: float = -1.0) -> void:
 	preparando = true
 	_preparo_id += 1
 	var id = _preparo_id
@@ -334,7 +335,7 @@ func carregar_ataque(golpe: Callable) -> void:
 		sprite.frame = quadro_carga
 	sprite.modulate = COR_CARGA
 
-	await get_tree().create_timer(tempo_preparo, false).timeout
+	await get_tree().create_timer(tempo_preparo if tempo < 0.0 else tempo, false).timeout
 
 	if id != _preparo_id or morto or not is_inside_tree():
 		return
