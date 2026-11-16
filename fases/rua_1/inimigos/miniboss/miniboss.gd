@@ -1,6 +1,7 @@
 extends "res://inimigos/base/miniboss_base.gd"
 
 const CAMADA_INVESTIDA = 32 # Camada 6: o arco de Dylan acerta, mas os pés não travam a corrida.
+const QUADRO_IMPACTO_PISAO = 2
 
 @export var alcance_investida = 420.0
 @export var velocidade_investida = 780.0
@@ -28,12 +29,17 @@ func _processar_miniboss(delta) -> void:
 
 
 func _comportamento(_delta):
+	if em_acao and sprite.animation == &"pisao":
+		return
+
 	var alvo = jogador.global_position
 	var diferenca = alvo - global_position
 	var distancia = diferenca.length()
+	var entrada = _dentro_da_arena(global_position)
+	var entrando = not is_equal_approx(entrada.x, global_position.x)
 	_olhar_para_jogador()
 
-	if timer_ataque.is_stopped():
+	if not entrando and timer_ataque.is_stopped():
 		if distancia <= raios_pisoes[0]:
 			_pisao_atual = 0
 			_preparar_pisao()
@@ -48,7 +54,7 @@ func _comportamento(_delta):
 				return
 			alvo.x = global_position.x
 
-	var destino = _dentro_da_arena(alvo)
+	var destino = entrada if entrando else _dentro_da_arena(alvo)
 	velocity = global_position.direction_to(destino) * velocidade
 	_atualizar_animacao()
 	move_and_slide()
@@ -62,6 +68,7 @@ func _preparar_grito(frente: Vector2) -> void:
 		pontos.append(frente.rotated(angulo) * alcance_grito)
 	_mostrar_aviso_area(pontos)
 	carregar_ataque(_soltar_grito)
+	sprite.animation = &"grito"
 
 
 func _soltar_grito() -> void:
@@ -76,13 +83,23 @@ func _preparar_pisao() -> void:
 		pontos.append(Vector2.from_angle(TAU * i / 48.0) * raio)
 	_mostrar_aviso_area(pontos)
 	carregar_ataque(_soltar_pisao)
+	sprite.animation = &"pisao"
 
 
 func _soltar_pisao() -> void:
+	while sprite.animation == &"pisao" and sprite.frame < QUADRO_IMPACTO_PISAO:
+		await sprite.frame_changed
+	if morto or sprite.animation != &"pisao":
+		return
+
 	_atingir_area()
 	Combate.tremer(3.0 + _pisao_atual * 2.0)
 	_pisao_atual += 1
-	if _pisao_atual < 3 and not Jogo.todos_caidos():
+	if _pisao_atual >= 3:
+		return
+
+	await sprite.animation_finished
+	if not morto and sprite.animation == &"pisao" and not Jogo.todos_caidos():
 		_preparar_pisao()
 
 
@@ -106,12 +123,14 @@ func _preparar_investida(distancia_x: float) -> void:
 	aviso_investida.points = PackedVector2Array([Vector2.ZERO, Vector2(_destino_x - global_position.x, 0)])
 	aviso_investida.show()
 	carregar_ataque(_iniciar_investida)
+	sprite.play()
 
 
 func _iniciar_investida() -> void:
 	aviso_investida.hide()
 	_atingidos.clear()
 	_investindo = true
+	_tocar_acao("investida")
 	# O dano usa a faixa anunciada; a colisão dos pés não desloca os jogadores.
 	collision_layer = CAMADA_INVESTIDA
 	collision_mask = 0
@@ -137,6 +156,7 @@ func _avancar_investida(delta: float) -> void:
 
 func _encerrar_investida() -> void:
 	_investindo = false
+	em_acao = false
 	collision_layer = _camada_normal
 	collision_mask = _mascara_normal
 
