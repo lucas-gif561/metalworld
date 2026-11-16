@@ -4,7 +4,8 @@
 [ext_resource type="SpriteFrames" path="res://fases/rua_1/sprites/grande/grande.tres" id="2_frames"]
 
 [node name="InimigoGrande" instance=ExtResource("1_base")]
-quadro_impacto = 1
+quadro_carga = 3
+quadro_impacto = 5
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = ExtResource("2_frames")
