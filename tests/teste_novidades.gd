@@ -254,3 +254,4 @@ func _teste_cabo_de_forca() -> void:
 	await esperar(0.2)
 	checar(p1.caido and p2.caido, "vida da dupla zerou: os dois caem juntos")
 	checar(game_over[0] and cena.fim_de_jogo, "e é game over")
+	checar(not p1.get_node("IndicadorReviver").visible and not p2.get_node("IndicadorReviver").visible, "sem 'segure para levantar' com os dois caídos")

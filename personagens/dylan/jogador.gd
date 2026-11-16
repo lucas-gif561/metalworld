@@ -638,8 +638,14 @@ func morrer():
 	sprite.modulate = Color.WHITE
 	Audio.tocar("morte_dylan", 0.0)
 	_tocar_acao("death")
-	_indicador.mostrar_para(2 if id_jogador == 1 else 1)
+	# Só pede ajuda se ainda houver alguém de pé para levantar
+	if not Jogo.todos_caidos():
+		_indicador.mostrar_para(2 if id_jogador == 1 else 1)
 	morreu.emit()
+
+
+func esconder_indicador_reviver() -> void:
+	_indicador.hide()
 
 
 # ---------------------------------------------------------------- Reviver

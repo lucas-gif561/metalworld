@@ -219,4 +219,8 @@ func cor(id_jogador: int) -> Color:
 func _ao_jogador_cair() -> void:
 	if todos_caidos() and not _game_over_emitido:
 		_game_over_emitido = true
+		# Ninguém sobrou para levantar: some o "segure para levantar" de todos
+		for jogador in jogadores:
+			if is_instance_valid(jogador):
+				jogador.esconder_indicador_reviver()
 		game_over.emit()
