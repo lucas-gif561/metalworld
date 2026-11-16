@@ -143,11 +143,11 @@ A cena `fases/boss_N/boss_N.tscn` já funciona: arena, Riff, barra de vida e vit
   | `trilha_no_chao()` | rastro de círculos seguindo um jogador | `cena_ataque_area` |
   | `corredor()` | colunas de círculos varrendo a arena, com um buraco | `cena_ataque_area` |
   | `invocar_capangas()` | chama inimigos nos `pontos_capanga` | `cena_capanga` |
-  | `teleporte()` | some e reaparece num dos `pontos_teleporte` | `cena_particulas` (opcional) |
+  | `teleporte()` | some e reaparece num dos `pontos_teleporte` | `pontos_teleporte` |
   | `ativar_escudo()` | o Riff não fere até quebrarem as runas no soco | `cena_runa` |
   | `descansar()` | o boss se ajoelha e mostra "RIFF!": a hora de tocar | animações `ajoelhar`/`descanso` (opcional) |
 
-  As cenas prontas ficam em `bosses/base/`: `projetil_boss.tscn`, `circulo_no_chao.tscn`, `particulas_boss.tscn` e `runa.tscn`. Os capangas podem ser qualquer inimigo de `inimigos/`.
+  As cenas prontas ficam em `bosses/base/`: `projetil_boss.tscn`, `circulo_no_chao.tscn` e `runa.tscn`. Os capangas podem ser qualquer inimigo de `inimigos/`.
 - **Fases** (`usar_fases` no Inspector): abaixo de 66% e de 33% da vida o boss enfurece, e `esperar_no_ritmo()` encurta as pausas. Ao mudar de fase, o Riff fecha e o escudo sobe (`escudo_ao_mudar_fase`). Com fases, o dano das notas é calibrado para um Riff bom valer uma fase. Para saber em que fase está, use `if fase >= 2:`.
 - **Nota maldita** (`usar_nota_maldita`, a partir de `fase_nota_maldita`): nota vermelha que machuca quem toca.
 - **Cabo de força** (`usar_cabo_de_forca` no nó raiz da arena, ligado por padrão): a dupla divide uma vida contra o boss. Dano em qualquer jogador enche o boss, e dano no boss enche a dupla.

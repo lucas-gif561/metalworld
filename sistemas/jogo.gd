@@ -52,6 +52,25 @@ func _process(_delta: float) -> void:
 			entrar_p2()
 
 
+## Atalho de depuração (só no editor e em builds de debug, nunca no jogo
+## exportado): F9 mata os inimigos que estão na fase e, no boss, esvazia a
+## vida dele e dá a vitória. É tecla fixa de propósito: não é um comando de
+## jogador, por isso fica fora do Mapa de Entrada.
+func _input(evento: InputEvent) -> void:
+	if not OS.is_debug_build() or not esta_em_fase():
+		return
+	if evento is InputEventKey and evento.pressed and not evento.echo and evento.keycode == KEY_F9:
+		_limpar_fase_debug()
+
+
+func _limpar_fase_debug() -> void:
+	for inimigo in get_tree().get_nodes_in_group("inimigos"):
+		if not inimigo.morto:
+			inimigo.morrer()
+	for boss in get_tree().get_nodes_in_group("boss"):
+		boss.derrotar_agora()
+
+
 # ---------------------------------------------------------------- Fases
 
 func indice_fase_atual() -> int:
