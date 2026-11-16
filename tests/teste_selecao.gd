@@ -5,6 +5,7 @@ extends SceneTree
 
 const DYLAN = "res://personagens/dylan/jogador.tscn"
 const KEVIN = "res://personagens/baterista/baterista.tscn"
+const MIKU = "res://personagens/miku/miku.tscn"
 
 var jogo: Node
 var falhas := 0
@@ -44,6 +45,7 @@ func _rodar() -> void:
 	jogo = root.get_node("Jogo")
 	await _teste_solo()
 	await _teste_dueto()
+	await _teste_miku()
 	print("RESULTADO: ", "PASSOU" if falhas == 0 else "FALHOU (%d)" % falhas)
 	quit(1 if falhas > 0 else 0)
 
@@ -120,3 +122,47 @@ func _teste_dueto() -> void:
 	Input.parse_input_event(evento)
 	await esperar(0.2)
 	checar(not selecao.visible and current_scene.menu_modo.visible, "Esc fecha a seleção e volta ao Solo/Dueto")
+
+
+func _teste_miku() -> void:
+	print("== Miku secreta (F10)")
+	var dylan = load(DYLAN).instantiate()
+	var miku = load(MIKU).instantiate()
+	var faltando = Array(dylan.get_node("AnimatedSprite2D").sprite_frames.get_animation_names()).filter(
+		func(nome): return not miku.get_node("AnimatedSprite2D").sprite_frames.has_animation(nome))
+	checar(faltando.is_empty(), "a Miku tem todas as animações do Dylan %s" % [faltando])
+	checar(miku.get_script() == dylan.get_script() and miku._minirriffs_disponiveis() == dylan._minirriffs_disponiveis(), "e os mesmos minirriffs do Dylan")
+	dylan.free()
+	miku.free()
+
+	var selecao = await _abrir_selecao(false)
+	checar(not selecao.cartao_secreto.visible, "o cartão da Miku começa escondido")
+	await apertar("p1_mover_direita")
+	await apertar("p1_mover_direita")
+	checar(selecao.cursor[1] == 0, "sem o segredo, passar do Kevin volta ao Dylan")
+	var evento = InputEventKey.new()
+	evento.keycode = KEY_F10
+	evento.pressed = true
+	Input.parse_input_event(evento)
+	await esperar(0.2)
+	checar(selecao.cartao_secreto.visible, "F10 mostra a Miku")
+	await apertar("p1_mover_esquerda")
+	checar(selecao.cursor[1] == 2, "e ela fica depois do Kevin")
+	await apertar("p1_atacar")
+	await esperar(1.0)
+	checar(personagem(1) == MIKU and jogo.jogador_por_id(1).id_jogador == 1, "o P1 joga com a Miku")
+	jogo.entrar_p2()
+	await esperar(0.5)
+	checar(personagem(2) == DYLAN, "o P2 que entra no meio fica com o Dylan, não com outro segredo")
+	jogo.voltar_ao_inicio()
+	await esperar(0.5)
+	selecao = await _abrir_selecao_sem_resetar(false)
+	checar(selecao.cartao_secreto.visible and selecao.cursor[1] == 2, "quem jogou com a Miku volta com o cartão dela aberto")
+
+
+func _abrir_selecao_sem_resetar(em_dupla: bool) -> Node:
+	change_scene_to_file("res://ui/tela_inicial.tscn")
+	await esperar(0.5)
+	current_scene.get_node("MenuModo/Dueto" if em_dupla else "MenuModo/Solo").pressed.emit()
+	await esperar(0.3)
+	return current_scene.selecao

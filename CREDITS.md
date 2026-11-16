@@ -23,6 +23,12 @@ Arquivos: `objetos/sprites/carne.png`, `objetos/sprites/maca.png`
 Sprites do Dylan e peças da interface (placa do título e botões do menu) gerados pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
 Arquivos: `personagens/dylan/sprites/`, `ui/sprites/` (menos `coracao.png`, `raio.png` e `seta.png`; o retrato é um recorte do sprite do Dylan)
 
+## Miku (personagem secreta)
+
+Sprites da folha **"hatsune miku sheet"**, por that1guyfromtheforum (DeviantArt): <https://www.deviantart.com/that1guyfromtheforum/art/hatsune-miku-sheet-245190352>
+Hatsune Miku é personagem da **Crypton Future Media**. Quadros recortados, alinhados pelos pés e espelhados para a direita; o retrato é um recorte do sprite.
+Arquivos: `personagens/miku/sprites/`
+
 ## Fonte
 
 **Silkscreen**, por Jason Kottke (via Google Fonts): <https://fonts.google.com/specimen/Silkscreen>

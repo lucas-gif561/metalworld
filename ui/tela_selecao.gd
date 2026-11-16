@@ -5,6 +5,7 @@ extends ColorRect
 ## direita), confirma com atacar, entrar ou A e desfaz a escolha com esquivar.
 ## No Solo só o P1 escolhe; no Dueto os dois confirmam e não podem pegar o
 ## mesmo personagem. Esc (ou esquivar do P1 antes de escolher) volta ao menu.
+## F10 revela o cartão secreto (a Miku), que fica escondido na cena.
 ##
 ## Os cartões ficam na cena (tela_selecao.tscn), na mesma ordem de
 ## Jogo.PERSONAGENS. Aqui fica só o comportamento: quem está em qual cartão.
@@ -22,6 +23,7 @@ const ESPERA_AO_CONFIRMAR = 0.5
 @export var cor_livre := Color(0.45, 0.38, 0.55)
 
 @onready var cartoes: Array = $Margens/Painel/Respiro/Coluna/Cartoes.get_children()
+@onready var cartao_secreto: Control = $Margens/Painel/Respiro/Coluna/Cartoes/Miku
 
 var em_dupla := false
 var cursor := {1: 0, 2: 1}
@@ -36,6 +38,9 @@ func abrir(dupla: bool) -> void:
 	pronto = {1: false, 2: false}
 	_espera = ESPERA_AO_ABRIR
 	_iniciando = false
+	# Quem já jogou com a Miku volta para a seleção com o cartão dela aberto
+	if cursor.values().any(func(i): return not cartoes[i].visible):
+		cartao_secreto.show()
 	show()
 	_atualizar()
 
@@ -69,9 +74,25 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(evento: InputEvent) -> void:
-	if visible and not _iniciando and evento is InputEventKey and evento.pressed and evento.keycode == KEY_ESCAPE:
+	if not visible or _iniciando or not (evento is InputEventKey and evento.pressed and not evento.echo):
+		return
+	if evento.keycode == KEY_ESCAPE:
 		_cancelar()
 		get_viewport().set_input_as_handled()
+	elif evento.keycode == KEY_F10:
+		revelar_segredo()
+		get_viewport().set_input_as_handled()
+
+
+func revelar_segredo() -> void:
+	if cartao_secreto.visible:
+		return
+	cartao_secreto.show()
+	Audio.tocar("minirriff_sucesso", 0.0)
+	# Entra num clarão branco que apaga devagar
+	cartao_secreto.modulate = Color(3, 3, 3)
+	create_tween().tween_property(cartao_secreto, "modulate", Color.WHITE, 0.6)
+	_atualizar()
 
 
 func _apertou(id_jogador: int, nome: String) -> bool:
@@ -79,7 +100,7 @@ func _apertou(id_jogador: int, nome: String) -> bool:
 
 
 func _mover(id_jogador: int, passo: int) -> void:
-	cursor[id_jogador] = wrapi(cursor[id_jogador] + passo, 0, cartoes.size())
+	cursor[id_jogador] = _proximo_visivel(cursor[id_jogador], passo)
 	Audio.tocar("nota_good", 0.0)
 	_atualizar()
 
@@ -95,10 +116,19 @@ func _confirmar(id_jogador: int) -> void:
 	Audio.tocar("ui_confirma", 0.0)
 	# O parceiro que ainda não escolheu sai do cartão que acabou de ser pego
 	if em_dupla and not pronto[outro] and cursor[outro] == cursor[id_jogador]:
-		cursor[outro] = wrapi(cursor[outro] + 1, 0, cartoes.size())
+		cursor[outro] = _proximo_visivel(cursor[outro], 1)
 	_atualizar()
 	if _ids().all(func(id): return pronto[id]):
 		_iniciar()
+
+
+## Anda pelos cartões pulando os escondidos (o secreto antes do F10)
+func _proximo_visivel(indice: int, passo: int) -> int:
+	for i in cartoes.size():
+		indice = wrapi(indice + passo, 0, cartoes.size())
+		if cartoes[indice].visible:
+			break
+	return indice
 
 
 func _iniciar() -> void:

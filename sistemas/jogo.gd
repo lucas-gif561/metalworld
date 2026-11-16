@@ -23,9 +23,11 @@ const CENA_INICIO = "res://ui/tela_inicial.tscn"
 ## Personagens jogáveis, na ordem dos cartões da tela de seleção
 ## (ui/tela_selecao.tscn). As fases trazem o Dylan gravado como P1; ao carregar
 ## a fase, ele é trocado pelo personagem escolhido (_colocar_p1).
+## A Miku é secreta: o cartão dela só aparece com F10 na seleção.
 const PERSONAGENS = [
 	"res://personagens/dylan/jogador.tscn",
 	"res://personagens/baterista/baterista.tscn",
+	"res://personagens/miku/miku.tscn",
 ]
 
 ## P1 azul e P2 rosa (anel, reviver, Riff e a vida da dupla no cabo de força)
@@ -112,8 +114,9 @@ func escolher_personagens(p1: int, p2 := -1) -> void:
 	personagens[2] = p2 if p2 >= 0 and p2 != p1 else _outro_personagem(p1)
 
 
+## O primeiro personagem aberto que não é este (nunca o secreto)
 func _outro_personagem(indice: int) -> int:
-	return (indice + 1) % PERSONAGENS.size()
+	return 1 if indice == 0 else 0
 
 
 func _criar_personagem(id_jogador: int) -> Node:

@@ -21,6 +21,7 @@ Boss: Doom Scribe (CC BY 4.0)
 Barris e caixotes: Elthen · Comida: Pixel Coder
 Músicas: MintoDog (CC0) · Efeitos sonoros: Bfxr
 Teclas do Riff e botões: Kenney
+Miku: sprites de that1guyfromtheforum (DeviantArt); personagem da Crypton Future Media
 
 Lista completa com licenças no arquivo CREDITS.md"""
 
