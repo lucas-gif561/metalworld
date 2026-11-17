@@ -118,6 +118,11 @@ func voltar_ao_inicio() -> void:
 
 
 func _trocar_cena(caminho: String) -> void:
+	# A cena atual só sai no fim do quadro: congela ela já, para inimigos e
+	# bosses não rodarem mais um quadro procurando jogadores que não existem
+	var atual = get_tree().current_scene
+	if atual:
+		atual.process_mode = Node.PROCESS_MODE_DISABLED
 	jogadores.clear()
 	var cena = load(caminho).instantiate()
 	_colocar_p1(cena)

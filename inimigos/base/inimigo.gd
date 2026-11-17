@@ -389,7 +389,7 @@ func _atualizar_alvo(delta):
 	if _lado_vaga != 0 and Jogo.esta_vivo(jogador):
 		var mais_perto = Jogo.jogador_mais_proximo(global_position)
 		var distancia = global_position.distance_to(jogador.global_position)
-		if mais_perto == jogador or global_position.distance_to(mais_perto.global_position) > distancia * 0.5:
+		if mais_perto == null or mais_perto == jogador or global_position.distance_to(mais_perto.global_position) > distancia * 0.5:
 			return
 		_tempo_troca_alvo = 0.0
 	if _tempo_troca_alvo <= 0.0 or not Jogo.esta_vivo(jogador):
