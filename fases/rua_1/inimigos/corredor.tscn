@@ -1,13 +1,15 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b7wdyj8ol3v0x"]
 
-[ext_resource type="PackedScene" path="res://inimigos/rapido/inimigo_rapido.tscn" id="1_base"]
+[ext_resource type="PackedScene" uid="uid://bns8j4jm6robf" path="res://inimigos/rapido/inimigo_rapido.tscn" id="1_base"]
 [ext_resource type="SpriteFrames" path="res://fases/rua_1/sprites/corredor/corredor.tres" id="2_frames"]
 
-[node name="Corredor" instance=ExtResource("1_base")]
-quadro_carga = 3
+[node name="Corredor" unique_id=1675329516 instance=ExtResource("1_base")]
 quadro_impacto = 4
 
-[node name="AnimatedSprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
 scale = Vector2(1.95, 1.95)
 sprite_frames = ExtResource("2_frames")
+animation = &"attack"
+frame = 4
+frame_progress = 1.0
 offset = Vector2(0, -32)
