@@ -1,10 +1,10 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://dlnwocq2xnkcw"]
 
-[ext_resource type="Texture2D" path="res://inimigos/tanque/sprites/attack.png" id="1_2qdkf"]
-[ext_resource type="Texture2D" path="res://inimigos/tanque/sprites/death.png" id="2_vnw7u"]
-[ext_resource type="Texture2D" path="res://inimigos/tanque/sprites/hurt.png" id="3_t7vsj"]
-[ext_resource type="Texture2D" path="res://inimigos/tanque/sprites/idle.png" id="4_h8xsl"]
-[ext_resource type="Texture2D" path="res://inimigos/tanque/sprites/walk.png" id="5_xmhtj"]
+[ext_resource type="Texture2D" uid="uid://dowvls4fftdxv" path="res://inimigos/tanque/sprites/attack.png" id="1_2qdkf"]
+[ext_resource type="Texture2D" uid="uid://cprpn1501v4kc" path="res://inimigos/tanque/sprites/death.png" id="2_vnw7u"]
+[ext_resource type="Texture2D" uid="uid://cgfhfg2f1t44b" path="res://inimigos/tanque/sprites/hurt.png" id="3_t7vsj"]
+[ext_resource type="Texture2D" uid="uid://c2gdgo5jiokbl" path="res://inimigos/tanque/sprites/idle.png" id="4_h8xsl"]
+[ext_resource type="Texture2D" uid="uid://dd1ofi83rxcq5" path="res://inimigos/tanque/sprites/walk.png" id="5_xmhtj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mwq5"]
 atlas = ExtResource("1_2qdkf")

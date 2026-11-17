@@ -1,13 +1,13 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://nsi2hqao5h61"]
 
-[ext_resource type="Script" path="res://ui/barra_vida_miniboss.gd" id="1_barra"]
-[ext_resource type="Texture2D" path="res://ui/sprites/barra_miniboss.png" id="2_moldura"]
+[ext_resource type="Script" uid="uid://d1twh4mp38rxk" path="res://ui/barra_vida_miniboss.gd" id="1_barra"]
+[ext_resource type="Texture2D" uid="uid://cjjlmjo2mhnin" path="res://ui/sprites/barra_miniboss.png" id="2_moldura"]
 
-[node name="BarraVidaMiniboss" type="CanvasLayer"]
+[node name="BarraVidaMiniboss" type="CanvasLayer" unique_id=836278199]
 layer = 5
 script = ExtResource("1_barra")
 
-[node name="Barra" type="Control" parent="."]
+[node name="Barra" type="Control" parent="." unique_id=1161062592]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 1
@@ -20,19 +20,18 @@ offset_bottom = 45.0
 grow_horizontal = 0
 mouse_filter = 2
 
-[node name="Moldura" type="NinePatchRect" parent="Barra"]
+[node name="Moldura" type="NinePatchRect" parent="Barra" unique_id=142526208]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 texture = ExtResource("2_moldura")
 patch_margin_left = 30
 patch_margin_right = 8
 
-[node name="Enchimento" type="ColorRect" parent="Barra"]
+[node name="Enchimento" type="ColorRect" parent="Barra" unique_id=181981001]
 layout_mode = 0
 offset_left = 27.0
 offset_top = 5.0

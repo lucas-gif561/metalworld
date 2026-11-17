@@ -1,13 +1,13 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bwid3dvbu2gmy"]
 
-[ext_resource type="PackedScene" path="res://inimigos/base/inimigo.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://fases/rua_1/sprites/brigao/brigao.tres" id="2_frames"]
+[ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_base"]
+[ext_resource type="SpriteFrames" uid="uid://db3vngj8153sm" path="res://fases/rua_1/sprites/brigao/brigao.tres" id="2_frames"]
 
-[node name="Brigao" instance=ExtResource("1_base")]
+[node name="Brigao" unique_id=1052138013 instance=ExtResource("1_base")]
 quadro_carga = 3
 quadro_impacto = 4
 
-[node name="AnimatedSprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("2_frames")
 offset = Vector2(0, -32)

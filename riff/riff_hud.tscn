@@ -1,12 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c2jjppskenuqf"]
 
 [ext_resource type="Script" uid="uid://k8878xklui2l" path="res://riff/riff_hud.gd" id="7_xtdbn"]
 [ext_resource type="PackedScene" uid="uid://cf87sdp8j1wv6" path="res://riff/nota_riff.tscn" id="8_mi726"]
-[ext_resource type="Texture2D" path="res://riff/sprites/tecla_cima_apagada.png" id="20_cima"]
-[ext_resource type="Texture2D" path="res://riff/sprites/tecla_baixo_apagada.png" id="20_baixo"]
-[ext_resource type="Texture2D" path="res://riff/sprites/tecla_esquerda_apagada.png" id="20_esquerda"]
-[ext_resource type="Texture2D" path="res://riff/sprites/tecla_direita_apagada.png" id="20_direita"]
-[ext_resource type="Texture2D" path="res://riff/sprites/aviso.png" id="21_aviso"]
+[ext_resource type="Texture2D" uid="uid://1jplyjeqfurg" path="res://riff/sprites/tecla_baixo_apagada.png" id="20_baixo"]
+[ext_resource type="Texture2D" uid="uid://be0oe3vr4a7vm" path="res://riff/sprites/tecla_cima_apagada.png" id="20_cima"]
+[ext_resource type="Texture2D" uid="uid://oyrmveyxex3v" path="res://riff/sprites/tecla_direita_apagada.png" id="20_direita"]
+[ext_resource type="Texture2D" uid="uid://cwcrkx0s13a8l" path="res://riff/sprites/tecla_esquerda_apagada.png" id="20_esquerda"]
+[ext_resource type="Texture2D" uid="uid://c7pnhwm6q6pl3" path="res://riff/sprites/aviso.png" id="21_aviso"]
 
 [sub_resource type="Animation" id="Animation_aviso"]
 resource_name = "piscar"
@@ -45,21 +45,17 @@ _data = {
 [node name="RiffHUD" type="Control" unique_id=948874030]
 layout_mode = 3
 anchors_preset = 4
-anchor_left = 0.0
 anchor_top = 0.5
-anchor_right = 0.0
 anchor_bottom = 0.5
 offset_left = 45.0
 offset_top = -226.0
 offset_right = 285.0
 offset_bottom = 178.0
-grow_horizontal = 1
 grow_vertical = 2
 script = ExtResource("7_xtdbn")
 cena_nota = ExtResource("8_mi726")
-bpm = 150.0
 
-[node name="FundoOpaco" type="ColorRect" parent="."]
+[node name="FundoOpaco" type="ColorRect" parent="." unique_id=1683788588]
 layout_mode = 0
 offset_left = -4.0
 offset_top = -4.0
@@ -146,7 +142,6 @@ expand_mode = 1
 
 [node name="LabelFeedback" type="Label" parent="." unique_id=880012345]
 layout_mode = 0
-offset_left = 0.0
 offset_top = 30.0
 offset_right = 240.0
 offset_bottom = 75.0
@@ -155,9 +150,8 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LabelJogador" type="Label" parent="."]
+[node name="LabelJogador" type="Label" parent="." unique_id=185261904]
 layout_mode = 0
-offset_top = 0.0
 offset_right = 240.0
 offset_bottom = 28.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -167,7 +161,7 @@ text = "P1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Aviso" type="TextureRect" parent="."]
+[node name="Aviso" type="TextureRect" parent="." unique_id=143868948]
 visible = false
 layout_mode = 0
 offset_left = 198.0
@@ -179,8 +173,6 @@ mouse_filter = 2
 texture = ExtResource("21_aviso")
 expand_mode = 1
 
-[node name="Piscar" type="AnimationPlayer" parent="Aviso"]
-libraries = {
-&"": SubResource("AnimationLibrary_aviso")
-}
+[node name="Piscar" type="AnimationPlayer" parent="Aviso" unique_id=1632428462]
+libraries/ = SubResource("AnimationLibrary_aviso")
 autoplay = &"piscar"

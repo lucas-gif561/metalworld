@@ -1,17 +1,17 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://boot8ovjafqps"]
 
-[ext_resource type="SpriteFrames" path="res://fases/boss_1/sprites/chefe_1.tres" id="1_frames"]
-[ext_resource type="Script" path="res://fases/boss_3/chefe_3.gd" id="2_script"]
-[ext_resource type="PackedScene" path="res://bosses/base/projetil_boss.tscn" id="3_projetil"]
+[ext_resource type="SpriteFrames" uid="uid://vek60do0oyhj" path="res://fases/boss_1/sprites/chefe_1.tres" id="1_frames"]
+[ext_resource type="Script" uid="uid://ce7skdyi8r3np" path="res://fases/boss_3/chefe_3.gd" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://cohoo1yja2qtv" path="res://bosses/base/projetil_boss.tscn" id="3_projetil"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_chefe"]
 
-[node name="Chefe3" type="Node2D"]
+[node name="Chefe3" type="Node2D" unique_id=592602246]
 script = ExtResource("2_script")
 vida_maxima = 60
 cena_projetil = ExtResource("3_projetil")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1955341258]
 modulate = Color(1.3, 0.7, 0.5, 1)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("1_frames")
@@ -19,7 +19,7 @@ animation = &"idle"
 autoplay = "idle"
 offset = Vector2(1, -6)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=410042591]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1823359808]
 shape = SubResource("RectangleShape2D_chefe")

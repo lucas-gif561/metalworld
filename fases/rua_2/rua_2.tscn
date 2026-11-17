@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://5tahwndrwc6f"]
 
 [ext_resource type="Script" uid="uid://dqwep2au7svfk" path="res://fases/comum/fase_rua.gd" id="1_main"]
-[ext_resource type="Texture2D" path="res://fases/rua_2/sprites/rua_2_fundo.png" id="2_fundo"]
+[ext_resource type="Texture2D" uid="uid://gfaqmqhgh2jr" path="res://fases/rua_2/sprites/rua_2_fundo.png" id="2_fundo"]
 [ext_resource type="PackedScene" path="res://objetos/portao_saida.tscn" id="3_portal"]
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="4_player"]
 [ext_resource type="Script" uid="uid://bgs4n7or273cj" path="res://fases/comum/ponto_spawn.gd" id="5_ponto"]
@@ -66,116 +66,116 @@ position = Vector2(2389.8, 280.6)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("2_fundo")
 
-[node name="Obstaculos" type="Node2D" parent="."]
+[node name="Obstaculos" type="Node2D" parent="." unique_id=1345983408]
 
-[node name="Lampiao1" type="StaticBody2D" parent="Obstaculos"]
+[node name="Lampiao1" type="StaticBody2D" parent="Obstaculos" unique_id=1935388908]
 position = Vector2(-207, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao1" unique_id=735395458]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_lampiao1")
 
-[node name="MesasCafe1" type="StaticBody2D" parent="Obstaculos"]
+[node name="MesasCafe1" type="StaticBody2D" parent="Obstaculos" unique_id=1344322801]
 position = Vector2(631.5, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/MesasCafe1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/MesasCafe1" unique_id=1800341563]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_mesascafe1")
 
-[node name="MesasCafe2" type="StaticBody2D" parent="Obstaculos"]
+[node name="MesasCafe2" type="StaticBody2D" parent="Obstaculos" unique_id=787610996]
 position = Vector2(836.5, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/MesasCafe2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/MesasCafe2" unique_id=1199695893]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_mesascafe2")
 
-[node name="Lampiao2" type="StaticBody2D" parent="Obstaculos"]
+[node name="Lampiao2" type="StaticBody2D" parent="Obstaculos" unique_id=1037859552]
 position = Vector2(998, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao2" unique_id=706832938]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_lampiao2")
 
-[node name="Lampiao3" type="StaticBody2D" parent="Obstaculos"]
+[node name="Lampiao3" type="StaticBody2D" parent="Obstaculos" unique_id=245287744]
 position = Vector2(1403, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao3" unique_id=907620109]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_lampiao3")
 
-[node name="Poste" type="StaticBody2D" parent="Obstaculos"]
+[node name="Poste" type="StaticBody2D" parent="Obstaculos" unique_id=1735863897]
 position = Vector2(1768, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste" unique_id=1097033565]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_poste")
 
-[node name="Lampiao4" type="StaticBody2D" parent="Obstaculos"]
+[node name="Lampiao4" type="StaticBody2D" parent="Obstaculos" unique_id=1457613576]
 position = Vector2(1828, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao4" unique_id=958726659]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_lampiao4")
 
-[node name="Lampiao5" type="StaticBody2D" parent="Obstaculos"]
+[node name="Lampiao5" type="StaticBody2D" parent="Obstaculos" unique_id=1519034163]
 position = Vector2(2330, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao5" unique_id=1323159351]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_lampiao5")
 
-[node name="PosteAnuncio" type="StaticBody2D" parent="Obstaculos"]
+[node name="PosteAnuncio" type="StaticBody2D" parent="Obstaculos" unique_id=566259259]
 position = Vector2(2452, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/PosteAnuncio"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/PosteAnuncio" unique_id=1077065606]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_posteanuncio")
 
-[node name="Violoncelo" type="StaticBody2D" parent="Obstaculos"]
+[node name="Violoncelo" type="StaticBody2D" parent="Obstaculos" unique_id=1134785608]
 position = Vector2(2860.5, 400)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Violoncelo"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Violoncelo" unique_id=924208605]
 position = Vector2(0, -14)
 shape = SubResource("RectangleShape2D_violoncelo")
 
-[node name="Lampiao6" type="StaticBody2D" parent="Obstaculos"]
+[node name="Lampiao6" type="StaticBody2D" parent="Obstaculos" unique_id=77068778]
 position = Vector2(2968, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao6"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao6" unique_id=1700162274]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_lampiao6")
 
-[node name="Lampiao7" type="StaticBody2D" parent="Obstaculos"]
+[node name="Lampiao7" type="StaticBody2D" parent="Obstaculos" unique_id=412755054]
 position = Vector2(3301, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao7"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao7" unique_id=1594157009]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_lampiao7")
 
-[node name="Lampiao8" type="StaticBody2D" parent="Obstaculos"]
+[node name="Lampiao8" type="StaticBody2D" parent="Obstaculos" unique_id=1015118154]
 position = Vector2(4211, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao8"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Lampiao8" unique_id=196876664]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_lampiao8")
 
 [node name="Portal" parent="." unique_id=1149001400 instance=ExtResource("3_portal")]
 position = Vector2(4713, 400)
 
-[node name="CollisionShape2D" parent="Portal" index="0"]
+[node name="CollisionShape2D" parent="Portal" index="0" unique_id=911228269]
 position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_portao")
 
@@ -201,19 +201,19 @@ position = Vector2(-65, 535)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
-[node name="Onda2" type="Node2D" parent="Spawns/Arena1"]
+[node name="Onda2" type="Node2D" parent="Spawns/Arena1" unique_id=1425231546]
 
-[node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda2"]
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=2130650337]
 position = Vector2(1280, 505)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_violino")
 
-[node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda2"]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=1959684874]
 position = Vector2(1250, 450)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
-[node name="Ponto3" type="Marker2D" parent="Spawns/Arena1/Onda2"]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena1/Onda2" unique_id=27112799]
 position = Vector2(-100, 550)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
@@ -227,7 +227,7 @@ position = Vector2(1900, 480)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("12_tuba")
 
-[node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda1"]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=823368783]
 position = Vector2(995, 525)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
@@ -249,7 +249,7 @@ position = Vector2(2280, 465)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
-[node name="Ponto4" type="Marker2D" parent="Spawns/Arena2/Onda2"]
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena2/Onda2" unique_id=1280241571]
 position = Vector2(910, 550)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_violino")
@@ -268,12 +268,12 @@ position = Vector2(3320, 520)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_violino")
 
-[node name="Ponto3" type="Marker2D" parent="Spawns/Arena3/Onda1"]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=209956913]
 position = Vector2(1940, 540)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
-[node name="Ponto4" type="Marker2D" parent="Spawns/Arena3/Onda1"]
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena3/Onda1" unique_id=1057032250]
 position = Vector2(2870, 465)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("12_tuba")
@@ -299,24 +299,24 @@ position = Vector2(4320, 550)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_violino")
 
-[node name="Ponto3" type="Marker2D" parent="Spawns/Arena4/Onda1"]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena4/Onda1" unique_id=42350336]
 position = Vector2(3060, 545)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
-[node name="Onda2" type="Node2D" parent="Spawns/Arena4"]
+[node name="Onda2" type="Node2D" parent="Spawns/Arena4" unique_id=466628607]
 
 [node name="Ponto1" type="Marker2D" parent="Spawns/Arena4/Onda2" unique_id=1185236898]
 position = Vector2(4250, 500)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("12_tuba")
 
-[node name="Ponto2" type="Marker2D" parent="Spawns/Arena4/Onda2"]
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena4/Onda2" unique_id=1285106729]
 position = Vector2(4355, 445)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
 
-[node name="Ponto3" type="Marker2D" parent="Spawns/Arena4/Onda2"]
+[node name="Ponto3" type="Marker2D" parent="Spawns/Arena4/Onda2" unique_id=341469667]
 position = Vector2(3090, 520)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_violino")
@@ -340,7 +340,7 @@ position = Vector2(5000, 460)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("12_tuba")
 
-[node name="Ponto4" type="Marker2D" parent="Spawns/Arena5/Onda1"]
+[node name="Ponto4" type="Marker2D" parent="Spawns/Arena5/Onda1" unique_id=2027199791]
 position = Vector2(5390, 450)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("8_violino")
@@ -367,7 +367,7 @@ position = Vector2(4630, 420)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("12_tuba")
 
-[node name="Ponto5" type="Marker2D" parent="Spawns/Arena5/Onda2"]
+[node name="Ponto5" type="Marker2D" parent="Spawns/Arena5/Onda2" unique_id=1219734483]
 position = Vector2(3980, 455)
 script = ExtResource("5_ponto")
 cena_inimigo = ExtResource("7_trombone")
@@ -391,13 +391,13 @@ position = Vector2(2700, 390)
 [node name="Caixote2" parent="." unique_id=669666054 instance=ExtResource("10_caixote")]
 position = Vector2(3880, 390)
 
-[node name="Caixote4" parent="." instance=ExtResource("10_caixote")]
+[node name="Caixote4" parent="." unique_id=279141286 instance=ExtResource("10_caixote")]
 position = Vector2(1150, 390)
 
-[node name="Barril3" parent="." instance=ExtResource("11_barril")]
+[node name="Barril3" parent="." unique_id=717426735 instance=ExtResource("11_barril")]
 position = Vector2(4400, 392)
 
-[node name="Caixote5" parent="." instance=ExtResource("10_caixote")]
+[node name="Caixote5" parent="." unique_id=1669277769 instance=ExtResource("10_caixote")]
 position = Vector2(4560, 390)
 
 [node name="HudJogo" parent="." unique_id=1045768769 instance=ExtResource("9_hud")]

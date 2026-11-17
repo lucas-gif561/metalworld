@@ -1,11 +1,11 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://u1jitdc4tktb"]
 
-[ext_resource type="Script" path="res://ui/icones_comando.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_t.png" id="2_t"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_i.png" id="3_i"]
-[ext_resource type="Texture2D" path="res://ui/sprites/botao_a.png" id="4_a"]
+[ext_resource type="Script" uid="uid://dj7k747nay4dk" path="res://ui/icones_comando.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dphp5d3emdkl0" path="res://personagens/dylan/sprites/tecla_t.png" id="2_t"]
+[ext_resource type="Texture2D" uid="uid://bebljhidx37y0" path="res://personagens/dylan/sprites/tecla_i.png" id="3_i"]
+[ext_resource type="Texture2D" uid="uid://cvmrglng7tr70" path="res://ui/sprites/botao_a.png" id="4_a"]
 
-[node name="IconesComando" type="HBoxContainer"]
+[node name="IconesComando" type="HBoxContainer" unique_id=996568637]
 mouse_filter = 2
 theme_override_constants/separation = 4
 alignment = 1
@@ -14,7 +14,7 @@ tecla_p1 = ExtResource("2_t")
 tecla_p2 = ExtResource("3_i")
 botao_controle = ExtResource("4_a")
 
-[node name="Icone1" type="TextureRect" parent="."]
+[node name="Icone1" type="TextureRect" parent="." unique_id=488154777]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -23,7 +23,7 @@ texture = ExtResource("2_t")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Icone2" type="TextureRect" parent="."]
+[node name="Icone2" type="TextureRect" parent="." unique_id=1643959277]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cohoo1yja2qtv"]
 
 [ext_resource type="Script" uid="uid://chw61mx30n3kj" path="res://bosses/base/projetil_boss.gd" id="1_1f60h"]
-[ext_resource type="Texture2D" path="res://assets/projeteis/bola.png" id="1_ianji"]
+[ext_resource type="Texture2D" uid="uid://jt6eg5um3odo" path="res://assets/projeteis/bola.png" id="1_ianji"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ec6vt"]
 
@@ -14,7 +14,6 @@ script = ExtResource("1_1f60h")
 modulate = Color(1, 0.3, 0.85, 1)
 scale = Vector2(5, 5)
 texture = ExtResource("1_ianji")
-
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=105424822]
 shape = SubResource("CircleShape2D_ec6vt")

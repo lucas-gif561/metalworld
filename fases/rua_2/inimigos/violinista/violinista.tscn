@@ -1,13 +1,14 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bhu7jd0f7gfgd"]
 
-[ext_resource type="PackedScene" path="res://inimigos/atirador/inimigo_atirador.tscn" id="1_base"]
-[ext_resource type="PackedScene" path="res://fases/rua_2/inimigos/violinista/nota_violino.tscn" id="2_nota"]
-[ext_resource type="SpriteFrames" path="res://fases/rua_2/sprites/violinista/violinista.tres" id="3_frames"]
+[ext_resource type="PackedScene" uid="uid://bo0smysfkbbbw" path="res://inimigos/atirador/inimigo_atirador.tscn" id="1_base"]
+[ext_resource type="PackedScene" uid="uid://bv867dv6djhfq" path="res://fases/rua_2/inimigos/violinista/nota_violino.tscn" id="2_nota"]
+[ext_resource type="SpriteFrames" uid="uid://4iw1rlmt1by" path="res://fases/rua_2/sprites/violinista/violinista.tres" id="3_frames"]
 
-[node name="Violinista" instance=ExtResource("1_base")]
-tempo_preparo = 0.65
+[node name="Violinista" unique_id=249160157 instance=ExtResource("1_base")]
 cena_projetil_inimigo = ExtResource("2_nota")
+altura_tiro = 43.0
+tempo_preparo = 0.65
 
-[node name="AnimatedSprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("3_frames")

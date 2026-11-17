@@ -1,8 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://0k1gqkkuigrq"]
 
 [ext_resource type="PackedScene" path="res://personagens/baterista/projetil_virada.tscn" id="1_pulso"]
 
-[node name="ProjetilCaixa" instance=ExtResource("1_pulso")]
+[node name="ProjetilCaixa" unique_id=1267112713 instance=ExtResource("1_pulso")]
 velocidade = 840.0
 alcance = 360.0
 atordoamento = 0.8

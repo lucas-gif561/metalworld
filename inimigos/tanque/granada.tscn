@@ -1,30 +1,28 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cyl2b46cfv7af"]
 
-[ext_resource type="Script" path="res://inimigos/tanque/granada.gd" id="1_gra"]
-[ext_resource type="Texture2D" path="res://assets/projeteis/bola.png" id="2_tex"]
-[ext_resource type="PackedScene" path="res://inimigos/tanque/estouro_granada.tscn" id="3_est"]
-[ext_resource type="Texture2D" path="res://inimigos/tanque/sprites/granada.png" id="5_granada"]
-[ext_resource type="PackedScene" path="res://inimigos/tanque/estilhaco.tscn" id="4_bala"]
+[ext_resource type="Script" uid="uid://b2ype2021fckd" path="res://inimigos/tanque/granada.gd" id="1_gra"]
+[ext_resource type="Texture2D" uid="uid://jt6eg5um3odo" path="res://assets/projeteis/bola.png" id="2_tex"]
+[ext_resource type="PackedScene" uid="uid://clakibymerhty" path="res://inimigos/tanque/estouro_granada.tscn" id="3_est"]
+[ext_resource type="PackedScene" uid="uid://beijo3d2qv0di" path="res://inimigos/tanque/estilhaco.tscn" id="4_bala"]
+[ext_resource type="Texture2D" uid="uid://nvka41ql58u3" path="res://inimigos/tanque/sprites/granada.png" id="5_granada"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gra"]
-radius = 10.0
 
-[node name="Granada" type="Area2D"]
+[node name="Granada" type="Area2D" unique_id=1357848018]
 collision_layer = 8
 collision_mask = 16
 script = ExtResource("1_gra")
 cena_particulas = ExtResource("3_est")
 cena_bala = ExtResource("4_bala")
 
-[node name="Sombra" type="Sprite2D" parent="."]
+[node name="Sombra" type="Sprite2D" parent="." unique_id=267369652]
 modulate = Color(0, 0, 0, 0.5)
 scale = Vector2(4, 1.75)
 texture = ExtResource("2_tex")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=194736172]
 texture_filter = 1
-scale = Vector2(1, 1)
 texture = ExtResource("5_granada")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1969600116]
 shape = SubResource("CircleShape2D_gra")

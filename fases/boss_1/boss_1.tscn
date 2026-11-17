@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://bgb1735o3sdg4"]
 
-[ext_resource type="Texture2D" path="res://fases/boss_1/sprites/arena_galpao_v2.jpg" id="1_6tvee"]
+[ext_resource type="Texture2D" uid="uid://cpr238u18n6sq" path="res://fases/boss_1/sprites/arena_galpao_v2.jpg" id="1_6tvee"]
 [ext_resource type="Script" uid="uid://cefx3gl0nkig5" path="res://bosses/base/arena_boss.gd" id="1_df7gq"]
 [ext_resource type="PackedScene" uid="uid://davnwkwebe4qc" path="res://fases/boss_1/chefe_1.tscn" id="2_df7gq"]
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="3_8xsta"]
 [ext_resource type="PackedScene" path="res://fases/boss_1/projetil_palheta.tscn" id="4_8xsta"]
 [ext_resource type="PackedScene" path="res://fases/boss_1/onda_sonora.tscn" id="4_78twr"]
 [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="30_hud"]
-[ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/corredor.tscn" id="41_capanga"]
+[ext_resource type="PackedScene" path="res://riff/riff_hud.tscn" id="40_riff"]
+[ext_resource type="PackedScene" uid="uid://b7wdyj8ol3v0x" path="res://fases/rua_1/inimigos/corredor.tscn" id="41_capanga"]
 [ext_resource type="PackedScene" path="res://fases/boss_1/pedal.tscn" id="42_runa"]
 [ext_resource type="PackedScene" path="res://ui/cabo_de_forca.tscn" id="44_cabo"]
-[ext_resource type="PackedScene" path="res://riff/riff_hud.tscn" id="40_riff"]
-[ext_resource type="PackedScene" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
+[ext_resource type="PackedScene" uid="uid://ddtnejbelew1b" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
 
 [sub_resource type="RectangleShape2D" id="CapsuleShape2D_vyw2r"]
 size = Vector2(76, 30)
@@ -96,16 +96,16 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/ParedeDireita" unique_id=1515332814]
 shape = SubResource("RectangleShape2D_rk34g")
 
-[node name="CaixasEsquerda" type="StaticBody2D" parent="Arena/Paredes"]
+[node name="CaixasEsquerda" type="StaticBody2D" parent="Arena/Paredes" unique_id=2043865066]
 position = Vector2(148.5, 256)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/CaixasEsquerda"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/CaixasEsquerda" unique_id=135693008]
 shape = SubResource("RectangleShape2D_caixas")
 
-[node name="CaixasDireita" type="StaticBody2D" parent="Arena/Paredes"]
+[node name="CaixasDireita" type="StaticBody2D" parent="Arena/Paredes" unique_id=1912722528]
 position = Vector2(1003.5, 256)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/CaixasDireita"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arena/Paredes/CaixasDireita" unique_id=284131449]
 shape = SubResource("RectangleShape2D_caixas")
 
 [node name="Player" parent="." unique_id=1357147288 instance=ExtResource("3_8xsta")]
@@ -115,17 +115,19 @@ position = Vector2(577, 566)
 
 [node name="BossHealthBar" parent="HUD" unique_id=817409153 instance=ExtResource("90_barra_boss")]
 
-[node name="CaboDeForca" parent="HUD" instance=ExtResource("44_cabo")]
+[node name="CaboDeForca" parent="HUD" unique_id=1666514077 instance=ExtResource("44_cabo")]
 visible = false
 
 [node name="RiffHUD" parent="HUD" unique_id=948874030 instance=ExtResource("40_riff")]
 
-[node name="RiffHUDP2" parent="HUD" instance=ExtResource("40_riff")]
+[node name="RiffHUDP2" parent="HUD" unique_id=1040285863 instance=ExtResource("40_riff")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -285.0
+offset_top = -202.0
 offset_right = -45.0
+offset_bottom = 202.0
 grow_horizontal = 0
 id_jogador = 2
 

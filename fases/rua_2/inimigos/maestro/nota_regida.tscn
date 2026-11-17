@@ -1,8 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://0wcqknmjrjlw"]
 
 [ext_resource type="PackedScene" path="res://fases/rua_2/inimigos/violinista/nota_violino.tscn" id="1_base"]
-[ext_resource type="Script" path="res://fases/rua_2/inimigos/maestro/nota_flutuante.gd" id="2_voo"]
+[ext_resource type="Script" uid="uid://2tj5nwlyh1dm" path="res://fases/rua_2/inimigos/maestro/nota_flutuante.gd" id="2_voo"]
 
-[node name="NotaRegida" instance=ExtResource("1_base")]
+[node name="NotaRegida" unique_id=353909857 instance=ExtResource("1_base")]
 script = ExtResource("2_voo")
 amplitude = 0.0
+frequencia = 2.0

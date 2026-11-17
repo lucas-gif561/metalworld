@@ -1,10 +1,10 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://c1dfaqji8j76"]
 
-[ext_resource type="Texture2D" path="res://inimigos/atirador/sprites/attack.png" id="1_00d2g"]
-[ext_resource type="Texture2D" path="res://inimigos/atirador/sprites/death.png" id="2_fofmi"]
-[ext_resource type="Texture2D" path="res://inimigos/atirador/sprites/hurt.png" id="3_bpn0q"]
-[ext_resource type="Texture2D" path="res://inimigos/atirador/sprites/idle.png" id="4_5aob3"]
-[ext_resource type="Texture2D" path="res://inimigos/atirador/sprites/walk.png" id="5_fob0h"]
+[ext_resource type="Texture2D" uid="uid://qw33m81iriqw" path="res://inimigos/atirador/sprites/attack.png" id="1_00d2g"]
+[ext_resource type="Texture2D" uid="uid://boqcvsqhujxbt" path="res://inimigos/atirador/sprites/death.png" id="2_fofmi"]
+[ext_resource type="Texture2D" uid="uid://b5krpk6ffh526" path="res://inimigos/atirador/sprites/hurt.png" id="3_bpn0q"]
+[ext_resource type="Texture2D" uid="uid://c6euj2ju66sir" path="res://inimigos/atirador/sprites/idle.png" id="4_5aob3"]
+[ext_resource type="Texture2D" uid="uid://ck5iyuq5wwrwq" path="res://inimigos/atirador/sprites/walk.png" id="5_fob0h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4lyvo"]
 atlas = ExtResource("1_00d2g")

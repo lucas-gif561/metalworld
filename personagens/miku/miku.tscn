@@ -21,5 +21,5 @@ visible = false
 [node name="Hurtbox" parent="." index="3" unique_id=840653201]
 visible = false
 
-[node name="VisorMinirriff" parent="." index="6"]
+[node name="VisorMinirriff" parent="." index="6" unique_id=825048501]
 visible = false

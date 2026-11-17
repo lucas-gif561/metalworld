@@ -1,22 +1,22 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://beijo3d2qv0di"]
 
-[ext_resource type="Script" path="res://inimigos/tanque/estilhaco.gd" id="1_est"]
-[ext_resource type="Texture2D" path="res://inimigos/tanque/sprites/estilhaco_1.png" id="4_e3"]
-[ext_resource type="Texture2D" path="res://inimigos/tanque/sprites/estilhaco_2.png" id="5_e4"]
+[ext_resource type="Script" uid="uid://ddnwxtk6nmhg4" path="res://inimigos/tanque/estilhaco.gd" id="1_est"]
+[ext_resource type="Texture2D" uid="uid://diyn4b5iaku6v" path="res://inimigos/tanque/sprites/estilhaco_1.png" id="4_e3"]
+[ext_resource type="Texture2D" uid="uid://cbbun2c0hum1g" path="res://inimigos/tanque/sprites/estilhaco_2.png" id="5_e4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_est"]
 radius = 8.0
 
-[node name="Estilhaco" type="Area2D"]
+[node name="Estilhaco" type="Area2D" unique_id=20363816]
 collision_layer = 8
 collision_mask = 16
 script = ExtResource("1_est")
 artes = Array[Texture2D]([ExtResource("4_e3"), ExtResource("5_e4")])
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2035804114]
 texture_filter = 1
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_e3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1709814555]
 shape = SubResource("CircleShape2D_est")

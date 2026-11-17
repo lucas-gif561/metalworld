@@ -1,18 +1,18 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dn1sxmg1a27kt"]
 
-[ext_resource type="Script" path="res://fases/boss_1/onda_sonora.gd" id="1_script"]
-[ext_resource type="SpriteFrames" path="res://fases/boss_1/sprites/onda_sonora.tres" id="2_onda"]
+[ext_resource type="Script" uid="uid://djb4gnt3cg0cr" path="res://fases/boss_1/onda_sonora.gd" id="1_script"]
+[ext_resource type="SpriteFrames" uid="uid://c6heyqan4ck3q" path="res://fases/boss_1/sprites/onda_sonora.tres" id="2_onda"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onda"]
 radius = 45.0
 
-[node name="OndaSonora" type="Area2D"]
+[node name="OndaSonora" type="Area2D" unique_id=1766540629]
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1594209299]
 shape = SubResource("CircleShape2D_onda")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=300776150]
 texture_filter = 1
 scale = Vector2(2.045, 2.045)
 sprite_frames = ExtResource("2_onda")

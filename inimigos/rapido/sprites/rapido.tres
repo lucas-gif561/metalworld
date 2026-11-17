@@ -1,10 +1,10 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cg88ff10rcycj"]
 
-[ext_resource type="Texture2D" path="res://inimigos/rapido/sprites/attack.png" id="1_dhf87"]
-[ext_resource type="Texture2D" path="res://inimigos/rapido/sprites/death.png" id="2_tm2lf"]
-[ext_resource type="Texture2D" path="res://inimigos/rapido/sprites/hurt.png" id="3_gx8ky"]
-[ext_resource type="Texture2D" path="res://inimigos/rapido/sprites/idle.png" id="4_o23k6"]
-[ext_resource type="Texture2D" path="res://inimigos/rapido/sprites/walk.png" id="5_pmc4e"]
+[ext_resource type="Texture2D" uid="uid://bgex6hpaloc6i" path="res://inimigos/rapido/sprites/attack.png" id="1_dhf87"]
+[ext_resource type="Texture2D" uid="uid://c0imm68ow71og" path="res://inimigos/rapido/sprites/death.png" id="2_tm2lf"]
+[ext_resource type="Texture2D" uid="uid://dqaoyjongc8kh" path="res://inimigos/rapido/sprites/hurt.png" id="3_gx8ky"]
+[ext_resource type="Texture2D" uid="uid://ck2m4q37skqwe" path="res://inimigos/rapido/sprites/idle.png" id="4_o23k6"]
+[ext_resource type="Texture2D" uid="uid://cw3d6pr75mvcs" path="res://inimigos/rapido/sprites/walk.png" id="5_pmc4e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bqje1"]
 atlas = ExtResource("1_dhf87")

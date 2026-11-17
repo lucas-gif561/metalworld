@@ -1,16 +1,16 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://4r5lxcxvweki"]
 
-[ext_resource type="PackedScene" path="res://inimigos/base/inimigo.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://fases/rua_2/sprites/trombonista/trombonista.tres" id="2_animacoes"]
-[ext_resource type="Script" path="res://fases/rua_2/inimigos/trombonista/trombonista.gd" id="3_script"]
+[ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_base"]
+[ext_resource type="SpriteFrames" uid="uid://d17xrm6tvxro3" path="res://fases/rua_2/sprites/trombonista/trombonista.tres" id="2_animacoes"]
+[ext_resource type="Script" uid="uid://52yt0dpu4iv7" path="res://fases/rua_2/inimigos/trombonista/trombonista.gd" id="3_script"]
 
-[node name="Trombonista" instance=ExtResource("1_base")]
+[node name="Trombonista" unique_id=1616416273 instance=ExtResource("1_base")]
 script = ExtResource("3_script")
 distancia_ataque = 84.0
 faixa_ataque = 24.0
 tempo_preparo = 0.55
 
-[node name="AnimatedSprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
 scale = Vector2(1.9130435, 1.9130435)
 sprite_frames = ExtResource("2_animacoes")
 offset = Vector2(0, -22)

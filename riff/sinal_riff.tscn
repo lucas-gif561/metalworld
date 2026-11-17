@@ -1,8 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cvfhj04wg0vt3"]
 
 [ext_resource type="PackedScene" path="res://ui/icones_comando.tscn" id="1_icones"]
 
-[node name="SinalRiff" type="VBoxContainer"]
+[node name="SinalRiff" type="VBoxContainer" unique_id=127616307]
 visible = false
 z_index = 5
 offset_left = -100.0
@@ -12,6 +12,5 @@ offset_bottom = 52.0
 mouse_filter = 2
 theme_override_constants/separation = 2
 
-[node name="Teclas" parent="." instance=ExtResource("1_icones")]
+[node name="Teclas" parent="." unique_id=1720640746 instance=ExtResource("1_icones")]
 layout_mode = 2
-comando = "riff_mode"

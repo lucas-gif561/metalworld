@@ -1,23 +1,25 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dwdjltqure83r"]
 
-[ext_resource type="PackedScene" path="res://inimigos/atirador/projetil_inimigo.tscn" id="1_base"]
-[ext_resource type="Script" path="res://fases/rua_2/inimigos/maestro/nota_flutuante.gd" id="2_nota"]
+[ext_resource type="PackedScene" uid="uid://d3licugsc1aio" path="res://inimigos/atirador/projetil_inimigo.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://2tj5nwlyh1dm" path="res://fases/rua_2/inimigos/maestro/nota_flutuante.gd" id="2_nota"]
 
 [sub_resource type="CircleShape2D" id="ColisaoNota"]
 radius = 11.0
 
-[node name="NotaFlutuante" instance=ExtResource("1_base")]
+[node name="NotaFlutuante" unique_id=1133437479 instance=ExtResource("1_base")]
 script = ExtResource("2_nota")
+amplitude = 27.0
+frequencia = 2.0
 velocidade = 330.0
 alcance = 650.0
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0" unique_id=1148980457]
 visible = false
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="1" unique_id=478726971]
 shape = SubResource("ColisaoNota")
 
-[node name="Partitura" type="Line2D" parent="." index="2"]
+[node name="Partitura" type="Line2D" parent="." index="2" unique_id=824943364]
 points = PackedVector2Array(-8, 4, -6, 1, -1, 0, 2, 2, 0, 6, -5, 8, -8, 6, -8, 4, 2, 2, 2, -13, 10, -10, 13, -5)
 width = 3.5
 default_color = Color(1, 0.55, 0.94, 1)

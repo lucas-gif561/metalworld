@@ -1,42 +1,34 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://c6heyqan4ck3q"]
 
-[ext_resource type="Texture2D" path="res://fases/boss_1/sprites/onda_sonora.png" id="1_onda"]
-
-[sub_resource type="AtlasTexture" id="onda_0"]
-atlas = ExtResource("1_onda")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="onda_1"]
-atlas = ExtResource("1_onda")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="onda_2"]
-atlas = ExtResource("1_onda")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="onda_3"]
-atlas = ExtResource("1_onda")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="onda_4"]
-atlas = ExtResource("1_onda")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="onda_5"]
-atlas = ExtResource("1_onda")
-region = Rect2(320, 0, 64, 64)
+[ext_resource type="Texture2D" uid="uid://cwgfr03r6ci0j" path="res://fases/boss_1/sprites/onda_sonora.png" id="1_onda"]
 
 [sub_resource type="AtlasTexture" id="onda_6"]
 atlas = ExtResource("1_onda")
 region = Rect2(384, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="onda_7"]
+[sub_resource type="AtlasTexture" id="onda_5"]
 atlas = ExtResource("1_onda")
-region = Rect2(448, 0, 64, 64)
+region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="onda_8"]
+[sub_resource type="AtlasTexture" id="onda_4"]
 atlas = ExtResource("1_onda")
-region = Rect2(512, 0, 64, 64)
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="onda_3"]
+atlas = ExtResource("1_onda")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="onda_2"]
+atlas = ExtResource("1_onda")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="onda_1"]
+atlas = ExtResource("1_onda")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="onda_0"]
+atlas = ExtResource("1_onda")
+region = Rect2(0, 0, 64, 64)
 
 [resource]
 animations = [{
@@ -62,7 +54,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("onda_0")
 }],
-"loop": false,
+"loop": 0,
 "name": &"ataque",
 "speed": 4.667
 }]

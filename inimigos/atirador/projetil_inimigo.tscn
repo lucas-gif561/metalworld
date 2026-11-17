@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d3licugsc1aio"]
 
 [ext_resource type="Script" uid="uid://c8o4qip5f2oa3" path="res://inimigos/atirador/projetil_inimigo.gd" id="1_eyhbw"]
-[ext_resource type="Texture2D" path="res://assets/projeteis/bola_longa.png" id="5_tex"]
+[ext_resource type="Texture2D" uid="uid://bm1fg2qaaskd7" path="res://assets/projeteis/bola_longa.png" id="5_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qf7sd"]
 size = Vector2(12, 18)

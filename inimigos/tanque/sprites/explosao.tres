@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://bcg0fa7rikpvj"]
 
-[ext_resource type="Texture2D" path="res://inimigos/tanque/sprites/explosao.png" id="1_explosao"]
+[ext_resource type="Texture2D" uid="uid://c6b1gayngo3dt" path="res://inimigos/tanque/sprites/explosao.png" id="1_explosao"]
 
 [sub_resource type="AtlasTexture" id="Atlas_0"]
 atlas = ExtResource("1_explosao")
@@ -68,7 +68,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("Atlas_8")
 }],
-"loop": false,
+"loop": 0,
 "name": &"estouro",
 "speed": 14.0
 }]

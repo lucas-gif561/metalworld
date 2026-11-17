@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="30_hud"]
 [ext_resource type="PackedScene" path="res://riff/riff_hud.tscn" id="40_riff"]
 [ext_resource type="PackedScene" path="res://ui/cabo_de_forca.tscn" id="44_cabo"]
-[ext_resource type="PackedScene" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
+[ext_resource type="PackedScene" uid="uid://ddtnejbelew1b" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mi726"]
 size = Vector2(1222, 133.5)

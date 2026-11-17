@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cvuqxjg5slqag"]
 
 [ext_resource type="Texture2D" uid="uid://be8d45abhogdi" path="res://assets/fundos/arena_neon.png" id="1_6tvee"]
 [ext_resource type="Script" uid="uid://cefx3gl0nkig5" path="res://bosses/base/arena_boss.gd" id="1_df7gq"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="30_hud"]
 [ext_resource type="PackedScene" path="res://riff/riff_hud.tscn" id="40_riff"]
 [ext_resource type="PackedScene" path="res://ui/cabo_de_forca.tscn" id="44_cabo"]
-[ext_resource type="PackedScene" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
+[ext_resource type="PackedScene" uid="uid://ddtnejbelew1b" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vyw2r"]
 radius = 108.0
@@ -34,8 +34,8 @@ y_sort_enabled = true
 metadata/_edit_group_ = true
 
 [node name="BackGround" type="Sprite2D" parent="Arena" unique_id=1230644980]
-z_index = -1
 modulate = Color(1.2, 0.8, 0.7, 1)
+z_index = -1
 position = Vector2(574.80566, 321.99997)
 scale = Vector2(0.6950055, 0.6950053)
 texture = ExtResource("1_6tvee")
@@ -91,17 +91,19 @@ position = Vector2(577, 566)
 
 [node name="BossHealthBar" parent="HUD" unique_id=817409153 instance=ExtResource("90_barra_boss")]
 
-[node name="CaboDeForca" parent="HUD" instance=ExtResource("44_cabo")]
+[node name="CaboDeForca" parent="HUD" unique_id=586694978 instance=ExtResource("44_cabo")]
 visible = false
 
 [node name="RiffHUD" parent="HUD" unique_id=948874030 instance=ExtResource("40_riff")]
 
-[node name="RiffHUDP2" parent="HUD" instance=ExtResource("40_riff")]
+[node name="RiffHUDP2" parent="HUD" unique_id=1563166319 instance=ExtResource("40_riff")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -285.0
+offset_top = -202.0
 offset_right = -45.0
+offset_bottom = 202.0
 grow_horizontal = 0
 id_jogador = 2
 
