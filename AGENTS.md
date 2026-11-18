@@ -25,7 +25,7 @@ Arquivos que **nunca** devem ser editados num PR de fase:
 - `sistemas/*`: autoloads `Jogo`, `Controles`, `Audio` e `Combate`;
 - `personagens/*`: o Dylan;
 - `inimigos/base/*`, `bosses/base/*`, `fases/comum/*`: os modelos que todo mundo usa;
-- `riff/*`, `ui/*`, `objetos/*`;
+- `riff/*`, `ui/*`, `objetos/*`, `ferramentas/*`;
 - `fases/rua_1/*`, `fases/boss_1/*` (rua 1 e boss 1 são o exemplo; copie, não altere);
 - `tests/*`, exceto para criar um teste novo da sua fase, como `tests/teste_rua_2.gd`.
 
@@ -49,6 +49,7 @@ Organização **por funcionalidade**, como recomenda o guia oficial do Godot: ce
 | `fases/rua_N/`, `fases/boss_N/` | Uma pasta por fase. A do boss traz a arena (`boss_N.tscn`) e o chefe (`chefe_N.tscn`/`.gd`) |
 | `assets/` | Só o que é compartilhado: `audio/`, `fundos/`, `efeitos/`, `projeteis/` |
 | `tests/`, `docs/` | Testes automáticos e guias |
+| `ferramentas/` | Scripts de linha de comando, como `gravar_uids.gd` |
 
 Inimigos, objetos e sprites novos de uma fase ficam **dentro da pasta da fase**, como `fases/rua_2/inimigos/motoqueiro/`.
 
@@ -186,7 +187,12 @@ Os sprites finais são feitos pelo responsável pela base. Até lá, use **arte 
 
 - O aviso "RIFF!" do descanso é o nó `SinalRiff` (uma instância de `riff/sinal_riff.tscn`, com o texto e o ícone de abrir o Riff de quem está jogando) no `fases/boss_1/chefe_1.tscn`. Instancie essa cena no seu boss se quiser mudar o lugar; sem ela, o boss cria uma igual sozinho.
 
-- Prefira editar cenas (`.tscn`) **pelo editor**. Se editar como texto, não invente `uid="uid://..."`: deixe só o `path`, e o Godot gera o resto.
+- Prefira editar cenas (`.tscn`) **pelo editor**.
+- **UIDs.** Pode criar ou editar `.tscn` e `.tres` como texto, mas nunca escreva `uid=` à mão: deixe só o `path`. Antes do commit, peça ao Godot para preencher os UIDs só nos arquivos do seu PR (arquivos ou pastas):
+  ```
+  godot --headless --path . --script res://ferramentas/gravar_uids.gd -- fases/rua_3/rua_3.tscn fases/rua_3/inimigos/
+  ```
+  Ela sorteia UIDs novos pelo próprio Godot, copia o UID real nas referências e atualiza o cache. Se tiver imagens ou sons novos, rode antes `godot --headless --path . --import`. Sem terminal, dá no mesmo abrir cada arquivo no editor e salvar (Ctrl+S na cena; no Inspector, para um `.tres`). Depois confira com `git diff --stat` que só os arquivos do PR mudaram, e descarte o resto com `git restore`. Use "Atualizar arquivos do projeto" só se combinado com a equipe, porque ela regrava o projeto inteiro.
 - Em cena herdada, a linha `script = ...` vem **antes** das propriedades exportadas, senão os valores se perdem.
 - Não deixe o editor do Godot aberto enquanto troca de branch no git, porque ele pode sobrescrever cenas com a versão antiga. Feche, troque e reabra.
 - Testes rodam sem janela (`--headless`). Nesse modo a tela tem outro tamanho, então limites verticais podem diferir da janela normal.
