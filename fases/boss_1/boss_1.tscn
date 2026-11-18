@@ -58,6 +58,7 @@ vida_maxima = 200
 cena_projetil = ExtResource("4_8xsta")
 cena_ataque_area = ExtResource("4_78twr")
 cena_capanga = ExtResource("41_capanga")
+pontos_capanga = Array[Vector2]([Vector2(330, 540), Vector2(822, 540)])
 cena_runa = ExtResource("42_runa")
 usar_fases = true
 usar_nota_maldita = true

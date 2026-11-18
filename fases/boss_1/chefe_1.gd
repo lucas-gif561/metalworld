@@ -8,6 +8,12 @@ extends Boss
 @export_range(0.0, 1.0) var chance_correr := 0.75
 @export var velocidade_corrida := 320.0
 
+@export_group("Capangas")
+## Altura (y) em que nascem, fora da tela, embaixo; sobem andando até os pontos_capanga
+@export var entrada_capangas_y := 740.0
+## Segundos andando da borda de baixo até o ponto
+@export var tempo_entrada_capangas := 1.2
+
 @export_group("Microfonia")
 ## Aviso da microfonia grande (área quádrupla), do círculo aparecer até o dano
 @export var tempo_microfonia_grande := 1.2
@@ -61,6 +67,27 @@ func ciclo_ataques():
 				await esperar_no_ritmo(passo[2])
 
 
+## Os capangas entram pela borda de baixo do galpão, em vez de surgir no lugar
+func _invocar_capangas_por_baixo() -> void:
+	var antes = get_tree().get_nodes_in_group("capangas")
+	invocar_capangas()
+	for capanga in get_tree().get_nodes_in_group("capangas"):
+		if not capanga in antes:
+			_entrar_por_baixo(capanga)
+
+
+## Nasce fora da tela, embaixo, e sobe andando até o ponto dele. A física fica
+## desligada na subida para atravessar a parede de baixo da arena.
+func _entrar_por_baixo(capanga: Node2D) -> void:
+	var destino = capanga.position
+	capanga.position = Vector2(destino.x, entrada_capangas_y)
+	capanga.set_physics_process(false)
+	capanga.sprite.play("walk")
+	var tween = capanga.create_tween()
+	tween.tween_property(capanga, "position", destino, tempo_entrada_capangas)
+	tween.finished.connect(capanga.set_physics_process.bind(true))
+
+
 func _executar(nome: String) -> void:
 	animacao_ataque = ANIMACAO_DO_ATAQUE.get(nome, "cast")
 	match nome:
@@ -80,7 +107,7 @@ func _executar(nome: String) -> void:
 		"corredor":
 			await corredor()
 		"capangas":
-			invocar_capangas()
+			_invocar_capangas_por_baixo()
 		"correr":
 			await correr_no_palco()
 		"escudo":
