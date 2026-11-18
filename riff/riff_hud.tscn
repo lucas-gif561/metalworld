@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://oyrmveyxex3v" path="res://riff/sprites/tecla_direita_apagada.png" id="20_direita"]
 [ext_resource type="Texture2D" uid="uid://cwcrkx0s13a8l" path="res://riff/sprites/tecla_esquerda_apagada.png" id="20_esquerda"]
 [ext_resource type="Texture2D" uid="uid://c7pnhwm6q6pl3" path="res://riff/sprites/aviso.png" id="21_aviso"]
+[ext_resource type="PackedScene" uid="uid://b5b2y737mte2l" path="res://riff/efeito_perfeito.tscn" id="22_perfeito"]
 
 [sub_resource type="Animation" id="Animation_aviso"]
 resource_name = "piscar"
@@ -54,6 +55,7 @@ offset_bottom = 178.0
 grow_vertical = 2
 script = ExtResource("7_xtdbn")
 cena_nota = ExtResource("8_mi726")
+cena_efeito_perfeito = ExtResource("22_perfeito")
 
 [node name="FundoOpaco" type="ColorRect" parent="." unique_id=1683788588]
 layout_mode = 0
@@ -62,7 +64,7 @@ offset_top = -4.0
 offset_right = 244.0
 offset_bottom = 384.0
 mouse_filter = 2
-color = Color(0.075, 0.052, 0.12, 1)
+color = Color(0.075, 0.052, 0.12, 0.6)
 
 [node name="NotasContainer" type="Control" parent="." unique_id=1075832888]
 anchors_preset = 0
@@ -74,30 +76,48 @@ offset_bottom = 320.0
 layout_mode = 0
 offset_right = 57.0
 offset_bottom = 300.0
-color = Color(0.1882353, 0.14117648, 0.32156864, 1)
+color = Color(0.1882353, 0.14117648, 0.32156864, 0.5)
 
 [node name="TrilhaBaixo" type="ColorRect" parent="NotasContainer" unique_id=2142767410]
 layout_mode = 0
 offset_left = 61.0
 offset_right = 118.0
 offset_bottom = 300.0
-color = Color(0.1882353, 0.14117648, 0.32156864, 1)
+color = Color(0.1882353, 0.14117648, 0.32156864, 0.5)
 
 [node name="TrilhaEsquerda" type="ColorRect" parent="NotasContainer" unique_id=448193803]
 layout_mode = 0
 offset_left = 122.0
 offset_right = 179.0
 offset_bottom = 300.0
-color = Color(0.1882353, 0.14117648, 0.32156864, 1)
+color = Color(0.1882353, 0.14117648, 0.32156864, 0.5)
 
 [node name="TrilhaDireita" type="ColorRect" parent="NotasContainer" unique_id=2124801904]
 layout_mode = 0
 offset_left = 183.0
 offset_right = 240.0
 offset_bottom = 300.0
-color = Color(0.1882353, 0.14117648, 0.32156864, 1)
+color = Color(0.1882353, 0.14117648, 0.32156864, 0.5)
+
+[node name="Aviso" type="TextureRect" parent="NotasContainer" unique_id=143868948]
+visible = false
+self_modulate = Color(1, 0.25, 0.25, 0.55)
+layout_mode = 0
+offset_left = 72.0
+offset_top = 102.0
+offset_right = 168.0
+offset_bottom = 198.0
+pivot_offset = Vector2(48, 48)
+mouse_filter = 2
+texture = ExtResource("21_aviso")
+expand_mode = 1
+
+[node name="Piscar" type="AnimationPlayer" parent="NotasContainer/Aviso" unique_id=1632428462]
+libraries/ = SubResource("AnimationLibrary_aviso")
+autoplay = &"piscar"
 
 [node name="LinhaAcerto" type="ColorRect" parent="NotasContainer" unique_id=1694231651]
+modulate = Color(1, 1, 1, 0.5)
 layout_mode = 0
 offset_top = 274.0
 offset_right = 240.0
@@ -110,6 +130,7 @@ offset_left = 13.0
 offset_top = 260.0
 offset_right = 45.0
 offset_bottom = 292.0
+pivot_offset = Vector2(16, 16)
 texture = ExtResource("20_esquerda")
 expand_mode = 1
 
@@ -119,6 +140,7 @@ offset_left = 74.0
 offset_top = 260.0
 offset_right = 106.0
 offset_bottom = 292.0
+pivot_offset = Vector2(16, 16)
 texture = ExtResource("20_cima")
 expand_mode = 1
 
@@ -128,6 +150,7 @@ offset_left = 135.0
 offset_top = 260.0
 offset_right = 167.0
 offset_bottom = 292.0
+pivot_offset = Vector2(16, 16)
 texture = ExtResource("20_baixo")
 expand_mode = 1
 
@@ -137,6 +160,7 @@ offset_left = 196.0
 offset_top = 260.0
 offset_right = 228.0
 offset_bottom = 292.0
+pivot_offset = Vector2(16, 16)
 texture = ExtResource("20_direita")
 expand_mode = 1
 
@@ -160,19 +184,3 @@ theme_override_font_sizes/font_size = 20
 text = "P1"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Aviso" type="TextureRect" parent="." unique_id=143868948]
-visible = false
-layout_mode = 0
-offset_left = 198.0
-offset_top = 14.0
-offset_right = 238.0
-offset_bottom = 54.0
-pivot_offset = Vector2(20, 20)
-mouse_filter = 2
-texture = ExtResource("21_aviso")
-expand_mode = 1
-
-[node name="Piscar" type="AnimationPlayer" parent="Aviso" unique_id=1632428462]
-libraries/ = SubResource("AnimationLibrary_aviso")
-autoplay = &"piscar"

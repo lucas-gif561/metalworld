@@ -24,6 +24,8 @@ const TECLAS = ["riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 
 @export var id_jogador: int = 1
 @export var cena_nota: PackedScene
+## Faíscas que saem da tecla num PERFECT
+@export var cena_efeito_perfeito: PackedScene
 @export var bpm: float = 150.0
 ## Atraso da batida da música (segundos), para as notas chegarem no tempo
 @export var offset_batida: float = 0.516
@@ -51,7 +53,7 @@ const TECLAS = ["riff_esquerda", "riff_cima", "riff_baixo", "riff_direita"]
 @onready var notas_container = $NotasContainer
 @onready var label_feedback = $LabelFeedback
 @onready var label_jogador = $LabelJogador
-@onready var aviso = $Aviso
+@onready var aviso = $NotasContainer/Aviso
 @onready var indicadores = [
 	$NotasContainer/IndicadorEsquerda, $NotasContainer/IndicadorCima,
 	$NotasContainer/IndicadorBaixo, $NotasContainer/IndicadorDireita,
@@ -128,6 +130,15 @@ func parar_riff():
 
 	for nota in _notas():
 		nota.queue_free()
+
+	# Com o painel escondido as faíscas não andam: se ficassem, tocariam
+	# na próxima vez que o Riff abrisse
+	for no in notas_container.get_children():
+		if no is CPUParticles2D:
+			no.queue_free()
+	for indicador in indicadores:
+		indicador.scale = Vector2.ONE
+		indicador.modulate = Color.WHITE
 
 
 func gerar_notas(id):
@@ -289,11 +300,30 @@ func verificar_nota(coluna, dono := 1):
 	if perfect:
 		Audio.tocar("nota_perfect", 0.0)
 		_mostrar_feedback("PERFECT!", COR_PERFECT)
+		_efeito_perfeito(coluna)
 	else:
 		Audio.tocar("nota_good", 0.0)
 		_mostrar_feedback("GOOD", COR_GOOD)
 
 	boss.receber_dano(dano * multiplicador_de_dano())
+
+
+## Faíscas e a tecla pulando e brilhando: dá para sentir o PERFECT sem ler o texto
+func _efeito_perfeito(coluna: int) -> void:
+	var indicador = indicadores[coluna]
+	if cena_efeito_perfeito:
+		var efeito = cena_efeito_perfeito.instantiate()
+		notas_container.add_child(efeito)
+		efeito.position = indicador.position + indicador.size / 2.0
+		# Na cor de quem tocou (fica em código porque a cena serve aos dois jogadores)
+		efeito.color = Jogo.cor(id_jogador).lightened(0.3)
+		efeito.restart()
+		efeito.finished.connect(efeito.queue_free)
+	indicador.scale = Vector2(1.35, 1.35)
+	indicador.modulate = Color(1.8, 1.8, 1.8)
+	var tween = create_tween().set_parallel()
+	tween.tween_property(indicador, "scale", Vector2.ONE, 0.15)
+	tween.tween_property(indicador, "modulate", Color.WHITE, 0.2)
 
 
 func multiplicador_de_dano() -> float:
