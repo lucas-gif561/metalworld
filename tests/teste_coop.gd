@@ -258,7 +258,7 @@ func _teste_pausa() -> void:
 	com_vaga.jogador = jogo.jogador_por_id(1)
 	com_vaga._lado_vaga = 1 # com vaga, ele confere quem está mais perto
 	await apertar("p1_pausar")
-	pausa.get_node("Moldura/Menu/MenuPrincipal").pressed.emit()
+	pausa.menu.get_node("MenuPrincipal").pressed.emit()
 	checar(cena.process_mode == Node.PROCESS_MODE_DISABLED, "a fase congela ao sair para o menu")
 	com_vaga._atualizar_alvo(0.1) # sem jogadores na lista: não pode quebrar
 	await esperar(0.5)
