@@ -26,6 +26,7 @@ signal derrotado
 signal anuncio(texto) # aviso na tela (a arena mostra no HUD)
 signal fase_avancou
 signal dano_recebido(valor)
+signal instrumentos_desligados # os totens subiram: a arena fecha o Riff de quem está tocando
 signal instrumentos_liberados # os totens caíram e a contagem acabou
 
 const CENA_SINAL_RIFF = preload("res://riff/sinal_riff.tscn")
@@ -418,6 +419,7 @@ func ativar_escudo(prefixo := "") -> bool:
 		runa.position = ponto
 		runa.quebrada.connect(_ao_quebrar_runa)
 		get_parent().add_child(runa)
+	instrumentos_desligados.emit()
 
 	# Os totens falam por si: o cadeado embaixo de cada jogador mostra que os
 	# instrumentos estão desligados. Só a troca de fase ganha aviso.
