@@ -207,9 +207,5 @@ text = "B no controle ou qualquer tecla para voltar"
 horizontal_alignment = 1
 
 [node name="TelaControles" parent="." unique_id=1912754268 instance=ExtResource("6_controles")]
-layout_mode = 0
-anchors_preset = 0
 
 [node name="TelaSelecao" parent="." unique_id=657197273 instance=ExtResource("7_selecao")]
-layout_mode = 0
-anchors_preset = 0
