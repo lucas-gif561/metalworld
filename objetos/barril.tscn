@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dv05ik1pri0fs"]
 
-[ext_resource type="Script" uid="uid://bhymv8tnlcqnj" path="res://objetos/quebravel.gd" id="1_queb"]
+[ext_resource type="Script" path="res://objetos/quebravel.gd" id="1_queb"]
 [ext_resource type="SpriteFrames" uid="uid://bbcnth5iox2su" path="res://objetos/sprites/barril.tres" id="2_frames"]
 [ext_resource type="PackedScene" uid="uid://f1vpie03tctb" path="res://objetos/item_carne.tscn" id="3_item"]
 [ext_resource type="Script" uid="uid://rheeksjakpjx" path="res://objetos/sombra.gd" id="4_sombra"]
