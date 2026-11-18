@@ -41,6 +41,11 @@ func _rodar() -> void:
 	print("== Menu principal")
 	change_scene_to_file("res://ui/tela_inicial.tscn")
 	await esperar(0.5)
+	# O menu pode demorar mais que 0,5 s para carregar (primeiro teste depois do
+	# import): espera ele entrar e focar o primeiro botão antes de conferir
+	var limite = Time.get_ticks_msec() + 5000
+	while focado() == "" and Time.get_ticks_msec() < limite:
+		await process_frame
 	var menu = current_scene
 	checar(focado() == "Jogar", "começa com 'Jogar' aceso")
 
