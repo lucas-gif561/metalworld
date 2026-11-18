@@ -105,7 +105,11 @@ func _teste_socos() -> void:
 	await esperar(1.0)
 	await apertar("p1_atacar")
 	await apertar("p1_atacar")
-	await esperar(0.25)
+	# Confere logo que o jab acaba: com uma espera fixa o teste olhava no último
+	# quadro do direto e falhava se ele já tivesse terminado
+	var limite = Time.get_ticks_msec() + 1000
+	while p1.sprite.animation == &"soco_esquerdo" and Time.get_ticks_msec() < limite:
+		await process_frame
 	checar(p1.sprite.animation == &"soco_direito", "apertar durante o jab emenda o direto")
 
 	var posicao = p1.global_position

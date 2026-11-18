@@ -42,6 +42,12 @@ func _cena_limpa(p2: bool) -> Node:
 	return current_scene
 
 
+## Mesma área do golpe do inimigo (Inimigo._golpe_de_perto): quem está nela pode bater
+func _no_alcance(e, p) -> bool:
+	var d = p.global_position - e.global_position
+	return abs(d.x) <= e.distancia_ataque * 1.25 and abs(d.y) <= e.faixa_ataque * 1.5
+
+
 func _criar(cena, n: int, centro: Vector2) -> Array:
 	var lista = []
 	for i in n:
@@ -79,7 +85,7 @@ func _rodar() -> void:
 		if Time.get_ticks_msec() - t0 > 3000:
 			amostras += 1
 			for e in inimigos:
-				if e._lado_vaga == 0 and Time.get_ticks_msec() >= e._recuar_ate_ms and e.global_position.distance_to(p1.global_position) > e.raio_espera * 0.5:
+				if e._lado_vaga == 0 and Time.get_ticks_msec() >= e._recuar_ate_ms and not _no_alcance(e, p1):
 					esperando_longe += 1
 			for i in inimigos.size():
 				for j in range(i + 1, inimigos.size()):
@@ -90,7 +96,11 @@ func _rodar() -> void:
 			lados[e._lado_vaga] = true
 	checar(max_vagas <= 2, "no máximo 2 inimigos com vaga de ataque ao mesmo tempo (%d)" % max_vagas)
 	checar(atacaram.size() >= 3, "inimigos se revezam no ataque (%d diferentes atacaram)" % atacaram.size())
-	checar(esperando_longe > amostras, "quem está sem vaga rodeia à distância")
+	# Sem vaga são 3 dos 5: em média, pelo menos 1,5 deles fica fora do alcance.
+	# (Medir a distância em linha reta falhava à toa: na volta em torno do
+	# jogador, quem passa por cima ou por baixo dele fica a ~120-155 px, fora
+	# da faixa de ataque mas "perto" pela régua antiga.)
+	checar(esperando_longe > amostras * 1.5, "quem está sem vaga rodeia à distância (%.1f fora do alcance)" % (float(esperando_longe) / maxi(amostras, 1)))
 	checar(dist_min > 20.0, "inimigos não se empilham (menor distância %.0f px)" % dist_min)
 
 	print("== Co-op: vagas por jogador")

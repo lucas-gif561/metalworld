@@ -1,0 +1,59 @@
+# Confere se toda cena, recurso e script tem UID gravado.
+# Arquivo criado como texto fica sem UID até alguém rodar
+# ferramentas/gravar_uids.gd (ou salvar no editor). Sem esse passo, cada
+# pessoa que abre o projeto gera um UID diferente e os diffs nunca param.
+name: UIDs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  uids:
+    name: UIDs preenchidos
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      # Mesma versão da equipe: outra versão regravaria os arquivos
+      GODOT_VERSAO: 4.7.2-stable
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Godot em cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT_VERSAO }}-linux
+
+      - name: Baixar o Godot ${{ env.GODOT_VERSAO }}
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/godot
+          curl -fsSL -o /tmp/godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSAO}/Godot_v${GODOT_VERSAO}_linux.x86_64.zip"
+          unzip -q /tmp/godot.zip -d ~/godot
+          mv ~/godot/Godot_v${GODOT_VERSAO}_linux.x86_64 ~/godot/godot
+          chmod +x ~/godot/godot
+
+      # Numa máquina limpa o Godot precisa montar o cache dos recursos
+      # importados (.godot/) antes de rodar qualquer script
+      - name: Importar o projeto
+        run: ~/godot/godot --headless --path . --import > /dev/null 2>&1 || true
+
+      - name: Verificar UIDs
+        run: |
+          set +e
+          ~/godot/godot --headless --audio-driver Dummy --path . \
+            --script res://ferramentas/gravar_uids.gd -- --verificar > saida.txt 2>&1
+          codigo=$?
+          grep -E '^(falta UID|UIDs:)' saida.txt
+          if [ $codigo -ne 0 ]; then
+            # Marca cada arquivo com pendência na aba "Files changed" do PR
+            grep '^falta UID: ' saida.txt | sed -E 's|^falta UID: res://([^ ]+).*|\1|' | sort -u | while read -r arquivo; do
+              echo "::error file=${arquivo}::Faltam UIDs neste arquivo"
+            done
+            echo "::error::Faltam UIDs. Rode 'godot --headless --path . --script res://ferramentas/gravar_uids.gd -- <arquivos do PR>' e commite o resultado (veja a seção 7 do AGENTS.md)."
+            exit 1
+          fi

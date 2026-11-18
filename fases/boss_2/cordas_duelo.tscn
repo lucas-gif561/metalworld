@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ca47o6tn8v7x7"]
 
-[ext_resource type="PackedScene" path="res://fases/boss_2/corda_duelo.tscn" id="1_corda"]
+[ext_resource type="PackedScene" uid="uid://cu6prhafy8v5x" path="res://fases/boss_2/corda_duelo.tscn" id="1_corda"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nota"]
 font_size = 24

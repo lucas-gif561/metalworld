@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_base"]
 [ext_resource type="SpriteFrames" uid="uid://4jm28kyg5pme" path="res://fases/rua_2/sprites/maestro/maestro.tres" id="2_frames"]
 [ext_resource type="Script" uid="uid://bbyheswf7v7ig" path="res://fases/rua_2/inimigos/pulso_orquestra.gd" id="3_pulso"]
-[ext_resource type="PackedScene" path="res://ui/barra_vida_miniboss.tscn" id="4_barra"]
+[ext_resource type="PackedScene" uid="uid://nsi2hqao5h61" path="res://ui/barra_vida_miniboss.tscn" id="4_barra"]
 
 [sub_resource type="RectangleShape2D" id="ColisaoMaestro"]
 size = Vector2(64, 18)

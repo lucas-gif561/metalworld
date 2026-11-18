@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bhymv8tnlcqnj" path="res://objetos/quebravel.gd" id="1_queb"]
 [ext_resource type="SpriteFrames" uid="uid://bn2a5bup4givg" path="res://objetos/sprites/caixote.tres" id="2_frames"]
-[ext_resource type="PackedScene" path="res://objetos/item_maca.tscn" id="3_item"]
+[ext_resource type="PackedScene" uid="uid://dde88yil74u0g" path="res://objetos/item_maca.tscn" id="3_item"]
 [ext_resource type="Script" uid="uid://rheeksjakpjx" path="res://objetos/sombra.gd" id="4_sombra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_queb"]

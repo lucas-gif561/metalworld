@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bdshewojrxcg4"]
 
-[ext_resource type="PackedScene" path="res://fases/boss_2/projetil_duelo.tscn" id="1_projetil"]
+[ext_resource type="PackedScene" uid="uid://brcyerr3fkbkh" path="res://fases/boss_2/projetil_duelo.tscn" id="1_projetil"]
 [ext_resource type="Script" uid="uid://bridqfvmcpe01" path="res://fases/boss_2/projetil_contratempo.gd" id="2_script"]
 
 [sub_resource type="Gradient" id="Gradient_rastro"]

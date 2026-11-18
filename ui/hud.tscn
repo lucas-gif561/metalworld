@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c7br3hc7s6ev3" path="res://ui/sprites/retrato_dylan.png" id="4_retrato"]
 [ext_resource type="Texture2D" uid="uid://bd3tv5qrw8iwq" path="res://personagens/baterista/sprites/retrato.png" id="5_baterista"]
 [ext_resource type="Texture2D" uid="uid://chbs51cmyu62m" path="res://ui/sprites/seta.png" id="6_seta"]
-[ext_resource type="PackedScene" path="res://ui/menu_pausa.tscn" id="7_pausa"]
+[ext_resource type="PackedScene" uid="uid://b0qfmrk1y8ls0" path="res://ui/menu_pausa.tscn" id="7_pausa"]
 [ext_resource type="Texture2D" uid="uid://u6jfgc3r2ycv" path="res://ui/sprites/botao_start.png" id="8_botao_a"]
 [ext_resource type="Texture2D" uid="uid://dqpld61b6umpl" path="res://ui/sprites/tecla_j.png" id="9_tecla_j"]
 [ext_resource type="Texture2D" uid="uid://bx5vvxsh2esa3" path="res://ui/sprites/cadeado.png" id="10_cadeado"]

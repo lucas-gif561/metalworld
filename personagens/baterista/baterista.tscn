@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dk7dfmsnnhgcu"]
 
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://personagens/baterista/sprites/baterista.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" uid="uid://csssnuqr4726w" path="res://personagens/baterista/sprites/baterista.tres" id="2_frames"]
 [ext_resource type="Script" uid="uid://ceuuysopektb" path="res://personagens/baterista/baterista.gd" id="3_script"]
 [ext_resource type="Texture2D" uid="uid://bd3tv5qrw8iwq" path="res://personagens/baterista/sprites/retrato.png" id="4_retrato"]
 

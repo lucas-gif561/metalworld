@@ -8,9 +8,9 @@
 [ext_resource type="Script" uid="uid://c2r13nvu5ypje" path="res://fases/comum/gerenciador_ondas.gd" id="6_manager"]
 [ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="7_normal"]
 [ext_resource type="PackedScene" uid="uid://bns8j4jm6robf" path="res://inimigos/rapido/inimigo_rapido.tscn" id="8_rapido"]
-[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="9_hud"]
-[ext_resource type="PackedScene" path="res://objetos/caixote.tscn" id="10_caixote"]
-[ext_resource type="PackedScene" path="res://objetos/barril.tscn" id="11_barril"]
+[ext_resource type="PackedScene" uid="uid://b3tmyx1mfj17g" path="res://ui/hud.tscn" id="9_hud"]
+[ext_resource type="PackedScene" uid="uid://b08jrpmqepjnt" path="res://objetos/caixote.tscn" id="10_caixote"]
+[ext_resource type="PackedScene" uid="uid://dv05ik1pri0fs" path="res://objetos/barril.tscn" id="11_barril"]
 
 [node name="Rua3" type="Node2D" unique_id=1636266880]
 y_sort_enabled = true

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_base"]
 [ext_resource type="SpriteFrames" uid="uid://3phcwklkt5vw" path="res://fases/rua_1/sprites/miniboss/miniboss.tres" id="2_frames"]
 [ext_resource type="Script" uid="uid://crlg3vxlh7i4x" path="res://fases/rua_1/inimigos/miniboss/miniboss.gd" id="3_miniboss"]
-[ext_resource type="PackedScene" path="res://ui/barra_vida_miniboss.tscn" id="4_barra"]
+[ext_resource type="PackedScene" uid="uid://nsi2hqao5h61" path="res://ui/barra_vida_miniboss.tscn" id="4_barra"]
 
 [sub_resource type="RectangleShape2D" id="ColisaoMiniboss"]
 size = Vector2(64, 18)

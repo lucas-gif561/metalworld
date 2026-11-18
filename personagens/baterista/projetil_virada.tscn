@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cy4aamawp7ma5"]
 
-[ext_resource type="PackedScene" path="res://personagens/dylan/arco_minirriff.tscn" id="1_arco"]
+[ext_resource type="PackedScene" uid="uid://dyvcvgjwg3gbf" path="res://personagens/dylan/arco_minirriff.tscn" id="1_arco"]
 
 [sub_resource type="CapsuleShape2D" id="CapsulaVirada"]
 radius = 13.0
