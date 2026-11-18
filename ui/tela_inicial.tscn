@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://rr8uafxhf8t6" path="res://ui/tela_controles.tscn" id="6_controles"]
 [ext_resource type="PackedScene" uid="uid://7cjxssmfv4s8" path="res://ui/tela_selecao.tscn" id="7_selecao"]
 
+[sub_resource type="SystemFont" id="SystemFont_versao"]
+font_names = PackedStringArray("Consolas", "DejaVu Sans Mono", "Monospace")
+
 [node name="TelaInicial" type="Control" unique_id=577006586]
 layout_mode = 3
 anchors_preset = 15
@@ -205,6 +208,29 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
 text = "B no controle ou qualquer tecla para voltar"
 horizontal_alignment = 1
+
+[node name="Versao" type="Label" parent="." unique_id=1468093317]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -360.0
+offset_top = -32.0
+offset_right = -12.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = SubResource("SystemFont_versao")
+theme_override_font_sizes/font_size = 15
+text = "versão"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="TelaControles" parent="." unique_id=1912754268 instance=ExtResource("6_controles")]
 

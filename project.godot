@@ -28,6 +28,10 @@ window/size/mode=3
 window/stretch/mode="canvas_items"
 window/size/mode.editor=0
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/versao_build/plugin.cfg")
+
 [gui]
 
 theme/custom_font="res://assets/fontes/Silkscreen-Regular.ttf"

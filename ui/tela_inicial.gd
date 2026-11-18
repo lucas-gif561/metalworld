@@ -35,6 +35,7 @@ const ESPERA_NAVEGACAO = 0.18
 @onready var selecao = $TelaSelecao
 @onready var titulo_janela = $Janela/Moldura/Titulo
 @onready var texto_janela = $Janela/Moldura/Texto
+@onready var versao = $Versao
 
 var _proxima_navegacao := 0.0
 var _iniciando := false
@@ -61,6 +62,21 @@ func _ready() -> void:
 	menu_modo.hide()
 	$Menu/Jogar.grab_focus.call_deferred()
 	_animar_placa()
+	_mostrar_versao()
+
+
+## Commit do build no canto da tela, para saber o que mudou desde a última
+## versão publicada (git log <hash>..HEAD). O arquivo é gravado na exportação
+## pelo addon versao_build; rodando pelo editor ele não existe, então
+## pergunta ao git na hora.
+func _mostrar_versao() -> void:
+	var texto := ""
+	if FileAccess.file_exists("res://versao.txt"):
+		texto = FileAccess.get_file_as_string("res://versao.txt").strip_edges()
+	elif OS.has_feature("editor"):
+		texto = load("res://addons/versao_build/versao_git.gd").linha() + " (editor)"
+	versao.text = texto
+	versao.visible = not texto.is_empty()
 
 
 # A placa "respira" devagar, como letreiro de palco

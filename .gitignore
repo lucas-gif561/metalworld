@@ -4,3 +4,6 @@
 
 # Backups locais (ficam fora do repositório)
 .backup/
+
+# Saída da exportação (export_presets.cfg): sobe para o itch.io, não para o git
+build/
