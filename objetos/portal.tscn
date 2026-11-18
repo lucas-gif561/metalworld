@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hth04xe2jej1" path="res://objetos/portal.gd" id="1_th3qj"]
 [ext_resource type="SpriteFrames" uid="uid://bjhoe5tc06si0" path="res://assets/efeitos/sigilo.tres" id="2_4fid7"]
-[ext_resource type="PackedScene" path="res://ui/icones_comando.tscn" id="3_icones"]
+[ext_resource type="PackedScene" uid="uid://u1jitdc4tktb" path="res://ui/icones_comando.tscn" id="3_icones"]
 [ext_resource type="Texture2D" uid="uid://dsmisprnjxo8e" path="res://personagens/dylan/sprites/tecla_y_pixel.png" id="4_tecla_y"]
 [ext_resource type="Texture2D" uid="uid://c56dr26f6nb8p" path="res://personagens/dylan/sprites/tecla_l.png" id="5_tecla_l"]
 [ext_resource type="Texture2D" uid="uid://colbckyolj2je" path="res://riff/sprites/botao_rb.svg" id="6_botao_rb"]

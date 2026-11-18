@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bl5ugq1hb2fft"]
 
 [ext_resource type="PackedScene" uid="uid://brcyerr3fkbkh" path="res://fases/boss_2/projetil_duelo.tscn" id="1_projetil"]
-[ext_resource type="Shape2D" path="res://fases/boss_2/forma_pinball.tres" id="2_forma"]
+[ext_resource type="Shape2D" uid="uid://blrj34aqqjnba" path="res://fases/boss_2/forma_pinball.tres" id="2_forma"]
 
 [node name="ProjetilPinball" unique_id=1909621751 instance=ExtResource("1_projetil")]
 tempo_vida = 5.4

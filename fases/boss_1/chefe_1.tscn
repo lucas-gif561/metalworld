@@ -2,7 +2,7 @@
 
 [ext_resource type="SpriteFrames" uid="uid://oxf5ce2or2yu" path="res://fases/boss_1/sprites/guitarrista/guitarrista.tres" id="1_dplu8"]
 [ext_resource type="Script" uid="uid://7gibm27uqoor" path="res://fases/boss_1/chefe_1.gd" id="1_rdia2"]
-[ext_resource type="PackedScene" path="res://riff/sinal_riff.tscn" id="2_sinal_riff"]
+[ext_resource type="PackedScene" uid="uid://cvfhj04wg0vt3" path="res://riff/sinal_riff.tscn" id="2_sinal_riff"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ec6vt"]
 

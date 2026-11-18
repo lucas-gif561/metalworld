@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://cg0acrc3bqg6k" path="res://ui/tema_menu.tres" id="4_tema"]
 [ext_resource type="Texture2D" uid="uid://0nvcpthestpv" path="res://ui/sprites/botao_menu.png" id="5_moldura"]
 [ext_resource type="PackedScene" uid="uid://rr8uafxhf8t6" path="res://ui/tela_controles.tscn" id="6_controles"]
-[ext_resource type="PackedScene" path="res://ui/tela_selecao.tscn" id="7_selecao"]
+[ext_resource type="PackedScene" uid="uid://7cjxssmfv4s8" path="res://ui/tela_selecao.tscn" id="7_selecao"]
 
 [node name="TelaInicial" type="Control" unique_id=577006586]
 layout_mode = 3

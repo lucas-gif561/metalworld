@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cc3fa3gef178v" path="res://ui/menu_pausa.gd" id="1_pausa"]
 [ext_resource type="Theme" uid="uid://cg0acrc3bqg6k" path="res://ui/tema_menu.tres" id="2_tema"]
 [ext_resource type="Texture2D" uid="uid://0nvcpthestpv" path="res://ui/sprites/botao_menu.png" id="3_moldura"]
-[ext_resource type="PackedScene" path="res://ui/tela_controles.tscn" id="4_controles"]
+[ext_resource type="PackedScene" uid="uid://rr8uafxhf8t6" path="res://ui/tela_controles.tscn" id="4_controles"]
 
 [node name="MenuPausa" type="CanvasLayer" unique_id=1587555532]
 process_mode = 3
