@@ -233,5 +233,17 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="TelaControles" parent="." unique_id=1912754268 instance=ExtResource("6_controles")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TelaSelecao" parent="." unique_id=657197273 instance=ExtResource("7_selecao")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
