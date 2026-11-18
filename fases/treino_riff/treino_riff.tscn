@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dvpkm276tot65"]
+
+[ext_resource type="PackedScene" uid="uid://bgb1735o3sdg4" path="res://fases/boss_1/boss_1.tscn" id="1_arena"]
+[ext_resource type="Script" uid="uid://cj1q3jib74xsj" path="res://fases/treino_riff/treino_riff.gd" id="2_arena"]
+[ext_resource type="Script" uid="uid://ca3bjndau42r" path="res://fases/treino_riff/boss_treino.gd" id="3_boss"]
+
+[node name="TreinoRiff" instance=ExtResource("1_arena")]
+script = ExtResource("2_arena")
+texto_inicio = "treino do Riff"
+trava_inicial = 0.0
+usar_cabo_de_forca = false
+
+[node name="Boss" parent="Arena"]
+script = ExtResource("3_boss")
+vida_maxima = 999999
+usar_fases = false
+duracao_descanso = 999999.0
