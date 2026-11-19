@@ -10,6 +10,8 @@ extends ColorRect
 signal fechada
 
 const ESPERA_NAVEGACAO = 0.15
+## Mesmo rosa do título e da barra cheia
+const COR_DESTAQUE = Color(1, 0.3, 0.72)
 
 @onready var barras := {
 	"geral": $Centro/Painel/Respiro/Coluna/Volumes/Geral/Barra,
@@ -26,6 +28,10 @@ func _ready() -> void:
 	for canal in barras:
 		var barra: HSlider = barras[canal]
 		barra.value_changed.connect(_ao_mudar.bind(canal))
+		# A barra não tem bolinha e o HSlider não desenha o estilo de foco: a
+		# linha escolhida aparece pelo nome e pela porcentagem em rosa
+		barra.focus_entered.connect(_destacar.bind(barra, true))
+		barra.focus_exited.connect(_destacar.bind(barra, false))
 	for controle in _focaveis():
 		controle.focus_entered.connect(func(): Audio.tocar("nota_good", 0.0))
 		controle.mouse_entered.connect(controle.grab_focus)
@@ -54,6 +60,15 @@ func _ao_mudar(valor: float, canal: String) -> void:
 
 func _mostrar_valor(canal: String) -> void:
 	barras[canal].get_parent().get_node("Valor").text = "%d%%" % roundi(barras[canal].value)
+
+
+func _destacar(barra: HSlider, aceso: bool) -> void:
+	for nome in ["Nome", "Valor"]:
+		var rotulo: Label = barra.get_parent().get_node(nome)
+		if aceso:
+			rotulo.add_theme_color_override("font_color", COR_DESTAQUE)
+		else:
+			rotulo.remove_theme_color_override("font_color")
 
 
 func _focaveis() -> Array:
