@@ -62,6 +62,9 @@ const COR_CARGA = Color(1.8, 1.8, 1.8)
 @export var quadro_impacto := -1
 ## 1 = voa longe com o soco; 0,3 = pesado; 0 = não se mexe
 @export var resistencia_empurrao = 1.0
+## Desligado = armadura: apanhar não cancela a carga nem faz a animação de
+## dano, ele só pisca. Só o minirriff (atordoar) para o ataque.
+@export var interrompivel := true
 
 @export_group("Impacto")
 ## Pausa curta no jogo quando o inimigo apanha (segundos)
@@ -368,7 +371,8 @@ func empurrar(forca: Vector2) -> void:
 	if tempo_atordoado > 0.0:
 		return
 	empurrao = forca * resistencia_empurrao
-	_cancelar_carga()
+	if interrompivel:
+		_cancelar_carga()
 
 
 func _processar_empurrao(delta) -> bool:
@@ -436,10 +440,11 @@ func receber_dano(valor):
 
 
 func _reagir_ao_dano() -> void:
-	_cancelar_carga()
 	Audio.tocar("dano_inimigo")
 	Combate.pausar(pausa_ao_acertar)
-	_tocar_acao("hurt")
+	if interrompivel:
+		_cancelar_carga()
+		_tocar_acao("hurt")
 	sprite.modulate = Color(1, 0.4, 0.4)
 	create_tween().tween_property(sprite, "modulate", Color.WHITE, 0.2)
 
