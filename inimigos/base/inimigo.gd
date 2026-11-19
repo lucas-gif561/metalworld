@@ -405,7 +405,12 @@ func _atualizar_alvo(delta):
 		_tempo_troca_alvo = intervalo_troca_alvo
 
 
+## Vira para o jogador, menos no meio de um ataque (da carga ao fim da
+## animação) ou de outra ação: o golpe sai para o lado em que começou, e só
+## depois ele procura o jogador de novo
 func _olhar_para_jogador():
+	if preparando or em_acao:
+		return
 	var lado = -1.0 if jogador.global_position.x < global_position.x else 1.0
 	sprite.scale.x = abs(sprite.scale.x) * lado
 
