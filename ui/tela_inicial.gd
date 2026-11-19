@@ -14,14 +14,14 @@ extends Control
 
 const TEXTO_CREDITOS = """MetalWorld — projeto da disciplina
 
-Dylan e interface: gerados pela equipe no PixelLab
+Sprites: gerados pela equipe no PixelLab
+Cenários: gerados pela equipe com o Gemini
 Ícones do HUD: Critters Pixel UI (Foozle), CC0
-Inimigos: Streets of Fight (ansimuz) e Business of Rage (DidiGameB), CC0
-Boss: Doom Scribe (CC BY 4.0)
 Barris e caixotes: Elthen · Comida: Pixel Coder
 Músicas: MintoDog (CC0) · Efeitos sonoros: Bfxr
 Teclas do Riff e botões: Kenney
-Miku: sprites de that1guyfromtheforum (DeviantArt); personagem da Crypton Future Media
+Provisórios: Streets of Fight · Doom Scribe (CC BY)
+Miku: that1guyfromtheforum · Crypton Future Media
 
 Lista completa com licenças no arquivo CREDITS.md"""
 

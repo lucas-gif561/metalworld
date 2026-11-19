@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_bikb8"]
 [ext_resource type="Script" uid="uid://dp7hrrbjqxtwb" path="res://inimigos/atirador/inimigo_atirador.gd" id="2_aqhvr"]
 [ext_resource type="PackedScene" uid="uid://d3licugsc1aio" path="res://inimigos/atirador/projetil_inimigo.tscn" id="3_fi8rl"]
-[ext_resource type="SpriteFrames" uid="uid://c1dfaqji8j76" path="res://inimigos/atirador/sprites/atirador.tres" id="9_frames"]
+[ext_resource type="SpriteFrames" uid="uid://b6xto3kyrm2u" path="res://inimigos/base/sprites/normal.tres" id="9_frames"]
 
 [node name="InimigoAtirador" unique_id=577347522 instance=ExtResource("1_bikb8")]
 script = ExtResource("2_aqhvr")
