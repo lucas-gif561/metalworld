@@ -28,6 +28,22 @@ const QUADRO_IMPACTO_SOCO = 8 # braço esticado
 ## Tempo mínimo entre dois revides (segundos)
 @export var intervalo_contra_ataque = 1.2
 
+@export_group("Distância")
+## Distância do jogador em que ele prefere ficar (a do pisão): não gruda, o
+## socão é só a defesa de quem encosta nele
+@export var distancia_preferida = 125.0
+## Folga em volta da distância preferida antes de andar
+@export var folga_distancia = 20.0
+## Chance de, com o ataque pronto e o jogador perto, recuar para longe e
+## fazer a investida de lá
+@export_range(0.0, 1.0) var chance_recuar_investida = 0.35
+## Até onde ele recua (distância do jogador) antes da investida
+@export var distancia_recuo = 380.0
+## Desiste de recuar depois deste tempo (encurralado numa borda, por exemplo)
+@export var tempo_max_recuo = 1.5
+## Velocidade do recuo para a investida, em vezes a velocidade normal
+@export var multiplicador_velocidade_recuo = 2.0
+
 @export_group("")
 ## Largura do corredor da investida (o mesmo que aparece no aviso)
 @export var largura_investida = 54.0
@@ -44,6 +60,11 @@ const QUADRO_IMPACTO_SOCO = 8 # braço esticado
 
 var _destino_x = 0.0
 var _proximo_contra_ms := 0
+## Recuando para ganhar distância e fazer a investida (ver chance_recuar_investida)
+var _recuo_restante = 0.0
+var _quer_investida = false
+## Já sorteou o recuo neste intervalo de ataque
+var _sorteou_recuo = false
 var _investindo = false
 var _atingidos: Array[int] = []
 var _tween_aviso: Tween
@@ -56,8 +77,11 @@ func _processar_miniboss(delta) -> void:
 		super._processar_miniboss(delta)
 
 
-func _comportamento(_delta):
-	if em_acao and sprite.animation == &"pisao":
+func _comportamento(delta):
+	# Durante um ataque (da carga até o fim da animação) ele não vira nem anda:
+	# o golpe sai para o lado em que começou, e só depois ele procura o jogador
+	if em_acao:
+		velocity = Vector2.ZERO
 		return
 
 	var alvo = jogador.global_position
@@ -65,27 +89,70 @@ func _comportamento(_delta):
 	var distancia = diferenca.length()
 	var entrada = _dentro_da_arena(global_position)
 	var entrando = not is_equal_approx(entrada.x, global_position.x)
+	var pronto = timer_ataque.is_stopped()
 	_olhar_para_jogador()
 
-	if not entrando and timer_ataque.is_stopped():
+	if not pronto:
+		_sorteou_recuo = false
+
+	if not entrando and pronto:
+		# Socão: só a defesa de quem encosta nele
 		if _alcance_do_soco(jogador):
+			_quer_investida = false
+			_recuo_restante = 0.0
 			_preparar_soco()
 			return
-		if distancia >= distancia_minima_pisao and distancia <= raio_pisao * 0.85:
-			_preparar_pisao()
-			return
-		if distancia <= alcance_grito:
-			_preparar_grito(diferenca.normalized())
-			return
+		# Com o ataque pronto e o jogador perto, às vezes pega distância para a investida
+		if not _sorteou_recuo:
+			_sorteou_recuo = true
+			if distancia < distancia_recuo * 0.7 and randf() < chance_recuar_investida:
+				_quer_investida = true
+				_recuo_restante = tempo_max_recuo
+		if _quer_investida and _recuo_restante > 0.0:
+			_recuo_restante -= delta
+			var ponto_recuo = _dentro_da_arena(alvo - Vector2(signf(diferenca.x) if diferenca.x != 0.0 else 1.0, 0.0) * distancia_recuo)
+			if distancia < distancia_recuo and global_position.distance_to(ponto_recuo) > 8.0:
+				_andar_ate(ponto_recuo, velocidade * multiplicador_velocidade_recuo)
+				return
+			_recuo_restante = 0.0
+		if not _quer_investida:
+			if distancia >= distancia_minima_pisao and distancia <= raio_pisao * 0.85:
+				_preparar_pisao()
+				return
+			if distancia <= alcance_grito:
+				_preparar_grito(diferenca.normalized())
+				return
 		if absf(diferenca.x) <= alcance_investida:
 			# Alinha a corrida na faixa do alvo antes de fixar o aviso no chão.
 			if absf(diferenca.y) <= largura_investida * 0.5:
+				_quer_investida = false
 				_preparar_investida(diferenca.x)
 				return
-			alvo.x = global_position.x
+			_andar_ate(_dentro_da_arena(Vector2(global_position.x, alvo.y)))
+			return
 
-	var destino = entrada if entrando else _dentro_da_arena(alvo)
-	velocity = global_position.direction_to(destino) * velocidade
+	var destino = entrada if entrando else _ponto_na_distancia(alvo, distancia)
+	_andar_ate(destino)
+
+
+## Ponto a distancia_preferida do jogador, do lado em que ele já está: chega
+## perto quando está longe e se afasta quando o jogador encosta
+func _ponto_na_distancia(alvo: Vector2, distancia: float) -> Vector2:
+	if absf(distancia - distancia_preferida) <= folga_distancia:
+		return global_position
+	var lado = alvo.direction_to(global_position)
+	if lado == Vector2.ZERO:
+		lado = Vector2(-1, 0)
+	return _dentro_da_arena(alvo + lado * distancia_preferida)
+
+
+## Para só quando o destino é onde ele já está (na distância preferida); de
+## resto anda sempre, até para entrar na tela pela borda
+func _andar_ate(destino: Vector2, rapidez: float = -1.0) -> void:
+	if destino.is_equal_approx(global_position):
+		velocity = Vector2.ZERO
+	else:
+		velocity = global_position.direction_to(destino) * (velocidade if rapidez < 0.0 else rapidez)
 	_atualizar_animacao()
 	move_and_slide()
 
