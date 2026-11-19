@@ -29,6 +29,10 @@ func apertar(acao: String) -> void:
 		evento.action = acao
 		evento.pressed = pressionado
 		Input.parse_input_event(evento)
+		# A seleção lê a tecla no _process (is_action_just_pressed): segura por
+		# pelo menos dois quadros, senão um quadro lento engole o aperto
+		await process_frame
+		await process_frame
 		await esperar(0.1)
 
 
@@ -57,6 +61,10 @@ func _abrir_selecao(em_dupla: bool) -> Node:
 	var menu = current_scene
 	menu.get_node("MenuModo/Dueto" if em_dupla else "MenuModo/Solo").pressed.emit()
 	await esperar(0.3)
+	# Logo depois de abrir, a seleção ignora as teclas por ESPERA_AO_ABRIR
+	var limite = Time.get_ticks_msec() + 3000
+	while menu.selecao._espera > 0.0 and Time.get_ticks_msec() < limite:
+		await process_frame
 	return menu.selecao
 
 
