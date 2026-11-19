@@ -1,5 +1,5 @@
 extends SceneTree
-## Teste do menu principal: navegação, Controles/Créditos e iniciar
+## Teste do menu principal: navegação, Opções, Controles/Créditos e iniciar
 ## sozinho ou em dupla. Rode com: tests/rodar_testes.sh
 
 var jogo: Node
@@ -53,7 +53,10 @@ func _rodar() -> void:
 	checar(focado() == "Controles", "S desce para 'Controles'")
 	await esperar(0.2)
 	await apertar("ui_down")
-	checar(focado() == "Creditos", "seta para baixo desce para 'Créditos'")
+	checar(focado() == "Opcoes", "seta para baixo desce para 'Opções'")
+	await esperar(0.2)
+	await apertar("p1_mover_baixo")
+	checar(focado() == "Creditos", "depois vem 'Créditos'")
 	await esperar(0.2)
 	await apertar("p1_mover_baixo")
 	checar(focado() == "Sair", "o último botão é 'Sair'")
@@ -70,6 +73,24 @@ func _rodar() -> void:
 	checar(menu.janela.visible and menu.titulo_janela.text == "Créditos", "J abre a janela de Créditos")
 	await apertar("p1_dodge")
 	checar(not menu.janela.visible, "qualquer botão fecha a janela")
+
+	# Opções: volume com A/D. O teste devolve o volume ao valor de antes, porque
+	# fechar a tela salva em user://opcoes.cfg (o mesmo arquivo do jogo)
+	var audio = root.get_node("Audio")
+	checar(AudioServer.get_bus_index("Musica") > 0 and AudioServer.get_bus_index("Efeitos") > 0, "música e efeitos têm barramentos próprios")
+	var geral = audio.volume("geral")
+	menu.get_node("Menu/Opcoes").grab_focus()
+	await esperar(0.2)
+	await apertar("p1_atacar")
+	checar(menu.opcoes.visible and not menu.menu.visible and focado() == "Barra", "'Opções' abre os volumes, já no volume geral")
+	await apertar("p1_mover_esquerda")
+	var abaixado = audio.volume("geral")
+	checar(abaixado < geral or geral == 0.0, "A abaixa o volume geral (%.2f -> %.2f)" % [geral, abaixado])
+	await apertar("p1_mover_direita")
+	checar(audio.volume("geral") > abaixado or abaixado == 1.0, "D sobe o volume")
+	audio.definir_volume("geral", geral)
+	await apertar("ui_cancel")
+	checar(not menu.opcoes.visible and menu.menu.visible and focado() == "Opcoes", "Esc fecha as opções e volta em 'Opções'")
 
 	menu.get_node("Menu/Jogar").grab_focus()
 	await esperar(0.2)

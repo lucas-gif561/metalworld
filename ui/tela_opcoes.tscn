@@ -1,0 +1,208 @@
+[gd_scene format=3 uid="uid://c75c80eld405r"]
+
+[ext_resource type="Script" uid="uid://b8c73pm21874m" path="res://ui/tela_opcoes.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://cg0acrc3bqg6k" path="res://ui/tema_menu.tres" id="2_tema"]
+[ext_resource type="Texture2D" uid="uid://0nvcpthestpv" path="res://ui/sprites/botao_menu.png" id="3_moldura"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_painel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trilho"]
+content_margin_top = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.12, 0.05, 0.16, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.05, 0.01, 0.07, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cheio"]
+bg_color = Color(0.85, 0.25, 0.6, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cheio_aceso"]
+bg_color = Color(1, 0.3, 0.72, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_foco"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.9, 0.96, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="Theme" id="Theme_barras"]
+HSlider/styles/slider = SubResource("StyleBoxFlat_trilho")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_cheio")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_cheio_aceso")
+HSlider/styles/focus = SubResource("StyleBoxFlat_foco")
+Label/colors/font_color = Color(0.9, 0.86, 0.96, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 5
+Label/font_sizes/font_size = 22
+
+[node name="TelaOpcoes" type="ColorRect"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_tema")
+color = Color(0.03, 0.01, 0.06, 0.75)
+script = ExtResource("1_script")
+
+[node name="Centro" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Painel" type="PanelContainer" parent="Centro"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_painel")
+
+[node name="Moldura" type="NinePatchRect" parent="Centro/Painel"]
+layout_mode = 2
+texture = ExtResource("3_moldura")
+draw_center = false
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="Fundo" type="ColorRect" parent="Centro/Painel/Moldura"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 22.0
+offset_right = -22.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.286, 0.188, 0.314, 1)
+
+[node name="Respiro" type="MarginContainer" parent="Centro/Painel"]
+layout_mode = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 40
+
+[node name="Coluna" type="VBoxContainer" parent="Centro/Painel/Respiro"]
+layout_mode = 2
+theme = SubResource("Theme_barras")
+theme_override_constants/separation = 24
+
+[node name="Titulo" type="Label" parent="Centro/Painel/Respiro/Coluna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 34
+text = "Opções"
+horizontal_alignment = 1
+
+[node name="Volumes" type="VBoxContainer" parent="Centro/Painel/Respiro/Coluna"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Geral" type="HBoxContainer" parent="Centro/Painel/Respiro/Coluna/Volumes"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Nome" type="Label" parent="Centro/Painel/Respiro/Coluna/Volumes/Geral"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+text = "Volume geral"
+
+[node name="Barra" type="HSlider" parent="Centro/Painel/Respiro/Coluna/Volumes/Geral"]
+custom_minimum_size = Vector2(320, 28)
+layout_mode = 2
+size_flags_vertical = 4
+step = 5.0
+value = 100.0
+
+[node name="Valor" type="Label" parent="Centro/Painel/Respiro/Coluna/Volumes/Geral"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="Musica" type="HBoxContainer" parent="Centro/Painel/Respiro/Coluna/Volumes"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Nome" type="Label" parent="Centro/Painel/Respiro/Coluna/Volumes/Musica"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+text = "Música"
+
+[node name="Barra" type="HSlider" parent="Centro/Painel/Respiro/Coluna/Volumes/Musica"]
+custom_minimum_size = Vector2(320, 28)
+layout_mode = 2
+size_flags_vertical = 4
+step = 5.0
+value = 100.0
+
+[node name="Valor" type="Label" parent="Centro/Painel/Respiro/Coluna/Volumes/Musica"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="Efeitos" type="HBoxContainer" parent="Centro/Painel/Respiro/Coluna/Volumes"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Nome" type="Label" parent="Centro/Painel/Respiro/Coluna/Volumes/Efeitos"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+text = "Efeitos"
+
+[node name="Barra" type="HSlider" parent="Centro/Painel/Respiro/Coluna/Volumes/Efeitos"]
+custom_minimum_size = Vector2(320, 28)
+layout_mode = 2
+size_flags_vertical = 4
+step = 5.0
+value = 100.0
+
+[node name="Valor" type="Label" parent="Centro/Painel/Respiro/Coluna/Volumes/Efeitos"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="Voltar" type="Button" parent="Centro/Painel/Respiro/Coluna"]
+custom_minimum_size = Vector2(210, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Voltar"

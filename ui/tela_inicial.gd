@@ -6,8 +6,8 @@ extends Control
 ## Controles/Créditos. Aqui fica só o comportamento.
 ##
 ## "Jogar" abre a escolha do modo (Solo ou Dueto) no lugar dos botões do
-## menu, e o modo abre a seleção de personagem (tela_selecao.tscn); "Sair"
-## fecha o jogo.
+## menu, e o modo abre a seleção de personagem (tela_selecao.tscn); "Opções"
+## abre os volumes (tela_opcoes.tscn); "Sair" fecha o jogo.
 ##
 ## Navegação: setas, WASD, direcional ou analógico de qualquer jogador.
 ## Confirmar: Enter, Espaço, F, J ou A. Voltar: Esc ou B no controle.
@@ -33,6 +33,7 @@ const ESPERA_NAVEGACAO = 0.18
 @onready var janela = $Janela
 @onready var controles = $TelaControles
 @onready var selecao = $TelaSelecao
+@onready var opcoes = $TelaOpcoes
 @onready var titulo_janela = $Janela/Moldura/Titulo
 @onready var texto_janela = $Janela/Moldura/Texto
 @onready var versao = $Versao
@@ -46,6 +47,8 @@ func _ready() -> void:
 	$Menu/Jogar.pressed.connect(_abrir_modos)
 	$Menu/Controles.pressed.connect(_abrir_controles)
 	controles.fechada.connect(_fechar_controles)
+	$Menu/Opcoes.pressed.connect(_abrir_opcoes)
+	opcoes.fechada.connect(_fechar_opcoes)
 	$Menu/Creditos.pressed.connect(_abrir_janela.bind("Créditos", TEXTO_CREDITOS))
 	$Menu/Sair.pressed.connect(_sair)
 	# No navegador não dá para fechar a aba pelo jogo
@@ -143,6 +146,17 @@ func _fechar_controles() -> void:
 	$Menu/Controles.grab_focus()
 
 
+func _abrir_opcoes() -> void:
+	Audio.tocar("ui_confirma", 0.0)
+	menu.hide()
+	opcoes.abrir()
+
+
+func _fechar_opcoes() -> void:
+	menu.show()
+	$Menu/Opcoes.grab_focus()
+
+
 func _abrir_janela(titulo: String, texto: String) -> void:
 	Audio.tocar("ui_confirma", 0.0)
 	titulo_janela.text = titulo
@@ -158,7 +172,7 @@ func _fechar_janela() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if not event is InputEventJoypadButton or controles.visible or selecao.visible:
+	if not event is InputEventJoypadButton or controles.visible or selecao.visible or opcoes.visible:
 		return
 	if (janela.visible or menu_modo.visible) and event.button_index == JOY_BUTTON_B:
 		if event.pressed:
@@ -179,7 +193,7 @@ func _voltar() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if selecao.visible:
+	if selecao.visible or opcoes.visible:
 		return
 	if menu_modo.visible and event.is_action_pressed("ui_cancel"):
 		_fechar_modos()

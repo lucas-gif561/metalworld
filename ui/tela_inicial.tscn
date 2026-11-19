@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://0nvcpthestpv" path="res://ui/sprites/botao_menu.png" id="5_moldura"]
 [ext_resource type="PackedScene" uid="uid://rr8uafxhf8t6" path="res://ui/tela_controles.tscn" id="6_controles"]
 [ext_resource type="PackedScene" uid="uid://7cjxssmfv4s8" path="res://ui/tela_selecao.tscn" id="7_selecao"]
+[ext_resource type="PackedScene" uid="uid://c75c80eld405r" path="res://ui/tela_opcoes.tscn" id="8_opcoes"]
 
 [sub_resource type="SystemFont" id="SystemFont_versao"]
 font_names = PackedStringArray("Consolas", "DejaVu Sans Mono", "Monospace")
@@ -62,27 +63,32 @@ anchor_right = 0.5
 offset_left = -170.0
 offset_top = 226.0
 offset_right = 170.0
-offset_bottom = 544.0
+offset_bottom = 586.0
 grow_horizontal = 2
 theme_override_constants/separation = 10
 
 [node name="Jogar" type="Button" parent="Menu" unique_id=1952923732]
-custom_minimum_size = Vector2(340, 72)
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
 text = "Jogar"
 
 [node name="Controles" type="Button" parent="Menu" unique_id=151849302]
-custom_minimum_size = Vector2(340, 72)
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
 text = "Controles"
 
+[node name="Opcoes" type="Button" parent="Menu"]
+custom_minimum_size = Vector2(340, 64)
+layout_mode = 2
+text = "Opções"
+
 [node name="Creditos" type="Button" parent="Menu" unique_id=879762523]
-custom_minimum_size = Vector2(340, 72)
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
 text = "Créditos"
 
 [node name="Sair" type="Button" parent="Menu" unique_id=1931945767]
-custom_minimum_size = Vector2(340, 72)
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
 text = "Sair"
 
@@ -100,17 +106,17 @@ grow_horizontal = 2
 theme_override_constants/separation = 10
 
 [node name="Solo" type="Button" parent="MenuModo" unique_id=230101180]
-custom_minimum_size = Vector2(340, 72)
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
 text = "Solo"
 
 [node name="Dueto" type="Button" parent="MenuModo" unique_id=485533997]
-custom_minimum_size = Vector2(340, 72)
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
 text = "Dueto"
 
 [node name="Voltar" type="Button" parent="MenuModo" unique_id=789385275]
-custom_minimum_size = Vector2(340, 72)
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
 text = "Voltar"
 
@@ -241,6 +247,14 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TelaSelecao" parent="." unique_id=657197273 instance=ExtResource("7_selecao")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TelaOpcoes" parent="." instance=ExtResource("8_opcoes")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

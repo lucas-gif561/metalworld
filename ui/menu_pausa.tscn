@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://cg0acrc3bqg6k" path="res://ui/tema_menu.tres" id="2_tema"]
 [ext_resource type="Texture2D" uid="uid://0nvcpthestpv" path="res://ui/sprites/botao_menu.png" id="3_moldura"]
 [ext_resource type="PackedScene" uid="uid://rr8uafxhf8t6" path="res://ui/tela_controles.tscn" id="4_controles"]
+[ext_resource type="PackedScene" uid="uid://c75c80eld405r" path="res://ui/tela_opcoes.tscn" id="5_opcoes"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_caixa"]
 
@@ -79,6 +80,11 @@ custom_minimum_size = Vector2(340, 62)
 layout_mode = 2
 text = "Controles"
 
+[node name="Opcoes" type="Button" parent="Painel/Caixa/Respiro/Menu"]
+custom_minimum_size = Vector2(340, 62)
+layout_mode = 2
+text = "Opções"
+
 [node name="RemoverP2" type="Button" parent="Painel/Caixa/Respiro/Menu" unique_id=2048277032]
 custom_minimum_size = Vector2(340, 62)
 layout_mode = 2
@@ -90,3 +96,5 @@ layout_mode = 2
 text = "Menu principal"
 
 [node name="TelaControles" parent="." unique_id=1124501278 instance=ExtResource("4_controles")]
+
+[node name="TelaOpcoes" parent="." instance=ExtResource("5_opcoes")]

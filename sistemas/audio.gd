@@ -35,6 +35,11 @@ const ARQUIVOS_MUSICA = {
 const VOZES = 16
 const INTERVALO_MINIMO_MS = 40
 
+## Canais de volume do menu de Opções e o barramento de cada um
+## (default_bus_layout.tres). O volume fica salvo entre partidas.
+const BARRAMENTOS = {"geral": "Master", "musica": "Musica", "efeitos": "Efeitos"}
+const ARQUIVO_OPCOES = "user://opcoes.cfg"
+
 @export var volume_musica_db: float = -12.0
 @export var volume_sfx_db: float = -6.0
 
@@ -48,6 +53,8 @@ var ultimo_toque_ms := {}
 var musica: AudioStreamPlayer
 var musica_atual := ""
 var tween_musica: Tween
+## 0 a 1 por canal (ver BARRAMENTOS)
+var volumes := {"geral": 1.0, "musica": 1.0, "efeitos": 1.0}
 
 
 func _ready() -> void:
@@ -61,14 +68,53 @@ func _ready() -> void:
 
 	for i in range(VOZES):
 		var voz = AudioStreamPlayer.new()
+		voz.bus = &"Efeitos"
 		add_child(voz)
 		vozes.append(voz)
 
 	musica = AudioStreamPlayer.new()
+	musica.bus = &"Musica"
 	add_child(musica)
 
 	for faixa in MUSICAS.values():
 		faixa.loop = true
+
+	_carregar_volumes()
+
+
+# ---------------------------------------------------------------- Volume
+
+func volume(canal: String) -> float:
+	return volumes[canal]
+
+
+## valor de 0 (mudo) a 1 (cheio). Salva só quando a tela de Opções fecha (salvar_volumes).
+func definir_volume(canal: String, valor: float) -> void:
+	volumes[canal] = clampf(valor, 0.0, 1.0)
+	_aplicar_volume(canal)
+
+
+func salvar_volumes() -> void:
+	var arquivo = ConfigFile.new()
+	for canal in volumes:
+		arquivo.set_value("volume", canal, volumes[canal])
+	arquivo.save(ARQUIVO_OPCOES)
+
+
+func _carregar_volumes() -> void:
+	var arquivo = ConfigFile.new()
+	arquivo.load(ARQUIVO_OPCOES) # sem arquivo (primeira vez): fica tudo no máximo
+	for canal in volumes:
+		volumes[canal] = clampf(float(arquivo.get_value("volume", canal, 1.0)), 0.0, 1.0)
+		_aplicar_volume(canal)
+
+
+func _aplicar_volume(canal: String) -> void:
+	var barramento = AudioServer.get_bus_index(BARRAMENTOS[canal])
+	if barramento < 0:
+		return
+	AudioServer.set_bus_volume_db(barramento, linear_to_db(maxf(volumes[canal], 0.0001)))
+	AudioServer.set_bus_mute(barramento, volumes[canal] <= 0.0)
 
 
 func tocar(nome: String, variacao: float = 0.05, intervalo_ms: int = INTERVALO_MINIMO_MS) -> void:
