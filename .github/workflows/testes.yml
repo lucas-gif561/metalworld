@@ -1,0 +1,56 @@
+# Roda a bateria de testes (tests/rodar_testes.sh) sem janela em todo PR e
+# na main: os mesmos testes que cada um roda no próprio computador antes de
+# abrir o PR (AGENTS.md, seção 6), agora conferidos também pelo GitHub.
+name: Testes
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  testes:
+    name: Testes do jogo
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      # Mesma versão da equipe e do workflow de UIDs (o cache é o mesmo)
+      GODOT_VERSAO: 4.7.2-stable
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Godot em cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT_VERSAO }}-linux
+
+      - name: Baixar o Godot ${{ env.GODOT_VERSAO }}
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/godot
+          curl -fsSL -o /tmp/godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSAO}/Godot_v${GODOT_VERSAO}_linux.x86_64.zip"
+          unzip -q /tmp/godot.zip -d ~/godot
+          mv ~/godot/Godot_v${GODOT_VERSAO}_linux.x86_64 ~/godot/godot
+          chmod +x ~/godot/godot
+
+      # O script importa o projeto, confere os UIDs e roda cada tests/teste_*.gd
+      - name: Rodar os testes
+        run: |
+          set +e
+          GODOT=~/godot/godot bash tests/rodar_testes.sh | tee saida.txt
+          codigo=${PIPESTATUS[0]}
+          if [ $codigo -ne 0 ]; then
+            # Cada checagem que falhou vira um erro no resumo do PR, com o teste
+            teste=""
+            while IFS= read -r linha; do
+              case "$linha" in
+                "### "*) teste="${linha#\#\#\# }" ;;
+                *FALHOU*|*"SCRIPT ERROR"*) echo "::error file=${teste}::${linha## }" ;;
+              esac
+            done < saida.txt
+            echo "::error::Algum teste falhou. Rode tests/rodar_testes.sh no seu computador para ver os detalhes."
+          fi
+          exit $codigo
