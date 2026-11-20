@@ -8,7 +8,8 @@
 
 [node name="Chefe3" type="Node2D" unique_id=592602246]
 script = ExtResource("2_script")
-vida_maxima = 60
+vida_maxima = 200
+usar_fases = true
 cena_projetil = ExtResource("3_projetil")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1955341258]
