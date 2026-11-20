@@ -1,0 +1,84 @@
+# Conferências do GitHub em todo PR e em cada push na main. Dois jobs em
+# paralelo, cada um com o seu check:
+#   "UIDs preenchidos": rápido (cerca de 1 min), marca os arquivos sem UID
+#   "Testes do jogo":   roda tests/rodar_testes.sh inteiro
+# O Godot é preparado pela ação .github/actions/preparar-godot.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  # Mesma versão da equipe: outra versão regravaria os arquivos
+  GODOT_VERSAO: 4.7.2-stable
+
+jobs:
+  # Arquivo criado como texto fica sem UID até alguém rodar
+  # ferramentas/gravar_uids.gd (ou salvar no editor). Sem esse passo, cada
+  # pessoa que abre o projeto gera um UID diferente e os diffs nunca param.
+  uids:
+    name: UIDs preenchidos
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/preparar-godot
+        with:
+          versao: ${{ env.GODOT_VERSAO }}
+
+      # Numa máquina limpa o Godot precisa montar o cache dos recursos
+      # importados (.godot/) antes de rodar qualquer script
+      - name: Importar o projeto
+        run: ~/godot/godot --headless --path . --import > /dev/null 2>&1 || true
+
+      - name: Verificar UIDs
+        run: |
+          set +e
+          ~/godot/godot --headless --audio-driver Dummy --path . \
+            --script res://ferramentas/gravar_uids.gd -- --verificar > saida.txt 2>&1
+          codigo=$?
+          grep -E '^(falta UID|UIDs:)' saida.txt
+          if [ $codigo -ne 0 ]; then
+            # Marca cada arquivo com pendência na aba "Files changed" do PR
+            grep '^falta UID: ' saida.txt | sed -E 's|^falta UID: res://([^ ]+).*|\1|' | sort -u | while read -r arquivo; do
+              echo "::error file=${arquivo}::Faltam UIDs neste arquivo"
+            done
+            echo "::error::Faltam UIDs. Rode 'godot --headless --path . --script res://ferramentas/gravar_uids.gd -- <arquivos do PR>' e commite o resultado (veja a seção 7 do AGENTS.md)."
+            exit 1
+          fi
+
+  # Os mesmos testes que cada um roda no próprio computador antes de abrir o
+  # PR (AGENTS.md, seção 6). O script também confere os UIDs de novo: é feito
+  # para rodar sozinho no computador de cada um.
+  testes:
+    name: Testes do jogo
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/preparar-godot
+        with:
+          versao: ${{ env.GODOT_VERSAO }}
+
+      - name: Rodar os testes
+        run: |
+          set +e
+          GODOT=~/godot/godot bash tests/rodar_testes.sh | tee saida.txt
+          codigo=${PIPESTATUS[0]}
+          if [ $codigo -ne 0 ]; then
+            # Cada checagem que falhou vira um erro no resumo do PR, com o teste
+            teste=""
+            while IFS= read -r linha; do
+              case "$linha" in
+                "### "*) teste="${linha#\#\#\# }" ;;
+                *FALHOU*|*"SCRIPT ERROR"*) echo "::error file=${teste}::${linha## }" ;;
+              esac
+            done < saida.txt
+            echo "::error::Algum teste falhou. Rode tests/rodar_testes.sh no seu computador para ver os detalhes."
+          fi
+          exit $codigo
