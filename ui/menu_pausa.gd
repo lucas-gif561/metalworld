@@ -1,30 +1,35 @@
 extends CanvasLayer
 ## Menu de pause: Esc (P1), P (P2 no teclado) ou START (de quem está jogando).
 ##
-## Continuar, remover o jogador 2 (ele pode entrar de novo com START) ou
-## voltar ao menu principal. Visual na cena (menu_pausa.tscn), no mesmo tema
+## Continuar, Controles, Opções (volumes), remover o jogador 2 (ele pode
+## entrar de novo com START) ou voltar ao menu principal. Visual na cena (menu_pausa.tscn), no mesmo tema
 ## do menu principal. Roda com o jogo pausado (process_mode = Sempre).
+## A moldura acompanha os botões (CenterContainer + PanelContainer na cena):
+## sozinho, sem "Remover jogador 2", ela fica menor.
 ##
 ## Navegação: setas, WASD, direcional ou analógico de qualquer jogador.
 ## Confirmar: Enter, Espaço, F, J, A. Voltar ao jogo: Esc, P, B ou START.
 
 const ESPERA_NAVEGACAO = 0.18
 
-@onready var moldura = $Moldura
-@onready var menu = $Moldura/Menu
+@onready var moldura = $Painel
+@onready var menu = $Painel/Caixa/Respiro/Menu
 @onready var controles = $TelaControles
-@onready var botao_remover_p2 = $Moldura/Menu/RemoverP2
+@onready var opcoes = $TelaOpcoes
+@onready var botao_remover_p2 = menu.get_node("RemoverP2")
 
 var _proxima_navegacao := 0.0
 
 
 func _ready() -> void:
 	hide()
-	$Moldura/Menu/Continuar.pressed.connect(continuar)
-	$Moldura/Menu/Controles.pressed.connect(_abrir_controles)
+	menu.get_node("Continuar").pressed.connect(continuar)
+	menu.get_node("Controles").pressed.connect(_abrir_controles)
 	controles.fechada.connect(_fechar_controles)
+	menu.get_node("Opcoes").pressed.connect(_abrir_opcoes)
+	opcoes.fechada.connect(_fechar_opcoes)
 	botao_remover_p2.pressed.connect(_remover_p2)
-	$Moldura/Menu/MenuPrincipal.pressed.connect(_ir_ao_menu)
+	menu.get_node("MenuPrincipal").pressed.connect(_ir_ao_menu)
 	for botao in menu.get_children():
 		botao.focus_entered.connect(func(): Audio.tocar("nota_good", 0.0))
 		botao.mouse_entered.connect(botao.grab_focus)
@@ -38,11 +43,12 @@ func abrir() -> void:
 	get_tree().paused = true
 	Audio.pausar_musica(true)
 	Audio.tocar("ui_confirma", 0.0)
-	$Moldura/Menu/Continuar.grab_focus()
+	menu.get_node("Continuar").grab_focus()
 
 
 func continuar() -> void:
 	controles.hide()
+	opcoes.hide()
 	moldura.show()
 	hide()
 	get_tree().paused = false
@@ -57,7 +63,18 @@ func _abrir_controles() -> void:
 
 func _fechar_controles() -> void:
 	moldura.show()
-	$Moldura/Menu/Controles.grab_focus()
+	menu.get_node("Controles").grab_focus()
+
+
+func _abrir_opcoes() -> void:
+	Audio.tocar("ui_confirma", 0.0)
+	moldura.hide()
+	opcoes.abrir()
+
+
+func _fechar_opcoes() -> void:
+	moldura.show()
+	menu.get_node("Opcoes").grab_focus()
 
 
 func _remover_p2() -> void:
@@ -77,7 +94,7 @@ func _pode_pausar() -> bool:
 
 
 func _input(event: InputEvent) -> void:
-	if not visible or controles.visible or not event is InputEventJoypadButton:
+	if not visible or controles.visible or opcoes.visible or not event is InputEventJoypadButton:
 		return
 	if event.button_index == JOY_BUTTON_B:
 		if event.pressed:
@@ -95,6 +112,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _apertou(event, "pausar") and _pode_pausar():
 			abrir()
 			get_viewport().set_input_as_handled()
+		return
+	# Controles e Opções abertas cuidam da própria entrada (e voltam para cá ao fechar)
+	if controles.visible or opcoes.visible:
 		return
 
 	if _apertou(event, "pausar") or event.is_action_pressed("ui_cancel"):

@@ -1,17 +1,56 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://rr8uafxhf8t6"]
 
-[ext_resource type="Script" path="res://ui/tela_controles.gd" id="1_script"]
-[ext_resource type="Theme" path="res://ui/tema_menu.tres" id="2_tema"]
+[ext_resource type="Script" uid="uid://cr600ncken6p2" path="res://ui/tela_controles.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://cg0acrc3bqg6k" path="res://ui/tema_menu.tres" id="2_tema"]
+[ext_resource type="Texture2D" uid="uid://0nvcpthestpv" path="res://ui/sprites/botao_menu.png" id="3_moldura"]
+[ext_resource type="Texture2D" uid="uid://cvmrglng7tr70" path="res://ui/sprites/botao_a.png" id="t_A"]
+[ext_resource type="Texture2D" uid="uid://d21hgarf228ny" path="res://riff/sprites/tecla_a.png" id="t_a"]
+[ext_resource type="Texture2D" uid="uid://dq5t2t6lb0g7h" path="res://ui/sprites/comandos/tecla_alt.png" id="t_alt"]
+[ext_resource type="Texture2D" uid="uid://cqfad5w7v3amp" path="res://ui/sprites/comandos/analogico.png" id="t_analogico"]
+[ext_resource type="Texture2D" uid="uid://dsm4dhmnucb3r" path="res://personagens/dylan/sprites/botao_b.png" id="t_B"]
+[ext_resource type="Texture2D" uid="uid://d2ykr13rixh35" path="res://riff/sprites/tecla_baixo.png" id="t_baixo"]
+[ext_resource type="Texture2D" uid="uid://dx8ckkqrx4ax7" path="res://riff/sprites/tecla_cima.png" id="t_cima"]
+[ext_resource type="Texture2D" uid="uid://blett3rn6wiw8" path="res://riff/sprites/tecla_d.png" id="t_d"]
+[ext_resource type="Texture2D" uid="uid://in32lgbhojxx" path="res://riff/sprites/tecla_direita.png" id="t_dir"]
+[ext_resource type="Texture2D" uid="uid://ddqu0ropnt60t" path="res://ui/sprites/comandos/direcional.png" id="t_direcional"]
+[ext_resource type="Texture2D" uid="uid://dhokwtd8kkvp4" path="res://ui/sprites/comandos/tecla_enter.png" id="t_enter"]
+[ext_resource type="Texture2D" uid="uid://ykmjl6220ir3" path="res://ui/sprites/comandos/tecla_esc.png" id="t_esc"]
+[ext_resource type="Texture2D" uid="uid://cl478mpfemuxw" path="res://riff/sprites/tecla_esquerda.png" id="t_esq"]
+[ext_resource type="Texture2D" uid="uid://uydci4cvlap0" path="res://ui/sprites/comandos/tecla_f.png" id="t_f"]
+[ext_resource type="Texture2D" uid="uid://cfwk5inqft4nb" path="res://ui/sprites/comandos/tecla_f11.png" id="t_f11"]
+[ext_resource type="Texture2D" uid="uid://cfnl0ih1rh306" path="res://ui/sprites/comandos/tecla_g.png" id="t_g"]
+[ext_resource type="Texture2D" uid="uid://bebljhidx37y0" path="res://personagens/dylan/sprites/tecla_i.png" id="t_i"]
+[ext_resource type="Texture2D" uid="uid://dqpld61b6umpl" path="res://ui/sprites/tecla_j.png" id="t_j"]
+[ext_resource type="Texture2D" uid="uid://bflgq3t1sljdg" path="res://ui/sprites/comandos/tecla_k.png" id="t_k"]
+[ext_resource type="Texture2D" uid="uid://c56dr26f6nb8p" path="res://personagens/dylan/sprites/tecla_l.png" id="t_l"]
+[ext_resource type="Texture2D" uid="uid://bwtp0xjp5jtfq" path="res://riff/sprites/botao_lb.svg" id="t_LB"]
+[ext_resource type="Texture2D" uid="uid://g3r7xkwtffw3" path="res://riff/sprites/botao_lt.svg" id="t_LT"]
+[ext_resource type="Texture2D" uid="uid://cll07rcm40tg" path="res://ui/sprites/comandos/tecla_p.png" id="t_p"]
+[ext_resource type="Texture2D" uid="uid://ytgy850pxykf" path="res://ui/sprites/comandos/tecla_r.png" id="t_r"]
+[ext_resource type="Texture2D" uid="uid://dk3kjt6q17j6c" path="res://ui/sprites/raio.png" id="t_raio"]
+[ext_resource type="Texture2D" uid="uid://colbckyolj2je" path="res://riff/sprites/botao_rb.svg" id="t_RB"]
+[ext_resource type="Texture2D" uid="uid://dvjial80xaor1" path="res://riff/sprites/botao_rt.svg" id="t_RT"]
+[ext_resource type="Texture2D" uid="uid://c2mmrw4djamuk" path="res://riff/sprites/tecla_s.png" id="t_s"]
+[ext_resource type="Texture2D" uid="uid://u6jfgc3r2ycv" path="res://ui/sprites/botao_start.png" id="t_start"]
+[ext_resource type="Texture2D" uid="uid://dphp5d3emdkl0" path="res://personagens/dylan/sprites/tecla_t.png" id="t_t"]
+[ext_resource type="Texture2D" uid="uid://cooha1x1xo6sh" path="res://riff/sprites/tecla_w.png" id="t_w"]
+[ext_resource type="Texture2D" uid="uid://bfffcg85y186j" path="res://ui/sprites/comandos/botao_x.png" id="t_X"]
+[ext_resource type="Texture2D" uid="uid://dsmisprnjxo8e" path="res://personagens/dylan/sprites/tecla_y_pixel.png" id="t_y"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
-bg_color = Color(0.14, 0.09, 0.18, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.7, 0.25, 0.59, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_painel"]
 
-[node name="TelaControles" type="ColorRect"]
+[sub_resource type="Theme" id="Theme_secoes"]
+Label/colors/font_color = Color(0.9, 0.86, 0.96, 1)
+Label/font_sizes/font_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_faixa"]
+bg_color = Color(0, 0, 0, 0.2)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="TelaControles" type="ColorRect" unique_id=1431466418]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,120 +60,858 @@ grow_vertical = 2
 theme = ExtResource("2_tema")
 color = Color(0.03, 0.01, 0.06, 0.75)
 script = ExtResource("1_script")
+notas_p1 = Array[Texture2D]([ExtResource("t_t"), ExtResource("t_y")])
+notas_controle = Array[Texture2D]([ExtResource("t_LB"), ExtResource("t_RB")])
+icone_poder = ExtResource("t_raio")
 
-[node name="Margens" type="MarginContainer" parent="."]
+[node name="Margens" type="MarginContainer" parent="." unique_id=2063076955]
 layout_mode = 1
+anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -380.0
+offset_left = -420.0
 offset_top = 24.0
-offset_right = 380.0
+offset_right = 420.0
 offset_bottom = -24.0
+grow_horizontal = 2
 
-[node name="Painel" type="PanelContainer" parent="Margens"]
+[node name="Painel" type="PanelContainer" parent="Margens" unique_id=1236702815]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_painel")
 
-[node name="Respiro" type="MarginContainer" parent="Margens/Painel"]
+[node name="Moldura" type="NinePatchRect" parent="Margens/Painel" unique_id=1792305541]
 layout_mode = 2
-theme_override_constants/margin_left = 26
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 26
-theme_override_constants/margin_bottom = 16
+texture = ExtResource("3_moldura")
+draw_center = false
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
-[node name="Coluna" type="VBoxContainer" parent="Margens/Painel/Respiro"]
+[node name="Centro" type="ColorRect" parent="Margens/Painel/Moldura" unique_id=232605129]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 22.0
+offset_right = -22.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.286, 0.188, 0.314, 1)
+
+[node name="Respiro" type="MarginContainer" parent="Margens/Painel" unique_id=701331530]
+layout_mode = 2
+theme_override_constants/margin_left = 44
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 44
+theme_override_constants/margin_bottom = 34
+
+[node name="Coluna" type="VBoxContainer" parent="Margens/Painel/Respiro" unique_id=1760299255]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Titulo" type="Label" parent="Margens/Painel/Respiro/Coluna"]
+[node name="Titulo" type="Label" parent="Margens/Painel/Respiro/Coluna" unique_id=1111002292]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 34
 text = "Controles"
-theme_override_colors/font_color = Color(1, 0.43, 0.77, 1)
-theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 
-[node name="Conteudo" type="ScrollContainer" parent="Margens/Painel/Respiro/Coluna"]
+[node name="Conteudo" type="ScrollContainer" parent="Margens/Painel/Respiro/Coluna" unique_id=193107163]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="Secoes" type="VBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo"]
+[node name="Secoes" type="VBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo" unique_id=1902531818]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 9
+theme = SubResource("Theme_secoes")
+theme_override_constants/separation = 10
 
-[node name="TituloCombos" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+[node name="TituloComandos" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=570511842]
 layout_mode = 2
-text = "Minirriffs nas ruas"
 theme_override_colors/font_color = Color(1, 0.43, 0.77, 1)
 theme_override_font_sizes/font_size = 22
+text = "Comandos"
 
-[node name="Combos" type="GridContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+[node name="FaixaComandos" type="PanelContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=639825745]
 layout_mode = 2
-theme_override_constants/h_separation = 18
-theme_override_constants/v_separation = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_faixa")
+
+[node name="Respiro" type="MarginContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos" unique_id=1584330980]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Tabela" type="GridContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro" unique_id=503285369]
+layout_mode = 2
+theme_override_constants/h_separation = 26
+theme_override_constants/v_separation = 6
+columns = 4
+
+[node name="CabecalhoAcao" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1648923740]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+text = "Ação"
+
+[node name="CabecalhoP1" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1178906137]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+text = "P1 · teclado"
+
+[node name="CabecalhoP2" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1062678415]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+text = "P2 · teclado"
+
+[node name="CabecalhoControle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1495659868]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+text = "Controle"
+
+[node name="Mover" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=359289863]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mover"
+
+[node name="MoverP1" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=228277935]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverP1" unique_id=1578031462]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_w")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone2" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverP1" unique_id=513267909]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_a")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone3" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverP1" unique_id=508771027]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_s")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone4" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverP1" unique_id=354611485]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_d")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MoverP2" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=123906762]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverP2" unique_id=490560390]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_cima")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone2" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverP2" unique_id=734464217]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_esq")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone3" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverP2" unique_id=915138974]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_baixo")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone4" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverP2" unique_id=2027292159]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_dir")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MoverControle" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1027709807]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverControle" unique_id=2022285729]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_analogico")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone2" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/MoverControle" unique_id=1634160794]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_direcional")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Socar" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1335436256]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Socar"
+
+[node name="SocarP1" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=898824397]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/SocarP1" unique_id=552958259]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_f")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SocarP2" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=2100821934]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/SocarP2" unique_id=2052777849]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SocarControle" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=308416003]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/SocarControle" unique_id=826457957]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_X")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Esquivar" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=2066241859]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Esquivar"
+
+[node name="EsquivarP1" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=599483286]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/EsquivarP1" unique_id=1910474535]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_g")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="EsquivarP2" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=237719899]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/EsquivarP2" unique_id=1760852495]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_k")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="EsquivarControle" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1217743250]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/EsquivarControle" unique_id=2134849815]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_B")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Interagir" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=673018644]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Interagir"
+
+[node name="InteragirP1" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1896269134]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/InteragirP1" unique_id=1877044722]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_y")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="InteragirP2" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1982399968]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/InteragirP2" unique_id=1484480269]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_l")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="InteragirControle" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=898127915]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/InteragirControle" unique_id=1639235622]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_RB")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Riff" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1860946324]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Abrir/fechar Riff"
+
+[node name="RiffP1" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1495512948]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/RiffP1" unique_id=1219228200]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_t")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RiffP2" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1917918334]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/RiffP2" unique_id=619014366]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_i")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RiffControle" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1092790101]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/RiffControle" unique_id=438716737]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_A")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Pistas" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1030934779]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pistas do Riff"
+
+[node name="PistasP1" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1188822113]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasP1" unique_id=1987165012]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_a")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone2" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasP1" unique_id=108792115]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_w")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone3" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasP1" unique_id=466813770]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_s")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone4" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasP1" unique_id=554560304]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_d")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PistasP2" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1749416551]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasP2" unique_id=118336319]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_esq")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone2" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasP2" unique_id=1087639636]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_cima")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone3" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasP2" unique_id=1255429450]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_baixo")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone4" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasP2" unique_id=2120375716]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_dir")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PistasControle" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1021775131]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasControle" unique_id=2044735065]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_LT")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone2" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasControle" unique_id=1443084988]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_LB")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone3" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasControle" unique_id=1342342616]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_RB")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Icone4" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PistasControle" unique_id=1198578687]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_RT")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Pausar" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1281727805]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pausar"
+
+[node name="PausarP1" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1523563243]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PausarP1" unique_id=157805509]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_esc")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PausarP2" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=2140677591]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PausarP2" unique_id=512090322]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_p")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PausarControle" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=88430564]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/PausarControle" unique_id=683863955]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_start")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Reiniciar" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=777632864]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reiniciar"
+
+[node name="ReiniciarP1" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1048313327]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/ReiniciarP1" unique_id=1205317958]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_r")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ReiniciarP2" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=2089457615]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/ReiniciarP2" unique_id=1559052697]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ReiniciarControle" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=379240277]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/ReiniciarControle" unique_id=1204899934]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_start")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Entrar" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1366872860]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Entrar (P2)"
+
+[node name="EntrarP1" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=941795365]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Nenhum" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/EntrarP1" unique_id=540567745]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.66, 0.6, 0.76, 1)
+text = "—"
+
+[node name="EntrarP2" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=1415853268]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/EntrarP2" unique_id=152943739]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="EntrarControle" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela" unique_id=2092650284]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="Icone1" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaComandos/Respiro/Tabela/EntrarControle" unique_id=102216037]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_start")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TelaCheia" type="HBoxContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=1742798234]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="F11" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/TelaCheia" unique_id=1739777154]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_f11")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Ou" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/TelaCheia" unique_id=1530016059]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.66, 0.6, 0.76, 1)
+text = "ou"
+
+[node name="Alt" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/TelaCheia" unique_id=777334834]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_alt")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Mais" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/TelaCheia" unique_id=1557094917]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.66, 0.6, 0.76, 1)
+text = "+"
+
+[node name="Enter" type="TextureRect" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/TelaCheia" unique_id=796229149]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("t_enter")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Texto" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/TelaCheia" unique_id=2017331556]
+layout_mode = 2
+text = "alterna entre tela cheia e janela"
+
+[node name="TrocaDispositivo" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=102863647]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.66, 0.6, 0.76, 1)
+text = "P1 e P2 trocam sozinhos entre teclado e controle: vale o último que tocar. Num controle livre, START chama o P2."
+autowrap_mode = 3
+
+[node name="TituloCombos" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=536891674]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.43, 0.77, 1)
+theme_override_font_sizes/font_size = 22
+text = "Minirriffs nas ruas"
+
+[node name="FaixaCombos" type="PanelContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=430474043]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_faixa")
+
+[node name="Respiro" type="MarginContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaCombos" unique_id=305454443]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="Combos" type="GridContainer" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaCombos/Respiro" unique_id=197831457]
+layout_mode = 2
+theme_override_constants/h_separation = 22
+theme_override_constants/v_separation = 6
 columns = 5
 
-[node name="Especial" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
+[node name="Personagem" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaCombos/Respiro/Combos" unique_id=1644924217]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+text = "Personagem"
+
+[node name="Especial" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaCombos/Respiro/Combos" unique_id=2053648856]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
 text = "Combo"
-theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
-[node name="P1" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
-layout_mode = 2
-text = "Teclado P1"
-theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
-[node name="P2" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
-layout_mode = 2
-text = "Teclado P2"
-theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
-[node name="Controle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
-layout_mode = 2
-text = "Controle"
-theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
-[node name="Custo" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/Combos"]
-layout_mode = 2
-text = "Poder"
-theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
 
-[node name="RegraMinirriff" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+[node name="Teclado" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaCombos/Respiro/Combos" unique_id=916761326]
 layout_mode = 2
-text = "Complete em até 3,5 s. Erro ou tempo esgotado custa 1 poder e atordoa por 0,5 s."
-autowrap_mode = 3
-
-[node name="TituloTeclado" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
-layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
 text = "Teclado"
+
+[node name="Controle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaCombos/Respiro/Combos" unique_id=118704708]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+text = "Controle"
+
+[node name="Custo" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes/FaixaCombos/Respiro/Combos" unique_id=1739152911]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.38, 1)
+text = "Poder"
+
+[node name="RegraMinirriff" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=398542031]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.66, 0.6, 0.76, 1)
+text = "No teclado do P2, I e L no lugar de T e Y. Complete em até 3,5 s. Erro ou tempo esgotado custa 1 poder e atordoa por 0,5 s."
+autowrap_mode = 3
+
+[node name="TituloRiff" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=780787229]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.43, 0.77, 1)
 theme_override_font_sizes/font_size = 22
+text = "Riff nos chefes"
 
-[node name="Teclado" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+[node name="RiffIndependente" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=1945198749]
 layout_mode = 2
-text = "P1   WASD mover e tocar no Riff  •  F socar  •  G esquivar\n       Y interagir  •  T Riff  •  Esc pausar  •  R reiniciar\nP2   Setas mover e tocar no Riff  •  J socar, entrar e reiniciar  •  K esquivar\n       L interagir  •  I Riff  •  P pausar"
+text = "Cada jogador abre o próprio Riff: P1 à esquerda, P2 à direita. Sozinho, cada acerto vale 1×; em dupla, 0,5× com um tocando e 1× com os dois. Esquivar fecha o próprio Riff."
 autowrap_mode = 3
 
-[node name="TituloControle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
+[node name="Interacao" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes" unique_id=1546630650]
 layout_mode = 2
-text = "Controle Xbox"
-theme_override_colors/font_color = Color(1, 0.43, 0.77, 1)
-theme_override_font_sizes/font_size = 22
-
-[node name="Controle" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
-layout_mode = 2
-text = "Analógico ou direcional: mover  •  X socar  •  B esquivar  •  RB interagir\nA abre e fecha o Riff  •  Pistas: LT, LB, RB, RT da esquerda para a direita\nStart pausa ou reinicia  •  Num controle livre, Start chama o P2\nP1 e P2 trocam sozinhos entre teclado e controle: vale o último que tocar"
+text = "Interaja para usar o portal. Segure o comando para levantar o parceiro caído."
 autowrap_mode = 3
 
-[node name="Interacao" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
-layout_mode = 2
-text = "Interaja para usar o portal. Segure o comando para levantar o parceiro."
-autowrap_mode = 3
-
-[node name="RiffIndependente" type="Label" parent="Margens/Painel/Respiro/Coluna/Conteudo/Secoes"]
-layout_mode = 2
-text = "Nos chefes, cada jogador abre o próprio Riff. P1 à esquerda, P2 à direita. Dano por acerto: 0,5× solo, 1× com os dois tocando. Esquivar também fecha o próprio Riff."
-autowrap_mode = 3
-
-[node name="Voltar" type="Button" parent="Margens/Painel/Respiro/Coluna"]
+[node name="Voltar" type="Button" parent="Margens/Painel/Respiro/Coluna" unique_id=1963752879]
 custom_minimum_size = Vector2(210, 44)
 layout_mode = 2
 size_flags_horizontal = 4

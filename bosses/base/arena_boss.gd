@@ -65,6 +65,8 @@ func _ready() -> void:
 	boss.derrotado.connect(_ao_derrotar_boss)
 	boss.anuncio.connect(func(texto): hud.mostrar_aviso(texto, 4.0))
 	boss.fase_avancou.connect(_encerrar_riff)
+	# Totens de pé (na troca de fase ou no ataque de escudo): instrumentos desligados
+	boss.instrumentos_desligados.connect(_encerrar_riff)
 	boss.fase_avancou.connect(_atualizar_marcadores_fase)
 	_atualizar_marcadores_fase()
 

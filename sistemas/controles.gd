@@ -99,6 +99,8 @@ var _controles_de_teste = null
 
 
 func _ready() -> void:
+	# Recebe o F11 / Alt+Enter mesmo com o jogo pausado (menu de pause)
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	Input.joy_connection_changed.connect(func(_id, _conectado): _montar())
 	# A janela avisa de TODA tecla/botão antes das telas (que às vezes "consomem"
 	# o botão do controle); assim o dispositivo de cada um nunca fica errado.
@@ -130,6 +132,32 @@ func _dar_controle_unico(id_jogador: int) -> void:
 ## partida com o controle (em vez de pausar o jogo do P1).
 func controle_livre_para_p2() -> bool:
 	return _controles_conectados().size() == 1 and _dono_controle_unico == 1 and not _usando_controle[1]
+
+
+## F11 ou Alt+Enter alternam entre tela cheia e janela. O jogo abre em tela
+## cheia (project.godot); em telas que não são 16:9 aparecem barras pretas.
+## Fica no _input para o Enter do Alt+Enter não confirmar o botão dos menus.
+func _input(evento: InputEvent) -> void:
+	if not (evento is InputEventKey and evento.pressed and not evento.echo):
+		return
+	var alt_enter = evento.alt_pressed and evento.keycode in [KEY_ENTER, KEY_KP_ENTER]
+	# Dentro da aba Game do editor o jogo só roda em janela (o Godot recusa e avisa)
+	if (evento.keycode == KEY_F11 or alt_enter) and not Engine.is_embedded_in_editor():
+		alternar_tela_cheia()
+		get_viewport().set_input_as_handled()
+
+
+func alternar_tela_cheia() -> void:
+	var cheia = DisplayServer.window_get_mode() in [DisplayServer.WINDOW_MODE_FULLSCREEN, DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN]
+	if not cheia:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		return
+	# Volta para a janela no tamanho do jogo (project.godot), no centro da tela
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	var tamanho = Vector2i(ProjectSettings.get_setting("display/window/size/viewport_width"), ProjectSettings.get_setting("display/window/size/viewport_height"))
+	var tela = DisplayServer.screen_get_usable_rect()
+	DisplayServer.window_set_size(tamanho)
+	DisplayServer.window_set_position(tela.position + (tela.size - tamanho) / 2)
 
 
 func _ao_receber_entrada(evento: InputEvent) -> void:

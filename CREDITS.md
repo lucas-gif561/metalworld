@@ -1,10 +1,21 @@
 # Créditos dos assets
 
-## Boss e sigilos: exige crédito
+## Personagens, inimigos e bosses
+
+Sprites gerados pela equipe no **PixelLab** (<https://www.pixellab.ai/>): Dylan, Kevin, inimigos das ruas 1 e 2, guitarrista (boss 1), Paganini e Diabo (boss 2), pedais, metrônomo, notas e projéteis desenhados, cadeado do Riff e peças da interface (placa do título e botões do menu).
+Arquivos: `personagens/dylan/sprites/`, `personagens/baterista/sprites/`, `fases/rua_1/sprites/`, `fases/rua_2/sprites/` (menos o fundo), `fases/boss_1/sprites/` (menos `doom_scribe.png` e a arena), `fases/boss_2/sprites/` (menos a arena), `ui/sprites/` (menos `coracao.png`, `raio.png`, `seta.png` e as teclas do Kenney)
+
+## Cenários
+
+Fundos das ruas, das arenas dos bosses e do menu gerados pela equipe com o **Gemini** (Google).
+Arquivos: `assets/fundos/`, `fases/rua_2/sprites/rua_2_fundo.png`, `fases/boss_1/sprites/arena_galpao_v2.jpg`, `fases/boss_2/sprites/arena_duelo.png`
+
+## Boss provisório e sigilos: exige crédito
 
 **Doom Scribe**, por Dr.Dullsville: <https://drdullsville.itch.io/doom-scribe>
 Licença: Creative Commons Attribution 4.0 (CC BY 4.0).
-Arquivos: `fases/boss_1/sprites/`, `assets/efeitos/`
+Em uso só enquanto o boss 3 e a rua 3 não têm arte própria: o boss 3 usa o sprite e o portal da rua 3 usa o sigilo.
+Arquivos: `fases/boss_1/sprites/doom_scribe.png` (com `chefe_1.tres`), `assets/efeitos/`
 
 ## Objetos quebráveis: exige crédito
 
@@ -18,10 +29,17 @@ Arquivos: `objetos/sprites/quebraveis.png`
 Livre para qualquer projeto, pessoal ou comercial.
 Arquivos: `objetos/sprites/carne.png`, `objetos/sprites/maca.png`
 
-## Dylan
+## Miku (personagem secreta)
 
-Sprites do Dylan e peças da interface (placa do título e botões do menu) gerados pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
-Arquivos: `personagens/dylan/sprites/`, `ui/sprites/` (menos `coracao.png`, `raio.png` e `seta.png`; o retrato é um recorte do sprite do Dylan)
+Sprites da folha **"hatsune miku sheet"**, por that1guyfromtheforum (DeviantArt): <https://www.deviantart.com/that1guyfromtheforum/art/hatsune-miku-sheet-245190352>
+Hatsune Miku é personagem da **Crypton Future Media**. Quadros recortados, alinhados pelos pés e espelhados para a direita; o retrato é um recorte do sprite.
+Arquivos: `personagens/miku/sprites/`
+
+## Fonte
+
+**Silkscreen**, por Jason Kottke (via Google Fonts): <https://fonts.google.com/specimen/Silkscreen>
+Licença: SIL Open Font License 1.1 (texto em `assets/fontes/OFL.txt`). Fonte padrão de todos os textos do jogo.
+Arquivos: `assets/fontes/`
 
 ## Ícones do HUD
 
@@ -29,26 +47,18 @@ Arquivos: `personagens/dylan/sprites/`, `ui/sprites/` (menos `coracao.png`, `rai
 Licença: CC0 (domínio público). Coração (vida) e raio (stamina).
 Arquivos: `ui/sprites/coracao.png`, `ui/sprites/raio.png`
 
-## Cadeado
-
-Cadeado do Riff travado gerado pela equipe no **PixelLab** (<https://www.pixellab.ai/>).
-Arquivos: `ui/sprites/cadeado.png`
-
 ## Seta
 
 **CC0 Arrows**, por knekko: <https://opengameart.org/content/cc0-arrows>
 Licença: CC0 (domínio público).
 Arquivos: `ui/sprites/seta.png`
 
-## Inimigos
+## Inimigos provisórios
 
 **Streets of Fight**, por Luis Zuno (ansimuz): <https://opengameart.org/content/streets-of-fight>
-Licença: CC0 (domínio público). Punk dos inimigos normal e rápido (o rápido é uma versão recolorida).
+Licença: CC0 (domínio público). Punk dos modelos de inimigo normal e rápido (o rápido é uma versão recolorida); os modelos de atirador e tanque também usam o normal.
+Aparece no jogo só nos inimigos de exemplo da rua 3, até ela ter inimigos próprios.
 Arquivos: `inimigos/base/sprites/`, `inimigos/rapido/sprites/`
-
-**Business of Rage character beatemup 2D**, por DidiGameB: <https://opengameart.org/content/business-of-rage-characeter-beatemup-2d>
-Licença: CC0 (domínio público). Streetboy (atirador) e brutamontes (tanque), com quadros reorganizados.
-Arquivos: `inimigos/atirador/sprites/`, `inimigos/tanque/sprites/`
 
 ## Projéteis
 
@@ -68,5 +78,5 @@ Arquivos: `assets/audio/sfx/`
 
 **Input Prompts Pixel 16×**, por Kenney: <https://kenney.nl/assets/input-prompts-pixel>
 Licença: CC0 (domínio público).
-Arquivos: `riff/sprites/`, `ui/sprites/botao_a.png`, `ui/sprites/tecla_j.png`, `personagens/dylan/sprites/tecla_e.png`, `tecla_l.png`, `botao_b.png`
+Arquivos: `riff/sprites/`, `ui/sprites/botao_a.png`, `ui/sprites/tecla_j.png`, `personagens/dylan/sprites/tecla_l.png`, `botao_b.png`
 `personagens/dylan/sprites/tecla_t.png`, `tecla_i.png`, `tecla_y_pixel.png` e `tecla_vazia.png` foram feitas a partir da tecla L do pacote, trocando só a letra.

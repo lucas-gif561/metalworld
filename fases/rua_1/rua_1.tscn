@@ -2,18 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="1_k2fmo"]
 [ext_resource type="Script" uid="uid://dqwep2au7svfk" path="res://fases/comum/fase_rua.gd" id="1_l3cfh"]
-[ext_resource type="Texture2D" path="res://assets/fundos/rua_metal.png" id="2_6q06x"]
-[ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/brigao.tscn" id="5_yyfjg"]
-[ext_resource type="PackedScene" uid="uid://dh5fwt2atm5of" path="res://inimigos/tanque/inimigo_tanque.tscn" id="6_hujxm"]
+[ext_resource type="Texture2D" uid="uid://bsck7idccf5ua" path="res://assets/fundos/rua_metal.png" id="2_6q06x"]
+[ext_resource type="PackedScene" uid="uid://bwid3dvbu2gmy" path="res://fases/rua_1/inimigos/brigao.tscn" id="5_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://bgmbrki2dii10" path="res://fases/rua_1/inimigos/grande.tscn" id="6_hujxm"]
 [ext_resource type="Script" uid="uid://c2r13nvu5ypje" path="res://fases/comum/gerenciador_ondas.gd" id="6_ow5a4"]
-[ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/corredor.tscn" id="7_yyfjg"]
-[ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/atirador.tscn" id="8_yyfjg"]
-[ext_resource type="PackedScene" path="res://objetos/portao_saida.tscn" id="9_b1x3f"]
+[ext_resource type="PackedScene" uid="uid://b7wdyj8ol3v0x" path="res://fases/rua_1/inimigos/corredor.tscn" id="7_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://brtxfvusqaf0f" path="res://fases/rua_1/inimigos/atirador.tscn" id="8_yyfjg"]
+[ext_resource type="PackedScene" uid="uid://cyoai7thkyq1n" path="res://objetos/portao_saida.tscn" id="9_b1x3f"]
 [ext_resource type="Script" uid="uid://bgs4n7or273cj" path="res://fases/comum/ponto_spawn.gd" id="10_ponto"]
-[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="30_hud"]
-[ext_resource type="PackedScene" path="res://objetos/barril.tscn" id="41_barril"]
-[ext_resource type="PackedScene" path="res://objetos/caixote.tscn" id="42_caixote"]
-[ext_resource type="PackedScene" path="res://fases/rua_1/inimigos/miniboss/miniboss.tscn" id="43_miniboss"]
+[ext_resource type="PackedScene" uid="uid://b3tmyx1mfj17g" path="res://ui/hud.tscn" id="30_hud"]
+[ext_resource type="PackedScene" uid="uid://dv05ik1pri0fs" path="res://objetos/barril.tscn" id="41_barril"]
+[ext_resource type="PackedScene" uid="uid://b08jrpmqepjnt" path="res://objetos/caixote.tscn" id="42_caixote"]
+[ext_resource type="PackedScene" uid="uid://b4nhtwoq7tgyh" path="res://fases/rua_1/inimigos/miniboss/miniboss.tscn" id="43_miniboss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_poste1"]
 size = Vector2(24, 24)
@@ -76,140 +76,140 @@ position = Vector2(2632.8, 280.6)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("2_6q06x")
 
-[node name="Obstaculos" type="Node2D" parent="."]
+[node name="Obstaculos" type="Node2D" parent="." unique_id=135810977]
 
-[node name="Poste1" type="StaticBody2D" parent="Obstaculos"]
+[node name="Poste1" type="StaticBody2D" parent="Obstaculos" unique_id=328415566]
 position = Vector2(-55, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste1" unique_id=2066169902]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_poste1")
 
-[node name="Poste2" type="StaticBody2D" parent="Obstaculos"]
+[node name="Poste2" type="StaticBody2D" parent="Obstaculos" unique_id=1641601094]
 position = Vector2(577, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste2" unique_id=278152558]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_poste2")
 
-[node name="Poste3" type="StaticBody2D" parent="Obstaculos"]
+[node name="Poste3" type="StaticBody2D" parent="Obstaculos" unique_id=1777590384]
 position = Vector2(1585, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste3" unique_id=1839752586]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_poste3")
 
-[node name="Poste4" type="StaticBody2D" parent="Obstaculos"]
+[node name="Poste4" type="StaticBody2D" parent="Obstaculos" unique_id=635676860]
 position = Vector2(1873, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste4" unique_id=665817239]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_poste4")
 
-[node name="Poste5" type="StaticBody2D" parent="Obstaculos"]
+[node name="Poste5" type="StaticBody2D" parent="Obstaculos" unique_id=727032740]
 position = Vector2(2505, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste5"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste5" unique_id=1031282272]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_poste5")
 
-[node name="Hidrante" type="StaticBody2D" parent="Obstaculos"]
+[node name="Hidrante" type="StaticBody2D" parent="Obstaculos" unique_id=77306026]
 position = Vector2(2642, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Hidrante"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Hidrante" unique_id=1888024426]
 position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_hidrante")
 
-[node name="Caixas" type="StaticBody2D" parent="Obstaculos"]
+[node name="Caixas" type="StaticBody2D" parent="Obstaculos" unique_id=1530482498]
 position = Vector2(2761.5, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Caixas"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Caixas" unique_id=1234479953]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_caixas")
 
-[node name="Moto1" type="StaticBody2D" parent="Obstaculos"]
+[node name="Moto1" type="StaticBody2D" parent="Obstaculos" unique_id=1491415449]
 position = Vector2(3151.5, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Moto1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Moto1" unique_id=1186081484]
 position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_moto1")
 
-[node name="Moto2" type="StaticBody2D" parent="Obstaculos"]
+[node name="Moto2" type="StaticBody2D" parent="Obstaculos" unique_id=175173516]
 position = Vector2(3340, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Moto2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Moto2" unique_id=1975694622]
 position = Vector2(0, -11)
 shape = SubResource("RectangleShape2D_moto2")
 
-[node name="Poste6" type="StaticBody2D" parent="Obstaculos"]
+[node name="Poste6" type="StaticBody2D" parent="Obstaculos" unique_id=591439069]
 position = Vector2(3512, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste6"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste6" unique_id=853263036]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_poste6")
 
-[node name="Poste7" type="StaticBody2D" parent="Obstaculos"]
+[node name="Poste7" type="StaticBody2D" parent="Obstaculos" unique_id=1410025799]
 position = Vector2(3800, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste7"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste7" unique_id=512211016]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_poste7")
 
-[node name="Poste8" type="StaticBody2D" parent="Obstaculos"]
+[node name="Poste8" type="StaticBody2D" parent="Obstaculos" unique_id=1383465767]
 position = Vector2(4430, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste8"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Poste8" unique_id=697520082]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_poste8")
 
-[node name="Amplificadores" type="StaticBody2D" parent="Obstaculos"]
+[node name="Amplificadores" type="StaticBody2D" parent="Obstaculos" unique_id=1016295204]
 position = Vector2(4737.5, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Amplificadores"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Amplificadores" unique_id=1042501844]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_amplificadores")
 
-[node name="TamborCaido" type="StaticBody2D" parent="Obstaculos"]
+[node name="TamborCaido" type="StaticBody2D" parent="Obstaculos" unique_id=1266622215]
 position = Vector2(5112.5, 396)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/TamborCaido"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/TamborCaido" unique_id=1707815305]
 position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_tamborcaido")
 
-[node name="Tambores" type="StaticBody2D" parent="Obstaculos"]
+[node name="Tambores" type="StaticBody2D" parent="Obstaculos" unique_id=953925537]
 position = Vector2(5220, 376)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Tambores"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Tambores" unique_id=241794184]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_tambores")
 
-[node name="Carro" type="StaticBody2D" parent="Obstaculos"]
+[node name="Carro" type="StaticBody2D" parent="Obstaculos" unique_id=2034882252]
 position = Vector2(5417.5, 398)
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Carro"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstaculos/Carro" unique_id=1587555971]
 position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_carro")
 
 [node name="Portal" parent="." unique_id=1925924290 instance=ExtResource("9_b1x3f")]
 position = Vector2(4993, 400)
 
-[node name="CollisionShape2D" parent="Portal" index="0"]
+[node name="CollisionShape2D" parent="Portal" index="0" unique_id=911228269]
 position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_portao")
 
@@ -340,7 +340,7 @@ cena_inimigo = ExtResource("7_yyfjg")
 [node name="Onda2" type="Node2D" parent="Spawns/Arena3" unique_id=1452550229]
 
 [node name="PontoMiniboss" type="Marker2D" parent="Spawns/Arena3/Onda2" unique_id=264818682]
-position = Vector2(2990, 500)
+position = Vector2(3410, 500)
 script = ExtResource("10_ponto")
 cena_inimigo = ExtResource("43_miniboss")
 

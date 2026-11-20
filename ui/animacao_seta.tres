@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" format=3]
+[gd_resource type="AnimationLibrary" format=3 uid="uid://dgd0xnnr77mgb"]
 
 [sub_resource type="Animation" id="Animation_piscar"]
 resource_name = "piscar"

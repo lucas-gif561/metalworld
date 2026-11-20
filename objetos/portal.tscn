@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dltkylafufj17"]
 
 [ext_resource type="Script" uid="uid://hth04xe2jej1" path="res://objetos/portal.gd" id="1_th3qj"]
-[ext_resource type="SpriteFrames" path="res://assets/efeitos/sigilo.tres" id="2_4fid7"]
-[ext_resource type="PackedScene" path="res://ui/icones_comando.tscn" id="3_icones"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_y_pixel.png" id="4_tecla_y"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_l.png" id="5_tecla_l"]
-[ext_resource type="Texture2D" path="res://riff/sprites/botao_rb.svg" id="6_botao_rb"]
+[ext_resource type="SpriteFrames" uid="uid://bjhoe5tc06si0" path="res://assets/efeitos/sigilo.tres" id="2_4fid7"]
+[ext_resource type="PackedScene" uid="uid://u1jitdc4tktb" path="res://ui/icones_comando.tscn" id="3_icones"]
+[ext_resource type="Texture2D" uid="uid://dsmisprnjxo8e" path="res://personagens/dylan/sprites/tecla_y_pixel.png" id="4_tecla_y"]
+[ext_resource type="Texture2D" uid="uid://c56dr26f6nb8p" path="res://personagens/dylan/sprites/tecla_l.png" id="5_tecla_l"]
+[ext_resource type="Texture2D" uid="uid://colbckyolj2je" path="res://riff/sprites/botao_rb.svg" id="6_botao_rb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ec6vt"]
 size = Vector2(88, 87)
@@ -24,10 +24,8 @@ scale = Vector2(2, 2)
 sprite_frames = ExtResource("2_4fid7")
 animation = &"portal"
 autoplay = "portal"
-offset = Vector2(0, 0)
 
-
-[node name="AvisoInteracao" type="HBoxContainer" parent="."]
+[node name="AvisoInteracao" type="HBoxContainer" parent="." unique_id=1135544762]
 visible = false
 offset_left = -96.0
 offset_top = -54.0
@@ -37,20 +35,14 @@ mouse_filter = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="Teclas" parent="AvisoInteracao" instance=ExtResource("3_icones")]
+[node name="Teclas" parent="AvisoInteracao" unique_id=175531575 instance=ExtResource("3_icones")]
 layout_mode = 2
 comando = "interagir"
 tecla_p1 = ExtResource("4_tecla_y")
 tecla_p2 = ExtResource("5_tecla_l")
 botao_controle = ExtResource("6_botao_rb")
 
-[node name="Icone1" parent="AvisoInteracao/Teclas" index="0"]
-custom_minimum_size = Vector2(24, 24)
-
-[node name="Icone2" parent="AvisoInteracao/Teclas" index="1"]
-custom_minimum_size = Vector2(24, 24)
-
-[node name="Texto" type="Label" parent="AvisoInteracao"]
+[node name="Texto" type="Label" parent="AvisoInteracao" unique_id=541395280]
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5

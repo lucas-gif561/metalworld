@@ -66,6 +66,10 @@ func conectar_jogador(jogador) -> void:
 
 	var painel = paineis[jogador.id_jogador]
 	painel.show()
+	# O rosto depende de quem cada jogador escolheu (Dylan ou Kevin), então vem
+	# do personagem; o da cena (hud.tscn) é só o padrão
+	if jogador.retrato:
+		painel.get_node("Retrato/Rosto").texture = jogador.retrato
 	jogador.vida_alterada.connect(_atualizar_vida.bind(painel))
 	jogador.poder_alterado.connect(_atualizar_poder.bind(painel))
 	_atualizar_vida(jogador.vida, jogador.vida_maxima, painel)

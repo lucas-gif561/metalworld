@@ -1,17 +1,17 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://d2dxv78cswnwn"]
 
-[ext_resource type="Script" path="res://bosses/base/runa.gd" id="1_runa"]
-[ext_resource type="SpriteFrames" path="res://fases/boss_1/sprites/pedal.tres" id="2_pedal"]
+[ext_resource type="Script" uid="uid://bwnbdny157sjt" path="res://bosses/base/runa.gd" id="1_runa"]
+[ext_resource type="SpriteFrames" uid="uid://c0kjdehgbxct0" path="res://fases/boss_1/sprites/pedal.tres" id="2_pedal"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pedal"]
 size = Vector2(56, 14)
 
-[node name="Pedal" type="StaticBody2D" groups=["runas"]]
+[node name="Pedal" type="StaticBody2D" unique_id=1012628063 groups=["runas"]]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_runa")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1620815617]
 texture_filter = 1
 position = Vector2(0, -35)
 scale = Vector2(1.5, 1.5)
@@ -19,6 +19,6 @@ sprite_frames = ExtResource("2_pedal")
 animation = &"ligado"
 autoplay = "ligado"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=483566126]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_pedal")

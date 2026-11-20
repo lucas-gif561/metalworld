@@ -1,13 +1,13 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://67lot6rhrm18"]
 
-[ext_resource type="Script" path="res://ui/transicao_fase.gd" id="1_transicao"]
+[ext_resource type="Script" uid="uid://dltvivhwsrqcw" path="res://ui/transicao_fase.gd" id="1_transicao"]
 
-[node name="TransicaoFase" type="CanvasLayer"]
+[node name="TransicaoFase" type="CanvasLayer" unique_id=508161571]
 layer = 10
 script = ExtResource("1_transicao")
 duracao = 0.35
 
-[node name="TelaEscura" type="ColorRect" parent="."]
+[node name="TelaEscura" type="ColorRect" parent="." unique_id=874291289]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0

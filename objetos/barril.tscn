@@ -1,26 +1,26 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dv05ik1pri0fs"]
 
-[ext_resource type="Script" path="res://objetos/quebravel.gd" id="1_queb"]
-[ext_resource type="SpriteFrames" path="res://objetos/sprites/barril.tres" id="2_frames"]
-[ext_resource type="PackedScene" path="res://objetos/item_carne.tscn" id="3_item"]
-[ext_resource type="Script" path="res://objetos/sombra.gd" id="4_sombra"]
+[ext_resource type="Script" uid="uid://bhymv8tnlcqnj" path="res://objetos/quebravel.gd" id="1_queb"]
+[ext_resource type="SpriteFrames" uid="uid://bbcnth5iox2su" path="res://objetos/sprites/barril.tres" id="2_frames"]
+[ext_resource type="PackedScene" uid="uid://f1vpie03tctb" path="res://objetos/item_carne.tscn" id="3_item"]
+[ext_resource type="Script" uid="uid://rheeksjakpjx" path="res://objetos/sombra.gd" id="4_sombra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_queb"]
 size = Vector2(50, 14)
 
-[node name="Barril" type="StaticBody2D"]
+[node name="Barril" type="StaticBody2D" unique_id=962480993]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_queb")
 cena_item = ExtResource("3_item")
 
-[node name="Sombra" type="Node2D" parent="."]
+[node name="Sombra" type="Node2D" parent="." unique_id=72877275]
 z_index = -1
 position = Vector2(0, 1)
 script = ExtResource("4_sombra")
 tamanho = Vector2(56, 14)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1918421553]
 position = Vector2(0, -23)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("2_frames")
@@ -28,6 +28,6 @@ animation = &"idle"
 autoplay = "idle"
 offset = Vector2(-1, -7)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1339945019]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_queb")

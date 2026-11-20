@@ -1,45 +1,9 @@
 [gd_resource type="SpriteFrames" format=3 uid="uid://dsjqbgrjcv4qr"]
 
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/metronomo.png" id="1_parado"]
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/metronomo_ligado.png" id="2_ligado"]
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/metronomo_golpe.png" id="3_golpe"]
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/metronomo_quebrar.png" id="4_quebrar"]
-
-[sub_resource type="AtlasTexture" id="ligado_0"]
-atlas = ExtResource("2_ligado")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="ligado_1"]
-atlas = ExtResource("2_ligado")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="ligado_2"]
-atlas = ExtResource("2_ligado")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="ligado_3"]
-atlas = ExtResource("2_ligado")
-region = Rect2(144, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="ligado_4"]
-atlas = ExtResource("2_ligado")
-region = Rect2(192, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="ligado_5"]
-atlas = ExtResource("2_ligado")
-region = Rect2(240, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="ligado_6"]
-atlas = ExtResource("2_ligado")
-region = Rect2(288, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="ligado_7"]
-atlas = ExtResource("2_ligado")
-region = Rect2(336, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="ligado_8"]
-atlas = ExtResource("2_ligado")
-region = Rect2(384, 0, 48, 48)
+[ext_resource type="Texture2D" uid="uid://dou3m51twcmi8" path="res://fases/boss_2/sprites/metronomo.png" id="1_parado"]
+[ext_resource type="Texture2D" uid="uid://bppqj806dji18" path="res://fases/boss_2/sprites/metronomo_ligado.png" id="2_ligado"]
+[ext_resource type="Texture2D" uid="uid://dfgormckjbpcy" path="res://fases/boss_2/sprites/metronomo_golpe.png" id="3_golpe"]
+[ext_resource type="Texture2D" uid="uid://cigyix4i8oucs" path="res://fases/boss_2/sprites/metronomo_quebrar.png" id="4_quebrar"]
 
 [sub_resource type="AtlasTexture" id="golpe_0"]
 atlas = ExtResource("3_golpe")
@@ -75,6 +39,42 @@ region = Rect2(336, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="golpe_8"]
 atlas = ExtResource("3_golpe")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="ligado_0"]
+atlas = ExtResource("2_ligado")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="ligado_1"]
+atlas = ExtResource("2_ligado")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="ligado_2"]
+atlas = ExtResource("2_ligado")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="ligado_3"]
+atlas = ExtResource("2_ligado")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="ligado_4"]
+atlas = ExtResource("2_ligado")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="ligado_5"]
+atlas = ExtResource("2_ligado")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="ligado_6"]
+atlas = ExtResource("2_ligado")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="ligado_7"]
+atlas = ExtResource("2_ligado")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="ligado_8"]
+atlas = ExtResource("2_ligado")
 region = Rect2(384, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="quebrar_0"]
@@ -119,127 +119,103 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("1_parado")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("ligado_0")
-},
-{
-"duration": 1.0,
-"texture": SubResource("ligado_1")
-},
-{
-"duration": 1.0,
-"texture": SubResource("ligado_2")
-},
-{
-"duration": 1.0,
-"texture": SubResource("ligado_3")
-},
-{
-"duration": 1.0,
-"texture": SubResource("ligado_4")
-},
-{
-"duration": 1.0,
-"texture": SubResource("ligado_5")
-},
-{
-"duration": 1.0,
-"texture": SubResource("ligado_6")
-},
-{
-"duration": 1.0,
-"texture": SubResource("ligado_7")
-},
-{
-"duration": 1.0,
-"texture": SubResource("ligado_8")
-}],
-"loop": true,
-"name": &"ligado",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("golpe_0")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("golpe_1")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("golpe_2")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("golpe_3")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("golpe_4")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("golpe_5")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("golpe_6")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("golpe_7")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("golpe_8")
 }],
-"loop": false,
+"loop": 0,
 "name": &"golpe",
 "speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("ligado_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("ligado_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("ligado_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("ligado_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("ligado_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("ligado_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("ligado_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("ligado_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("ligado_8")
+}],
+"loop": 1,
+"name": &"ligado",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("quebrar_0")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quebrar_1")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quebrar_2")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quebrar_3")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quebrar_4")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quebrar_5")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quebrar_6")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quebrar_7")
-},
-{
+}, {
 "duration": 1.0,
 "texture": SubResource("quebrar_8")
 }],
-"loop": false,
+"loop": 0,
 "name": &"quebrar",
 "speed": 12.0
 }]

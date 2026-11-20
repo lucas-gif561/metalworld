@@ -1,12 +1,16 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dk7dfmsnnhgcu"]
 
-[ext_resource type="PackedScene" path="res://personagens/dylan/jogador.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://personagens/baterista/sprites/baterista.tres" id="2_frames"]
+[ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="1_base"]
+[ext_resource type="SpriteFrames" uid="uid://csssnuqr4726w" path="res://personagens/baterista/sprites/baterista.tres" id="2_frames"]
+[ext_resource type="Script" uid="uid://ceuuysopektb" path="res://personagens/baterista/baterista.gd" id="3_script"]
+[ext_resource type="Texture2D" uid="uid://bd3tv5qrw8iwq" path="res://personagens/baterista/sprites/retrato.png" id="4_retrato"]
 
-[node name="Baterista" instance=ExtResource("1_base")]
+[node name="Baterista" unique_id=1615702499 instance=ExtResource("1_base")]
+script = ExtResource("3_script")
 id_jogador = 2
+retrato = ExtResource("4_retrato")
 quadro_cross = 5
 
-[node name="AnimatedSprite2D" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="1" unique_id=918612811]
 scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("2_frames")

@@ -1,22 +1,22 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://7ocknjqgkgop"]
 
-[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/paganini.tres" id="1_paganini"]
-[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/diabo.tres" id="1_diabo"]
-[ext_resource type="Script" path="res://fases/boss_2/chefe_2.gd" id="2_script"]
-[ext_resource type="Script" path="res://fases/boss_2/duelista.gd" id="3_duelista"]
-[ext_resource type="PackedScene" path="res://fases/boss_2/projetil_duelo.tscn" id="5_projetil"]
-[ext_resource type="PackedScene" path="res://fases/boss_2/cordas_duelo.tscn" id="6_cordas"]
-[ext_resource type="PackedScene" path="res://fases/boss_2/projetil_pinball.tscn" id="7_pinball"]
-[ext_resource type="PackedScene" path="res://fases/boss_2/projetil_contratempo.tscn" id="8_contratempo"]
-[ext_resource type="PackedScene" path="res://fases/boss_2/dissonancia.tscn" id="9_dissonancia"]
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/sombra_flutuar.png" id="10_sombra"]
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/nota_paganini.png" id="11_nota_paganini"]
-[ext_resource type="Texture2D" path="res://fases/boss_2/sprites/nota_diabo.png" id="12_nota_diabo"]
-[ext_resource type="PackedScene" path="res://riff/sinal_riff.tscn" id="20_sinal_riff"]
-[ext_resource type="PackedScene" path="res://fases/boss_2/metronomo.tscn" id="21_metronomo"]
-[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/nota_paganini_animada.tres" id="22_nota_paganini"]
-[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/nota_diabo_animada.tres" id="23_nota_diabo"]
-[ext_resource type="SpriteFrames" path="res://fases/boss_2/sprites/orbe_pinball.tres" id="24_orbe"]
+[ext_resource type="SpriteFrames" uid="uid://cgejxuxw3e2ws" path="res://fases/boss_2/sprites/diabo.tres" id="1_diabo"]
+[ext_resource type="SpriteFrames" uid="uid://bhhmkriy8nx8r" path="res://fases/boss_2/sprites/paganini.tres" id="1_paganini"]
+[ext_resource type="Script" uid="uid://qbm8ysstypxt" path="res://fases/boss_2/chefe_2.gd" id="2_script"]
+[ext_resource type="Script" uid="uid://bxgnciym1glyo" path="res://fases/boss_2/duelista.gd" id="3_duelista"]
+[ext_resource type="PackedScene" uid="uid://brcyerr3fkbkh" path="res://fases/boss_2/projetil_duelo.tscn" id="5_projetil"]
+[ext_resource type="PackedScene" uid="uid://ca47o6tn8v7x7" path="res://fases/boss_2/cordas_duelo.tscn" id="6_cordas"]
+[ext_resource type="PackedScene" uid="uid://bl5ugq1hb2fft" path="res://fases/boss_2/projetil_pinball.tscn" id="7_pinball"]
+[ext_resource type="PackedScene" uid="uid://bdshewojrxcg4" path="res://fases/boss_2/projetil_contratempo.tscn" id="8_contratempo"]
+[ext_resource type="PackedScene" uid="uid://bewbpr54ocbbi" path="res://fases/boss_2/dissonancia.tscn" id="9_dissonancia"]
+[ext_resource type="Texture2D" uid="uid://bstuugap4nbbn" path="res://fases/boss_2/sprites/sombra_flutuar.png" id="10_sombra"]
+[ext_resource type="Texture2D" uid="uid://dsq5m2orj7blh" path="res://fases/boss_2/sprites/nota_paganini.png" id="11_nota_paganini"]
+[ext_resource type="Texture2D" uid="uid://hdorp0vhmlkj" path="res://fases/boss_2/sprites/nota_diabo.png" id="12_nota_diabo"]
+[ext_resource type="PackedScene" uid="uid://cvfhj04wg0vt3" path="res://riff/sinal_riff.tscn" id="20_sinal_riff"]
+[ext_resource type="PackedScene" uid="uid://chwaqvtjvtw4m" path="res://fases/boss_2/metronomo.tscn" id="21_metronomo"]
+[ext_resource type="SpriteFrames" uid="uid://dyldlsf7pl5bt" path="res://fases/boss_2/sprites/nota_paganini_animada.tres" id="22_nota_paganini"]
+[ext_resource type="SpriteFrames" uid="uid://d22d4n7xhbjc3" path="res://fases/boss_2/sprites/nota_diabo_animada.tres" id="23_nota_diabo"]
+[ext_resource type="SpriteFrames" uid="uid://j8k50tsdug4o" path="res://fases/boss_2/sprites/orbe_pinball.tres" id="24_orbe"]
 
 [sub_resource type="Animation" id="Animation_flutuar_paganini"]
 resource_name = "flutuar"
@@ -62,23 +62,23 @@ _data = {
 &"flutuar": SubResource("Animation_flutuar_diabo")
 }
 
-[node name="Chefe2" type="Node2D"]
+[node name="Chefe2" type="Node2D" unique_id=383472868]
 script = ExtResource("2_script")
+tiros_leque_fase_1 = 4
+tempo_extra_riff = 0.5
+cena_dissonancia = ExtResource("9_dissonancia")
+cena_pinball = ExtResource("7_pinball")
+velocidade_pinball = 490.0
+frames_pinball = ExtResource("24_orbe")
+cena_contratempo = ExtResource("8_contratempo")
 vida_maxima = 60
 cena_projetil = ExtResource("5_projetil")
 cena_runa = ExtResource("21_metronomo")
 usar_fases = true
 usar_nota_maldita = true
 pontos_runa = Array[Vector2]([Vector2(576, 286), Vector2(576, 422), Vector2(576, 558)])
-tiros_leque_fase_1 = 4
-tempo_extra_riff = 0.5
-velocidade_pinball = 490.0
-cena_pinball = ExtResource("7_pinball")
-frames_pinball = ExtResource("24_orbe")
-cena_contratempo = ExtResource("8_contratempo")
-cena_dissonancia = ExtResource("9_dissonancia")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1426703514]
 position = Vector2(90, 265)
 scale = Vector2(0.6, 0.6)
 sprite_frames = ExtResource("1_paganini")
@@ -87,47 +87,44 @@ autoplay = "idle"
 script = ExtResource("3_duelista")
 limites_y = Vector2(205, 545)
 percurso_glissando = Vector2(545, 205)
-percurso_glissando_alto = Vector2(365, 205)
 velocidade_projetil = 450.0
 cor_projetil = Color(0.42, 0.87, 1, 1)
 textura_projetil = ExtResource("11_nota_paganini")
-frames_projetil = ExtResource("22_nota_paganini")
 escala_projetil = 2.5
+frames_projetil = ExtResource("22_nota_paganini")
 
-[node name="OrigemTiro" type="Marker2D" parent="AnimatedSprite2D"]
+[node name="OrigemTiro" type="Marker2D" parent="AnimatedSprite2D" unique_id=632625531]
 position = Vector2(57, 0)
 
-[node name="AvisoMira" type="Line2D" parent="AnimatedSprite2D"]
+[node name="AvisoMira" type="Line2D" parent="AnimatedSprite2D" unique_id=1064818070]
 visible = false
 z_index = 1
 width = 5.0
 default_color = Color(0.42, 0.87, 1, 0.65)
 
-[node name="AvisoPinballPiso" type="Line2D" parent="AnimatedSprite2D"]
+[node name="AvisoPinballPiso" type="Line2D" parent="AnimatedSprite2D" unique_id=1025069452]
 visible = false
 z_index = 1
 width = 5.0
 default_color = Color(0.42, 0.87, 1, 0.65)
 
-[node name="AvisoPinballCurto" type="Line2D" parent="AnimatedSprite2D"]
+[node name="AvisoPinballCurto" type="Line2D" parent="AnimatedSprite2D" unique_id=1963041049]
 visible = false
 z_index = 1
 width = 5.0
 default_color = Color(0.42, 0.87, 1, 0.65)
 
-[node name="Sombra" type="Sprite2D" parent="AnimatedSprite2D"]
-show_behind_parent = true
+[node name="Sombra" type="Sprite2D" parent="AnimatedSprite2D" unique_id=979210410]
 modulate = Color(0.42, 0.87, 1, 0.55)
+show_behind_parent = true
 position = Vector2(0, 150)
 texture = ExtResource("10_sombra")
 
-[node name="Flutuar" type="AnimationPlayer" parent="AnimatedSprite2D"]
-libraries = {
-&"": SubResource("AnimationLibrary_paganini")
-}
+[node name="Flutuar" type="AnimationPlayer" parent="AnimatedSprite2D" unique_id=614967743]
+libraries/ = SubResource("AnimationLibrary_paganini")
 autoplay = &"flutuar"
 
-[node name="Diabo" type="AnimatedSprite2D" parent="."]
+[node name="Diabo" type="AnimatedSprite2D" parent="." unique_id=1944353519]
 position = Vector2(1062, 435)
 scale = Vector2(0.6, 0.6)
 sprite_frames = ExtResource("1_diabo")
@@ -143,72 +140,70 @@ abertura_leque = 64.0
 velocidade_projetil = 410.0
 cor_projetil = Color(1, 0.38, 0.41, 1)
 textura_projetil = ExtResource("12_nota_diabo")
-frames_projetil = ExtResource("23_nota_diabo")
 escala_projetil = 2.5
+frames_projetil = ExtResource("23_nota_diabo")
 
-[node name="OrigemTiro" type="Marker2D" parent="Diabo"]
+[node name="OrigemTiro" type="Marker2D" parent="Diabo" unique_id=375904110]
 position = Vector2(-57, 0)
 
-[node name="AvisoMira" type="Line2D" parent="Diabo"]
+[node name="AvisoMira" type="Line2D" parent="Diabo" unique_id=2056549644]
 visible = false
 z_index = 1
 width = 5.0
 default_color = Color(1, 0.38, 0.41, 0.65)
 
-[node name="Sombra" type="Sprite2D" parent="Diabo"]
-show_behind_parent = true
+[node name="Sombra" type="Sprite2D" parent="Diabo" unique_id=47047996]
 modulate = Color(1, 0.38, 0.41, 0.55)
+show_behind_parent = true
 position = Vector2(0, 150)
 texture = ExtResource("10_sombra")
 
-[node name="Flutuar" type="AnimationPlayer" parent="Diabo"]
-libraries = {
-&"": SubResource("AnimationLibrary_diabo")
-}
+[node name="Flutuar" type="AnimationPlayer" parent="Diabo" unique_id=2090937000]
+libraries/ = SubResource("AnimationLibrary_diabo")
 autoplay = &"flutuar"
 
-[node name="SinalRiff" parent="Diabo" instance=ExtResource("20_sinal_riff")]
+[node name="SinalRiff" parent="Diabo" unique_id=1617857611 instance=ExtResource("20_sinal_riff")]
 offset_left = -166.67
 offset_top = -203.0
 offset_right = 33.33
 offset_bottom = -171.0
 scale = Vector2(1.6667, 1.6667)
 
-[node name="Projeteis" type="Node2D" parent="."]
+[node name="Projeteis" type="Node2D" parent="." unique_id=1552403584]
 
-[node name="Cordas" parent="." instance=ExtResource("6_cordas")]
+[node name="Cordas" parent="." unique_id=1039841531 instance=ExtResource("6_cordas")]
 
-[node name="Dissonancias" type="Node2D" parent="."]
+[node name="Dissonancias" type="Node2D" parent="." unique_id=1349798609]
 
-[node name="Avisos" type="Node2D" parent="."]
+[node name="Avisos" type="Node2D" parent="." unique_id=1695839217]
 z_index = 1
 
-[node name="Modelos" type="Node2D" parent="Avisos"]
+[node name="Modelos" type="Node2D" parent="Avisos" unique_id=876303273]
 visible = false
 
-[node name="Leque" type="Line2D" parent="Avisos/Modelos"]
+[node name="Leque" type="Line2D" parent="Avisos/Modelos" unique_id=1576922900]
 width = 3.0
 default_color = Color(1, 1, 1, 0.55)
 
-[node name="Staccato" type="Line2D" parent="Avisos/Modelos"]
+[node name="Staccato" type="Line2D" parent="Avisos/Modelos" unique_id=348293931]
 width = 12.0
 default_color = Color(1, 1, 1, 0.6)
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="Glissando" type="Line2D" parent="Avisos/Modelos"]
+[node name="Glissando" type="Line2D" parent="Avisos/Modelos" unique_id=928374880]
 width = 7.0
 default_color = Color(1, 1, 1, 0.5)
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="Contratempo" type="Line2D" parent="Avisos/Modelos"]
+[node name="Contratempo" type="Line2D" parent="Avisos/Modelos" unique_id=1467472385]
 width = 4.0
 default_color = Color(1, 1, 1, 0.6)
 joint_mode = 2
 
-[node name="FlashFase" type="ColorRect" parent="."]
+[node name="FlashFase" type="ColorRect" parent="." unique_id=792689338]
 modulate = Color(1, 1, 1, 0)
 z_index = 20
 offset_left = -60.0

@@ -1,16 +1,40 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b3tmyx1mfj17g"]
 
-[ext_resource type="Script" path="res://ui/hud.gd" id="1_hud"]
-[ext_resource type="Texture2D" path="res://ui/sprites/coracao.png" id="2_coracao"]
-[ext_resource type="Texture2D" path="res://ui/sprites/raio.png" id="3_raio"]
-[ext_resource type="Texture2D" path="res://ui/sprites/retrato_dylan.png" id="4_retrato"]
-[ext_resource type="Texture2D" path="res://personagens/baterista/sprites/retrato.png" id="5_baterista"]
-[ext_resource type="Texture2D" path="res://ui/sprites/seta.png" id="6_seta"]
-[ext_resource type="PackedScene" path="res://ui/menu_pausa.tscn" id="7_pausa"]
-[ext_resource type="Texture2D" path="res://ui/sprites/botao_start.png" id="8_botao_a"]
-[ext_resource type="Texture2D" path="res://ui/sprites/tecla_j.png" id="9_tecla_j"]
-[ext_resource type="Texture2D" path="res://ui/sprites/cadeado.png" id="10_cadeado"]
-[ext_resource type="AnimationLibrary" path="res://ui/animacao_seta.tres" id="11_animacao_seta"]
+[ext_resource type="Script" uid="uid://r6velvrgtb20" path="res://ui/hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://hqshvnmm7i22" path="res://ui/sprites/coracao.png" id="2_coracao"]
+[ext_resource type="Texture2D" uid="uid://dk3kjt6q17j6c" path="res://ui/sprites/raio.png" id="3_raio"]
+[ext_resource type="Texture2D" uid="uid://c7br3hc7s6ev3" path="res://ui/sprites/retrato_dylan.png" id="4_retrato"]
+[ext_resource type="Texture2D" uid="uid://bd3tv5qrw8iwq" path="res://personagens/baterista/sprites/retrato.png" id="5_baterista"]
+[ext_resource type="Texture2D" uid="uid://chbs51cmyu62m" path="res://ui/sprites/seta.png" id="6_seta"]
+[ext_resource type="PackedScene" uid="uid://b0qfmrk1y8ls0" path="res://ui/menu_pausa.tscn" id="7_pausa"]
+[ext_resource type="Texture2D" uid="uid://u6jfgc3r2ycv" path="res://ui/sprites/botao_start.png" id="8_botao_a"]
+[ext_resource type="Texture2D" uid="uid://dqpld61b6umpl" path="res://ui/sprites/tecla_j.png" id="9_tecla_j"]
+[ext_resource type="Texture2D" uid="uid://bx5vvxsh2esa3" path="res://ui/sprites/cadeado.png" id="10_cadeado"]
+[ext_resource type="AnimationLibrary" uid="uid://dgd0xnnr77mgb" path="res://ui/animacao_seta.tres" id="11_animacao_seta"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_retrato_p1"]
+bg_color = Color(0.08, 0.03, 0.12, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.68, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_retrato_p2"]
+bg_color = Color(0.08, 0.03, 0.12, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.3, 0.72, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="Animation" id="Animation_vaga"]
 resource_name = "esperar"
@@ -45,30 +69,6 @@ tracks/1/keys = {
 _data = {
 &"esperar": SubResource("Animation_vaga")
 }
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_retrato_p1"]
-bg_color = Color(0.08, 0.03, 0.12, 0.85)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.68, 1, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_retrato_p2"]
-bg_color = Color(0.08, 0.03, 0.12, 0.85)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 0.3, 0.72, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [sub_resource type="Animation" id="Animation_entrar"]
 resource_name = "entrar"
@@ -115,11 +115,11 @@ _data = {
 &"entrar": SubResource("Animation_entrar")
 }
 
-[node name="HudJogo" type="CanvasLayer"]
+[node name="HudJogo" type="CanvasLayer" unique_id=90003724]
 layer = 5
 script = ExtResource("1_hud")
 
-[node name="PainelVida" type="HBoxContainer" parent="."]
+[node name="PainelVida" type="HBoxContainer" parent="." unique_id=37661739]
 offset_left = 12.0
 offset_top = 8.0
 offset_right = 193.0
@@ -127,14 +127,14 @@ offset_bottom = 67.0
 mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="Retrato" type="Panel" parent="PainelVida"]
+[node name="Retrato" type="Panel" parent="PainelVida" unique_id=360389745]
 custom_minimum_size = Vector2(59, 59)
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_retrato_p1")
 
-[node name="Rosto" type="TextureRect" parent="PainelVida/Retrato"]
+[node name="Rosto" type="TextureRect" parent="PainelVida/Retrato" unique_id=993132993]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,18 +150,18 @@ texture = ExtResource("4_retrato")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Icones" type="VBoxContainer" parent="PainelVida"]
+[node name="Icones" type="VBoxContainer" parent="PainelVida" unique_id=1515033344]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 2
 alignment = 1
 
-[node name="Coracoes" type="HBoxContainer" parent="PainelVida/Icones"]
+[node name="Coracoes" type="HBoxContainer" parent="PainelVida/Icones" unique_id=720735265]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 2
 
-[node name="Coracao1" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
+[node name="Coracao1" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes" unique_id=861759995]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -172,7 +172,7 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Coracao2" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
+[node name="Coracao2" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes" unique_id=1117537771]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -183,7 +183,7 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Coracao3" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
+[node name="Coracao3" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes" unique_id=370753820]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -194,7 +194,7 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Coracao4" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
+[node name="Coracao4" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes" unique_id=1906658784]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -205,7 +205,7 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Coracao5" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes"]
+[node name="Coracao5" type="TextureProgressBar" parent="PainelVida/Icones/Coracoes" unique_id=931054737]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -216,12 +216,12 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Raios" type="HBoxContainer" parent="PainelVida/Icones"]
+[node name="Raios" type="HBoxContainer" parent="PainelVida/Icones" unique_id=940137087]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 2
 
-[node name="Raio1" type="TextureProgressBar" parent="PainelVida/Icones/Raios"]
+[node name="Raio1" type="TextureProgressBar" parent="PainelVida/Icones/Raios" unique_id=747971040]
 custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -234,7 +234,7 @@ texture_under = ExtResource("3_raio")
 texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Raio2" type="TextureProgressBar" parent="PainelVida/Icones/Raios"]
+[node name="Raio2" type="TextureProgressBar" parent="PainelVida/Icones/Raios" unique_id=39428238]
 custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -247,7 +247,7 @@ texture_under = ExtResource("3_raio")
 texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Raio3" type="TextureProgressBar" parent="PainelVida/Icones/Raios"]
+[node name="Raio3" type="TextureProgressBar" parent="PainelVida/Icones/Raios" unique_id=418043983]
 custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -260,8 +260,7 @@ texture_under = ExtResource("3_raio")
 texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-
-[node name="PainelVidaP2" type="HBoxContainer" parent="."]
+[node name="PainelVidaP2" type="HBoxContainer" parent="." unique_id=698867138]
 visible = false
 offset_left = 210.0
 offset_top = 8.0
@@ -270,14 +269,14 @@ offset_bottom = 67.0
 mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="Retrato" type="Panel" parent="PainelVidaP2"]
+[node name="Retrato" type="Panel" parent="PainelVidaP2" unique_id=1933602315]
 custom_minimum_size = Vector2(59, 59)
 layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_retrato_p2")
 
-[node name="Rosto" type="TextureRect" parent="PainelVidaP2/Retrato"]
+[node name="Rosto" type="TextureRect" parent="PainelVidaP2/Retrato" unique_id=971224457]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -293,18 +292,18 @@ texture = ExtResource("5_baterista")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Icones" type="VBoxContainer" parent="PainelVidaP2"]
+[node name="Icones" type="VBoxContainer" parent="PainelVidaP2" unique_id=932623083]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 2
 alignment = 1
 
-[node name="Coracoes" type="HBoxContainer" parent="PainelVidaP2/Icones"]
+[node name="Coracoes" type="HBoxContainer" parent="PainelVidaP2/Icones" unique_id=1437829416]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 2
 
-[node name="Coracao1" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
+[node name="Coracao1" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes" unique_id=610727670]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -315,7 +314,7 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Coracao2" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
+[node name="Coracao2" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes" unique_id=82797817]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -326,7 +325,7 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Coracao3" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
+[node name="Coracao3" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes" unique_id=2013987999]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -337,7 +336,7 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Coracao4" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
+[node name="Coracao4" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes" unique_id=1732874717]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -348,7 +347,7 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Coracao5" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes"]
+[node name="Coracao5" type="TextureProgressBar" parent="PainelVidaP2/Icones/Coracoes" unique_id=153834481]
 custom_minimum_size = Vector2(22, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -359,12 +358,12 @@ texture_under = ExtResource("2_coracao")
 texture_progress = ExtResource("2_coracao")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Raios" type="HBoxContainer" parent="PainelVidaP2/Icones"]
+[node name="Raios" type="HBoxContainer" parent="PainelVidaP2/Icones" unique_id=1048760111]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 2
 
-[node name="Raio1" type="TextureProgressBar" parent="PainelVidaP2/Icones/Raios"]
+[node name="Raio1" type="TextureProgressBar" parent="PainelVidaP2/Icones/Raios" unique_id=2077846529]
 custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -377,7 +376,7 @@ texture_under = ExtResource("3_raio")
 texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Raio2" type="TextureProgressBar" parent="PainelVidaP2/Icones/Raios"]
+[node name="Raio2" type="TextureProgressBar" parent="PainelVidaP2/Icones/Raios" unique_id=1101963899]
 custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -390,7 +389,7 @@ texture_under = ExtResource("3_raio")
 texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-[node name="Raio3" type="TextureProgressBar" parent="PainelVidaP2/Icones/Raios"]
+[node name="Raio3" type="TextureProgressBar" parent="PainelVidaP2/Icones/Raios" unique_id=850459]
 custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 mouse_filter = 2
@@ -403,8 +402,7 @@ texture_under = ExtResource("3_raio")
 texture_progress = ExtResource("3_raio")
 tint_under = Color(0.12, 0.08, 0.16, 0.85)
 
-
-[node name="VagaP2" type="Control" parent="."]
+[node name="VagaP2" type="Control" parent="." unique_id=2005859897]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 210.0
@@ -413,7 +411,7 @@ offset_right = 269.0
 offset_bottom = 67.0
 mouse_filter = 2
 
-[node name="Retrato" type="Panel" parent="VagaP2"]
+[node name="Retrato" type="Panel" parent="VagaP2" unique_id=934178461]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -423,7 +421,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_retrato_p2")
 
-[node name="Silhueta" type="TextureRect" parent="VagaP2/Retrato"]
+[node name="Silhueta" type="TextureRect" parent="VagaP2/Retrato" unique_id=1941456264]
 self_modulate = Color(0.2, 0.45, 0.55, 0.9)
 layout_mode = 1
 anchors_preset = 15
@@ -440,7 +438,7 @@ texture = ExtResource("5_baterista")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Botoes" type="Control" parent="VagaP2"]
+[node name="Botoes" type="Control" parent="VagaP2" unique_id=537021791]
 layout_mode = 1
 anchors_preset = 0
 offset_left = 63.0
@@ -450,7 +448,7 @@ offset_bottom = 41.5
 pivot_offset = Vector2(12, 12)
 mouse_filter = 2
 
-[node name="BotaoControle" type="TextureRect" parent="VagaP2/Botoes"]
+[node name="BotaoControle" type="TextureRect" parent="VagaP2/Botoes" unique_id=163433474]
 layout_mode = 0
 offset_right = 24.0
 offset_bottom = 24.0
@@ -458,7 +456,7 @@ mouse_filter = 2
 texture = ExtResource("8_botao_a")
 expand_mode = 1
 
-[node name="TeclaTeclado" type="TextureRect" parent="VagaP2/Botoes"]
+[node name="TeclaTeclado" type="TextureRect" parent="VagaP2/Botoes" unique_id=298432660]
 visible = false
 layout_mode = 0
 offset_right = 24.0
@@ -467,13 +465,11 @@ mouse_filter = 2
 texture = ExtResource("9_tecla_j")
 expand_mode = 1
 
-[node name="Piscar" type="AnimationPlayer" parent="VagaP2"]
-libraries = {
-&"": SubResource("AnimationLibrary_vaga")
-}
+[node name="Piscar" type="AnimationPlayer" parent="VagaP2" unique_id=1879921635]
+libraries/ = SubResource("AnimationLibrary_vaga")
 autoplay = &"esperar"
 
-[node name="Siga" type="Control" parent="."]
+[node name="Siga" type="Control" parent="." unique_id=2016693692]
 visible = false
 layout_mode = 3
 anchors_preset = 6
@@ -489,7 +485,7 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Imagem" type="TextureRect" parent="Siga"]
+[node name="Imagem" type="TextureRect" parent="Siga" unique_id=793435306]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 80.0
@@ -497,13 +493,11 @@ mouse_filter = 2
 texture = ExtResource("6_seta")
 expand_mode = 1
 
-[node name="Piscar" type="AnimationPlayer" parent="Siga"]
-libraries = {
-&"": ExtResource("11_animacao_seta")
-}
+[node name="Piscar" type="AnimationPlayer" parent="Siga" unique_id=379638100]
+libraries/ = ExtResource("11_animacao_seta")
 autoplay = &"piscar"
 
-[node name="TravaRiff" type="TextureProgressBar" parent="."]
+[node name="TravaRiff" type="TextureProgressBar" parent="." unique_id=78990538]
 visible = false
 offset_right = 32.0
 offset_bottom = 32.0
@@ -517,7 +511,7 @@ texture_under = ExtResource("10_cadeado")
 texture_progress = ExtResource("10_cadeado")
 tint_under = Color(0.5, 0.45, 0.55, 0.75)
 
-[node name="TravaRiffP2" type="TextureProgressBar" parent="."]
+[node name="TravaRiffP2" type="TextureProgressBar" parent="." unique_id=642479554]
 visible = false
 offset_right = 32.0
 offset_bottom = 32.0
@@ -531,7 +525,7 @@ texture_under = ExtResource("10_cadeado")
 texture_progress = ExtResource("10_cadeado")
 tint_under = Color(0.5, 0.45, 0.55, 0.75)
 
-[node name="Aviso" type="Label" parent="."]
+[node name="Aviso" type="Label" parent="." unique_id=2025924732]
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 90.0
@@ -544,7 +538,7 @@ theme_override_font_sizes/font_size = 26
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TituloFase" type="Control" parent="."]
+[node name="TituloFase" type="Control" parent="." unique_id=1002839933]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -554,7 +548,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Faixa" type="ColorRect" parent="TituloFase"]
+[node name="Faixa" type="ColorRect" parent="TituloFase" unique_id=2061968451]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -567,7 +561,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.05, 0.02, 0.1, 0.75)
 
-[node name="LinhaCima" type="ColorRect" parent="TituloFase/Faixa"]
+[node name="LinhaCima" type="ColorRect" parent="TituloFase/Faixa" unique_id=1579615524]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -576,7 +570,7 @@ grow_horizontal = 2
 mouse_filter = 2
 color = Color(1, 0.3, 0.72, 1)
 
-[node name="LinhaBaixo" type="ColorRect" parent="TituloFase/Faixa"]
+[node name="LinhaBaixo" type="ColorRect" parent="TituloFase/Faixa" unique_id=906466864]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -588,7 +582,7 @@ grow_vertical = 0
 mouse_filter = 2
 color = Color(1, 0.3, 0.72, 1)
 
-[node name="Nome" type="Label" parent="TituloFase"]
+[node name="Nome" type="Label" parent="TituloFase" unique_id=732128377]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -603,12 +597,10 @@ text = "RUA 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Animacao" type="AnimationPlayer" parent="TituloFase"]
-libraries = {
-&"": SubResource("AnimationLibrary_titulo")
-}
+[node name="Animacao" type="AnimationPlayer" parent="TituloFase" unique_id=879268372]
+libraries/ = SubResource("AnimationLibrary_titulo")
 
-[node name="TelaFim" type="ColorRect" parent="."]
+[node name="TelaFim" type="ColorRect" parent="." unique_id=398818464]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -616,7 +608,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.7)
 
-[node name="Conteudo" type="VBoxContainer" parent="TelaFim"]
+[node name="Conteudo" type="VBoxContainer" parent="TelaFim" unique_id=1328182611]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -631,14 +623,14 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Titulo" type="Label" parent="TelaFim/Conteudo"]
+[node name="Titulo" type="Label" parent="TelaFim/Conteudo" unique_id=439610053]
 layout_mode = 2
 theme_override_font_sizes/font_size = 72
 horizontal_alignment = 1
 
-[node name="Subtitulo" type="Label" parent="TelaFim/Conteudo"]
+[node name="Subtitulo" type="Label" parent="TelaFim/Conteudo" unique_id=2134820394]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 
-[node name="MenuPausa" parent="." instance=ExtResource("7_pausa")]
+[node name="MenuPausa" parent="." unique_id=2037962720 instance=ExtResource("7_pausa")]

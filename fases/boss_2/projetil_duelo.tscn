@@ -1,12 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://brcyerr3fkbkh"]
 
-[ext_resource type="Script" path="res://fases/boss_2/projetil_duelo.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/projeteis/bola.png" id="2_bola"]
+[ext_resource type="Script" uid="uid://dwu1ao3o7hg7x" path="res://fases/boss_2/projetil_duelo.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://jt6eg5um3odo" path="res://assets/projeteis/bola.png" id="2_bola"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bola"]
 radius = 9.0
 
-[node name="ProjetilDuelo" type="CharacterBody2D"]
+[node name="ProjetilDuelo" type="CharacterBody2D" unique_id=1367282757]
 z_index = 2
 collision_layer = 0
 collision_mask = 128
@@ -14,24 +14,24 @@ motion_mode = 1
 script = ExtResource("1_script")
 tempo_vida = 3.5
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1210741034]
 scale = Vector2(4, 4)
 texture = ExtResource("2_bola")
 
-[node name="ColisaoRicochete" type="CollisionShape2D" parent="."]
+[node name="ColisaoRicochete" type="CollisionShape2D" parent="." unique_id=126797332]
 shape = SubResource("CircleShape2D_bola")
 
-[node name="AreaDeDano" type="Area2D" parent="."]
+[node name="AreaDeDano" type="Area2D" parent="." unique_id=1680399321]
 collision_layer = 0
 collision_mask = 16
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDeDano"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDeDano" unique_id=1353035209]
 shape = SubResource("CircleShape2D_bola")
 
-[node name="Faiscas" type="CPUParticles2D" parent="."]
-z_as_relative = false
+[node name="Faiscas" type="CPUParticles2D" parent="." unique_id=440622524]
 z_index = 3
+z_as_relative = false
 emitting = false
 amount = 7
 lifetime = 0.22
@@ -44,7 +44,7 @@ initial_velocity_max = 85.0
 scale_amount_min = 2.0
 scale_amount_max = 5.0
 
-[node name="Animacao" type="AnimatedSprite2D" parent="."]
+[node name="Animacao" type="AnimatedSprite2D" parent="." unique_id=627827443]
 visible = false
 texture_filter = 1
 

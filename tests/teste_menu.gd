@@ -1,5 +1,5 @@
 extends SceneTree
-## Teste do menu principal: navegação, Controles/Créditos e iniciar
+## Teste do menu principal: navegação, Opções, Controles/Créditos e iniciar
 ## sozinho ou em dupla. Rode com: tests/rodar_testes.sh
 
 var jogo: Node
@@ -41,42 +41,90 @@ func _rodar() -> void:
 	print("== Menu principal")
 	change_scene_to_file("res://ui/tela_inicial.tscn")
 	await esperar(0.5)
+	# O menu pode demorar mais que 0,5 s para carregar (primeiro teste depois do
+	# import): espera ele entrar e focar o primeiro botão antes de conferir
+	var limite = Time.get_ticks_msec() + 5000
+	while focado() == "" and Time.get_ticks_msec() < limite:
+		await process_frame
 	var menu = current_scene
-	checar(focado() == "JogarSozinho", "começa com 'Jogar sozinho' aceso")
+	checar(focado() == "Jogar", "começa com 'Jogar' aceso")
 
 	await apertar("p1_mover_baixo")
-	checar(focado() == "JogarDupla", "S desce para 'Jogar em dupla'")
+	checar(focado() == "Controles", "S desce para 'Controles'")
 	await esperar(0.2)
 	await apertar("ui_down")
-	checar(focado() == "Controles", "seta para baixo desce para 'Controles'")
+	checar(focado() == "Opcoes", "seta para baixo desce para 'Opções'")
+	await esperar(0.2)
+	await apertar("p1_mover_baixo")
+	checar(focado() == "Creditos", "depois vem 'Créditos'")
+	await esperar(0.2)
+	await apertar("p1_mover_baixo")
+	checar(focado() == "Sair", "o último botão é 'Sair'")
+	await esperar(0.2)
+	await apertar("p1_mover_baixo")
+	checar(focado() == "Jogar", "descer do último dá a volta para o primeiro")
 	await esperar(0.2)
 	await apertar("p1_mover_cima")
-	checar(focado() == "JogarDupla", "W sobe de volta")
 	await esperar(0.2)
 	await apertar("p1_mover_cima")
-	await esperar(0.2)
-	await apertar("p1_mover_cima")
-	checar(focado() == "Creditos", "subir do primeiro dá a volta para o último")
+	checar(focado() == "Creditos", "W sobe de volta")
 
 	await apertar("p1_atacar")
 	checar(menu.janela.visible and menu.titulo_janela.text == "Créditos", "J abre a janela de Créditos")
 	await apertar("p1_dodge")
 	checar(not menu.janela.visible, "qualquer botão fecha a janela")
 
-	menu.get_node("Menu/JogarDupla").grab_focus()
+	# Opções: volume com A/D. O teste devolve o volume ao valor de antes, porque
+	# fechar a tela salva em user://opcoes.cfg (o mesmo arquivo do jogo)
+	var audio = root.get_node("Audio")
+	checar(AudioServer.get_bus_index("Musica") > 0 and AudioServer.get_bus_index("Efeitos") > 0, "música e efeitos têm barramentos próprios")
+	var geral = audio.volume("geral")
+	menu.get_node("Menu/Opcoes").grab_focus()
 	await esperar(0.2)
 	await apertar("p1_atacar")
-	await esperar(0.8)
-	checar(current_scene != null and current_scene.scene_file_path == jogo.FASES[0].cena, "'Jogar em dupla' abre a Rua 1")
+	checar(menu.opcoes.visible and not menu.menu.visible and focado() == "Barra", "'Opções' abre os volumes, já no volume geral")
+	await apertar("p1_mover_esquerda")
+	var abaixado = audio.volume("geral")
+	checar(abaixado < geral or geral == 0.0, "A abaixa o volume geral (%.2f -> %.2f)" % [geral, abaixado])
+	await apertar("p1_mover_direita")
+	checar(audio.volume("geral") > abaixado or abaixado == 1.0, "D sobe o volume")
+	audio.definir_volume("geral", geral)
+	await apertar("ui_cancel")
+	checar(not menu.opcoes.visible and menu.menu.visible and focado() == "Opcoes", "Esc fecha as opções e volta em 'Opções'")
+
+	menu.get_node("Menu/Jogar").grab_focus()
+	await esperar(0.2)
+	await apertar("p1_atacar")
+	checar(menu.menu_modo.visible and not menu.menu.visible and focado() == "Solo", "'Jogar' abre a escolha do modo em 'Solo'")
+	await apertar("ui_cancel")
+	checar(not menu.menu_modo.visible and menu.menu.visible and focado() == "Jogar", "Esc volta ao menu, em 'Jogar'")
+
+	await esperar(0.2)
+	await apertar("p1_atacar")
+	await esperar(0.2)
+	await apertar("p1_mover_baixo")
+	checar(focado() == "Dueto", "S desce para 'Dueto'")
+	await esperar(0.2)
+	await apertar("p1_atacar")
+	await esperar(0.3)
+	checar(menu.selecao.visible and not menu.menu_modo.visible, "'Dueto' abre a seleção de personagem")
+	await apertar("p1_atacar")
+	await apertar("p2_atacar")
+	await esperar(1.0)
+	checar(current_scene != null and current_scene.scene_file_path == jogo.FASES[0].cena, "os dois confirmam e a Rua 1 abre")
 	checar(jogo.p2_ativo and jogo.jogadores.size() == 2, "e já começa com os dois jogadores")
 
 	jogo.voltar_ao_inicio()
 	await esperar(0.6)
-	current_scene.get_node("Menu/JogarSozinho").grab_focus()
+	current_scene.get_node("Menu/Jogar").grab_focus()
 	await esperar(0.2)
 	await apertar("p2_entrar")
-	await esperar(0.8)
-	checar(not jogo.p2_ativo and jogo.jogadores.size() == 1, "START em 'Jogar sozinho' começa só com o P1")
+	await esperar(0.2)
+	await apertar("p2_entrar")
+	await esperar(0.3)
+	await apertar("p1_entrar")
+	await esperar(1.0)
+	checar(not jogo.p2_ativo and jogo.jogadores.size() == 1, "START em 'Jogar', em 'Solo' e Enter na seleção começa só com o P1")
 
 	print("RESULTADO: ", "PASSOU" if falhas == 0 else "FALHOU (%d)" % falhas)
 	quit(1 if falhas > 0 else 0)

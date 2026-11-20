@@ -5,29 +5,38 @@ extends Control
 ## (tema_menu.tres): placa do título, botões apagado/aceso e janela de
 ## Controles/Créditos. Aqui fica só o comportamento.
 ##
+## "Jogar" abre a escolha do modo (Solo ou Dueto) no lugar dos botões do
+## menu, e o modo abre a seleção de personagem (tela_selecao.tscn); "Opções"
+## abre os volumes (tela_opcoes.tscn); "Sair" fecha o jogo.
+##
 ## Navegação: setas, WASD, direcional ou analógico de qualquer jogador.
-## Confirmar: Enter, Espaço, F, J ou A. No controle, B volta.
+## Confirmar: Enter, Espaço, F, J ou A. Voltar: Esc ou B no controle.
 
 const TEXTO_CREDITOS = """MetalWorld — projeto da disciplina
 
-Dylan e interface: gerados pela equipe no PixelLab
+Sprites: gerados pela equipe no PixelLab
+Cenários: gerados pela equipe com o Gemini
 Ícones do HUD: Critters Pixel UI (Foozle), CC0
-Inimigos: Streets of Fight (ansimuz) e Business of Rage (DidiGameB), CC0
-Boss: Doom Scribe (CC BY 4.0)
 Barris e caixotes: Elthen · Comida: Pixel Coder
 Músicas: MintoDog (CC0) · Efeitos sonoros: Bfxr
 Teclas do Riff e botões: Kenney
+Provisórios: Streets of Fight · Doom Scribe (CC BY)
+Miku: that1guyfromtheforum · Crypton Future Media
 
 Lista completa com licenças no arquivo CREDITS.md"""
 
 const ESPERA_NAVEGACAO = 0.18
 
 @onready var menu = $Menu
+@onready var menu_modo = $MenuModo
 @onready var placa = $Placa
 @onready var janela = $Janela
 @onready var controles = $TelaControles
+@onready var selecao = $TelaSelecao
+@onready var opcoes = $TelaOpcoes
 @onready var titulo_janela = $Janela/Moldura/Titulo
 @onready var texto_janela = $Janela/Moldura/Texto
+@onready var versao = $Versao
 
 var _proxima_navegacao := 0.0
 var _iniciando := false
@@ -35,17 +44,42 @@ var _iniciando := false
 
 func _ready() -> void:
 	Audio.tocar_musica("ruas")
-	$Menu/JogarSozinho.pressed.connect(_jogar.bind(false))
-	$Menu/JogarDupla.pressed.connect(_jogar.bind(true))
+	$Menu/Jogar.pressed.connect(_abrir_modos)
 	$Menu/Controles.pressed.connect(_abrir_controles)
 	controles.fechada.connect(_fechar_controles)
+	$Menu/Opcoes.pressed.connect(_abrir_opcoes)
+	opcoes.fechada.connect(_fechar_opcoes)
 	$Menu/Creditos.pressed.connect(_abrir_janela.bind("Créditos", TEXTO_CREDITOS))
-	for botao in menu.get_children():
+	$Menu/Sair.pressed.connect(_sair)
+	# No navegador não dá para fechar a aba pelo jogo
+	$Menu/Sair.visible = not OS.has_feature("web")
+	$MenuModo/Solo.pressed.connect(_escolher_personagens.bind(false))
+	$MenuModo/Dueto.pressed.connect(_escolher_personagens.bind(true))
+	selecao.confirmada.connect(func(): _jogar(selecao.em_dupla))
+	selecao.cancelada.connect(_ao_cancelar_selecao)
+	$MenuModo/Voltar.pressed.connect(_fechar_modos)
+	for botao in _botoes(menu) + _botoes(menu_modo):
 		botao.focus_entered.connect(_ao_focar)
 		botao.mouse_entered.connect(botao.grab_focus)
 	janela.hide()
-	$Menu/JogarSozinho.grab_focus.call_deferred()
+	menu_modo.hide()
+	$Menu/Jogar.grab_focus.call_deferred()
 	_animar_placa()
+	_mostrar_versao()
+
+
+## Commit do build no canto da tela, para saber o que mudou desde a última
+## versão publicada (git log <hash>..HEAD). O arquivo é gravado na exportação
+## pelo addon versao_build; rodando pelo editor ele não existe, então
+## pergunta ao git na hora.
+func _mostrar_versao() -> void:
+	var texto := ""
+	if FileAccess.file_exists("res://versao.txt"):
+		texto = FileAccess.get_file_as_string("res://versao.txt").strip_edges()
+	elif OS.has_feature("editor"):
+		texto = load("res://addons/versao_build/versao_git.gd").linha() + " (editor)"
+	versao.text = texto
+	versao.visible = not texto.is_empty()
 
 
 # A placa "respira" devagar, como letreiro de palco
@@ -59,6 +93,20 @@ func _ao_focar() -> void:
 	Audio.tocar("nota_good", 0.0)
 
 
+func _escolher_personagens(em_dupla: bool) -> void:
+	Audio.tocar("ui_confirma", 0.0)
+	# Já define de quem é o controle único: na seleção cada um usa o seu
+	Controles.preparar_partida(em_dupla)
+	menu_modo.hide()
+	get_viewport().gui_release_focus()
+	selecao.abrir(em_dupla)
+
+
+func _ao_cancelar_selecao() -> void:
+	menu_modo.show()
+	(menu_modo.get_node("Dueto") if selecao.em_dupla else menu_modo.get_node("Solo")).grab_focus()
+
+
 func _jogar(em_dupla: bool) -> void:
 	if _iniciando:
 		return
@@ -67,6 +115,24 @@ func _jogar(em_dupla: bool) -> void:
 	Controles.preparar_partida(em_dupla)
 	Audio.tocar("ui_confirma", 0.0)
 	Jogo.iniciar_jogo()
+
+
+func _abrir_modos() -> void:
+	Audio.tocar("ui_confirma", 0.0)
+	menu.hide()
+	menu_modo.show()
+	$MenuModo/Solo.grab_focus()
+
+
+func _fechar_modos() -> void:
+	menu_modo.hide()
+	menu.show()
+	$Menu/Jogar.grab_focus()
+
+
+func _sair() -> void:
+	Audio.tocar("ui_confirma", 0.0)
+	get_tree().quit()
 
 
 func _abrir_controles() -> void:
@@ -78,6 +144,17 @@ func _abrir_controles() -> void:
 func _fechar_controles() -> void:
 	menu.show()
 	$Menu/Controles.grab_focus()
+
+
+func _abrir_opcoes() -> void:
+	Audio.tocar("ui_confirma", 0.0)
+	menu.hide()
+	opcoes.abrir()
+
+
+func _fechar_opcoes() -> void:
+	menu.show()
+	$Menu/Opcoes.grab_focus()
 
 
 func _abrir_janela(titulo: String, texto: String) -> void:
@@ -95,11 +172,11 @@ func _fechar_janela() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if not event is InputEventJoypadButton or controles.visible:
+	if not event is InputEventJoypadButton or controles.visible or selecao.visible or opcoes.visible:
 		return
-	if janela.visible and event.button_index == JOY_BUTTON_B:
+	if (janela.visible or menu_modo.visible) and event.button_index == JOY_BUTTON_B:
 		if event.pressed:
-			_fechar_janela()
+			_voltar()
 		get_viewport().set_input_as_handled()
 	elif event.button_index == JOY_BUTTON_A:
 		var focado = get_viewport().gui_get_focus_owner()
@@ -108,7 +185,20 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
+func _voltar() -> void:
+	if janela.visible:
+		_fechar_janela()
+	elif menu_modo.visible:
+		_fechar_modos()
+
+
 func _unhandled_input(event: InputEvent) -> void:
+	if selecao.visible or opcoes.visible:
+		return
+	if menu_modo.visible and event.is_action_pressed("ui_cancel"):
+		_fechar_modos()
+		get_viewport().set_input_as_handled()
+		return
 	if janela.visible:
 		if event.is_pressed() and not event.is_echo() and not event is InputEventJoypadButton and not event is InputEventJoypadMotion:
 			_fechar_janela()
@@ -139,7 +229,11 @@ func _navegar(passo: int) -> void:
 	if agora < _proxima_navegacao:
 		return
 	_proxima_navegacao = agora + ESPERA_NAVEGACAO
-	var botoes = menu.get_children()
+	var botoes = _botoes(menu_modo if menu_modo.visible else menu)
 	var atual = botoes.find(get_viewport().gui_get_focus_owner())
 	botoes[wrapi(atual + passo, 0, botoes.size())].grab_focus()
 	get_viewport().set_input_as_handled()
+
+
+func _botoes(lista: Control) -> Array:
+	return lista.get_children().filter(func(no): return no is Button and no.visible)

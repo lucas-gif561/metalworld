@@ -1,26 +1,26 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b08jrpmqepjnt"]
 
-[ext_resource type="Script" path="res://objetos/quebravel.gd" id="1_queb"]
-[ext_resource type="SpriteFrames" path="res://objetos/sprites/caixote.tres" id="2_frames"]
-[ext_resource type="PackedScene" path="res://objetos/item_maca.tscn" id="3_item"]
-[ext_resource type="Script" path="res://objetos/sombra.gd" id="4_sombra"]
+[ext_resource type="Script" uid="uid://bhymv8tnlcqnj" path="res://objetos/quebravel.gd" id="1_queb"]
+[ext_resource type="SpriteFrames" uid="uid://bn2a5bup4givg" path="res://objetos/sprites/caixote.tres" id="2_frames"]
+[ext_resource type="PackedScene" uid="uid://dde88yil74u0g" path="res://objetos/item_maca.tscn" id="3_item"]
+[ext_resource type="Script" uid="uid://rheeksjakpjx" path="res://objetos/sombra.gd" id="4_sombra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_queb"]
 size = Vector2(50, 14)
 
-[node name="Caixote" type="StaticBody2D"]
+[node name="Caixote" type="StaticBody2D" unique_id=219860930]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_queb")
 cena_item = ExtResource("3_item")
 
-[node name="Sombra" type="Node2D" parent="."]
+[node name="Sombra" type="Node2D" parent="." unique_id=2111290117]
 z_index = -1
 position = Vector2(0, 2)
 script = ExtResource("4_sombra")
 tamanho = Vector2(56, 14)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=605032740]
 position = Vector2(0, -20)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("2_frames")
@@ -28,6 +28,6 @@ animation = &"idle"
 autoplay = "idle"
 offset = Vector2(-1, -7)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1595506988]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_queb")

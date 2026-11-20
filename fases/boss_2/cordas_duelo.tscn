@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ca47o6tn8v7x7"]
 
-[ext_resource type="PackedScene" path="res://fases/boss_2/corda_duelo.tscn" id="1_corda"]
+[ext_resource type="PackedScene" uid="uid://cu6prhafy8v5x" path="res://fases/boss_2/corda_duelo.tscn" id="1_corda"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nota"]
 font_size = 24
@@ -8,59 +8,55 @@ font_color = Color(1, 0.91, 0.65, 1)
 outline_size = 8
 outline_color = Color(0.14, 0.06, 0.16, 1)
 
-[node name="Cordas" type="Node2D"]
+[node name="Cordas" type="Node2D" unique_id=78170971]
 
-[node name="Sol" parent="." instance=ExtResource("1_corda")]
+[node name="Sol" parent="." unique_id=529693377 instance=ExtResource("1_corda")]
 position = Vector2(576, 199.75)
 
-[node name="Nota" type="Label" parent="Sol"]
+[node name="Nota" type="Label" parent="Sol" unique_id=1756109680]
 offset_left = -52.0
 offset_top = -18.0
 offset_right = 52.0
 offset_bottom = 18.0
-mouse_filter = 2
 text = "SOL"
 label_settings = SubResource("LabelSettings_nota")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Re" parent="." instance=ExtResource("1_corda")]
+[node name="Re" parent="." unique_id=726118580 instance=ExtResource("1_corda")]
 position = Vector2(576, 315.25)
 
-[node name="Nota" type="Label" parent="Re"]
+[node name="Nota" type="Label" parent="Re" unique_id=1027489004]
 offset_left = -52.0
 offset_top = -18.0
 offset_right = 52.0
 offset_bottom = 18.0
-mouse_filter = 2
 text = "RÉ"
 label_settings = SubResource("LabelSettings_nota")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="La" parent="." instance=ExtResource("1_corda")]
+[node name="La" parent="." unique_id=1711478157 instance=ExtResource("1_corda")]
 position = Vector2(576, 430.75)
 
-[node name="Nota" type="Label" parent="La"]
+[node name="Nota" type="Label" parent="La" unique_id=1893885549]
 offset_left = -52.0
 offset_top = -18.0
 offset_right = 52.0
 offset_bottom = 18.0
-mouse_filter = 2
 text = "LÁ"
 label_settings = SubResource("LabelSettings_nota")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Mi" parent="." instance=ExtResource("1_corda")]
+[node name="Mi" parent="." unique_id=43179575 instance=ExtResource("1_corda")]
 position = Vector2(576, 546.25)
 
-[node name="Nota" type="Label" parent="Mi"]
+[node name="Nota" type="Label" parent="Mi" unique_id=1267066057]
 offset_left = -52.0
 offset_top = -18.0
 offset_right = 52.0
 offset_bottom = 18.0
-mouse_filter = 2
 text = "MI"
 label_settings = SubResource("LabelSettings_nota")
 horizontal_alignment = 1

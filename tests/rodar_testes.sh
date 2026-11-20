@@ -5,7 +5,8 @@
 # O Godot é procurado na variável GODOT ou no PATH (godot / godot4).
 # Ex.:  GODOT=~/Downloads/Godot_v4.7.2-stable_linux.x86_64 tests/rodar_testes.sh
 #
-# Falha se algum teste falhar OU se aparecer erro de script no meio.
+# Falha se algum teste falhar, se aparecer erro de script no meio
+# OU se faltar UID em alguma cena, recurso ou script.
 
 cd "$(dirname "$0")/.." || exit 1
 
@@ -18,6 +19,19 @@ fi
 "$GODOT" --headless --path . --import > /dev/null 2>&1
 
 status=0
+
+# Cenas e recursos criados como texto precisam ter os UIDs gravados
+# (ferramentas/gravar_uids.gd); o mesmo confere o GitHub em cada PR
+echo "### UIDs"
+saida=$("$GODOT" --headless --audio-driver Dummy --path . --script res://ferramentas/gravar_uids.gd -- --verificar 2>&1)
+codigo=$?
+echo "$saida" | grep -E '^(falta UID|UIDs:)'
+if [ $codigo -ne 0 ]; then
+	echo "Rode: godot --headless --path . --script res://ferramentas/gravar_uids.gd -- <arquivos do PR>"
+	status=1
+fi
+echo
+
 for teste in tests/teste_*.gd; do
 	echo "### $teste"
 	saida=$("$GODOT" --headless --audio-driver Dummy --path . --script "res://$teste" 2>&1)

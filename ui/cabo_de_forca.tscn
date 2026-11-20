@@ -1,11 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bwu5o813wspo2"]
 
-[ext_resource type="Script" path="res://ui/cabo_de_forca.gd" id="1_cabo"]
-[ext_resource type="Texture2D" path="res://ui/sprites/barra_boss.png" id="2_moldura"]
-[ext_resource type="Script" path="res://ui/marcadores_fase.gd" id="3_marcadores"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_boss"]
-bg_color = Color(0.894, 0.208, 0.29, 1)
+[ext_resource type="Script" uid="uid://cbjmhbv56cu7w" path="res://ui/cabo_de_forca.gd" id="1_cabo"]
+[ext_resource type="Texture2D" uid="uid://c7ccmbw1a575w" path="res://ui/sprites/barra_boss.png" id="2_moldura"]
+[ext_resource type="Script" uid="uid://dq66t4651loq6" path="res://ui/marcadores_fase.gd" id="3_marcadores"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dylan"]
 bg_color = Color(0.2, 0.68, 1, 1)
@@ -19,7 +16,10 @@ gradient = SubResource("Gradient_dupla")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dupla"]
 texture = SubResource("GradientTexture1D_dupla")
 
-[node name="CaboDeForca" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_boss"]
+bg_color = Color(0.894, 0.208, 0.29, 1)
+
+[node name="CaboDeForca" type="Control" unique_id=417577074]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -34,7 +34,7 @@ script = ExtResource("1_cabo")
 estilo_solo = SubResource("StyleBoxFlat_dylan")
 estilo_dupla = SubResource("StyleBoxTexture_dupla")
 
-[node name="Barra" type="ProgressBar" parent="."]
+[node name="Barra" type="ProgressBar" parent="." unique_id=1641028144]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,7 +53,7 @@ step = 0.001
 value = 0.5
 show_percentage = false
 
-[node name="MarcadoresFase" type="Control" parent="Barra"]
+[node name="MarcadoresFase" type="Control" parent="Barra" unique_id=1731138639]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,22 +63,21 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_marcadores")
 
-[node name="Moldura" type="NinePatchRect" parent="."]
+[node name="Moldura" type="NinePatchRect" parent="." unique_id=439413881]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-scale = Vector2(-1, 1)
-pivot_offset = Vector2(246, 26)
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(246, 26)
 texture = ExtResource("2_moldura")
 patch_margin_left = 42
 patch_margin_right = 58
 axis_stretch_horizontal = 1
 
-[node name="Marcador" type="ColorRect" parent="."]
+[node name="Marcador" type="ColorRect" parent="." unique_id=752129707]
 layout_mode = 0
 offset_left = -2.0
 offset_top = 21.0

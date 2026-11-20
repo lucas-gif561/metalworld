@@ -26,6 +26,7 @@ signal derrotado
 signal anuncio(texto) # aviso na tela (a arena mostra no HUD)
 signal fase_avancou
 signal dano_recebido(valor)
+signal instrumentos_desligados # os totens subiram: a arena fecha o Riff de quem está tocando
 signal instrumentos_liberados # os totens caíram e a contagem acabou
 
 const CENA_SINAL_RIFF = preload("res://riff/sinal_riff.tscn")
@@ -40,8 +41,6 @@ const CENA_SINAL_RIFF = preload("res://riff/sinal_riff.tscn")
 @export var cena_capanga: PackedScene
 ## Totem que desliga os instrumentos dos jogadores enquanto estiver de pé (quebra no soco)
 @export var cena_runa: PackedScene
-## Partículas do teleporte e das invocações
-@export var cena_particulas: PackedScene
 
 @export_group("Fases")
 ## Liga as fases: abaixo de 66% e 33% da vida o boss enfurece (ataca mais rápido)
@@ -132,6 +131,19 @@ func iniciar_cabo_de_forca() -> void:
 	vida_atual = floori(vida_maxima / 2.0)
 	vida_referencia = int(vida_atual)
 	vida_atualizada.emit(vida_atual)
+
+
+## Depuração (F9, ver Jogo._input): esvazia a vida na hora, ignorando escudo e
+## trava de fase, e dá a vitória
+func derrotar_agora() -> void:
+	if vida_atual <= 0:
+		return
+	escudo_ativo = false
+	var vida_antes = vida_atual
+	vida_atual = 0.0
+	vida_atualizada.emit(vida_atual)
+	dano_recebido.emit(vida_antes)
+	morrer()
 
 
 func morrer():
@@ -237,7 +249,8 @@ func alvo_mais_proximo():
 func esperar(segundos: float) -> void:
 	if not is_inside_tree():
 		return
-	await get_tree().create_timer(segundos).timeout
+	# false: o timer para junto com o menu de pausa (o padrão do Godot ignora a pausa)
+	await get_tree().create_timer(segundos, false).timeout
 
 
 ## Igual a esperar(), mas encurta conforme a fase (ver ritmo())
@@ -273,15 +286,6 @@ func criar_circulo(posicao: Vector2, dano: int = 2, tempo_aviso: float = 1.5, ra
 	area.position = posicao
 	get_parent().add_child(area)
 	return area
-
-
-func criar_particulas(posicao: Vector2):
-	if cena_particulas == null:
-		return
-	var particulas = cena_particulas.instantiate()
-	particulas.position = posicao
-	particulas.finished.connect(particulas.queue_free)
-	get_parent().add_child(particulas)
 
 
 # ---------------------------------------------------------------- Ataques prontos
@@ -379,7 +383,6 @@ func invocar_capangas() -> void:
 		capanga.add_to_group("capangas")
 		capanga.position = nascimento
 		get_parent().add_child(capanga)
-		criar_particulas(nascimento)
 		vivos += 1
 
 
@@ -390,13 +393,11 @@ func teleporte() -> void:
 		return
 
 	Audio.tocar("teleporte")
-	criar_particulas(global_position)
 	tween_teleporte = create_tween()
 	tween_teleporte.tween_property(self, "modulate:a", 0.0, 0.25)
 	await tween_teleporte.finished
 
 	global_position = destinos.pick_random()
-	criar_particulas(global_position)
 
 	tween_teleporte = create_tween()
 	tween_teleporte.tween_property(self, "modulate:a", 1.0, 0.25)
@@ -418,6 +419,7 @@ func ativar_escudo(prefixo := "") -> bool:
 		runa.position = ponto
 		runa.quebrada.connect(_ao_quebrar_runa)
 		get_parent().add_child(runa)
+	instrumentos_desligados.emit()
 
 	# Os totens falam por si: o cadeado embaixo de cada jogador mostra que os
 	# instrumentos estão desligados. Só a troca de fase ganha aviso.
@@ -436,7 +438,9 @@ func _ao_quebrar_runa():
 		await get_tree().process_frame
 		if not is_inside_tree():
 			return
-		_liberar_restante -= get_process_delta_time()
+		# process_frame continua vindo com o jogo pausado: só conta tempo rodando
+		if can_process():
+			_liberar_restante -= get_process_delta_time()
 	_liberar_restante = 0.0
 	escudo_ativo = false
 	instrumentos_liberados.emit()
@@ -473,7 +477,9 @@ func descansar() -> void:
 		await get_tree().process_frame
 		if not is_inside_tree():
 			return
-		restante -= get_process_delta_time()
+		# process_frame continua vindo com o jogo pausado: só conta tempo rodando
+		if can_process():
+			restante -= get_process_delta_time()
 
 	_encerrar_descanso()
 	if vida_atual > 0:

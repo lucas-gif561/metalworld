@@ -2,6 +2,10 @@ extends Area2D
 
 @export var velocidade = 620.0
 @export var alcance = 480.0
+@export var grupo_alvos: StringName = &"inimigos"
+@export var limite_acertos = 2
+@export var empurrao = 360.0
+@export var atordoamento = 0.0
 
 var direcao = 1
 var dano = 4
@@ -26,13 +30,16 @@ func _physics_process(delta: float) -> void:
 
 
 func _ao_atingir(corpo: Node2D) -> void:
-	if _atingidos.size() >= 2 or not corpo.is_in_group("inimigos") or corpo.get("morto"):
+	if _atingidos.size() >= limite_acertos or not corpo.is_in_group(grupo_alvos) or corpo.get("morto"):
 		return
 	var id = corpo.get_instance_id()
 	if id in _atingidos:
 		return
 	_atingidos.append(id)
-	corpo.empurrar(Vector2(direcao * 360.0, 0.0))
+	if empurrao > 0.0 and corpo.has_method("empurrar"):
+		corpo.empurrar(Vector2(direcao * empurrao, 0.0))
 	corpo.receber_dano(dano)
-	if _atingidos.size() == 2:
+	if atordoamento > 0.0 and corpo is Inimigo:
+		corpo.atordoar(atordoamento)
+	if _atingidos.size() == limite_acertos:
 		queue_free()

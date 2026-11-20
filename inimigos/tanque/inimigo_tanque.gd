@@ -3,6 +3,8 @@ extends Inimigo
 @export var cena_granada: PackedScene
 @export var distancia_ideal = 320.0
 @export var margem_limite = 30.0
+## Posição do cano (a partir dos pés, com o grandão virado para a direita)
+@export var posicao_cano := Vector2(52, -68)
 
 
 func _comportamento(_delta):
@@ -41,7 +43,8 @@ func _comportamento(_delta):
 
 
 func atirar():
-	var lado = -1.0 if jogador.global_position.x < global_position.x else 1.0
+	# Atira para o lado travado no começo da carga
+	var lado = float(lado_carga)
 
 	var granada = cena_granada.instantiate()
 	granada.direcao = Vector2(lado, 0.0)
@@ -49,6 +52,10 @@ func atirar():
 
 	get_tree().current_scene.add_child(granada)
 
-	granada.global_position = global_position + Vector2(60.0 * lado, -43.0) * escala_personagem
+	granada.global_position = global_position + Vector2(posicao_cano.x * lado, posicao_cano.y) * escala_personagem
+	# Cai perto de onde o alvo está; sem alvo, na distância ideal
+	var distancia = distancia_ideal
+	if Jogo.esta_vivo(jogador):
+		distancia = absf(jogador.global_position.x - granada.global_position.x)
+	granada.lancar(global_position.y, distancia)
 	Audio.tocar("tiro_inimigo", 0.0)
-	_tocar_acao("attack")

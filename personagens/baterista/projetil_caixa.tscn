@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://0k1gqkkuigrq"]
+
+[ext_resource type="PackedScene" uid="uid://cy4aamawp7ma5" path="res://personagens/baterista/projetil_virada.tscn" id="1_pulso"]
+
+[node name="ProjetilCaixa" unique_id=1267112713 instance=ExtResource("1_pulso")]
+velocidade = 840.0
+alcance = 360.0
+atordoamento = 0.8
+
+[node name="Brilho" parent="Arco" index="0"]
+points = PackedVector2Array(-14, -32, 10, -19, -3, -6, 14, 5, -3, 17, -14, 32)
+default_color = Color(1, 0.24, 0.55, 0.44)
+
+[node name="Nucleo" parent="Arco" index="1"]
+points = PackedVector2Array(-14, -32, 10, -19, -3, -6, 14, 5, -3, 17, -14, 32)
+default_color = Color(1, 0.8, 0.92, 1)

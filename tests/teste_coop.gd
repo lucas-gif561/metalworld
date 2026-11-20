@@ -246,3 +246,20 @@ func _teste_pausa() -> void:
 	await apertar("p2_entrar")
 	await esperar(0.2)
 	checar(jogo.jogadores.size() == 2 and cena.hud.paineis[2].visible, "P2 entra de novo com START")
+
+	# Voltar ao menu com inimigos atacando não pode dar erro: os jogadores saem
+	# da lista na hora, mas a fase só sai no fim do quadro
+	await esperar(0.5)
+	var com_vaga = null
+	for inimigo in get_nodes_in_group("inimigos"):
+		if "_lado_vaga" in inimigo:
+			com_vaga = inimigo
+			break
+	com_vaga.jogador = jogo.jogador_por_id(1)
+	com_vaga._lado_vaga = 1 # com vaga, ele confere quem está mais perto
+	await apertar("p1_pausar")
+	pausa.menu.get_node("MenuPrincipal").pressed.emit()
+	checar(cena.process_mode == Node.PROCESS_MODE_DISABLED, "a fase congela ao sair para o menu")
+	com_vaga._atualizar_alvo(0.1) # sem jogadores na lista: não pode quebrar
+	await esperar(0.5)
+	checar(current_scene != null and current_scene.scene_file_path == "res://ui/tela_inicial.tscn" and not paused, "Menu principal no pause volta ao menu sem erro")

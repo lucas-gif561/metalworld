@@ -10,7 +10,7 @@ func _ready() -> void:
 	_aplicar_raio()
 	queue_redraw()
 	$AnimatedSprite2D.speed_scale = 1.5 / tempo_aviso
-	await get_tree().create_timer(tempo_aviso).timeout
+	await get_tree().create_timer(tempo_aviso, false).timeout
 	
 	for corpo in get_overlapping_bodies():
 		if corpo.is_in_group("jogador"):

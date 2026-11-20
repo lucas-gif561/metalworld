@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ce5l8vsahldl3"]
 
 [ext_resource type="Script" uid="uid://gj0vm2i1pyay" path="res://bosses/base/circulo_no_chao.gd" id="1_k31fx"]
-[ext_resource type="SpriteFrames" path="res://assets/efeitos/sigilo.tres" id="2_sig"]
+[ext_resource type="SpriteFrames" uid="uid://bjhoe5tc06si0" path="res://assets/efeitos/sigilo.tres" id="2_sig"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_15tgd"]
 radius = 45.0
@@ -17,4 +17,3 @@ scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("2_sig")
 animation = &"ataque"
 autoplay = "ataque"
-offset = Vector2(0, 0)

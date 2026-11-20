@@ -41,6 +41,8 @@ const SOCOS = [
 ]
 
 @export var id_jogador := 1
+## Rosto mostrado no painel de vida do HUD
+@export var retrato: Texture2D
 ## Velocidade no tamanho normal (boss). Acompanha o tamanho do personagem:
 ## nas ruas (1,5x) vira 249, e ele anda sempre ~2 corpos por segundo
 @export var velocidade = 166.0
@@ -407,13 +409,18 @@ func _registrar_nota_minirriff(nota: String, usando_controle: bool) -> void:
 	sequencia_minirriff += nota
 	ultima_sequencia_minirriff = sequencia_minirriff
 
-	for codigo in MINIRRIFFS:
+	var minirriffs = _minirriffs_disponiveis()
+	for codigo in minirriffs:
 		if not codigo.begins_with(sequencia_minirriff):
 			continue
 		if codigo == sequencia_minirriff:
-			_preparar_especial(MINIRRIFFS[codigo])
+			_preparar_especial(minirriffs[codigo])
 		return
 	_errar_minirriff("Sequência errada")
+
+
+func _minirriffs_disponiveis() -> Dictionary:
+	return MINIRRIFFS
 
 
 func _atualizar_minirriff(delta: float) -> bool:
@@ -501,6 +508,10 @@ func _soltar_especial() -> void:
 		arco.disparar(direcao_olhar, especial.dano, escala_personagem)
 		return
 
+	_soltar_onda(especial)
+
+
+func _soltar_onda(especial: Dictionary) -> void:
 	var centro = global_position
 	var raio = especial.raio * escala_personagem
 	var onda = ONDA_MINIRRIFF.instantiate()
@@ -513,9 +524,9 @@ func _soltar_especial() -> void:
 		if alvo.global_position.distance_to(centro) <= raio:
 			var direcao = centro.direction_to(alvo.global_position)
 			if alvo.has_method("empurrar"):
-				alvo.empurrar(direcao * 360.0)
+				alvo.empurrar(direcao * especial.get("empurrao", 360.0))
 			alvo.receber_dano(especial.dano)
-			if alvo is Inimigo:
+			if alvo is Inimigo and especial.has("atordoamento"):
 				alvo.atordoar(especial.atordoamento)
 
 
@@ -629,8 +640,14 @@ func morrer():
 	sprite.modulate = Color.WHITE
 	Audio.tocar("morte_dylan", 0.0)
 	_tocar_acao("death")
-	_indicador.mostrar_para(2 if id_jogador == 1 else 1)
+	# Só pede ajuda se ainda houver alguém de pé para levantar
+	if not Jogo.todos_caidos():
+		_indicador.mostrar_para(2 if id_jogador == 1 else 1)
 	morreu.emit()
+
+
+func esconder_indicador_reviver() -> void:
+	_indicador.hide()
 
 
 # ---------------------------------------------------------------- Reviver

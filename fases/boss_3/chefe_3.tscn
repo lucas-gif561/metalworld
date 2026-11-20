@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://boot8ovjafqps"]
 
-[ext_resource type="Script" path="res://fases/boss_3/chefe_3.gd" id="1_chefe"]
+[ext_resource type="Script" uid="uid://ce7skdyi8r3np" path="res://fases/boss_3/chefe_3.gd" id="1_chefe"]
 [ext_resource type="Texture2D" path="res://fases/boss_3/halo_teleporte.tres" id="2_halo"]
 [ext_resource type="PackedScene" path="res://fases/boss_3/feixe_primal.tscn" id="3_feixe"]
 [ext_resource type="Resource" path="res://fases/boss_3/blaster.tres" id="4_blaster"]

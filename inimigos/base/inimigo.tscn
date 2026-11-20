@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cveoxj6cty0lj"]
 
 [ext_resource type="Script" uid="uid://boqdnysqndrkl" path="res://inimigos/base/inimigo.gd" id="1_clyw6"]
-[ext_resource type="SpriteFrames" path="res://inimigos/base/sprites/normal.tres" id="2_frames"]
+[ext_resource type="SpriteFrames" uid="uid://b6xto3kyrm2u" path="res://inimigos/base/sprites/normal.tres" id="2_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qf7sd"]
 size = Vector2(40, 16)

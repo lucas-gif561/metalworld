@@ -1,0 +1,14 @@
+Sprites: "hatsune miku sheet" por that1guyfromtheforum (DeviantArt)
+https://www.deviantart.com/that1guyfromtheforum/art/hatsune-miku-sheet-245190352
+
+Hatsune Miku é personagem da Crypton Future Media.
+
+Conteúdo desta pasta (recortado da folha original, fundo branco trocado por transparente):
+- personagem/  71 poses  (personagem_lLL_CC.png = linha LL, coluna CC na folha)
+- icones/      15 notas musicais coloridas
+- efeitos/      6 efeitos (rajada/brilhos)
+- personagem_alinhado/  as mesmas 71 poses em quadros iguais de 42x44 px,
+                       pés centralizados em x=21 e apoiados na última linha (y=43)
+- folha_alinhada.png   tira horizontal com os 71 quadros de 42x44, na ordem dos nomes
+                       (pronta para o SpriteFrames do Godot: "Adicionar quadros da folha", 71x1)
+- folha_original.png

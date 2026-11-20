@@ -1,15 +1,15 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c3ewr20cwvu2q"]
 
-[ext_resource type="Script" path="res://personagens/dylan/visor_minirriff.gd" id="1_visor"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_t.png" id="2_t"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_y_pixel.png" id="3_y"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_i.png" id="4_i"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_l.png" id="5_l"]
-[ext_resource type="Texture2D" path="res://riff/sprites/botao_lb.svg" id="6_lb"]
-[ext_resource type="Texture2D" path="res://riff/sprites/botao_rb.svg" id="7_rb"]
-[ext_resource type="Texture2D" path="res://personagens/dylan/sprites/tecla_vazia.png" id="8_vazia"]
+[ext_resource type="Script" uid="uid://dqar5y8ankyei" path="res://personagens/dylan/visor_minirriff.gd" id="1_visor"]
+[ext_resource type="Texture2D" uid="uid://dphp5d3emdkl0" path="res://personagens/dylan/sprites/tecla_t.png" id="2_t"]
+[ext_resource type="Texture2D" uid="uid://dsmisprnjxo8e" path="res://personagens/dylan/sprites/tecla_y_pixel.png" id="3_y"]
+[ext_resource type="Texture2D" uid="uid://bebljhidx37y0" path="res://personagens/dylan/sprites/tecla_i.png" id="4_i"]
+[ext_resource type="Texture2D" uid="uid://c56dr26f6nb8p" path="res://personagens/dylan/sprites/tecla_l.png" id="5_l"]
+[ext_resource type="Texture2D" uid="uid://bwtp0xjp5jtfq" path="res://riff/sprites/botao_lb.svg" id="6_lb"]
+[ext_resource type="Texture2D" uid="uid://colbckyolj2je" path="res://riff/sprites/botao_rb.svg" id="7_rb"]
+[ext_resource type="Texture2D" uid="uid://beu60c6vm2fnq" path="res://personagens/dylan/sprites/tecla_vazia.png" id="8_vazia"]
 
-[node name="VisorMinirriff" type="Node2D"]
+[node name="VisorMinirriff" type="Node2D" unique_id=1785424426]
 z_index = 10
 position = Vector2(0, -88)
 script = ExtResource("1_visor")
@@ -21,34 +21,34 @@ grave_controle = ExtResource("6_lb")
 agudo_controle = ExtResource("7_rb")
 tecla_vazia = ExtResource("8_vazia")
 
-[node name="Teclas" type="Node2D" parent="."]
+[node name="Teclas" type="Node2D" parent="." unique_id=668166618]
 
-[node name="Tecla1" type="Sprite2D" parent="Teclas"]
+[node name="Tecla1" type="Sprite2D" parent="Teclas" unique_id=1132171452]
 position = Vector2(-27, 0)
 texture = ExtResource("8_vazia")
 
-[node name="Tecla2" type="Sprite2D" parent="Teclas"]
+[node name="Tecla2" type="Sprite2D" parent="Teclas" unique_id=922974185]
 position = Vector2(-9, 0)
 texture = ExtResource("8_vazia")
 
-[node name="Tecla3" type="Sprite2D" parent="Teclas"]
+[node name="Tecla3" type="Sprite2D" parent="Teclas" unique_id=1440591795]
 position = Vector2(9, 0)
 texture = ExtResource("8_vazia")
 
-[node name="Tecla4" type="Sprite2D" parent="Teclas"]
+[node name="Tecla4" type="Sprite2D" parent="Teclas" unique_id=1969029269]
 position = Vector2(27, 0)
 texture = ExtResource("8_vazia")
 
-[node name="Prazo" type="Node2D" parent="."]
+[node name="Prazo" type="Node2D" parent="." unique_id=1602746100]
 position = Vector2(-35, 10)
 
-[node name="Fundo" type="ColorRect" parent="Prazo"]
+[node name="Fundo" type="ColorRect" parent="Prazo" unique_id=339324016]
 offset_right = 70.0
 offset_bottom = 2.0
 mouse_filter = 2
 color = Color(0.08, 0.05, 0.12, 0.8)
 
-[node name="Barra" type="ColorRect" parent="Prazo"]
+[node name="Barra" type="ColorRect" parent="Prazo" unique_id=912392421]
 offset_right = 70.0
 offset_bottom = 2.0
 mouse_filter = 2

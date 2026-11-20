@@ -1,48 +1,65 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b4nhtwoq7tgyh"]
 
-[ext_resource type="PackedScene" path="res://inimigos/base/inimigo.tscn" id="1_base"]
-[ext_resource type="SpriteFrames" path="res://inimigos/tanque/sprites/tanque.tres" id="2_frames"]
-[ext_resource type="Script" path="res://fases/rua_1/inimigos/miniboss/miniboss.gd" id="3_miniboss"]
+[ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_base"]
+[ext_resource type="SpriteFrames" uid="uid://3phcwklkt5vw" path="res://fases/rua_1/sprites/miniboss/miniboss.tres" id="2_frames"]
+[ext_resource type="Script" uid="uid://crlg3vxlh7i4x" path="res://fases/rua_1/inimigos/miniboss/miniboss.gd" id="3_miniboss"]
+[ext_resource type="PackedScene" uid="uid://nsi2hqao5h61" path="res://ui/barra_vida_miniboss.tscn" id="4_barra"]
 
 [sub_resource type="RectangleShape2D" id="ColisaoMiniboss"]
 size = Vector2(64, 18)
 
-[node name="Miniboss" instance=ExtResource("1_base")]
+[node name="Miniboss" unique_id=1527979317 instance=ExtResource("1_base")]
 script = ExtResource("3_miniboss")
-modulate = Color(1, 0.65, 0.8, 1)
+alcance_investida = 620.0
+velocidade_investida = 780.0
+alcance_grito = 250.0
+abertura_grito = 70.0
+raio_pisao = 185.0
+distancia_minima_pisao = 95.0
+tempo_preparo_pisao = 0.45
+alcance_soco = 95.0
+tempo_preparo_soco = 0.35
+dano_soco = 2
+chance_contra_ataque = 0.6
+intervalo_contra_ataque = 1.2
+largura_investida = 54.0
+distancia_queda = 70.0
+postura_maxima = 100.0
+perda_postura_por_segundo = 14.0
+postura_por_dano = 18.0
+duracao_quebra_postura = 2.0
 velocidade = 120.0
 vida = 34
 dano = 2
 tempo_preparo = 0.8
 imune_a_atordoamento = true
 
-[node name="AnimatedSprite2D" parent="." index="0"]
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]
 scale = Vector2(2.2, 2.2)
 sprite_frames = ExtResource("2_frames")
-offset = Vector2(0, -27)
+offset = Vector2(0, -30)
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="1" unique_id=698727436]
 position = Vector2(0, -9)
 shape = SubResource("ColisaoMiniboss")
 
-[node name="TimerAtaque" parent="." index="2"]
+[node name="TimerAtaque" parent="." index="2" unique_id=364911093]
 wait_time = 2.2
 
-[node name="AvisoInvestida" type="Line2D" parent="." index="3"]
+[node name="AvisoArea" type="Polygon2D" parent="." index="3" unique_id=406044081]
 visible = false
 show_behind_parent = true
-width = 54.0
-default_color = Color(1, 0.06, 0.12, 0.72)
+color = Color(1, 0.06, 0.12, 0.08)
 antialiased = true
 
-[node name="AvisoArea" type="Polygon2D" parent="." index="4"]
-visible = false
-show_behind_parent = true
-color = Color(1, 0.06, 0.12, 0.26)
+[node name="Preenchimento" type="Polygon2D" parent="AvisoArea" index="0" unique_id=35730476]
+color = Color(1, 0.06, 0.12, 0.45)
 antialiased = true
 
-[node name="Contorno" type="Line2D" parent="AvisoArea"]
-width = 3.0
+[node name="Contorno" type="Line2D" parent="AvisoArea" index="1" unique_id=507149174]
 closed = true
+width = 3.0
 default_color = Color(1, 0.06, 0.12, 0.85)
 antialiased = true
+
+[node name="BarraVida" parent="." index="4" unique_id=626299731 instance=ExtResource("4_barra")]

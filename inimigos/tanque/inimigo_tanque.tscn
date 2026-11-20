@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dh5fwt2atm5of"]
 
 [ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_puebg"]
-[ext_resource type="SpriteFrames" path="res://inimigos/tanque/sprites/tanque.tres" id="9_frames"]
-[ext_resource type="Script" path="res://inimigos/tanque/inimigo_tanque.gd" id="2_tanque"]
-[ext_resource type="PackedScene" path="res://inimigos/tanque/granada.tscn" id="3_granada"]
+[ext_resource type="Script" uid="uid://btj1lofbnme7k" path="res://inimigos/tanque/inimigo_tanque.gd" id="2_tanque"]
+[ext_resource type="PackedScene" uid="uid://cyl2b46cfv7af" path="res://inimigos/tanque/granada.tscn" id="3_granada"]
+[ext_resource type="SpriteFrames" uid="uid://b6xto3kyrm2u" path="res://inimigos/base/sprites/normal.tres" id="9_frames"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_puebg"]
 size = Vector2(64, 18)
@@ -11,9 +11,11 @@ size = Vector2(64, 18)
 [node name="InimigoGrande" unique_id=577347522 instance=ExtResource("1_puebg")]
 script = ExtResource("2_tanque")
 cena_granada = ExtResource("3_granada")
+distancia_ideal = 320.0
+margem_limite = 30.0
+posicao_cano = Vector2(52, -68)
 velocidade = 80.0
 vida = 7
-dano = 1
 tempo_preparo = 0.6
 resistencia_empurrao = 0.35
 imune_a_atordoamento = true

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://davnwkwebe4qc"]
 
-[ext_resource type="SpriteFrames" path="res://fases/boss_1/sprites/guitarrista/guitarrista.tres" id="1_dplu8"]
+[ext_resource type="SpriteFrames" uid="uid://oxf5ce2or2yu" path="res://fases/boss_1/sprites/guitarrista/guitarrista.tres" id="1_dplu8"]
 [ext_resource type="Script" uid="uid://7gibm27uqoor" path="res://fases/boss_1/chefe_1.gd" id="1_rdia2"]
-[ext_resource type="PackedScene" path="res://riff/sinal_riff.tscn" id="2_sinal_riff"]
+[ext_resource type="PackedScene" uid="uid://cvfhj04wg0vt3" path="res://riff/sinal_riff.tscn" id="2_sinal_riff"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ec6vt"]
 
@@ -16,14 +16,10 @@ sprite_frames = ExtResource("1_dplu8")
 animation = &"idle"
 autoplay = "idle"
 
-
 [node name="Area2D" type="Area2D" parent="." unique_id=1708755619]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=192669440]
 shape = SubResource("RectangleShape2D_ec6vt")
 
-[node name="SinalRiff" parent="." instance=ExtResource("2_sinal_riff")]
-offset_left = -100.0
-offset_top = 20.0
-offset_right = 100.0
+[node name="SinalRiff" parent="." unique_id=1591066001 instance=ExtResource("2_sinal_riff")]
 offset_bottom = 90.0

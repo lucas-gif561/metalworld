@@ -1,14 +1,18 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dnlc8ktfau5w0"]
 
-[ext_resource type="Script" path="res://ui/tela_inicial.gd" id="1_tela"]
-[ext_resource type="Texture2D" path="res://assets/fundos/arena_neon.png" id="2_fundo"]
-[ext_resource type="Texture2D" path="res://ui/sprites/placa_titulo.png" id="3_placa"]
-[ext_resource type="Theme" path="res://ui/tema_menu.tres" id="4_tema"]
-[ext_resource type="Texture2D" path="res://ui/sprites/botao_menu.png" id="5_moldura"]
+[ext_resource type="Script" uid="uid://h86a5r0c3c" path="res://ui/tela_inicial.gd" id="1_tela"]
+[ext_resource type="Texture2D" uid="uid://be8d45abhogdi" path="res://assets/fundos/arena_neon.png" id="2_fundo"]
+[ext_resource type="Texture2D" uid="uid://bb1oesgltmr76" path="res://ui/sprites/placa_titulo.png" id="3_placa"]
+[ext_resource type="Theme" uid="uid://cg0acrc3bqg6k" path="res://ui/tema_menu.tres" id="4_tema"]
+[ext_resource type="Texture2D" uid="uid://0nvcpthestpv" path="res://ui/sprites/botao_menu.png" id="5_moldura"]
+[ext_resource type="PackedScene" uid="uid://rr8uafxhf8t6" path="res://ui/tela_controles.tscn" id="6_controles"]
+[ext_resource type="PackedScene" uid="uid://7cjxssmfv4s8" path="res://ui/tela_selecao.tscn" id="7_selecao"]
+[ext_resource type="PackedScene" uid="uid://c75c80eld405r" path="res://ui/tela_opcoes.tscn" id="8_opcoes"]
 
-[ext_resource type="PackedScene" path="res://ui/tela_controles.tscn" id="6_controles"]
+[sub_resource type="SystemFont" id="SystemFont_versao"]
+font_names = PackedStringArray("Consolas", "DejaVu Sans Mono", "Monospace")
 
-[node name="TelaInicial" type="Control"]
+[node name="TelaInicial" type="Control" unique_id=577006586]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +22,7 @@ grow_vertical = 2
 theme = ExtResource("4_tema")
 script = ExtResource("1_tela")
 
-[node name="Fundo" type="TextureRect" parent="."]
+[node name="Fundo" type="TextureRect" parent="." unique_id=1997898652]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +33,7 @@ texture = ExtResource("2_fundo")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Escurecer" type="ColorRect" parent="."]
+[node name="Escurecer" type="ColorRect" parent="." unique_id=71865057]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,7 +42,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.05, 0.02, 0.1, 0.45)
 
-[node name="Placa" type="TextureRect" parent="."]
+[node name="Placa" type="TextureRect" parent="." unique_id=1116105680]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -51,7 +55,45 @@ grow_horizontal = 2
 pivot_offset = Vector2(236, 93)
 texture = ExtResource("3_placa")
 
-[node name="Menu" type="VBoxContainer" parent="."]
+[node name="Menu" type="VBoxContainer" parent="." unique_id=825493036]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_top = 226.0
+offset_right = 170.0
+offset_bottom = 586.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="Jogar" type="Button" parent="Menu" unique_id=1952923732]
+custom_minimum_size = Vector2(340, 64)
+layout_mode = 2
+text = "Jogar"
+
+[node name="Controles" type="Button" parent="Menu" unique_id=151849302]
+custom_minimum_size = Vector2(340, 64)
+layout_mode = 2
+text = "Controles"
+
+[node name="Opcoes" type="Button" parent="Menu"]
+custom_minimum_size = Vector2(340, 64)
+layout_mode = 2
+text = "Opções"
+
+[node name="Creditos" type="Button" parent="Menu" unique_id=879762523]
+custom_minimum_size = Vector2(340, 64)
+layout_mode = 2
+text = "Créditos"
+
+[node name="Sair" type="Button" parent="Menu" unique_id=1931945767]
+custom_minimum_size = Vector2(340, 64)
+layout_mode = 2
+text = "Sair"
+
+[node name="MenuModo" type="VBoxContainer" parent="." unique_id=906628459]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -63,47 +105,22 @@ offset_bottom = 544.0
 grow_horizontal = 2
 theme_override_constants/separation = 10
 
-[node name="JogarSozinho" type="Button" parent="Menu"]
-custom_minimum_size = Vector2(340, 72)
+[node name="Solo" type="Button" parent="MenuModo" unique_id=230101180]
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
-text = "Jogar sozinho"
+text = "Solo"
 
-[node name="JogarDupla" type="Button" parent="Menu"]
-custom_minimum_size = Vector2(340, 72)
+[node name="Dueto" type="Button" parent="MenuModo" unique_id=485533997]
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
-text = "Jogar em dupla"
+text = "Dueto"
 
-[node name="Controles" type="Button" parent="Menu"]
-custom_minimum_size = Vector2(340, 72)
+[node name="Voltar" type="Button" parent="MenuModo" unique_id=789385275]
+custom_minimum_size = Vector2(340, 64)
 layout_mode = 2
-text = "Controles"
+text = "Voltar"
 
-[node name="Creditos" type="Button" parent="Menu"]
-custom_minimum_size = Vector2(340, 72)
-layout_mode = 2
-text = "Créditos"
-
-[node name="Dica" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -60.0
-offset_right = 300.0
-offset_bottom = -30.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 18
-text = "W S / ↑ ↓ escolher  ·  Enter / F / J / A confirmar"
-horizontal_alignment = 1
-
-[node name="Janela" type="ColorRect" parent="."]
+[node name="Janela" type="ColorRect" parent="." unique_id=1786175510]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -113,7 +130,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.03, 0.01, 0.06, 0.75)
 
-[node name="Moldura" type="NinePatchRect" parent="Janela"]
+[node name="Moldura" type="NinePatchRect" parent="Janela" unique_id=234000981]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -135,7 +152,7 @@ patch_margin_bottom = 24
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="Centro" type="ColorRect" parent="Janela/Moldura"]
+[node name="Centro" type="ColorRect" parent="Janela/Moldura" unique_id=1231843088]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -149,7 +166,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.286, 0.188, 0.314, 1)
 
-[node name="Titulo" type="Label" parent="Janela/Moldura"]
+[node name="Titulo" type="Label" parent="Janela/Moldura" unique_id=325972024]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -163,7 +180,7 @@ theme_override_font_sizes/font_size = 34
 text = "Controles"
 horizontal_alignment = 1
 
-[node name="Texto" type="Label" parent="Janela/Moldura"]
+[node name="Texto" type="Label" parent="Janela/Moldura" unique_id=1809189315]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -181,7 +198,7 @@ text = "Texto da janela"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Voltar" type="Label" parent="Janela/Moldura"]
+[node name="Voltar" type="Label" parent="Janela/Moldura" unique_id=1283032522]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -198,4 +215,49 @@ theme_override_font_sizes/font_size = 16
 text = "B no controle ou qualquer tecla para voltar"
 horizontal_alignment = 1
 
-[node name="TelaControles" parent="." instance=ExtResource("6_controles")]
+[node name="Versao" type="Label" parent="." unique_id=1468093317]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -360.0
+offset_top = -32.0
+offset_right = -12.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = SubResource("SystemFont_versao")
+theme_override_font_sizes/font_size = 15
+text = "versão"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TelaControles" parent="." unique_id=1912754268 instance=ExtResource("6_controles")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TelaSelecao" parent="." unique_id=657197273 instance=ExtResource("7_selecao")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TelaOpcoes" parent="." instance=ExtResource("8_opcoes")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

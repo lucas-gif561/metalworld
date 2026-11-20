@@ -25,7 +25,7 @@ Arquivos que **nunca** devem ser editados num PR de fase:
 - `sistemas/*`: autoloads `Jogo`, `Controles`, `Audio` e `Combate`;
 - `personagens/*`: o Dylan;
 - `inimigos/base/*`, `bosses/base/*`, `fases/comum/*`: os modelos que todo mundo usa;
-- `riff/*`, `ui/*`, `objetos/*`;
+- `riff/*`, `ui/*`, `objetos/*`, `ferramentas/*`;
 - `fases/rua_1/*`, `fases/boss_1/*` (rua 1 e boss 1 são o exemplo; copie, não altere);
 - `tests/*`, exceto para criar um teste novo da sua fase, como `tests/teste_rua_2.gd`.
 
@@ -49,6 +49,7 @@ Organização **por funcionalidade**, como recomenda o guia oficial do Godot: ce
 | `fases/rua_N/`, `fases/boss_N/` | Uma pasta por fase. A do boss traz a arena (`boss_N.tscn`) e o chefe (`chefe_N.tscn`/`.gd`) |
 | `assets/` | Só o que é compartilhado: `audio/`, `fundos/`, `efeitos/`, `projeteis/` |
 | `tests/`, `docs/` | Testes automáticos e guias |
+| `ferramentas/` | Scripts de linha de comando, como `gravar_uids.gd` |
 
 Inimigos, objetos e sprites novos de uma fase ficam **dentro da pasta da fase**, como `fases/rua_2/inimigos/motoqueiro/`.
 
@@ -143,11 +144,11 @@ A cena `fases/boss_N/boss_N.tscn` já funciona: arena, Riff, barra de vida e vit
   | `trilha_no_chao()` | rastro de círculos seguindo um jogador | `cena_ataque_area` |
   | `corredor()` | colunas de círculos varrendo a arena, com um buraco | `cena_ataque_area` |
   | `invocar_capangas()` | chama inimigos nos `pontos_capanga` | `cena_capanga` |
-  | `teleporte()` | some e reaparece num dos `pontos_teleporte` | `cena_particulas` (opcional) |
+  | `teleporte()` | some e reaparece num dos `pontos_teleporte` | `pontos_teleporte` |
   | `ativar_escudo()` | o Riff não fere até quebrarem as runas no soco | `cena_runa` |
   | `descansar()` | o boss se ajoelha e mostra "RIFF!": a hora de tocar | animações `ajoelhar`/`descanso` (opcional) |
 
-  As cenas prontas ficam em `bosses/base/`: `projetil_boss.tscn`, `circulo_no_chao.tscn`, `particulas_boss.tscn` e `runa.tscn`. Os capangas podem ser qualquer inimigo de `inimigos/`.
+  As cenas prontas ficam em `bosses/base/`: `projetil_boss.tscn`, `circulo_no_chao.tscn` e `runa.tscn`. Os capangas podem ser qualquer inimigo de `inimigos/`.
 - **Fases** (`usar_fases` no Inspector): abaixo de 66% e de 33% da vida o boss enfurece, e `esperar_no_ritmo()` encurta as pausas. Ao mudar de fase, o Riff fecha e o escudo sobe (`escudo_ao_mudar_fase`). Com fases, o dano das notas é calibrado para um Riff bom valer uma fase. Para saber em que fase está, use `if fase >= 2:`.
 - **Nota maldita** (`usar_nota_maldita`, a partir de `fase_nota_maldita`): nota vermelha que machuca quem toca.
 - **Cabo de força** (`usar_cabo_de_forca` no nó raiz da arena, ligado por padrão): a dupla divide uma vida contra o boss. Dano em qualquer jogador enche o boss, e dano no boss enche a dupla.
@@ -175,7 +176,7 @@ Os sprites finais são feitos pelo responsável pela base. Até lá, use **arte 
 ## 6. Antes de abrir um PR
 
 1. Abra o projeto no Godot e jogue a sua fase até o fim, sozinho **e** com 2 jogadores. Sem controle, use o teclado reserva do P2.
-2. Rode os testes: `tests/rodar_testes.sh`, ou `GODOT=/caminho/do/godot tests/rodar_testes.sh`. Precisa terminar com `TUDO CERTO`.
+2. Rode os testes: `tests/rodar_testes.sh`, ou `GODOT=/caminho/do/godot tests/rodar_testes.sh`. Precisa terminar com `TUDO CERTO`. Eles também conferem os UIDs, e o GitHub repete essa conferência em cada PR (check "UIDs preenchidos"): se faltar UID, o PR fica vermelho até você rodar `ferramentas/gravar_uids.gd` (seção 7).
 3. Confira que o PR só mexe na pasta da sua fase.
 4. PRs **pequenos e frequentes**, a cada 2–3 dias. Não junte uma semana de trabalho num PR só.
 
@@ -186,7 +187,12 @@ Os sprites finais são feitos pelo responsável pela base. Até lá, use **arte 
 
 - O aviso "RIFF!" do descanso é o nó `SinalRiff` (uma instância de `riff/sinal_riff.tscn`, com o texto e o ícone de abrir o Riff de quem está jogando) no `fases/boss_1/chefe_1.tscn`. Instancie essa cena no seu boss se quiser mudar o lugar; sem ela, o boss cria uma igual sozinho.
 
-- Prefira editar cenas (`.tscn`) **pelo editor**. Se editar como texto, não invente `uid="uid://..."`: deixe só o `path`, e o Godot gera o resto.
+- Prefira editar cenas (`.tscn`) **pelo editor**.
+- **UIDs.** Pode criar ou editar `.tscn` e `.tres` como texto, mas nunca escreva `uid=` à mão: deixe só o `path`. Antes do commit, peça ao Godot para preencher os UIDs só nos arquivos do seu PR (arquivos ou pastas):
+  ```
+  godot --headless --path . --script res://ferramentas/gravar_uids.gd -- fases/rua_3/rua_3.tscn fases/rua_3/inimigos/
+  ```
+  Ela sorteia UIDs novos pelo próprio Godot, copia o UID real nas referências e atualiza o cache. Se tiver imagens ou sons novos, rode antes `godot --headless --path . --import`. Sem terminal, dá no mesmo abrir cada arquivo no editor e salvar (Ctrl+S na cena; no Inspector, para um `.tres`). Depois confira com `git diff --stat` que só os arquivos do PR mudaram, e descarte o resto com `git restore`. Use "Atualizar arquivos do projeto" só se combinado com a equipe, porque ela regrava o projeto inteiro.
 - Em cena herdada, a linha `script = ...` vem **antes** das propriedades exportadas, senão os valores se perdem.
 - Não deixe o editor do Godot aberto enquanto troca de branch no git, porque ele pode sobrescrever cenas com a versão antiga. Feche, troque e reabra.
 - Testes rodam sem janela (`--headless`). Nesse modo a tela tem outro tamanho, então limites verticais podem diferir da janela normal.

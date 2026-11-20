@@ -1,6 +1,6 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://llqlqjm3edv2"]
 
-[ext_resource type="Texture2D" path="res://fases/boss_1/sprites/palheta_raio.png" id="1_palheta"]
+[ext_resource type="Texture2D" uid="uid://7hldee076frc" path="res://fases/boss_1/sprites/palheta_raio.png" id="1_palheta"]
 
 [sub_resource type="AtlasTexture" id="palheta_0"]
 atlas = ExtResource("1_palheta")
@@ -29,7 +29,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("palheta_1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 12.0
 }]

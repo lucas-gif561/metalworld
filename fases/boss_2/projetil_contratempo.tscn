@@ -1,16 +1,16 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bdshewojrxcg4"]
 
-[ext_resource type="PackedScene" path="res://fases/boss_2/projetil_duelo.tscn" id="1_projetil"]
-[ext_resource type="Script" path="res://fases/boss_2/projetil_contratempo.gd" id="2_script"]
+[ext_resource type="PackedScene" uid="uid://brcyerr3fkbkh" path="res://fases/boss_2/projetil_duelo.tscn" id="1_projetil"]
+[ext_resource type="Script" uid="uid://bridqfvmcpe01" path="res://fases/boss_2/projetil_contratempo.gd" id="2_script"]
 
 [sub_resource type="Gradient" id="Gradient_rastro"]
 colors = PackedColorArray(1, 0.5, 0.35, 0, 1, 0.82, 0.65, 0.95)
 
-[node name="ProjetilContratempo" instance=ExtResource("1_projetil")]
+[node name="ProjetilContratempo" unique_id=1421353716 instance=ExtResource("1_projetil")]
 script = ExtResource("2_script")
 maximo_quiques = 0
 
-[node name="Rastro" type="Line2D" parent="." index="4"]
+[node name="Rastro" type="Line2D" parent="." index="4" unique_id=829383962]
 top_level = true
 z_index = 1
 width = 5.0
