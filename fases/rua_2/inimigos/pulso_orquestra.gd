@@ -222,11 +222,14 @@ func _lancar_proxima_nota() -> void:
 
 
 func _preparar_regencia() -> void:
-	if Jogo.jogador_mais_proximo(global_position) == null:
+	var mira = Jogo.jogador_mais_proximo(global_position)
+	if mira == null:
 		_regencia.clear()
 		return
-	# Não vira entre os golpes da regência: a sequência inteira sai para o lado
-	# em que começou (ele já olhou para o jogador antes do primeiro golpe)
+	# Cada golpe da regência é um ataque: vira para o jogador antes de carregar
+	# (o segundo também); durante a carga e o golpe, o lado fica travado
+	jogador = mira
+	sprite.scale.x = absf(sprite.scale.x) * (-1.0 if mira.global_position.x < global_position.x else 1.0)
 	carregar_ataque(_bater_batuta)
 	sprite.animation = &"regencia"
 
@@ -261,8 +264,9 @@ func _bola_tubista() -> void:
 	for lado in [-1.0, 1.0]:
 		var bola = BOLA_TUBA.instantiate()
 		bola.eixo = eixo.rotated(ABERTURA_TUBA * lado)
-		# Na regência a bola vai reta (sem girar em volta da mira), apontando para onde vai
-		bola.raio_orbita = Vector2.ZERO
+		# Gira em volta da linha de tiro como a do tubista, cada lado do leque
+		# num sentido; o sprite aponta para onde a linha vai
+		bola.velocidade_angular *= lado
 		_apontar(bola, bola.eixo)
 		_lancar_projetil(bola, origem)
 	Audio.tocar("tiro_inimigo")
