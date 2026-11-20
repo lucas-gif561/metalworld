@@ -191,7 +191,8 @@ func _teste_riff() -> void:
 
 	# Um Riff bom derruba uma fase inteira
 	var dano = boss.dano_da_nota(true)
-	checar(dano * boss.perfects_por_fase >= boss.vida_referencia * 0.34, "6 PERFECT valem uma fase (%d por nota)" % dano)
+	checar(dano * boss.perfects_por_fase >= boss.vida_referencia * 0.34 - 0.001, "6 PERFECT valem uma fase (%.2f por nota)" % dano)
+	checar(boss.dano_da_nota(false) < dano, "GOOD vale menos que PERFECT (%.2f)" % boss.dano_da_nota(false))
 	boss.receber_dano(ceili(boss.vida_referencia * 0.4))
 	await process_frame
 	checar(boss.fase == 2, "boss passa para a fase 2")

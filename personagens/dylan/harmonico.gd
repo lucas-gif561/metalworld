@@ -13,6 +13,7 @@ const TEMPO_IMPACTO = 0.08
 
 var _lado: int
 var _dano: int
+var _impacto = 0
 var _escala: float
 var _origem: Vector2
 var _alvo: Inimigo
@@ -22,9 +23,10 @@ var _atingidos: Array[int] = []
 var _tempo_impacto = 0.0
 
 
-func disparar(lado: int, dano: int, escala_personagem: float) -> void:
+func disparar(lado: int, dano: int, escala_personagem: float, impacto = -1) -> void:
 	_lado = lado
 	_dano = dano
+	_impacto = impacto if impacto >= 0 else dano
 	_escala = escala_personagem
 	# O traço acompanha a escala do Dylan na fase.
 	scale *= _escala
@@ -52,10 +54,16 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_ultimo_atingido = _alvo.get_instance_id()
-	if _ultimo_atingido not in _atingidos:
+	# No miniboss o impacto vale só no primeiro acerto: sozinho, ele levaria
+	# os três rebotes
+	var primeiro_neste = _ultimo_atingido not in _atingidos
+	if primeiro_neste:
 		_atingidos.append(_ultimo_atingido)
 	_total_acertos += 1
-	_alvo.receber_dano(_dano)
+	if _alvo.has_method("receber_minirriff"):
+		_alvo.receber_minirriff(_dano, _impacto if primeiro_neste else 0)
+	else:
+		_alvo.receber_dano(_dano)
 	_tempo_impacto = TEMPO_IMPACTO
 
 

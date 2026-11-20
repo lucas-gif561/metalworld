@@ -14,12 +14,8 @@ distancia_ideal = 245.0
 alcance_ataque = 420.0
 pausa_regencia = 0.9
 intervalo_notas = 0.24
-postura_maxima = 140.0
-perda_postura_por_segundo = 14.0
-postura_por_dano = 18.0
-duracao_quebra_postura = 2.0
-vida = 30
-dano = 2
+vida = 36
+dano = 1
 tempo_preparo = 0.7
 resistencia_empurrao = 0.0
 imune_a_atordoamento = true
@@ -34,7 +30,7 @@ position = Vector2(0, -9)
 shape = SubResource("ColisaoMaestro")
 
 [node name="TimerAtaque" parent="." index="2" unique_id=364911093]
-wait_time = 3.4
+wait_time = 2.5
 
 [node name="SaidaBatuta" type="Marker2D" parent="." index="3" unique_id=1627431964]
 position = Vector2(48, -43)

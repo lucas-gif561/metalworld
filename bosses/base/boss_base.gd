@@ -217,12 +217,15 @@ func ritmo() -> float:
 
 
 ## Dano de uma nota do Riff
-func dano_da_nota(perfect: bool) -> int:
+func dano_da_nota(perfect: bool) -> float:
 	if not usar_fases:
 		return 3 if perfect else 1
-	# 34% é a maior fatia entre as fases (de 100% até 66%)
+	# 34% é a maior fatia entre as fases (de 100% até 66%). Sem arredondar: com
+	# vida pequena (Boss 2 com cabo de força) o arredondamento igualava GOOD e
+	# PERFECT; assim uma fase cai com perfects_por_fase PERFECT ou
+	# goods_por_fase GOOD em qualquer boss
 	var fatia = vida_referencia * 0.34
-	return ceili(fatia / (perfects_por_fase if perfect else goods_por_fase))
+	return fatia / (perfects_por_fase if perfect else goods_por_fase)
 
 
 func nota_maldita_disponivel() -> bool:
