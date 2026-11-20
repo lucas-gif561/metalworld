@@ -11,14 +11,14 @@ extends Inimigo
 @export_group("Postura")
 @export var postura_maxima = 100.0
 @export var perda_postura_por_segundo = 14.0
+## Postura por ponto de impacto do minirriff (e de outros danos)
 @export var postura_por_dano = 18.0
+## Postura que cada soco (golpe da sequência) enche, menos que o minirriff
+@export var postura_por_golpe = 12.0
 @export var duracao_quebra_postura = 2.0
 ## Acertar um minirriff nele segura a postura: ela para de baixar por este
 ## tempo (segundos), e os socos seguintes chegam mais fácil na quebra
 @export var pausa_recuperacao_minirriff = 5.0
-## Cada soco também segura a postura, por menos tempo (não encurta uma pausa
-## maior que já esteja correndo, como a do minirriff)
-@export var pausa_recuperacao_golpe = 0.3
 
 @export_group("Dano")
 ## Soco com ele em pé tira só esta fração da vida (a postura enche igual):
@@ -64,10 +64,8 @@ func _processar_miniboss(delta) -> void:
 
 ## Soco do jogador (jogador.gd chama receber_golpe em quem tiver)
 func receber_golpe(valor):
-	if not morto and valor > 0:
-		_sem_recuperar_postura = maxf(_sem_recuperar_postura, pausa_recuperacao_golpe)
 	var ajoelhado = tempo_postura_quebrada > 0.0 or _levantando
-	_apanhar(valor * (1.0 if ajoelhado else fracao_golpe_em_pe), valor * postura_por_dano)
+	_apanhar(valor * (1.0 if ajoelhado else fracao_golpe_em_pe), valor * postura_por_golpe)
 
 
 ## Minirriff: leva o "impacto" do minirriff (tabelas MINIRRIFFS), não o dano
