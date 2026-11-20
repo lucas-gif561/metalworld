@@ -176,7 +176,7 @@ Os sprites finais são feitos pelo responsável pela base. Até lá, use **arte 
 ## 6. Antes de abrir um PR
 
 1. Abra o projeto no Godot e jogue a sua fase até o fim, sozinho **e** com 2 jogadores. Sem controle, use o teclado reserva do P2.
-2. Rode os testes: `tests/rodar_testes.sh`, ou `GODOT=/caminho/do/godot tests/rodar_testes.sh`. Precisa terminar com `TUDO CERTO`. Eles também conferem os UIDs, e o GitHub repete essa conferência em cada PR (check "UIDs preenchidos"): se faltar UID, o PR fica vermelho até você rodar `ferramentas/gravar_uids.gd` (seção 7).
+2. Rode os testes: `tests/rodar_testes.sh`, ou `GODOT=/caminho/do/godot tests/rodar_testes.sh`. Precisa terminar com `TUDO CERTO`. Eles também conferem os UIDs. O GitHub repete tudo em cada PR: o check "UIDs preenchidos" fica vermelho se faltar UID (rode `ferramentas/gravar_uids.gd`, seção 7), e o check "Testes do jogo" roda a bateria inteira; se ele falhar, o resumo do PR mostra cada checagem que falhou.
 3. Confira que o PR só mexe na pasta da sua fase.
 4. PRs **pequenos e frequentes**, a cada 2–3 dias. Não junte uma semana de trabalho num PR só.
 
