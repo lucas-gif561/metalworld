@@ -10,12 +10,12 @@ extends Inimigo
 
 @export_group("Postura")
 @export var postura_maxima = 100.0
-@export var perda_postura_por_segundo = 14.0
+@export var perda_postura_por_segundo = 16.0
 ## Postura por ponto de impacto do minirriff (e de outros danos)
 @export var postura_por_dano = 18.0
 ## Postura que cada soco (golpe da sequência) enche, menos que o minirriff
-@export var postura_por_golpe = 12.0
-@export var duracao_quebra_postura = 2.0
+@export var postura_por_golpe = 16.0
+@export var duracao_quebra_postura = 3.0
 ## Acertar um minirriff nele segura a postura: ela para de baixar por este
 ## tempo (segundos), e os socos seguintes chegam mais fácil na quebra
 @export var pausa_recuperacao_minirriff = 5.0
