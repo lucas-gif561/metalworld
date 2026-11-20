@@ -4,6 +4,7 @@ const CAMADA_INVESTIDA = 32 # Camada 6: o arco de Dylan acerta, mas os pés não
 const QUADRO_IMPACTO_PISAO = 7 # o pé bate no chão
 const QUADRO_CARGA_SOCO = 6 # punhos armados
 const QUADRO_IMPACTO_SOCO = 8 # braço esticado
+const QUADRO_IMPACTO_GRITO = 3 # boca escancarada
 
 @export var alcance_investida = 620.0
 @export var velocidade_investida = 780.0
@@ -180,12 +181,19 @@ func _preparar_grito(frente: Vector2) -> void:
 	for i in range(25):
 		var angulo = lerpf(-meia_abertura, meia_abertura, i / 24.0)
 		pontos.append(frente.rotated(angulo) * alcance_grito)
-	_mostrar_aviso_area(pontos, tempo_preparo)
+	# Enche durante a carga e a abertura da boca: completa quando o grito estoura
+	var abertura = QUADRO_IMPACTO_GRITO / sprite.sprite_frames.get_animation_speed(&"grito")
+	_mostrar_aviso_area(pontos, tempo_preparo + abertura)
 	carregar_ataque(_soltar_grito)
 	sprite.animation = &"grito"
 
 
+## O dano sai quando a boca abre de vez (QUADRO_IMPACTO_GRITO), não no fim da carga
 func _soltar_grito() -> void:
+	while sprite.animation == &"grito" and sprite.frame < QUADRO_IMPACTO_GRITO:
+		await sprite.frame_changed
+	if morto or sprite.animation != &"grito":
+		return
 	Audio.tocar("tiro_inimigo")
 	_atingir_area()
 
