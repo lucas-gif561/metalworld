@@ -24,10 +24,13 @@ signal poder_alterado(atual, maxima)
 const ONDA_MINIRRIFF = preload("res://personagens/dylan/onda_minirriff.tscn")
 const ARCO_MINIRRIFF = preload("res://personagens/dylan/arco_minirriff.tscn")
 const RAIO_ENCADEADO = preload("res://personagens/dylan/harmonico.tscn")
+## "impacto" é o dano do minirriff no miniboss, pelo custo: 1 -> 2, 2 -> 3,
+## 3 -> 4 (o barato rende mais por poder). A postura sai dele como no soco:
+## impacto x postura_por_dano (18). Nos outros inimigos vale o "dano".
 const MINIRRIFFS = {
-	"ABAB": {"nome": "Onda sonora", "custo": 1.0, "dano": 1, "raio": 180.0, "atordoamento": 1.5},
-	"BABA": {"nome": "Acorde cortante", "custo": 3.0, "dano": 4},
-	"BBAB": {"nome": "Raio Encadeado", "custo": 2.0, "dano": 1, "cena": RAIO_ENCADEADO},
+	"ABAB": {"nome": "Onda sonora", "custo": 1.0, "dano": 1, "impacto": 2, "raio": 180.0, "atordoamento": 1.5},
+	"BABA": {"nome": "Acorde cortante", "custo": 3.0, "dano": 4, "impacto": 4},
+	"BBAB": {"nome": "Raio Encadeado", "custo": 2.0, "dano": 1, "impacto": 3, "cena": RAIO_ENCADEADO},
 }
 
 const CAMADA_NORMAL = 1
@@ -36,8 +39,8 @@ const MASCARA_DODGE = 1 # Durante o dodge colide apenas com o cenário
 # Combo de três golpes. O quadro do cross depende da animação do personagem.
 const SOCOS = [
 	{"animacao": &"soco_esquerdo", "quadro": 1, "dano": 1, "empurrao": 0.0, "tremor": 0.0},
-	{"animacao": &"soco_direito", "dano": 2, "empurrao": 0.0, "tremor": 3.0},
-	{"animacao": &"chute", "quadro": 4, "dano": 2, "empurrao": 620.0, "tremor": 4.0},
+	{"animacao": &"soco_direito", "dano": 1, "empurrao": 0.0, "tremor": 3.0},
+	{"animacao": &"chute", "quadro": 4, "dano": 1, "empurrao": 620.0, "tremor": 4.0},
 ]
 
 @export var id_jogador := 1
@@ -362,7 +365,11 @@ func _aplicar_soco(golpe: Dictionary):
 		if frente >= -10.0 and frente <= alcance_soco and abs(distancia.y) <= faixa_soco:
 			if golpe.empurrao > 0.0 and alvo.has_method("empurrar"):
 				alvo.empurrar(Vector2(direcao_olhar * golpe.empurrao, 0))
-			alvo.receber_dano(golpe.dano)
+			# Quem trata soco diferente de outros danos (o miniboss) tem receber_golpe
+			if alvo.has_method("receber_golpe"):
+				alvo.receber_golpe(golpe.dano)
+			else:
+				alvo.receber_dano(golpe.dano)
 			acertou = true
 			acertou_inimigo = acertou_inimigo or alvo.is_in_group("inimigos")
 
@@ -498,14 +505,14 @@ func _soltar_especial() -> void:
 		var nota = especial.cena.instantiate()
 		get_tree().current_scene.add_child(nota)
 		nota.global_position = global_position
-		nota.disparar(direcao_olhar, especial.dano, escala_personagem)
+		nota.disparar(direcao_olhar, especial.dano, escala_personagem, especial.get("impacto", especial.dano))
 		return
 
 	if not especial.has("raio"):
 		var arco = ARCO_MINIRRIFF.instantiate()
 		get_tree().current_scene.add_child(arco)
 		arco.global_position = global_position + Vector2(direcao_olhar * 28.0 * escala_personagem, 0)
-		arco.disparar(direcao_olhar, especial.dano, escala_personagem)
+		arco.disparar(direcao_olhar, especial.dano, escala_personagem, especial.get("impacto", especial.dano))
 		return
 
 	_soltar_onda(especial)
@@ -525,9 +532,17 @@ func _soltar_onda(especial: Dictionary) -> void:
 			var direcao = centro.direction_to(alvo.global_position)
 			if alvo.has_method("empurrar"):
 				alvo.empurrar(direcao * especial.get("empurrao", 360.0))
-			alvo.receber_dano(especial.dano)
+			_acertar_minirriff(alvo, especial.dano, especial.get("impacto", especial.dano))
 			if alvo is Inimigo and especial.has("atordoamento"):
 				alvo.atordoar(especial.atordoamento)
+
+
+## Minirriff: o miniboss (receber_minirriff) leva o impacto; os outros, o dano
+static func _acertar_minirriff(alvo: Node, dano, impacto) -> void:
+	if alvo.has_method("receber_minirriff"):
+		alvo.receber_minirriff(dano, impacto)
+	else:
+		alvo.receber_dano(dano)
 
 
 # ---------------------------------------------------------------- Riff

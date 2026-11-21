@@ -84,14 +84,14 @@ func _teste_socos() -> void:
 	await apertar("p1_atacar")
 	checar(p1.sprite.animation == &"soco_direito", "2º soco: direito (direto)")
 	await esperar(0.45)
-	checar(alvo.vida == 96, "direto tira 2")
+	checar(alvo.vida == 97, "direto tira 1")
 	checar(alvo.empurrao == Vector2.ZERO, "direto não empurra")
 
 	var x_antes = alvo.global_position.x
 	await apertar("p1_atacar")
 	checar(p1.sprite.animation == &"chute", "3º golpe: chute")
 	await esperar(0.32)
-	checar(alvo.vida == 94, "chute tira 2")
+	checar(alvo.vida == 96, "chute tira 1 (a sequência é 1 / 1 / 1)")
 	alvo.set_physics_process(true)
 	await esperar(0.18)
 	checar(alvo.global_position.x > x_antes + 15, "chute empurra o inimigo para trás (%.0f px)" % (alvo.global_position.x - x_antes))

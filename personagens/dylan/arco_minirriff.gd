@@ -9,13 +9,16 @@ extends Area2D
 
 var direcao = 1
 var dano = 4
+## Dano no miniboss (ver "impacto" em MINIRRIFFS, jogador.gd)
+var impacto = 4
 var _distancia_restante = 0.0
 var _atingidos: Array[int] = []
 
 
-func disparar(lado: int, dano_golpe: int, escala_personagem: float) -> void:
+func disparar(lado: int, dano_golpe: int, escala_personagem: float, impacto_golpe = -1) -> void:
 	direcao = lado
 	dano = dano_golpe
+	impacto = impacto_golpe if impacto_golpe >= 0 else dano_golpe
 	_distancia_restante = alcance * escala_personagem
 	scale *= escala_personagem
 	$Arco.scale.x *= direcao
@@ -38,7 +41,10 @@ func _ao_atingir(corpo: Node2D) -> void:
 	_atingidos.append(id)
 	if empurrao > 0.0 and corpo.has_method("empurrar"):
 		corpo.empurrar(Vector2(direcao * empurrao, 0.0))
-	corpo.receber_dano(dano)
+	if corpo.has_method("receber_minirriff"):
+		corpo.receber_minirriff(dano, impacto)
+	else:
+		corpo.receber_dano(dano)
 	if atordoamento > 0.0 and corpo is Inimigo:
 		corpo.atordoar(atordoamento)
 	if _atingidos.size() == limite_acertos:

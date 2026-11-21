@@ -4,9 +4,10 @@ const PROJETIL_VIRADA = preload("res://personagens/baterista/projetil_virada.tsc
 const PROJETIL_CAIXA = preload("res://personagens/baterista/projetil_caixa.tscn")
 
 const MINIRRIFFS_KEVIN = {
-	"AABB": {"nome": "Virada", "custo": 3.0, "quadros": [2, 5, 8], "danos": [1, 1, 2], "empurrao": 650.0, "cena": PROJETIL_VIRADA},
-	"ABBA": {"nome": "Caixa", "custo": 2.0, "quadros": [5], "danos": [2], "cena": PROJETIL_CAIXA},
-	"ABAB": {"nome": "Bumbo", "custo": 1.0, "quadros": [2, 8], "dano": 1, "raio": 120.0, "empurrao": 600.0},
+	# Impacto no miniboss por batida, somando o do custo (ver MINIRRIFFS em jogador.gd)
+	"AABB": {"nome": "Virada", "custo": 3.0, "quadros": [2, 5, 8], "danos": [1, 1, 2], "impactos": [1, 1, 2], "empurrao": 650.0, "cena": PROJETIL_VIRADA},
+	"ABBA": {"nome": "Caixa", "custo": 2.0, "quadros": [5], "danos": [2], "impactos": [3], "cena": PROJETIL_CAIXA},
+	"ABAB": {"nome": "Bumbo", "custo": 1.0, "quadros": [2, 8], "dano": 1, "impacto": 1, "raio": 120.0, "empurrao": 600.0},
 }
 
 
@@ -42,7 +43,7 @@ func _disparar_pulso(especial: Dictionary, batida: int, ultima_batida: bool) -> 
 		projetil.empurrao = especial.empurrao
 	get_tree().current_scene.add_child(projetil)
 	projetil.global_position = global_position + Vector2(28.0 * direcao_olhar * escala_personagem, 0.0)
-	projetil.disparar(direcao_olhar, especial.danos[batida], escala_personagem)
+	projetil.disparar(direcao_olhar, especial.danos[batida], escala_personagem, especial.impactos[batida])
 
 
 func _soltar_especial() -> void:

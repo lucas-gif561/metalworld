@@ -18,6 +18,7 @@ velocidade = 80.0
 vida = 7
 tempo_preparo = 0.6
 resistencia_empurrao = 0.35
+interrompivel = false
 imune_a_atordoamento = true
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=401039523]

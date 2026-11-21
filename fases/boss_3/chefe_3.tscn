@@ -42,7 +42,8 @@ animations = [{
 [node name="LuzPrimal" type="Node2D"]
 z_index = 3
 script = ExtResource("1_chefe")
-vida_maxima = 60
+vida_maxima = 200
+usar_fases = true
 cena_feixe = ExtResource("3_feixe")
 padroes = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("6_cores"), ExtResource("7_ricochete"), ExtResource("11_orbes"), ExtResource("9_varredura"), ExtResource("10_parede"), ExtResource("12_encadeamento"), ExtResource("13_finta"), ExtResource("14_centro")])
 
