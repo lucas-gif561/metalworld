@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://cvuqxjg5slqag"]
 
 [ext_resource type="Texture2D" uid="uid://be8d45abhogdi" path="res://assets/fundos/arena_neon.png" id="1_6tvee"]
-[ext_resource type="Script" path="res://fases/boss_3/arena_luz_primal.gd" id="1_df7gq"]
+[ext_resource type="Script" uid="uid://dxd2bvbyk5uek" path="res://fases/boss_3/arena_luz_primal.gd" id="1_df7gq"]
 [ext_resource type="PackedScene" uid="uid://boot8ovjafqps" path="res://fases/boss_3/chefe_3.tscn" id="2_df7gq"]
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="3_8xsta"]
 [ext_resource type="PackedScene" uid="uid://b3tmyx1mfj17g" path="res://ui/hud.tscn" id="30_hud"]
 [ext_resource type="PackedScene" uid="uid://c2jjppskenuqf" path="res://riff/riff_hud.tscn" id="40_riff"]
 [ext_resource type="PackedScene" uid="uid://bwu5o813wspo2" path="res://ui/cabo_de_forca.tscn" id="44_cabo"]
 [ext_resource type="PackedScene" uid="uid://ddtnejbelew1b" path="res://ui/barra_vida_boss.tscn" id="90_barra_boss"]
-[ext_resource type="Texture2D" path="res://fases/boss_3/halo_teleporte.tres" id="91_halo"]
+[ext_resource type="Texture2D" uid="uid://boesqtpxr147r" path="res://fases/boss_3/halo_teleporte.tres" id="91_halo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mi726"]
 size = Vector2(1152, 176)

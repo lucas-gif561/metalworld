@@ -18,11 +18,14 @@ func preparar(mira: Vector2, desvio: float, moldura: Rect2, continua: Callable) 
 	_direcao_inicial = mira.rotated(deg_to_rad(desvio))
 	# Os orbes laterais primeiro abrem o leque e depois voltam a oscilar.
 	_lado_da_curva = -1.0 if desvio < 0.0 else 1.0
-	_moldura = moldura
+	var raio: float = $Colisor.shape.radius
+	_moldura = moldura.grow(-raio)
 	_continua = continua
 
 
 func lancar() -> void:
+	# A carga fica no boss, na borda externa. O projétil entra no piso ao sair.
+	global_position = global_position.clamp(_moldura.position, _moldura.end)
 	_lancado = true
 	monitoring = true
 	aviso.hide()
@@ -41,8 +44,16 @@ func _physics_process(delta) -> void:
 	var oscilacao = sin(TAU * frequencia_da_deriva * _idade)
 	direcao = _direcao_inicial.rotated(deg_to_rad(amplitude_da_deriva) * oscilacao * _lado_da_curva)
 	super._physics_process(delta)
-	if not _moldura.has_point(global_position):
-		queue_free()
+	# Reflete cada eixo separadamente, inclusive quando alcança um canto.
+	# A inversão da curva mantém a deriva espelhada depois do ricochete.
+	if global_position.x < _moldura.position.x or global_position.x > _moldura.end.x:
+		global_position.x = clampf(global_position.x, _moldura.position.x, _moldura.end.x)
+		_direcao_inicial.x = -_direcao_inicial.x
+		_lado_da_curva = -_lado_da_curva
+	if global_position.y < _moldura.position.y or global_position.y > _moldura.end.y:
+		global_position.y = clampf(global_position.y, _moldura.position.y, _moldura.end.y)
+		_direcao_inicial.y = -_direcao_inicial.y
+		_lado_da_curva = -_lado_da_curva
 
 
 func _ao_colidir(area) -> void:

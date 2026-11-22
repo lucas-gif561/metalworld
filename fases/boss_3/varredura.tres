@@ -1,8 +1,8 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" format=3 uid="uid://yyx6b456aiao"]
 
-[ext_resource type="Script" path="res://fases/boss_3/padrao_blaster.gd" id="1_padrao"]
-[ext_resource type="Script" path="res://fases/boss_3/disparo_blaster.gd" id="2_disparo"]
-[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_varredura.tscn" id="3_feixe"]
+[ext_resource type="Script" uid="uid://c4j34vv5e72gy" path="res://fases/boss_3/padrao_blaster.gd" id="1_padrao"]
+[ext_resource type="Script" uid="uid://c2eniuc535dn4" path="res://fases/boss_3/disparo_blaster.gd" id="2_disparo"]
+[ext_resource type="PackedScene" uid="uid://b80iqsl57d3xl" path="res://fases/boss_3/feixe_varredura.tscn" id="3_feixe"]
 
 [sub_resource type="Resource" id="Resource_varredura"]
 script = ExtResource("2_disparo")

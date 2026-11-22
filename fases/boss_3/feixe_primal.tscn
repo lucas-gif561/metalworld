@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bqxtl8sv016pq"]
 
-[ext_resource type="Script" path="res://fases/boss_3/feixe_primal.gd" id="1_feixe"]
+[ext_resource type="Script" uid="uid://m612iud47onx" path="res://fases/boss_3/feixe_primal.gd" id="1_feixe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feixe"]
 resource_local_to_scene = true

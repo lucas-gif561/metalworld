@@ -3,6 +3,8 @@ extends "res://fases/boss_3/feixe_primal.gd"
 const MARGEM_PARA_OS_PES := 24.0
 
 @export_range(0.0, 1.0) var margem_de_reacao := 0.25
+@export_range(1, 6) var quantidade_pulsos := 3
+@export_range(0.2, 1.0) var intervalo_pulsos := 0.35
 
 @onready var area_de_ataque: ReferenceRect = $AreaDeAtaque
 @onready var refugio: Panel = $Refugio
@@ -13,9 +15,14 @@ const MARGEM_PARA_OS_PES := 24.0
 	colisor, $ColisorInferior, $ColisorEsquerda, $ColisorDireita,
 ]
 
+var _jogadores_avisados: Array[int] = []
+var _pulsos_disparados := 0
 
-func preparar_refugio(tempo_padrao: float) -> float:
+
+func preparar_refugio(tempo_padrao: float, refugio_anterior := Vector2.INF) -> float:
 	var jogadores = Jogo.jogadores_vivos().filter(func(jogador): return not jogador.entrando)
+	for jogador in jogadores:
+		_jogadores_avisados.append(jogador.get_instance_id())
 	var pontos = pontos_refugio.get_children()
 	if pontos.is_empty():
 		return tempo_padrao
@@ -26,9 +33,17 @@ func preparar_refugio(tempo_padrao: float) -> float:
 
 	# Sorteia entre os pontos alcançáveis no aviso. Se a dupla estiver
 	# muito separada, abre um pouco mais de tempo para o refúgio comum.
-	var limite = maxf(tempo_padrao, float(tempos.min()) + margem_de_reacao)
+	# A posição anterior sai do sorteio antes do cálculo de tempo. Se outra
+	# posição exigir mais deslocamento, o aviso cresce para a dupla chegar.
+	var elegiveis = range(pontos.size()).filter(
+		func(indice): return not pontos[indice].global_position.is_equal_approx(refugio_anterior)
+	)
+	if elegiveis.is_empty():
+		elegiveis = range(pontos.size())
+	var menor_tempo: float = elegiveis.map(func(indice): return tempos[indice]).min()
+	var limite = maxf(tempo_padrao, menor_tempo + margem_de_reacao)
 	var candidatos: Array[int] = []
-	for indice in tempos.size():
+	for indice in elegiveis:
 		if tempos[indice] <= limite:
 			candidatos.append(indice)
 	var sorteado: int = candidatos.pick_random()
@@ -72,5 +87,24 @@ func _atualizar_disparo(_progresso: float) -> void:
 	# O Pulso acerta o piso. A colisão dos pés indica se o jogador
 	# está dentro do refúgio que aparece desenhado no chão.
 	for corpo in get_overlapping_bodies():
-		if corpo.is_in_group("jogador"):
+		# Quem entra durante o aviso não contou no cálculo até o refúgio.
+		if _jogadores_avisados.has(corpo.get_instance_id()):
 			_atingir_jogador(corpo)
+
+
+func _concluir_carga() -> void:
+	_pulsos_disparados += 1
+	super._concluir_carga()
+
+
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	if _estado == Estado.DISSIPACAO and _pulsos_disparados < quantidade_pulsos:
+		# O refúgio continua no mesmo lugar durante as três batidas.
+		_estado = Estado.AVISO
+		_restante = intervalo_pulsos
+		_tempo_carga = 0.0
+		_atingidos.clear()
+		aviso.show()
+		faixa.hide()
+		nucleo.hide()

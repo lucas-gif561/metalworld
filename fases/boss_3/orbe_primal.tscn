@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bmsrda6yato6m"]
 
-[ext_resource type="Script" path="res://fases/boss_3/orbe_primal.gd" id="1_orbe"]
-[ext_resource type="Texture2D" path="res://fases/boss_3/halo_teleporte.tres" id="2_halo"]
+[ext_resource type="Script" uid="uid://6mg5t25gisrb" path="res://fases/boss_3/orbe_primal.gd" id="1_orbe"]
+[ext_resource type="Texture2D" uid="uid://boesqtpxr147r" path="res://fases/boss_3/halo_teleporte.tres" id="2_halo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_orbe"]
 radius = 14.0

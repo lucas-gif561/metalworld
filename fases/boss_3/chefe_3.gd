@@ -15,46 +15,105 @@ const TOTAL_FAIXAS_PAREDE := 3
 @export var centro_climax: Marker2D
 @export var aviso_destino: Node2D
 @export var cena_feixe: PackedScene
-@export var padroes: Array[PadraoBlaster]
 @export_range(1, 8) var ataques_entre_teleportes := 2
 ## Quantos vizinhos incluir no sorteio em torno do ponto oposto.
 @export_range(0, 2) var variacao_do_salto_longo := 1
 @export_range(0.1, 2.0) var tempo_aviso_teleporte := 0.4
 @export_range(0.1, 2.0) var tempo_assentar := 0.3
+@export_range(0.0, 3.0) var tempo_entrada := 0.8
+
+@export_group("Fases da Luz Primal")
+@export var abertura_tom_puro: Array[PadraoBlaster]
+@export var ciclo_tom_puro: Array[PadraoBlaster]
+@export var abertura_harmonia: Array[PadraoBlaster]
+@export var ciclo_harmonia: Array[PadraoBlaster]
+@export var abertura_cacofonia: Array[PadraoBlaster]
+@export var ciclo_cacofonia: Array[PadraoBlaster]
+@export var aviso_harmonia: String
+@export var aviso_cacofonia: String
+
+@export_group("Recuperação dos ataques")
+@export_range(0.05, 1.0) var tempo_retomada := 0.2
+@export_range(0.3, 2.0) var tempo_recarga_encadeamento := 0.75
 
 @onready var concentracao: Node2D = $Concentracao
 @onready var origem_feixe: Marker2D = $OrigemFeixe
 @onready var orbes: Node2D = $Orbes
 @onready var temporizador: Timer = $Temporizador
+@onready var aviso_retomada: Sprite2D = $AvisoRetomada
+@onready var animacao_retomada: AnimationPlayer = $AnimacaoRetomada
 
 var pontos: Array[Node]
 var _indice_ponto := 0
 var _ponto_anterior := -1
 var _feixes: Array[FeixePrimal] = []
+var _fase_da_sequencia := 1
+var _fase_apresentada := 0
+var _ultimo_refugio := Vector2.INF
 
 
 func ciclo_ataques() -> void:
 	pontos = circuito.get_children()
-	await esperar(2.8)
-	while pode_atacar():
-		await _saltar_na_borda()
-		var ataques_desde_o_salto := 0
-		for padrao in padroes:
-			if not pode_atacar():
-				return
-			if padrao.disparos.is_empty():
-				continue
-			var primeiro = padrao.disparos[0]
-			# Encadeamento e Pulso já começam com uma troca de posição.
-			if primeiro.teleportar_antes or primeiro.cena_pulso:
-				ataques_desde_o_salto = 0
-			elif ataques_desde_o_salto >= ataques_entre_teleportes:
-				await _saltar_na_borda()
-				ataques_desde_o_salto = 0
-			await _executar_padrao(padrao)
-			ataques_desde_o_salto += 1
+	await esperar(tempo_entrada)
+	while super.pode_atacar():
+		_fase_da_sequencia = fase
+		var abrindo_fase = _fase_apresentada != fase
+		var padroes: Array[PadraoBlaster]
+		match fase:
+			1:
+				padroes = abertura_tom_puro if abrindo_fase else ciclo_tom_puro
+			2:
+				padroes = abertura_harmonia if abrindo_fase else ciclo_harmonia
+				if abrindo_fase:
+					anuncio.emit(aviso_harmonia)
+			3:
+				padroes = abertura_cacofonia if abrindo_fase else ciclo_cacofonia
+				if abrindo_fase:
+					anuncio.emit(aviso_cacofonia)
+		await _executar_sequencia(padroes, not abrindo_fase and escudo_ativo)
 		_limpar_orbes()
+		if not pode_atacar():
+			continue
+		_fase_apresentada = fase
 		await descansar()
+
+
+func _avisar_retomada(recarga_longa: bool) -> void:
+	if not pode_atacar():
+		return
+	var duracao = tempo_recarga_encadeamento if recarga_longa else tempo_retomada
+	aviso_retomada.show()
+	var animacao = animacao_retomada.get_animation("retomar")
+	animacao_retomada.play("retomar", -1.0, animacao.length / duracao)
+	await esperar(duracao)
+	animacao_retomada.stop()
+	aviso_retomada.hide()
+
+
+func _executar_sequencia(padroes: Array[PadraoBlaster], descansar_ao_liberar := false) -> void:
+	var ataques_desde_o_salto := ataques_entre_teleportes
+	for padrao in padroes:
+		if not pode_atacar():
+			return
+		if padrao.disparos.is_empty():
+			continue
+		var primeiro = padrao.disparos[0]
+		# Encadeamento e Pulso já começam com uma troca de posição.
+		if primeiro.teleportar_antes or primeiro.cena_pulso:
+			ataques_desde_o_salto = 0
+		elif ataques_desde_o_salto >= ataques_entre_teleportes:
+			await _saltar_na_borda()
+			ataques_desde_o_salto = 0
+		await _executar_padrao(padrao)
+		await _avisar_retomada(padrao.recarga_longa)
+		if descansar_ao_liberar and not escudo_ativo:
+			return
+		ataques_desde_o_salto += 1
+
+
+func pode_atacar() -> bool:
+	# A troca de fase encerra o descanso e os efeitos da sequência anterior.
+	return _fase_da_sequencia == fase and super.pode_atacar()
 
 
 func esperar(segundos: float) -> void:
@@ -135,7 +194,8 @@ func _executar_pulso_central(disparo: DisparoBlaster) -> void:
 	if not pode_atacar():
 		return
 	var pulso = _adicionar_feixe(disparo.cena_pulso) as PulsoCentral
-	var tempo_total = pulso.preparar_refugio(disparo.tempo_aviso + disparo.tempo_carga)
+	var tempo_total = pulso.preparar_refugio(disparo.tempo_aviso + disparo.tempo_carga, _ultimo_refugio)
+	_ultimo_refugio = pulso.to_global(pulso.refugio.get_rect().get_center())
 	pulso.iniciar_na_area(tempo_total - disparo.tempo_carga, disparo.tempo_carga, pode_atacar)
 	_conjurar()
 	await esperar_fim_do_ataque()
@@ -156,7 +216,7 @@ func _lancar_rajada_de_orbes(disparo: DisparoBlaster) -> void:
 
 	var rajada: Array[OrbePrimal] = []
 	var origem = orbes.to_local(origem_feixe.global_position)
-	var limites = moldura.get_global_rect()
+	var limites = area_da_parede.get_global_rect()
 	for angulo in disparo.angulos_dos_orbes:
 		var orbe: OrbePrimal = disparo.cena_orbe.instantiate()
 		orbe.position = origem
@@ -256,6 +316,8 @@ func _ocultar_avisos_do_salto() -> void:
 
 
 func morrer() -> void:
+	aviso_retomada.hide()
+	animacao_retomada.stop()
 	_ocultar_avisos_do_salto()
 	_limpar_orbes()
 	for feixe in _feixes:

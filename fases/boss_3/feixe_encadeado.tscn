@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cydlj38fuv3yr"]
 
-[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+[ext_resource type="PackedScene" uid="uid://bqxtl8sv016pq" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_encadeado"]
 resource_local_to_scene = true

@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://s0q2bg5hl3ys"]
 
-[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+[ext_resource type="PackedScene" uid="uid://bqxtl8sv016pq" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
 
 [node name="FeixeParede" instance=ExtResource("1_feixe")]
 tempo_ativo = 0.25

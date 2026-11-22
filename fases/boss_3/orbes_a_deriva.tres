@@ -1,8 +1,8 @@
-[gd_resource type="Resource" format=3]
+[gd_resource type="Resource" format=3 uid="uid://fh1rlj5wi1a8"]
 
-[ext_resource type="Script" path="res://fases/boss_3/padrao_blaster.gd" id="1_padrao"]
-[ext_resource type="Script" path="res://fases/boss_3/disparo_blaster.gd" id="2_disparo"]
-[ext_resource type="PackedScene" path="res://fases/boss_3/orbe_primal.tscn" id="3_orbe"]
+[ext_resource type="Script" uid="uid://c4j34vv5e72gy" path="res://fases/boss_3/padrao_blaster.gd" id="1_padrao"]
+[ext_resource type="Script" uid="uid://c2eniuc535dn4" path="res://fases/boss_3/disparo_blaster.gd" id="2_disparo"]
+[ext_resource type="PackedScene" uid="uid://bmsrda6yato6m" path="res://fases/boss_3/orbe_primal.tscn" id="3_orbe"]
 
 [sub_resource type="Resource" id="Resource_primeiro"]
 script = ExtResource("2_disparo")

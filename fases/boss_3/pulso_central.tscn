@@ -1,9 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://wx5jmh1gd76s"]
 
-[ext_resource type="PackedScene" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
-[ext_resource type="PackedScene" path="res://fases/boss_3/zonas_do_pulso.tscn" id="2_zonas"]
-[ext_resource type="Texture2D" path="res://fases/boss_3/halo_teleporte.tres" id="3_halo"]
-[ext_resource type="Script" path="res://fases/boss_3/pulso_central.gd" id="4_pulso"]
+[ext_resource type="PackedScene" uid="uid://bqxtl8sv016pq" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+[ext_resource type="PackedScene" uid="uid://bkqfw5nkaqfod" path="res://fases/boss_3/zonas_do_pulso.tscn" id="2_zonas"]
+[ext_resource type="Texture2D" uid="uid://boesqtpxr147r" path="res://fases/boss_3/halo_teleporte.tres" id="3_halo"]
+[ext_resource type="Script" uid="uid://cgghsx0ebsuco" path="res://fases/boss_3/pulso_central.gd" id="4_pulso"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_superior"]
 resource_local_to_scene = true
@@ -32,7 +32,9 @@ border_color = Color(0.57, 1, 0.89, 0.93)
 [node name="PulsoCentral" instance=ExtResource("1_feixe")]
 collision_mask = 1
 script = ExtResource("4_pulso")
-tempo_ativo = 0.3
+tempo_ativo = 0.18
+quantidade_pulsos = 3
+intervalo_pulsos = 0.35
 tempo_dissipacao = 0.27
 
 [node name="Colisor" parent="." index="0"]
@@ -67,7 +69,7 @@ visible = true
 offset_left = 276.0
 offset_right = 876.0
 theme_override_colors/font_color = Color(1, 0.83, 0.88, 1)
-text = "PULSO CENTRAL · ENTRE NO REFÚGIO"
+text = "TRÊS PULSOS · FIQUE NO REFÚGIO"
 
 [node name="ColisorInferior" type="CollisionShape2D" parent="." index="6"]
 position = Vector2(576, 474.75)
