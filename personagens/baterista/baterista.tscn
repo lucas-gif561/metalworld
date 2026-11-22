@@ -7,6 +7,8 @@
 
 [node name="Baterista" unique_id=1615702499 instance=ExtResource("1_base")]
 script = ExtResource("3_script")
+raio_primeiro_bumbo = 120.0
+raio_segundo_bumbo = 175.0
 id_jogador = 2
 retrato = ExtResource("4_retrato")
 quadro_cross = 5

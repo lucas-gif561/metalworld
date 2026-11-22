@@ -8,9 +8,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_queb"]
 size = Vector2(50, 14)
 
-[node name="Caixote" type="StaticBody2D" unique_id=219860930]
+[node name="Caixote" type="AnimatableBody2D" unique_id=219860930 groups=["caixotes"]]
 collision_layer = 2
 collision_mask = 0
+sync_to_physics = false
 script = ExtResource("1_queb")
 cena_item = ExtResource("3_item")
 

@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://y51xvcfu2g0y"]
+
+[ext_resource type="Script" uid="uid://kpf2xvpocbqb" path="res://fases/rua_3/desafio_luz.gd" id="1_desafio"]
+[ext_resource type="PackedScene" uid="uid://dta2ydn2pt54f" path="res://fases/rua_3/feixe_rua.tscn" id="2_feixe"]
+[ext_resource type="Texture2D" uid="uid://dprg87hb2lf30" path="res://fases/rua_3/sprites/cristal_luz.png" id="3_cristal"]
+[ext_resource type="Texture2D" uid="uid://4fnt8jm40ugd" path="res://fases/rua_3/sprites/cristal_luz_animacoes.png" id="4_animacoes"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_base"]
+size = Vector2(34, 16)
+
+[sub_resource type="AtlasTexture" id="Atlas_0"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(0, 0, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_1"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(152, 0, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_2"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(304, 0, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_3"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(456, 0, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_4"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(608, 0, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_5"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(760, 0, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_6"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(0, 152, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_7"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(152, 152, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_8"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(304, 152, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_9"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(456, 152, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_10"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(608, 152, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_11"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(760, 152, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_12"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(0, 304, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_13"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(152, 304, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_14"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(304, 304, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_15"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(456, 304, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_16"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(608, 304, 152, 152)
+
+[sub_resource type="AtlasTexture" id="Atlas_17"]
+atlas = ExtResource("4_animacoes")
+region = Rect2(760, 304, 152, 152)
+
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cristal"]
+animations = [{
+"frames": [{"duration": 1.0, "texture": ExtResource("3_cristal")}],
+"loop": true,
+"name": &"parado",
+"speed": 5.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_0")},
+{"duration": 1.0, "texture": SubResource("Atlas_1")},
+{"duration": 1.0, "texture": SubResource("Atlas_2")},
+{"duration": 1.0, "texture": SubResource("Atlas_3")},
+{"duration": 1.0, "texture": SubResource("Atlas_4")},
+{"duration": 1.0, "texture": SubResource("Atlas_5")},
+{"duration": 1.0, "texture": SubResource("Atlas_6")},
+{"duration": 1.0, "texture": SubResource("Atlas_7")},
+{"duration": 1.0, "texture": SubResource("Atlas_8")}
+],
+"loop": false,
+"name": &"dano",
+"speed": 12.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_9")},
+{"duration": 1.0, "texture": SubResource("Atlas_10")},
+{"duration": 1.0, "texture": SubResource("Atlas_11")},
+{"duration": 1.0, "texture": SubResource("Atlas_12")},
+{"duration": 1.0, "texture": SubResource("Atlas_13")},
+{"duration": 1.0, "texture": SubResource("Atlas_14")},
+{"duration": 1.0, "texture": SubResource("Atlas_15")},
+{"duration": 1.0, "texture": SubResource("Atlas_16")},
+{"duration": 1.0, "texture": SubResource("Atlas_17")}
+],
+"loop": false,
+"name": &"quebra",
+"speed": 10.0
+}]
+
+[node name="PilarLuz" type="AnimatableBody2D" groups=["alvos_golpe", "inimigos"]]
+collision_layer = 33
+collision_mask = 0
+sync_to_physics = false
+script = ExtResource("1_desafio")
+vida_maxima = 14
+cena_feixe = ExtResource("2_feixe")
+objetivo = "DESTRUA O PILAR DE LUZ"
+
+[node name="Colisao" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_base")
+
+[node name="Cristal" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, -106)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_cristal")
+animation = &"parado"
+flip_h = true
+
+[node name="Vida" type="ProgressBar" parent="."]
+offset_left = -38.0
+offset_top = -230.0
+offset_right = 38.0
+offset_bottom = -222.0
+mouse_filter = 2
+show_percentage = false

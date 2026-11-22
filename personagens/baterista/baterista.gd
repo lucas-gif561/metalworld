@@ -7,8 +7,11 @@ const MINIRRIFFS_KEVIN = {
 	# Impacto no miniboss por batida, somando o do custo (ver MINIRRIFFS em jogador.gd)
 	"AABB": {"nome": "Virada", "custo": 3.0, "quadros": [2, 5, 8], "danos": [1, 1, 2], "impactos": [1, 1, 2], "empurrao": 650.0, "cena": PROJETIL_VIRADA},
 	"ABBA": {"nome": "Caixa", "custo": 2.0, "quadros": [5], "danos": [2], "impactos": [3], "cena": PROJETIL_CAIXA},
-	"ABAB": {"nome": "Bumbo", "custo": 1.0, "quadros": [2, 8], "dano": 1, "impacto": 1, "raio": 120.0, "empurrao": 600.0},
+	"ABAB": {"nome": "Bumbo", "custo": 1.0, "quadros": [2, 8], "dano": 1, "impacto": 1, "empurrao": 600.0},
 }
+
+@export var raio_primeiro_bumbo := 120.0
+@export var raio_segundo_bumbo := 175.0
 
 
 func _minirriffs_disponiveis() -> Dictionary:
@@ -28,11 +31,15 @@ func _ao_mudar_quadro():
 		_alterar_poder(-especial.custo)
 
 	var ultima_batida: bool = batida == especial.quadros.size() - 1
-	var batida_grave: bool = especial.has("raio") or (ultima_batida and especial.has("empurrao"))
+	var eh_bumbo: bool = not especial.has("cena")
+	var batida_grave: bool = eh_bumbo or (ultima_batida and especial.has("empurrao"))
 	Audio.tocar("minirriff_grave" if batida_grave else "minirriff_agudo")
 	Combate.tremer(4.0 if ultima_batida else 2.0)
-	if especial.has("raio"):
-		_soltar_onda(especial)
+	if eh_bumbo:
+		var onda: Dictionary = especial.duplicate()
+		onda.raio = raio_segundo_bumbo if ultima_batida else raio_primeiro_bumbo
+		onda.empurrao = especial.empurrao if ultima_batida else 0.0
+		_soltar_onda(onda)
 	else:
 		_disparar_pulso(especial, batida, ultima_batida)
 
