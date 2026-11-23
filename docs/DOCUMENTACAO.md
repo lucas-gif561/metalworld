@@ -108,7 +108,7 @@ A história, criada pelo Leonardo, acompanha **Dylan Walker**, um jovem que nasc
   | Dylan | A B A B | Onda sonora: dano em volta e atordoa |
   | Dylan | B B A B | Raio encadeado: ricocheteia em até 3 inimigos |
   | Dylan | B A B A | Acorde cortante: arco que avança e atravessa até 2 inimigos (4 de dano) |
-  | Kevin | A B A B | Bumbo: duas batidas que empurram em volta |
+  | Kevin | A B A B | Bumbo: duas batidas em volta. A segunda alcança mais longe e empurra. |
   | Kevin | A B B A | Caixa: projétil forte |
   | Kevin | A A B B | Virada: três projéteis, o último empurra |
 

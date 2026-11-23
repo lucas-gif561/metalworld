@@ -16,7 +16,7 @@ var _dano: int
 var _impacto = 0
 var _escala: float
 var _origem: Vector2
-var _alvo: Inimigo
+var _alvo: Node2D
 var _ultimo_atingido = 0
 var _total_acertos = 0
 var _atingidos: Array[int] = []
@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 				_buscar_alvo()
 		return
 
-	if not is_instance_valid(_alvo) or _alvo.morto or _alvo.is_queued_for_deletion():
+	if not is_instance_valid(_alvo) or _alvo.get("morto") or _alvo.is_queued_for_deletion():
 		_buscar_alvo()
 		return
 
@@ -76,25 +76,27 @@ func _buscar_alvo() -> void:
 	var limite = (alcance * _escala) ** 2
 	var menor_distancia_novo = limite
 	var menor_distancia_repetido = limite
-	var repetido: Inimigo
+	var repetido: Node2D
 
-	for inimigo in get_tree().get_nodes_in_group("inimigos"):
-		if not inimigo is Inimigo or inimigo.morto or inimigo.is_queued_for_deletion():
+	var arvore := get_tree()
+	var alvos := arvore.get_nodes_in_group("inimigos") + arvore.get_nodes_in_group("quebraveis")
+	for alvo in alvos:
+		if not alvo is Node2D or not alvo.has_method("receber_dano") or alvo.get("morto") or alvo.is_queued_for_deletion():
 			continue
-		var id = inimigo.get_instance_id()
+		var id = alvo.get_instance_id()
 		if id == _ultimo_atingido:
 			continue
-		var diferenca = inimigo.global_position - global_position
+		var diferenca = alvo.global_position - global_position
 		if primeiro and diferenca.x * _lado < 0.0:
 			continue
 		var distancia = diferenca.length_squared()
 		if id in _atingidos:
 			if distancia <= menor_distancia_repetido:
 				menor_distancia_repetido = distancia
-				repetido = inimigo
+				repetido = alvo
 		elif distancia <= menor_distancia_novo:
 			menor_distancia_novo = distancia
-			_alvo = inimigo
+			_alvo = alvo
 
 	if _alvo == null:
 		_alvo = repetido

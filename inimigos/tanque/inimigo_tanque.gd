@@ -43,6 +43,8 @@ func _comportamento(_delta):
 
 
 func atirar():
+	if _fora_da_arena_da_rua():
+		return
 	# Atira para o lado travado no começo da carga
 	var lado = float(lado_carga)
 

@@ -1,30 +1,42 @@
 [gd_scene format=3 uid="uid://41a6f4sr8dbx"]
 
 [ext_resource type="Script" uid="uid://dqwep2au7svfk" path="res://fases/comum/fase_rua.gd" id="1_main"]
-[ext_resource type="Texture2D" uid="uid://wyje6x10trew" path="res://assets/fundos/rua_noite.png" id="2_fundo"]
-[ext_resource type="PackedScene" uid="uid://dltkylafufj17" path="res://objetos/portal.tscn" id="3_portal"]
+[ext_resource type="Texture2D" uid="uid://b1svtv2os8217" path="res://fases/rua_3/sprites/rua_3_fundo.png" id="2_fundo"]
+[ext_resource type="PackedScene" uid="uid://cyoai7thkyq1n" path="res://objetos/portao_saida.tscn" id="3_portal"]
 [ext_resource type="PackedScene" uid="uid://dqlqnehxlyabn" path="res://personagens/dylan/jogador.tscn" id="4_player"]
 [ext_resource type="Script" uid="uid://bgs4n7or273cj" path="res://fases/comum/ponto_spawn.gd" id="5_ponto"]
 [ext_resource type="Script" uid="uid://c2r13nvu5ypje" path="res://fases/comum/gerenciador_ondas.gd" id="6_manager"]
-[ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="7_normal"]
-[ext_resource type="PackedScene" uid="uid://bns8j4jm6robf" path="res://inimigos/rapido/inimigo_rapido.tscn" id="8_rapido"]
+[ext_resource type="PackedScene" uid="uid://y51xvcfu2g0y" path="res://fases/rua_3/inimigos/desafio_luz/pilar_luz.tscn" id="7_pilar"]
+[ext_resource type="PackedScene" uid="uid://d4egb2dewbxsb" path="res://fases/rua_3/inimigos/desafio_luz/esquiva_luz.tscn" id="8_esquiva"]
 [ext_resource type="PackedScene" uid="uid://b3tmyx1mfj17g" path="res://ui/hud.tscn" id="9_hud"]
 [ext_resource type="PackedScene" uid="uid://b08jrpmqepjnt" path="res://objetos/caixote.tscn" id="10_caixote"]
 [ext_resource type="PackedScene" uid="uid://dv05ik1pri0fs" path="res://objetos/barril.tscn" id="11_barril"]
+[ext_resource type="PackedScene" uid="uid://4it3cmfb26ve" path="res://fases/rua_3/inimigos/guardiao_cosmico/guardiao_cosmico.tscn" id="12_guardiao"]
+[ext_resource type="PackedScene" uid="uid://b6trtgv55wch0" path="res://fases/rua_3/inimigos/desafio_luz/pilar_luz_esquerdo.tscn" id="13_pilar_esquerdo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_entrada"]
+size = Vector2(226, 70)
 
 [node name="Rua3" type="Node2D" unique_id=1636266880]
 y_sort_enabled = true
 script = ExtResource("1_main")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1739462595]
-modulate = Color(1.1, 0.85, 0.8, 1)
+texture_filter = 1
 z_index = -1
-position = Vector2(1622.5001, 215.99998)
-scale = Vector2(1.4986188, 1.1933701)
 texture = ExtResource("2_fundo")
+centered = false
 
 [node name="Portal" parent="." unique_id=1072026046 instance=ExtResource("3_portal")]
-position = Vector2(2050, 461)
+position = Vector2(4730, 400)
+texto_liberacao = "A entrada foi liberada! Vá até o arco e pressione %s"
+
+[node name="CollisionShape2D" parent="Portal" index="0"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_entrada")
+
+[node name="Seta" parent="Portal" index="3"]
+position = Vector2(0, -248)
 
 [node name="Player" parent="." unique_id=526895389 instance=ExtResource("4_player")]
 position = Vector2(124, 488)
@@ -34,42 +46,72 @@ position = Vector2(576, 324)
 
 [node name="Spawns" type="Node2D" parent="." unique_id=798770499]
 
-[node name="Arena1" type="Node2D" parent="Spawns" unique_id=1122361323]
+[node name="Arena1" type="Node2D" parent="Spawns"]
 
-[node name="Onda1" type="Node2D" parent="Spawns/Arena1" unique_id=2129842886]
+[node name="Onda1" type="Node2D" parent="Spawns/Arena1"]
 
-[node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=951737822]
-position = Vector2(1203, 480)
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena1/Onda1"]
+position = Vector2(805, 490)
 script = ExtResource("5_ponto")
-cena_inimigo = ExtResource("7_normal")
+cena_inimigo = ExtResource("7_pilar")
 
-[node name="Ponto2" type="Marker2D" parent="Spawns/Arena1/Onda1" unique_id=397983804]
-position = Vector2(1204, 580)
+[node name="Arena2" type="Node2D" parent="Spawns"]
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena2"]
+
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena2/Onda1"]
+position = Vector2(1608, 490)
 script = ExtResource("5_ponto")
-cena_inimigo = ExtResource("7_normal")
+cena_inimigo = ExtResource("8_esquiva")
 
-[node name="Arena2" type="Node2D" parent="Spawns" unique_id=1858583814]
+[node name="Arena3" type="Node2D" parent="Spawns"]
 
-[node name="Onda1" type="Node2D" parent="Spawns/Arena2" unique_id=1304788807]
+[node name="Onda1" type="Node2D" parent="Spawns/Arena3"]
 
-[node name="Ponto1" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=480487652]
-position = Vector2(2320, 480)
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena3/Onda1"]
+position = Vector2(2869, 490)
 script = ExtResource("5_ponto")
-cena_inimigo = ExtResource("7_normal")
+cena_inimigo = ExtResource("7_pilar")
 
-[node name="Ponto2" type="Marker2D" parent="Spawns/Arena2/Onda1" unique_id=1674227076]
-position = Vector2(2330, 580)
+[node name="Arena4" type="Node2D" parent="Spawns"]
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena4"]
+
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena4/Onda1"]
+position = Vector2(4370, 490)
 script = ExtResource("5_ponto")
-cena_inimigo = ExtResource("8_rapido")
+cena_inimigo = ExtResource("12_guardiao")
+
+[node name="Arena5" type="Node2D" parent="Spawns"]
+
+[node name="Onda1" type="Node2D" parent="Spawns/Arena5"]
+
+[node name="Ponto1" type="Marker2D" parent="Spawns/Arena5/Onda1"]
+position = Vector2(4933, 490)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("7_pilar")
+
+[node name="Ponto2" type="Marker2D" parent="Spawns/Arena5/Onda1"]
+position = Vector2(4435, 490)
+script = ExtResource("5_ponto")
+cena_inimigo = ExtResource("13_pilar_esquerdo")
 
 [node name="GerenciadorOndas" type="Node" parent="." unique_id=760976405]
 script = ExtResource("6_manager")
-cena_inimigo = ExtResource("7_normal")
 
 [node name="Caixote1" parent="." unique_id=521593969 instance=ExtResource("10_caixote")]
 position = Vector2(700, 540)
 
 [node name="Barril1" parent="." unique_id=1684463714 instance=ExtResource("11_barril")]
 position = Vector2(1500, 403)
+
+[node name="Caixote3" parent="." instance=ExtResource("10_caixote")]
+position = Vector2(2650, 540)
+
+[node name="Barril4" parent="." instance=ExtResource("11_barril")]
+position = Vector2(3620, 403)
+
+[node name="Caixote5" parent="." instance=ExtResource("10_caixote")]
+position = Vector2(4750, 540)
 
 [node name="HudJogo" parent="." unique_id=444926627 instance=ExtResource("9_hud")]

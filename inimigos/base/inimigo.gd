@@ -100,6 +100,7 @@ var _pedir_vaga_apos_ms := 0
 var _vaga_desde_ms := 0
 var _angulo_espera := 0.0
 var _lado_espera := 0 # lado do jogador onde espera a vez (0 = escolher)
+var _entrou_na_arena := false
 
 
 func _ready():
@@ -127,6 +128,13 @@ func aplicar_escala(fator: float) -> void:
 
 
 func _physics_process(delta):
+	var limites := _limites_da_rua()
+	_conter_na_arena(limites)
+	_processar_comportamento(delta)
+	_conter_na_arena(limites)
+
+
+func _processar_comportamento(delta: float) -> void:
 	if not morto and tempo_atordoado > 0.0:
 		tempo_atordoado = maxf(tempo_atordoado - delta, 0.0)
 		velocity = Vector2.ZERO
@@ -148,6 +156,39 @@ func _physics_process(delta):
 		return
 
 	_comportamento(delta)
+
+
+func _limites_da_rua() -> Rect2:
+	var cena = get_tree().current_scene
+	if cena and cena.has_node("GerenciadorOndas") and cena.has_method("limites_arena"):
+		return cena.limites_arena()
+	return Rect2()
+
+
+func _conter_na_arena(limites: Rect2) -> void:
+	if not limites.has_area():
+		return
+	var dentro := global_position.clamp(limites.position, limites.end)
+	if global_position.is_equal_approx(dentro):
+		_entrou_na_arena = true
+	elif _entrou_na_arena:
+		global_position = dentro
+
+
+func _fora_da_arena_da_rua() -> bool:
+	var limites := _limites_da_rua()
+	return limites.has_area() and not global_position.is_equal_approx(global_position.clamp(limites.position, limites.end))
+
+
+func _andar_para_dentro_da_arena() -> bool:
+	if not _fora_da_arena_da_rua():
+		return false
+	var destino := _dentro_da_arena(global_position)
+	velocity = global_position.direction_to(destino) * velocidade
+	_olhar_para_jogador()
+	_atualizar_animacao()
+	move_and_slide()
+	return true
 
 
 ## Comportamento padrão (corpo a corpo, em grupo): pega uma vaga ao lado do

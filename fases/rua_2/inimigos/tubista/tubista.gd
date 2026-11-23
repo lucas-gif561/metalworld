@@ -7,6 +7,8 @@ const BOLA_DEMONIACA = preload("res://fases/rua_2/inimigos/tubista/bola_demoniac
 
 
 func _comportamento(_delta):
+	if _andar_para_dentro_da_arena():
+		return
 	_olhar_para_jogador()
 	if global_position.distance_to(jogador.global_position) <= alcance_ataque:
 		velocity = Vector2.ZERO
@@ -21,6 +23,8 @@ func _comportamento(_delta):
 
 
 func _assoprar_tuba() -> void:
+	if _fora_da_arena_da_rua():
+		return
 	var alvo = Jogo.jogador_mais_proximo(global_position)
 	if alvo == null:
 		return
