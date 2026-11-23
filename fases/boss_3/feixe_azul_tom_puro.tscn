@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://84l3c3mehyu"]
+
+[ext_resource type="PackedScene" uid="uid://bxm6arbeyhj8j" path="res://fases/boss_3/feixe_azul.tscn" id="1_onda"]
+
+[node name="OndaAzulTomPuro" instance=ExtResource("1_onda")]
+tempo_ativo = 0.55
+quantidade_ondas = 3
+intervalo_ondas = 0.22

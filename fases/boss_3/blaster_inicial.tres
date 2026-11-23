@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://cegyy5le8qeis"]
+
+[ext_resource type="Script" uid="uid://c4j34vv5e72gy" path="res://fases/boss_3/padrao_blaster.gd" id="1_padrao"]
+[ext_resource type="Script" uid="uid://c2eniuc535dn4" path="res://fases/boss_3/disparo_blaster.gd" id="2_disparo"]
+[ext_resource type="PackedScene" uid="uid://bvu0o46wmbcx4" path="res://fases/boss_3/feixe_blaster.tscn" id="3_feixe"]
+
+[sub_resource type="Resource" id="Resource_blaster"]
+script = ExtResource("2_disparo")
+cena_feixe = ExtResource("3_feixe")
+
+[resource]
+script = ExtResource("1_padrao")
+disparos = Array[ExtResource("2_disparo")]([SubResource("Resource_blaster")])

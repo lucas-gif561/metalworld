@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cydlj38fuv3yr"]
+
+[ext_resource type="PackedScene" uid="uid://bqxtl8sv016pq" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_encadeado"]
+resource_local_to_scene = true
+size = Vector2(128, 48)
+
+[node name="FeixeEncadeado" instance=ExtResource("1_feixe")]
+tempo_ativo = 0.12
+tempo_dissipacao = 0.12
+
+[node name="Colisor" parent="." index="0"]
+shape = SubResource("RectangleShape2D_encadeado")
+
+[node name="Aviso" parent="." index="1"]
+width = 48.0
+default_color = Color(1, 0.57, 0.63, 0.45)
+
+[node name="Carga" parent="." index="2"]
+default_color = Color(1, 0.76, 0.81, 0.96)
+
+[node name="Faixa" parent="." index="3"]
+width = 48.0
+default_color = Color(0.98, 0.47, 0.57, 0.83)
+
+[node name="Nucleo" parent="." index="4"]
+width = 12.0
+default_color = Color(1, 0.91, 0.88, 0.98)
+
+[node name="Instrucao" parent="." index="5"]
+visible = true
+theme_override_colors/font_color = Color(1, 0.76, 0.81, 1)
+text = "ENCADEAMENTO"

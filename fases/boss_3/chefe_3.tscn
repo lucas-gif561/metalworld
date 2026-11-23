@@ -1,26 +1,127 @@
 [gd_scene format=3 uid="uid://boot8ovjafqps"]
 
-[ext_resource type="SpriteFrames" uid="uid://vek60do0oyhj" path="res://fases/boss_1/sprites/chefe_1.tres" id="1_frames"]
-[ext_resource type="Script" uid="uid://ce7skdyi8r3np" path="res://fases/boss_3/chefe_3.gd" id="2_script"]
-[ext_resource type="PackedScene" uid="uid://cohoo1yja2qtv" path="res://bosses/base/projetil_boss.tscn" id="3_projetil"]
+[ext_resource type="Script" uid="uid://ce7skdyi8r3np" path="res://fases/boss_3/chefe_3.gd" id="1_chefe"]
+[ext_resource type="Texture2D" uid="uid://boesqtpxr147r" path="res://fases/boss_3/halo_teleporte.tres" id="2_halo"]
+[ext_resource type="PackedScene" uid="uid://bqxtl8sv016pq" path="res://fases/boss_3/feixe_primal.tscn" id="3_feixe"]
+[ext_resource type="Resource" uid="uid://ymayscv1v8x1" path="res://fases/boss_3/blaster.tres" id="4_blaster"]
+[ext_resource type="Texture2D" uid="uid://d0jbb3ct4joae" path="res://icon.svg" id="5_provisorio"]
+[ext_resource type="Resource" uid="uid://ex1ap5f8q40y" path="res://fases/boss_3/ricochete.tres" id="7_ricochete"]
+[ext_resource type="Script" uid="uid://c4j34vv5e72gy" path="res://fases/boss_3/padrao_blaster.gd" id="8_padrao"]
+[ext_resource type="Resource" uid="uid://yyx6b456aiao" path="res://fases/boss_3/varredura.tres" id="9_varredura"]
+[ext_resource type="Resource" uid="uid://b3l73t0fewv6c" path="res://fases/boss_3/parede_de_feixes.tres" id="10_parede"]
+[ext_resource type="Resource" uid="uid://fh1rlj5wi1a8" path="res://fases/boss_3/orbes_a_deriva.tres" id="11_orbes"]
+[ext_resource type="Resource" uid="uid://cbar5oigxu75y" path="res://fases/boss_3/encadeamento.tres" id="12_encadeamento"]
+[ext_resource type="Resource" uid="uid://wo2v4gfmelc8" path="res://fases/boss_3/golpe_central.tres" id="14_centro"]
+[ext_resource type="PackedScene" uid="uid://cvfhj04wg0vt3" path="res://riff/sinal_riff.tscn" id="15_sinal_riff"]
+[ext_resource type="Resource" uid="uid://cegyy5le8qeis" path="res://fases/boss_3/blaster_inicial.tres" id="16_blaster_inicial"]
+[ext_resource type="PackedScene" uid="uid://bwdwhf6i8wv2" path="res://bosses/base/runa.tscn" id="17_totem"]
+[ext_resource type="Resource" uid="uid://cv0jldvg0nl6i" path="res://fases/boss_3/acorde_cacofonia.tres" id="18_acorde"]
+[ext_resource type="Resource" uid="uid://duqhk2lod3s2s" path="res://fases/boss_3/encadeamento_harmonia.tres" id="19_encadeamento_harmonia"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_chefe"]
+[ext_resource type="Resource" uid="uid://c1j1ibwi50ueb" path="res://fases/boss_3/luz_azul_e_laranja_tom_puro.tres" id="20_cores_tom_puro"]
 
-[node name="Chefe3" type="Node2D" unique_id=592602246]
-script = ExtResource("2_script")
+[sub_resource type="SpriteFrames" id="SpriteFrames_luz"]
+animations = [{
+"frames": [{"duration": 1.0, "texture": ExtResource("5_provisorio")}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{"duration": 1.0, "texture": ExtResource("5_provisorio")}],
+"loop": false,
+"name": &"cast",
+"speed": 3.0
+}, {
+"frames": [{"duration": 1.0, "texture": ExtResource("5_provisorio")}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{"duration": 1.0, "texture": ExtResource("5_provisorio")}],
+"loop": false,
+"name": &"death",
+"speed": 2.0
+}]
+
+
+[sub_resource type="Animation" id="Animation_retomar"]
+resource_name = "retomar"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AvisoRetomada:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0.8, 0.45, 0.25), Color(1, 0.8, 0.45, 0.95)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AvisoRetomada:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.7, 1.7), Vector2(0.6, 0.6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_retomada"]
+_data = {
+&"retomar": SubResource("Animation_retomar")
+}
+
+[node name="LuzPrimal" type="Node2D"]
+z_index = 3
+script = ExtResource("1_chefe")
 vida_maxima = 200
+cena_runa = ExtResource("17_totem")
 usar_fases = true
-cena_projetil = ExtResource("3_projetil")
+pontos_runa = Array[Vector2]([Vector2(325, 370), Vector2(576, 455), Vector2(827, 370)])
+cena_feixe = ExtResource("3_feixe")
+abertura_tom_puro = Array[ExtResource("8_padrao")]([ExtResource("16_blaster_inicial"), ExtResource("20_cores_tom_puro")])
+ciclo_tom_puro = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("20_cores_tom_puro")])
+abertura_harmonia = Array[ExtResource("8_padrao")]([ExtResource("7_ricochete"), ExtResource("19_encadeamento_harmonia")])
+ciclo_harmonia = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("20_cores_tom_puro"), ExtResource("11_orbes"), ExtResource("9_varredura"), ExtResource("10_parede"), ExtResource("7_ricochete"), ExtResource("19_encadeamento_harmonia")])
+abertura_cacofonia = Array[ExtResource("8_padrao")]([ExtResource("14_centro"), ExtResource("18_acorde")])
+ciclo_cacofonia = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("20_cores_tom_puro"), ExtResource("11_orbes"), ExtResource("9_varredura"), ExtResource("10_parede"), ExtResource("7_ricochete"), ExtResource("12_encadeamento"), ExtResource("18_acorde"), ExtResource("14_centro")])
+aviso_harmonia = "FASE 2 — HARMONIA! Quebre os totens!"
+aviso_cacofonia = "FASE 3 — CACOFONIA! Corra ao refúgio e quebre os totens!"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1955341258]
-modulate = Color(1.3, 0.7, 0.5, 1)
-scale = Vector2(3, 3)
-sprite_frames = ExtResource("1_frames")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.36, 0.36)
+sprite_frames = SubResource("SpriteFrames_luz")
 animation = &"idle"
 autoplay = "idle"
-offset = Vector2(1, -6)
 
-[node name="Area2D" type="Area2D" parent="." unique_id=410042591]
+[node name="Concentracao" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_halo")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1823359808]
-shape = SubResource("RectangleShape2D_chefe")
+[node name="OrigemFeixe" type="Marker2D" parent="."]
+
+[node name="Orbes" type="Node2D" parent="."]
+top_level = true
+
+[node name="SinalRiff" parent="." instance=ExtResource("15_sinal_riff")]
+offset_left = -100.0
+offset_top = 30.0
+offset_right = 100.0
+offset_bottom = 62.0
+
+[node name="AvisoRetomada" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 0.8, 0.45, 0.25)
+scale = Vector2(1.7, 1.7)
+texture = ExtResource("2_halo")
+
+[node name="AnimacaoRetomada" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_retomada")
+}

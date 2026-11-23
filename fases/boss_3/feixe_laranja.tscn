@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dokme003pl0dm"]
+
+[ext_resource type="PackedScene" uid="uid://bqxtl8sv016pq" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+[ext_resource type="Script" uid="uid://by24ov4xah400" path="res://fases/boss_3/onda_primal.gd" id="2_onda"]
+[ext_resource type="Texture2D" uid="uid://boesqtpxr147r" path="res://fases/boss_3/halo_teleporte.tres" id="3_halo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arena"]
+resource_local_to_scene = true
+size = Vector2(1152, 648)
+
+[node name="FeixeLaranja" instance=ExtResource("1_feixe")]
+script = ExtResource("2_onda")
+regra_dano = 2
+tempo_ativo = 0.9
+
+[node name="Colisor" parent="." index="0"]
+position = Vector2(576, 324)
+shape = SubResource("RectangleShape2D_arena")
+
+[node name="Aviso" parent="." index="1"]
+points = PackedVector2Array(0, 324, 1152, 324)
+width = 648.0
+default_color = Color(1, 0.62, 0.3, 0.07)
+
+[node name="Mira" parent="Aviso" index="0"]
+visible = false
+
+[node name="Carga" parent="." index="2"]
+points = PackedVector2Array(0, 324, 1152, 324)
+width = 648.0
+default_color = Color(1, 0.62, 0.3, 0.12)
+
+[node name="Faixa" parent="." index="3"]
+points = PackedVector2Array(0, 324, 1152, 324)
+width = 648.0
+default_color = Color(1, 0.62, 0.3, 0.16)
+
+[node name="Nucleo" parent="." index="4"]
+points = PackedVector2Array()
+
+[node name="Instrucao" parent="." index="5"]
+visible = true
+theme_override_colors/font_color = Color(1, 0.89, 0.67, 1)
+text = "LARANJA · MOVA-SE"
+
+[node name="FrenteOnda" type="Line2D" parent="." index="6"]
+visible = false
+closed = true
+width = 10.0
+default_color = Color(1, 0.89, 0.67, 0.9)
+
+[node name="HaloOrigem" type="Sprite2D" parent="." index="7"]
+modulate = Color(1, 0.62, 0.3, 1)
+texture = ExtResource("3_halo")

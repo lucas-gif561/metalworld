@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://s0q2bg5hl3ys"]
+
+[ext_resource type="PackedScene" uid="uid://bqxtl8sv016pq" path="res://fases/boss_3/feixe_primal.tscn" id="1_feixe"]
+
+[ext_resource type="Script" uid="uid://c5di6k6khpkay" path="res://fases/boss_3/feixe_parede.gd" id="2_parede"]
+
+[sub_resource type="ConvexPolygonShape2D" id="Forma_parede"]
+resource_local_to_scene = true
+points = PackedVector2Array(234, 296, 914, 296, 940, 372, 210, 372)
+
+[node name="FeixeParede" instance=ExtResource("1_feixe")]
+collision_mask = 1
+script = ExtResource("2_parede")
+tempo_ativo = 0.25
+
+[node name="Colisor" parent="." index="0"]
+position = Vector2(0, 0)
+shape = SubResource("Forma_parede")
+
+[node name="Aviso" parent="." index="1"]
+points = PackedVector2Array()
+default_color = Color(1, 0.83, 0.31, 0.32)
+
+[node name="Carga" parent="." index="2"]
+points = PackedVector2Array()
+width = 7.0
+default_color = Color(1, 0.89, 0.52, 0.94)
+
+[node name="Faixa" parent="." index="3"]
+points = PackedVector2Array()
+default_color = Color(0.97, 0.7, 0.24, 0.62)
+
+[node name="Nucleo" parent="." index="4"]
+points = PackedVector2Array()
+width = 16.0
+default_color = Color(1, 0.97, 0.75, 0.96)
+
+[node name="Instrucao" parent="." index="5"]
+visible = true
+theme_override_colors/font_color = Color(1, 0.89, 0.52, 1)
+text = "PAREDE DE FEIXES"
+
+[node name="Area" type="Polygon2D" parent="Aviso"]
+color = Color(1, 0.83, 0.31, 0.32)
+polygon = PackedVector2Array(234, 296, 914, 296, 940, 372, 210, 372)
+
+[node name="Area" type="Polygon2D" parent="Carga"]
+color = Color(1, 0.89, 0.52, 0.24)
+polygon = PackedVector2Array(234, 296, 914, 296, 940, 372, 210, 372)
+
+[node name="Area" type="Polygon2D" parent="Faixa"]
+color = Color(0.97, 0.7, 0.24, 0.62)
+polygon = PackedVector2Array(234, 296, 914, 296, 940, 372, 210, 372)
