@@ -1,7 +1,5 @@
 extends "res://bosses/base/arena_boss.gd"
 
-@onready var limite_entrada_p2: Marker2D = $Arena/LimiteEntradaP2
-
 
 func _ao_jogador_entrar(jogador) -> void:
 	super._ao_jogador_entrar(jogador)
@@ -10,7 +8,14 @@ func _ao_jogador_entrar(jogador) -> void:
 
 
 func _ajustar_chegada_p2(jogador) -> void:
-	# Jogo define o destino depois de emitir jogador_entrou. A margem à
-	# esquerda impede que o P2 termine a corrida do lado de fora da parede.
+	# O P2 chega pela lateral inclinada. O destino precisa ficar dentro do
+	# piso mesmo quando o parceiro estiver encostado numa das bordas.
 	if Jogo.esta_vivo(jogador) and jogador.entrando:
-		jogador.destino_entrada.x = maxf(jogador.destino_entrada.x, limite_entrada_p2.global_position.x)
+		var destino: Vector2 = jogador.destino_entrada
+		var piso: Line2D = $Arena/LimiteDoPiso
+		destino.y = clampf(destino.y, piso.points[0].y + 24.0, piso.points[2].y - 24.0)
+		var altura = inverse_lerp(piso.points[0].y, piso.points[3].y, destino.y)
+		var esquerda = lerpf(piso.points[0].x, piso.points[3].x, altura) + 32.0
+		var direita = lerpf(piso.points[1].x, piso.points[2].x, altura) - 32.0
+		destino.x = clampf(destino.x, esquerda, direita)
+		jogador.destino_entrada = destino

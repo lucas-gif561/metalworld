@@ -3,8 +3,7 @@ extends "res://fases/boss_3/feixe_primal.gd"
 const MARGEM_PARA_OS_PES := 24.0
 
 @export_range(0.0, 1.0) var margem_de_reacao := 0.25
-@export_range(1, 6) var quantidade_pulsos := 3
-@export_range(0.2, 1.0) var intervalo_pulsos := 0.35
+@export_range(0.1, 1.0) var intervalo_dano := 0.25
 
 @onready var area_de_ataque: ReferenceRect = $AreaDeAtaque
 @onready var refugio: Panel = $Refugio
@@ -16,7 +15,7 @@ const MARGEM_PARA_OS_PES := 24.0
 ]
 
 var _jogadores_avisados: Array[int] = []
-var _pulsos_disparados := 0
+var _proximo_dano: Dictionary[int, float] = {}
 
 
 func preparar_refugio(tempo_padrao: float, refugio_anterior := Vector2.INF) -> float:
@@ -75,36 +74,27 @@ func _configurar_zonas() -> void:
 	]
 	for indice in zonas.size():
 		var zona: Rect2 = zonas[indice]
-		var forma := colisores[indice].shape as RectangleShape2D
-		forma.size = zona.size
-		colisores[indice].position = zona.get_center()
-		for visual: ColorRect in [zonas_aviso[indice], zonas_pulso[indice]]:
-			visual.position = zona.position
-			visual.size = zona.size
+		var retangulo = PackedVector2Array([zona.position, Vector2(zona.end.x, zona.position.y), zona.end, Vector2(zona.position.x, zona.end.y)])
+		var recortes = Geometry2D.intersect_polygons(retangulo, $Contorno.points)
+		var pontos: PackedVector2Array = recortes[0] if not recortes.is_empty() else PackedVector2Array()
+		colisores[indice].disabled = pontos.is_empty()
+		var forma := colisores[indice].shape as ConvexPolygonShape2D
+		if not pontos.is_empty():
+			forma.points = pontos
+		colisores[indice].position = Vector2.ZERO
+		for visual: Polygon2D in [zonas_aviso[indice], zonas_pulso[indice]]:
+			visual.polygon = pontos
 
 
-func _atualizar_disparo(_progresso: float) -> void:
-	# O Pulso acerta o piso. A colisão dos pés indica se o jogador
-	# está dentro do refúgio que aparece desenhado no chão.
+func _atualizar_disparo(progresso: float) -> void:
+	# A área permanece perigosa enquanto estiver acesa. Reavalia quem está
+	# fora do refúgio sem ignorar a esquiva nem a invulnerabilidade normal.
+	var decorrido = progresso * tempo_ativo
 	for corpo in get_overlapping_bodies():
-		# Quem entra durante o aviso não contou no cálculo até o refúgio.
-		if _jogadores_avisados.has(corpo.get_instance_id()):
-			_atingir_jogador(corpo)
-
-
-func _concluir_carga() -> void:
-	_pulsos_disparados += 1
-	super._concluir_carga()
-
-
-func _physics_process(delta: float) -> void:
-	super._physics_process(delta)
-	if _estado == Estado.DISSIPACAO and _pulsos_disparados < quantidade_pulsos:
-		# O refúgio continua no mesmo lugar durante as três batidas.
-		_estado = Estado.AVISO
-		_restante = intervalo_pulsos
-		_tempo_carga = 0.0
-		_atingidos.clear()
-		aviso.show()
-		faixa.hide()
-		nucleo.hide()
+		var id = corpo.get_instance_id()
+		# Quem entrou depois do aviso não participou do cálculo do refúgio.
+		if not _jogadores_avisados.has(id) or decorrido < _proximo_dano.get(id, 0.0):
+			continue
+		_atingidos.erase(id)
+		_atingir_jogador(corpo)
+		_proximo_dano[id] = decorrido + intervalo_dano

@@ -5,21 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://boesqtpxr147r" path="res://fases/boss_3/halo_teleporte.tres" id="3_halo"]
 [ext_resource type="Script" uid="uid://cgghsx0ebsuco" path="res://fases/boss_3/pulso_central.gd" id="4_pulso"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_superior"]
+[sub_resource type="ConvexPolygonShape2D" id="RectangleShape2D_superior"]
 resource_local_to_scene = true
-size = Vector2(912, 114.5)
+points = PackedVector2Array(234.0000, 296.0000, 914.0000, 296.0000, 939.4348, 371.0000, 209.8696, 371.0000)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_inferior"]
+[sub_resource type="ConvexPolygonShape2D" id="RectangleShape2D_inferior"]
 resource_local_to_scene = true
-size = Vector2(912, 114.5)
+points = PackedVector2Array(184.1304, 451.0000, 966.5652, 451.0000, 992.0000, 526.0000, 160.0000, 526.0000)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_esquerda"]
+[sub_resource type="ConvexPolygonShape2D" id="RectangleShape2D_esquerda"]
 resource_local_to_scene = true
-size = Vector2(392, 127)
+points = PackedVector2Array(209.8696, 371.0000, 520.0000, 371.0000, 520.0000, 451.0000, 184.1304, 451.0000)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_direita"]
+[sub_resource type="ConvexPolygonShape2D" id="RectangleShape2D_direita"]
 resource_local_to_scene = true
-size = Vector2(392, 127)
+points = PackedVector2Array(632.0000, 371.0000, 939.4348, 371.0000, 966.5652, 451.0000, 632.0000, 451.0000)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_refugio"]
 bg_color = Color(0.29, 0.84, 0.76, 0.16)
@@ -32,13 +32,11 @@ border_color = Color(0.57, 1, 0.89, 0.93)
 [node name="PulsoCentral" instance=ExtResource("1_feixe")]
 collision_mask = 1
 script = ExtResource("4_pulso")
-tempo_ativo = 0.18
-quantidade_pulsos = 3
-intervalo_pulsos = 0.35
+tempo_ativo = 3.0
+intervalo_dano = 0.25
 tempo_dissipacao = 0.27
 
 [node name="Colisor" parent="." index="0"]
-position = Vector2(576, 233.25)
 shape = SubResource("RectangleShape2D_superior")
 
 [node name="Aviso" parent="." index="1"]
@@ -51,7 +49,7 @@ modulate = Color(0.94, 0.32, 0.53, 0.27)
 points = PackedVector2Array()
 
 [node name="Halo" type="Sprite2D" parent="Carga" index="0"]
-position = Vector2(576, 354)
+position = Vector2(576, 411)
 scale = Vector2(3.2, 3.2)
 texture = ExtResource("3_halo")
 
@@ -69,60 +67,61 @@ visible = true
 offset_left = 276.0
 offset_right = 876.0
 theme_override_colors/font_color = Color(1, 0.83, 0.88, 1)
-text = "TRÊS PULSOS · FIQUE NO REFÚGIO"
+text = "LUZ CONTÍNUA · FIQUE NO REFÚGIO"
 
 [node name="ColisorInferior" type="CollisionShape2D" parent="." index="6"]
-position = Vector2(576, 474.75)
 shape = SubResource("RectangleShape2D_inferior")
 
 [node name="ColisorEsquerda" type="CollisionShape2D" parent="." index="7"]
-position = Vector2(316, 354)
 shape = SubResource("RectangleShape2D_esquerda")
 
 [node name="ColisorDireita" type="CollisionShape2D" parent="." index="8"]
-position = Vector2(836, 354)
 shape = SubResource("RectangleShape2D_direita")
 
 [node name="Refugio" type="Panel" parent="." index="9"]
-offset_left = 512.0
-offset_top = 290.5
-offset_right = 640.0
-offset_bottom = 417.5
+offset_left = 520.0
+offset_top = 371.0
+offset_right = 632.0
+offset_bottom = 451.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_refugio")
 
 [node name="AreaDeAtaque" type="ReferenceRect" parent="." index="10"]
-offset_left = 120.0
-offset_top = 176.0
-offset_right = 1032.0
-offset_bottom = 532.0
+offset_left = 160.0
+offset_top = 296.0
+offset_right = 992.0
+offset_bottom = 526.0
 mouse_filter = 2
 
 [node name="PontosRefugio" type="Node2D" parent="." index="11"]
 
 [node name="TopoEsquerda" type="Marker2D" parent="PontosRefugio"]
-position = Vector2(270, 254)
+position = Vector2(330, 350)
 
 [node name="TopoCentro" type="Marker2D" parent="PontosRefugio"]
-position = Vector2(576, 254)
+position = Vector2(576, 350)
 
 [node name="TopoDireita" type="Marker2D" parent="PontosRefugio"]
-position = Vector2(882, 254)
+position = Vector2(822, 350)
 
 [node name="MeioEsquerda" type="Marker2D" parent="PontosRefugio"]
-position = Vector2(270, 354)
+position = Vector2(330, 411)
 
 [node name="MeioCentro" type="Marker2D" parent="PontosRefugio"]
-position = Vector2(576, 354)
+position = Vector2(576, 411)
 
 [node name="MeioDireita" type="Marker2D" parent="PontosRefugio"]
-position = Vector2(882, 354)
+position = Vector2(822, 411)
 
 [node name="FundoEsquerda" type="Marker2D" parent="PontosRefugio"]
-position = Vector2(270, 454)
+position = Vector2(330, 472)
 
 [node name="FundoCentro" type="Marker2D" parent="PontosRefugio"]
-position = Vector2(576, 454)
+position = Vector2(576, 472)
 
 [node name="FundoDireita" type="Marker2D" parent="PontosRefugio"]
-position = Vector2(882, 454)
+position = Vector2(822, 472)
+
+[node name="Contorno" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(234, 296, 914, 296, 992, 526, 160, 526)

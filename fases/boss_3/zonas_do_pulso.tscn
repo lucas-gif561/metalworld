@@ -2,30 +2,14 @@
 
 [node name="ZonasDoPulso" type="Node2D"]
 
-[node name="Superior" type="ColorRect" parent="."]
-offset_left = 120.0
-offset_top = 176.0
-offset_right = 1032.0
-offset_bottom = 290.5
-mouse_filter = 2
+[node name="Superior" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(234.0000, 296.0000, 914.0000, 296.0000, 939.4348, 371.0000, 209.8696, 371.0000)
 
-[node name="Inferior" type="ColorRect" parent="."]
-offset_left = 120.0
-offset_top = 417.5
-offset_right = 1032.0
-offset_bottom = 532.0
-mouse_filter = 2
+[node name="Inferior" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(184.1304, 451.0000, 966.5652, 451.0000, 992.0000, 526.0000, 160.0000, 526.0000)
 
-[node name="Esquerda" type="ColorRect" parent="."]
-offset_left = 120.0
-offset_top = 290.5
-offset_right = 512.0
-offset_bottom = 417.5
-mouse_filter = 2
+[node name="Esquerda" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(209.8696, 371.0000, 520.0000, 371.0000, 520.0000, 451.0000, 184.1304, 451.0000)
 
-[node name="Direita" type="ColorRect" parent="."]
-offset_left = 640.0
-offset_top = 290.5
-offset_right = 1032.0
-offset_bottom = 417.5
-mouse_filter = 2
+[node name="Direita" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(632.0000, 371.0000, 939.4348, 371.0000, 966.5652, 451.0000, 632.0000, 451.0000)

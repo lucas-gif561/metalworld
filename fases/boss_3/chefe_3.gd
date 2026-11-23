@@ -220,7 +220,7 @@ func _lancar_rajada_de_orbes(disparo: DisparoBlaster) -> void:
 	for angulo in disparo.angulos_dos_orbes:
 		var orbe: OrbePrimal = disparo.cena_orbe.instantiate()
 		orbe.position = origem
-		orbe.preparar(direcao, angulo, limites, pode_atacar)
+		orbe.preparar(direcao, angulo, limites, pode_atacar, _contorno_dos_tiros())
 		# A rajada carrega no mesmo ponto, com um só halo e um só aviso.
 		orbe.visible = rajada.is_empty()
 		orbes.add_child(orbe)
@@ -250,7 +250,9 @@ func _lancar_parede(disparo: DisparoBlaster) -> void:
 	var direcoes = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 	var direcao: Vector2 = direcoes[distancias.find(distancias.min())]
 	var normal = direcao.orthogonal()
-	var area = area_da_parede.get_global_rect()
+	var area = Rect2(limite_do_piso.to_global(limite_do_piso.points[0]), Vector2.ZERO)
+	for ponto in limite_do_piso.points:
+		area = area.expand(limite_do_piso.to_global(ponto))
 	var centro = area.get_center().dot(normal)
 	var largura = area.size.dot(normal.abs()) / TOTAL_FAIXAS_PAREDE
 	for indice in disparo.faixas_da_parede.size():
@@ -286,23 +288,56 @@ func _adicionar_feixe(cena: PackedScene) -> FeixePrimal:
 
 
 func _trajeto_do_feixe(ponta: Vector2, direcao: Vector2, reflexoes: int) -> PackedVector2Array:
-	var area = (moldura_reflexao if reflexoes > 0 else moldura).get_global_rect()
-	var trajeto = PackedVector2Array([ponta])
-	for _trecho in reflexoes + 1:
-		var limite_x = area.end.x if direcao.x > 0.0 else area.position.x
-		var limite_y = area.end.y if direcao.y > 0.0 else area.position.y
+	if reflexoes <= 0:
+		var area = moldura.get_global_rect()
 		var distancias = FeixePrimal.distancias_ate_borda(ponta, direcao, area)
-		var distancia = minf(distancias.x, distancias.y)
-		ponta = (ponta + direcao * distancia).clamp(area.position, area.end)
-		# Num canto, o feixe reflete nos dois eixos no mesmo ponto.
-		if is_equal_approx(distancia, distancias.x):
-			ponta.x = limite_x
-			direcao.x = -direcao.x
-		if is_equal_approx(distancia, distancias.y):
-			ponta.y = limite_y
-			direcao.y = -direcao.y
-		trajeto.append(ponta)
+		return PackedVector2Array([ponta, ponta + direcao * minf(distancias.x, distancias.y)])
+	var contorno = _contorno_dos_tiros()
+	var trajeto = PackedVector2Array([ponta])
+	# O emissor fica fora do piso. A entrada não conta como ricochete.
+	if not Geometry2D.is_point_in_polygon(ponta, contorno):
+		var entrada = _encontro_com_borda(ponta, direcao, contorno)
+		if entrada.is_empty():
+			return _trajeto_do_feixe(ponta, direcao, 0)
+		ponta = entrada.posicao + direcao * 0.1
+	for _trecho in reflexoes + 1:
+		var encontro = _encontro_com_borda(ponta, direcao, contorno)
+		if encontro.is_empty():
+			break
+		trajeto.append(encontro.posicao)
+		direcao = -direcao if encontro.canto else direcao.bounce(encontro.normal).normalized()
+		ponta = encontro.posicao + direcao * 0.1
 	return trajeto
+
+
+func _contorno_dos_tiros() -> PackedVector2Array:
+	var contorno := PackedVector2Array()
+	# O piso marca os pés; os projéteis percorrem a faixa dos peitos.
+	var altura = area_da_parede.global_position.y - limite_do_piso.to_global(limite_do_piso.points[0]).y
+	for ponto in limite_do_piso.points:
+		contorno.append(limite_do_piso.to_global(ponto) + Vector2(0, altura))
+	return contorno
+
+
+func _encontro_com_borda(origem: Vector2, direcao: Vector2, contorno: PackedVector2Array) -> Dictionary:
+	var resultado := {}
+	var menor := INF
+	for indice in contorno.size():
+		var inicio = contorno[indice]
+		var fim = contorno[(indice + 1) % contorno.size()]
+		var encontro = Geometry2D.segment_intersects_segment(origem, origem + direcao * 10000.0, inicio, fim)
+		if encontro == null:
+			continue
+		var distancia = origem.distance_squared_to(encontro)
+		if distancia <= 0.001:
+			continue
+		if is_equal_approx(distancia, menor):
+			# No vértice, devolve o raio para dentro das duas bordas.
+			resultado.canto = true
+		elif distancia < menor:
+			menor = distancia
+			resultado = {"posicao": encontro, "normal": (fim - inicio).orthogonal().normalized(), "canto": false}
+	return resultado
 
 
 func _ao_feixe_sair(feixe: FeixePrimal) -> void:

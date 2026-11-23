@@ -1,6 +1,8 @@
 extends "res://fases/boss_3/feixe_primal.gd"
 
 @export_range(32, 128) var segmentos_da_onda := 96
+@export_range(1, 5) var quantidade_ondas := 1
+@export_range(0.1, 1.0) var intervalo_ondas := 0.22
 
 @onready var frente_onda: Line2D = $FrenteOnda
 @onready var halo_origem: Sprite2D = $HaloOrigem
@@ -8,6 +10,7 @@ extends "res://fases/boss_3/feixe_primal.gd"
 var _origem := Vector2.ZERO
 var _raio_final := 0.0
 var _alcancados: Array[int] = []
+var _ondas_disparadas := 0
 
 
 func iniciar(
@@ -25,6 +28,19 @@ func iniciar(
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
+	if is_queued_for_deletion():
+		return
+	if _estado == Estado.DISSIPACAO and _ondas_disparadas < quantidade_ondas:
+		# Repete a mesma cor a partir da mesma origem. Cada frente reavalia
+		# o movimento e o dano, respeitando a invulnerabilidade do jogador.
+		_estado = Estado.AVISO
+		_restante = intervalo_ondas
+		_tempo_carga = 0.0
+		_alcancados.clear()
+		_atingidos.clear()
+		aviso.show()
+		faixa.hide()
+		frente_onda.hide()
 	halo_origem.visible = _estado == Estado.AVISO or _estado == Estado.CARGA
 	frente_onda.visible = _estado == Estado.DISPARO
 
@@ -48,5 +64,6 @@ func _atualizar_disparo(progresso: float) -> void:
 
 
 func _concluir_carga() -> void:
+	_ondas_disparadas += 1
 	super._concluir_carga()
 	frente_onda.show()

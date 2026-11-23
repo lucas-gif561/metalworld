@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bqxtl8sv016pq" path="res://fases/boss_3/feixe_primal.tscn" id="3_feixe"]
 [ext_resource type="Resource" uid="uid://ymayscv1v8x1" path="res://fases/boss_3/blaster.tres" id="4_blaster"]
 [ext_resource type="Texture2D" uid="uid://d0jbb3ct4joae" path="res://icon.svg" id="5_provisorio"]
-[ext_resource type="Resource" uid="uid://bkmqvlsqayhp2" path="res://fases/boss_3/luz_azul_e_laranja.tres" id="6_cores"]
 [ext_resource type="Resource" uid="uid://ex1ap5f8q40y" path="res://fases/boss_3/ricochete.tres" id="7_ricochete"]
 [ext_resource type="Script" uid="uid://c4j34vv5e72gy" path="res://fases/boss_3/padrao_blaster.gd" id="8_padrao"]
 [ext_resource type="Resource" uid="uid://yyx6b456aiao" path="res://fases/boss_3/varredura.tres" id="9_varredura"]
@@ -18,6 +17,8 @@
 [ext_resource type="PackedScene" uid="uid://bwdwhf6i8wv2" path="res://bosses/base/runa.tscn" id="17_totem"]
 [ext_resource type="Resource" uid="uid://cv0jldvg0nl6i" path="res://fases/boss_3/acorde_cacofonia.tres" id="18_acorde"]
 [ext_resource type="Resource" uid="uid://duqhk2lod3s2s" path="res://fases/boss_3/encadeamento_harmonia.tres" id="19_encadeamento_harmonia"]
+
+[ext_resource type="Resource" uid="uid://c1j1ibwi50ueb" path="res://fases/boss_3/luz_azul_e_laranja_tom_puro.tres" id="20_cores_tom_puro"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_luz"]
 animations = [{
@@ -82,14 +83,14 @@ script = ExtResource("1_chefe")
 vida_maxima = 200
 cena_runa = ExtResource("17_totem")
 usar_fases = true
-pontos_runa = Array[Vector2]([Vector2(280, 320), Vector2(576, 418), Vector2(872, 320)])
+pontos_runa = Array[Vector2]([Vector2(325, 370), Vector2(576, 455), Vector2(827, 370)])
 cena_feixe = ExtResource("3_feixe")
-abertura_tom_puro = Array[ExtResource("8_padrao")]([ExtResource("16_blaster_inicial"), ExtResource("6_cores")])
-ciclo_tom_puro = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("6_cores")])
+abertura_tom_puro = Array[ExtResource("8_padrao")]([ExtResource("16_blaster_inicial"), ExtResource("20_cores_tom_puro")])
+ciclo_tom_puro = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("20_cores_tom_puro")])
 abertura_harmonia = Array[ExtResource("8_padrao")]([ExtResource("7_ricochete"), ExtResource("19_encadeamento_harmonia")])
-ciclo_harmonia = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("6_cores"), ExtResource("11_orbes"), ExtResource("9_varredura"), ExtResource("10_parede"), ExtResource("7_ricochete"), ExtResource("19_encadeamento_harmonia")])
+ciclo_harmonia = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("20_cores_tom_puro"), ExtResource("11_orbes"), ExtResource("9_varredura"), ExtResource("10_parede"), ExtResource("7_ricochete"), ExtResource("19_encadeamento_harmonia")])
 abertura_cacofonia = Array[ExtResource("8_padrao")]([ExtResource("14_centro"), ExtResource("18_acorde")])
-ciclo_cacofonia = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("6_cores"), ExtResource("11_orbes"), ExtResource("9_varredura"), ExtResource("10_parede"), ExtResource("7_ricochete"), ExtResource("12_encadeamento"), ExtResource("18_acorde"), ExtResource("14_centro")])
+ciclo_cacofonia = Array[ExtResource("8_padrao")]([ExtResource("4_blaster"), ExtResource("20_cores_tom_puro"), ExtResource("11_orbes"), ExtResource("9_varredura"), ExtResource("10_parede"), ExtResource("7_ricochete"), ExtResource("12_encadeamento"), ExtResource("18_acorde"), ExtResource("14_centro")])
 aviso_harmonia = "FASE 2 — HARMONIA! Quebre os totens!"
 aviso_cacofonia = "FASE 3 — CACOFONIA! Corra ao refúgio e quebre os totens!"
 
@@ -112,11 +113,10 @@ top_level = true
 one_shot = true
 
 [node name="SinalRiff" parent="." instance=ExtResource("15_sinal_riff")]
-top_level = true
-offset_left = 476.0
-offset_top = 148.0
-offset_right = 676.0
-offset_bottom = 218.0
+offset_left = -100.0
+offset_top = 30.0
+offset_right = 100.0
+offset_bottom = 62.0
 
 [node name="AvisoRetomada" type="Sprite2D" parent="."]
 visible = false

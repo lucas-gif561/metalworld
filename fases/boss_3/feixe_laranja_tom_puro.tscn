@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://61ll3p7rus02"]
+
+[ext_resource type="PackedScene" uid="uid://dokme003pl0dm" path="res://fases/boss_3/feixe_laranja.tscn" id="1_onda"]
+
+[node name="OndaLaranjaTomPuro" instance=ExtResource("1_onda")]
+tempo_ativo = 0.55
+quantidade_ondas = 3
+intervalo_ondas = 0.22

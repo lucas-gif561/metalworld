@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_leque"]
 script = ExtResource("2_disparo")
 cena_orbe = ExtResource("3_orbe")
-angulos_dos_orbes = PackedFloat32Array(-48, -41, -34, -27, -20, -13, -6, 0, 6, 13, 20, 27, 34, 41, 48)
+angulos_dos_orbes = PackedFloat32Array(-48, -37.33, -26.67, -16, -5.33, 5.33, 16, 26.67, 37.33, 48)
 teleportar_antes = true
 intervalo_anterior = 0.3
 tempo_aviso = 0.38
@@ -17,8 +17,8 @@ tempo_carga = 0.14
 [sub_resource type="Resource" id="Resource_onda_seguinte"]
 script = ExtResource("2_disparo")
 cena_orbe = ExtResource("3_orbe")
-angulos_dos_orbes = PackedFloat32Array(-48, -41, -34, -27, -20, -13, -6, 0, 6, 13, 20, 27, 34, 41, 48)
-intervalo_anterior = 0.70
+angulos_dos_orbes = PackedFloat32Array(-48, -37.33, -26.67, -16, -5.33, 5.33, 16, 26.67, 37.33, 48)
+intervalo_anterior = 1.25
 tempo_aviso = 0.26
 tempo_carga = 0.12
 

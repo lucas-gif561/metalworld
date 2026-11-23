@@ -8,7 +8,7 @@ enum RegraDano { QUALQUER_JOGADOR, EM_MOVIMENTO, PARADO }
 @export_range(0.0, 1.0) var limite_proporcional_de_largura := 0.0
 @export_range(0.0, 30.0) var velocidade_minima := 8.0
 @export_range(1, 10) var dano := 1
-@export_range(0.05, 2.0) var tempo_ativo := 0.16
+@export_range(0.05, 10.0) var tempo_ativo := 0.16
 @export_range(0.05, 2.0) var tempo_dissipacao := 0.18
 
 @onready var aviso: Line2D = $Aviso
