@@ -109,9 +109,6 @@ texture = ExtResource("2_halo")
 [node name="Orbes" type="Node2D" parent="."]
 top_level = true
 
-[node name="Temporizador" type="Timer" parent="."]
-one_shot = true
-
 [node name="SinalRiff" parent="." instance=ExtResource("15_sinal_riff")]
 offset_left = -100.0
 offset_top = 30.0

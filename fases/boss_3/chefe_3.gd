@@ -39,7 +39,6 @@ const TOTAL_FAIXAS_PAREDE := 3
 @onready var concentracao: Node2D = $Concentracao
 @onready var origem_feixe: Marker2D = $OrigemFeixe
 @onready var orbes: Node2D = $Orbes
-@onready var temporizador: Timer = $Temporizador
 @onready var aviso_retomada: Sprite2D = $AvisoRetomada
 @onready var animacao_retomada: AnimationPlayer = $AnimacaoRetomada
 
@@ -114,13 +113,6 @@ func _executar_sequencia(padroes: Array[PadraoBlaster], descansar_ao_liberar := 
 func pode_atacar() -> bool:
 	# A troca de fase encerra o descanso e os efeitos da sequência anterior.
 	return _fase_da_sequencia == fase and super.pode_atacar()
-
-
-func esperar(segundos: float) -> void:
-	# O tempo de aviso do teleporte para junto com o menu de pausa.
-	if segundos > 0.0 and is_inside_tree():
-		temporizador.start(segundos)
-		await temporizador.timeout
 
 
 func _saltar_na_borda(fator_tempo := 1.0) -> void:
