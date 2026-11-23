@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://br6vatxh3lfen"]
+
+[ext_resource type="PackedScene" uid="uid://nsi2hqao5h61" path="res://ui/barra_vida_miniboss.tscn" id="1_barra"]
+
+[node name="BarraVidaPilar" instance=ExtResource("1_barra")]
+
+[node name="Barra" parent="." index="0"]
+offset_left = -298.0
+offset_bottom = 40.0
+
+[node name="Enchimento" parent="Barra" index="1"]
+offset_top = 4.0
+offset_right = 283.0
+offset_bottom = 11.0

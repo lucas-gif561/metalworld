@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b6trtgv55wch0"]
+
+[ext_resource type="PackedScene" uid="uid://y51xvcfu2g0y" path="res://fases/rua_3/inimigos/desafio_luz/pilar_luz.tscn" id="1_pilar"]
+
+[node name="PilarLuzEsquerdo" instance=ExtResource("1_pilar")]
+emite_feixes = false
+
+[node name="Vida" parent="." index="2"]
+offset = Vector2(0, 22)

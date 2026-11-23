@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://4it3cmfb26ve"]
+
+[ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://bhywbrtvrqx3h" path="res://fases/rua_3/inimigos/guardiao_cosmico/guardiao_cosmico.gd" id="2_guardiao"]
+[ext_resource type="SpriteFrames" uid="uid://yrme0gva8wah" path="res://fases/rua_3/sprites/guardiao_cosmico.tres" id="3_sprite"]
+[ext_resource type="PackedScene" uid="uid://chkjqb3eftg1m" path="res://fases/rua_3/inimigos/guardiao_cosmico/aviso_circular_guardiao.tscn" id="4_explosao"]
+[ext_resource type="PackedScene" uid="uid://kjki824rk1x3" path="res://fases/rua_3/inimigos/desafio_luz/feixe_rua.tscn" id="5_feixe"]
+[ext_resource type="PackedScene" uid="uid://nsi2hqao5h61" path="res://ui/barra_vida_miniboss.tscn" id="6_barra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pes"]
+size = Vector2(66, 18)
+
+[node name="GuardiaoCosmico" instance=ExtResource("1_base")]
+collision_layer = 34
+script = ExtResource("2_guardiao")
+cena_explosao = ExtResource("4_explosao")
+cena_feixe = ExtResource("5_feixe")
+velocidade = 128.0
+vida = 32
+distancia_ataque = 88.0
+faixa_ataque = 26.0
+dano = 2
+tempo_preparo = 0.68
+resistencia_empurrao = 0.0
+interrompivel = false
+imune_a_atordoamento = true
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(2.8, 2.8)
+sprite_frames = ExtResource("3_sprite")
+animation = &"idle"
+offset = Vector2(0, -24)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_pes")
+
+[node name="TimerAtaque" parent="." index="2"]
+wait_time = 2.15
+
+[node name="Ataques" type="Node2D" parent="." index="3"]
+
+[node name="TimerFeixes" type="Timer" parent="." index="4"]
+process_callback = 0
+wait_time = 8.0
+autostart = true
+
+[node name="BarraVida" parent="." index="5" instance=ExtResource("6_barra")]
+
+[node name="AvisoSoco" type="Polygon2D" parent="." index="6"]
+visible = false
+show_behind_parent = true
+color = Color(1, 0.06, 0.12, 0.22)
+
+[connection signal="timeout" from="TimerFeixes" to="." method="_lancar_feixe"]

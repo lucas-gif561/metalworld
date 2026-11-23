@@ -521,6 +521,7 @@ func _soltar_especial() -> void:
 func _soltar_onda(especial: Dictionary) -> void:
 	var centro = global_position
 	var raio = especial.raio * escala_personagem
+	var empurrao = especial.get("empurrao", 360.0)
 	var onda = ONDA_MINIRRIFF.instantiate()
 	get_tree().current_scene.add_child(onda)
 	onda.global_position = centro
@@ -530,8 +531,8 @@ func _soltar_onda(especial: Dictionary) -> void:
 			continue
 		if alvo.global_position.distance_to(centro) <= raio:
 			var direcao = centro.direction_to(alvo.global_position)
-			if alvo.has_method("empurrar"):
-				alvo.empurrar(direcao * especial.get("empurrao", 360.0))
+			if empurrao > 0.0 and alvo.has_method("empurrar"):
+				alvo.empurrar(direcao * empurrao)
 			_acertar_minirriff(alvo, especial.dano, especial.get("impacto", especial.dano))
 			if alvo is Inimigo and especial.has("atordoamento"):
 				alvo.atordoar(especial.atordoamento)

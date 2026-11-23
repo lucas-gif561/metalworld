@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://kjki824rk1x3"]
+
+[ext_resource type="Script" uid="uid://bt2ys7ybijlnu" path="res://fases/rua_3/inimigos/desafio_luz/feixe_rua.gd" id="1_feixe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feixe"]
+bg_color = Color(1, 0.82, 0.98, 0.86)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.94, 1, 1)
+
+[node name="Feixe" type="Panel"]
+self_modulate = Color(0.93, 0.46, 1, 0.46)
+z_index = -1
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_feixe")
+script = ExtResource("1_feixe")
+brilho_impacto = Color(1.75, 1.35, 1.8, 1)
+tempo_travado = 0.7
+cor_carga = Color(1, 0.94, 1, 1)

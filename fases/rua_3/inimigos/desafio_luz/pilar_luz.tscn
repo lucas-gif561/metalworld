@@ -1,0 +1,232 @@
+[gd_scene format=3 uid="uid://y51xvcfu2g0y"]
+
+[ext_resource type="Script" uid="uid://kpf2xvpocbqb" path="res://fases/rua_3/inimigos/desafio_luz/desafio_luz.gd" id="1_desafio"]
+[ext_resource type="PackedScene" uid="uid://kjki824rk1x3" path="res://fases/rua_3/inimigos/desafio_luz/feixe_rua.tscn" id="2_feixe"]
+[ext_resource type="Texture2D" uid="uid://cryc6gi72c8uj" path="res://fases/rua_3/sprites/pilar_luz_animacoes.png" id="3_animacoes"]
+[ext_resource type="PackedScene" uid="uid://br6vatxh3lfen" path="res://fases/rua_3/inimigos/desafio_luz/barra_vida_pilar.tscn" id="4_barra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_base"]
+size = Vector2(34, 16)
+
+[sub_resource type="AtlasTexture" id="Atlas_parado_0"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(0, 0, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_parado_1"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(168, 0, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_parado_2"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(336, 0, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_parado_3"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(504, 0, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_parado_4"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(672, 0, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_parado_5"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(840, 0, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_parado_6"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1008, 0, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_parado_7"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1176, 0, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_dano_0"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(0, 168, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_dano_1"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(168, 168, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_dano_2"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(336, 168, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_dano_3"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(504, 168, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_dano_4"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(672, 168, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_dano_5"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(840, 168, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_dano_6"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1008, 168, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_dano_7"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1176, 168, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_dano_8"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1344, 168, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_quebra_0"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(0, 336, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_quebra_1"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(168, 336, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_quebra_2"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(336, 336, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_quebra_3"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(504, 336, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_quebra_4"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(672, 336, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_quebra_5"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(840, 336, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_quebra_6"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1008, 336, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_quebra_7"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1176, 336, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_quebra_8"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1344, 336, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_pulso_0"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(0, 504, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_pulso_1"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(168, 504, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_pulso_2"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(336, 504, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_pulso_3"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(504, 504, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_pulso_4"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(672, 504, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_pulso_5"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(840, 504, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_pulso_6"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1008, 504, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_pulso_7"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1176, 504, 168, 168)
+
+[sub_resource type="AtlasTexture" id="Atlas_pulso_8"]
+atlas = ExtResource("3_animacoes")
+region = Rect2(1344, 504, 168, 168)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pilar"]
+animations = [{
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_parado_0")},
+{"duration": 1.0, "texture": SubResource("Atlas_parado_1")},
+{"duration": 1.0, "texture": SubResource("Atlas_parado_2")},
+{"duration": 1.0, "texture": SubResource("Atlas_parado_3")},
+{"duration": 1.0, "texture": SubResource("Atlas_parado_4")},
+{"duration": 1.0, "texture": SubResource("Atlas_parado_5")},
+{"duration": 1.0, "texture": SubResource("Atlas_parado_6")},
+{"duration": 1.0, "texture": SubResource("Atlas_parado_7")}
+],
+"loop": true,
+"name": &"parado",
+"speed": 8.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_dano_0")},
+{"duration": 1.0, "texture": SubResource("Atlas_dano_1")},
+{"duration": 1.0, "texture": SubResource("Atlas_dano_2")},
+{"duration": 1.0, "texture": SubResource("Atlas_dano_3")},
+{"duration": 1.0, "texture": SubResource("Atlas_dano_4")},
+{"duration": 1.0, "texture": SubResource("Atlas_dano_5")},
+{"duration": 1.0, "texture": SubResource("Atlas_dano_6")},
+{"duration": 1.0, "texture": SubResource("Atlas_dano_7")},
+{"duration": 1.0, "texture": SubResource("Atlas_dano_8")}
+],
+"loop": false,
+"name": &"dano",
+"speed": 12.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_quebra_0")},
+{"duration": 1.0, "texture": SubResource("Atlas_quebra_1")},
+{"duration": 1.0, "texture": SubResource("Atlas_quebra_2")},
+{"duration": 1.0, "texture": SubResource("Atlas_quebra_3")},
+{"duration": 1.0, "texture": SubResource("Atlas_quebra_4")},
+{"duration": 1.0, "texture": SubResource("Atlas_quebra_5")},
+{"duration": 1.0, "texture": SubResource("Atlas_quebra_6")},
+{"duration": 1.0, "texture": SubResource("Atlas_quebra_7")},
+{"duration": 1.0, "texture": SubResource("Atlas_quebra_8")}
+],
+"loop": false,
+"name": &"quebra",
+"speed": 10.0
+}, {
+"frames": [
+{"duration": 1.0, "texture": SubResource("Atlas_pulso_0")},
+{"duration": 1.0, "texture": SubResource("Atlas_pulso_1")},
+{"duration": 1.0, "texture": SubResource("Atlas_pulso_2")},
+{"duration": 1.0, "texture": SubResource("Atlas_pulso_3")},
+{"duration": 1.0, "texture": SubResource("Atlas_pulso_4")},
+{"duration": 1.0, "texture": SubResource("Atlas_pulso_5")},
+{"duration": 1.0, "texture": SubResource("Atlas_pulso_6")},
+{"duration": 1.0, "texture": SubResource("Atlas_pulso_7")},
+{"duration": 1.0, "texture": SubResource("Atlas_pulso_8")}
+],
+"loop": false,
+"name": &"pulso",
+"speed": 10.0
+}]
+
+[node name="PilarLuz" type="AnimatableBody2D" groups=["alvos_golpe", "inimigos", "pilares_luz"]]
+collision_layer = 33
+collision_mask = 0
+sync_to_physics = false
+script = ExtResource("1_desafio")
+vida_maxima = 28
+intervalo_sequencias = 3.5
+cena_feixe = ExtResource("2_feixe")
+
+[node name="Colisao" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_base")
+
+[node name="Cristal" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.75, -103.25)
+scale = Vector2(1.75, 1.75)
+sprite_frames = SubResource("SpriteFrames_pilar")
+animation = &"parado"
+autoplay = "parado"
+
+[node name="Vida" parent="." instance=ExtResource("4_barra")]

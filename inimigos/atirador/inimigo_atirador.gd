@@ -7,6 +7,8 @@ extends Inimigo
 
 
 func _comportamento(_delta):
+	if _andar_para_dentro_da_arena():
+		return
 	var diferenca = jogador.global_position - global_position
 	var movimento = Vector2.ZERO
 
@@ -33,6 +35,8 @@ func _comportamento(_delta):
 
 
 func atirar():
+	if _fora_da_arena_da_rua():
+		return
 	var projetil = cena_projetil_inimigo.instantiate()
 
 	# Atira para o lado travado no começo da carga, mesmo que o jogador tenha passado para o outro
