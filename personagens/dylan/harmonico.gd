@@ -79,7 +79,7 @@ func _buscar_alvo() -> void:
 	var repetido: Node2D
 
 	var arvore := get_tree()
-	var alvos := arvore.get_nodes_in_group("inimigos") + arvore.get_nodes_in_group("caixotes")
+	var alvos := arvore.get_nodes_in_group("inimigos") + arvore.get_nodes_in_group("quebraveis")
 	for alvo in alvos:
 		if not alvo is Node2D or not alvo.has_method("receber_dano") or alvo.get("morto") or alvo.is_queued_for_deletion():
 			continue

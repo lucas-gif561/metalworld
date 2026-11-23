@@ -11,6 +11,8 @@ var morto = false
 
 func _ready() -> void:
 	add_to_group("alvos_golpe")
+	# Os minirriffs que procuram alvos (acorde, raio) também quebram barris e caixotes
+	add_to_group("quebraveis")
 	sprite.animation_finished.connect(_ao_terminar_animacao)
 
 

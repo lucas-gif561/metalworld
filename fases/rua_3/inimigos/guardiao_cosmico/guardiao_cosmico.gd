@@ -5,7 +5,7 @@ const CADEIA := &"cadeia"
 const SOCO := &"attack"
 const AUREOLA := &"aureola"
 const SEQUENCIA := [SALTO, CADEIA, SOCO, AUREOLA]
-const MARGEM_FEIXES := preload("res://fases/rua_3/feixe_rua.gd").MARGEM_ARENA
+const MARGEM_FEIXES := preload("res://fases/rua_3/inimigos/desafio_luz/feixe_rua.gd").MARGEM_ARENA
 const DISTANCIA_ENTRADA := 72.0
 
 @export var cena_explosao: PackedScene
@@ -91,7 +91,6 @@ func _entrar_na_arena() -> bool:
 func _preparar(animacao: StringName, quadro: int, impacto: Callable, preparo: float) -> void:
 	quadro_impacto = quadro
 	carregar_ataque(impacto, preparo)
-	sprite.modulate = Color.WHITE
 	sprite.animation = animacao
 	sprite.frame = 0
 
@@ -212,10 +211,17 @@ func _estourar_aureola() -> void:
 
 func _quebrar_postura() -> void:
 	super._quebrar_postura()
+	# De joelhos é a hora de bater: os feixes param até ele levantar
+	_timer_feixes.paused = true
 	var quadros: SpriteFrames = sprite.sprite_frames
 	# Reserva tempo para a auréola sem encurtar a janela de postura quebrada.
 	tempo_postura_quebrada += preparo_aureola + quadros.get_frame_count(AUREOLA) / quadros.get_animation_speed(AUREOLA)
 	_preparar_aureola()
+
+
+func _levantar() -> void:
+	super._levantar()
+	_timer_feixes.paused = false
 
 
 func _ao_terminar_animacao_postura() -> void:

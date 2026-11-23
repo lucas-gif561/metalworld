@@ -3,7 +3,7 @@ extends Node2D
 
 const ATAQUES_POR_SEQUENCIA := 4
 const TEMPO_EXTRA_PERSEGUIDOR := 1.1
-const MARGEM_FEIXES := preload("res://fases/rua_3/feixe_rua.gd").MARGEM_ARENA
+const MARGEM_FEIXES := preload("res://fases/rua_3/inimigos/desafio_luz/feixe_rua.gd").MARGEM_ARENA
 
 @export var vida_maxima := 8
 @export var tempo_sobrevivencia := 0.0

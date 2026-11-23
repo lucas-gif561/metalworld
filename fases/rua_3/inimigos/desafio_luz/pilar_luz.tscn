@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://y51xvcfu2g0y"]
 
-[ext_resource type="Script" uid="uid://kpf2xvpocbqb" path="res://fases/rua_3/desafio_luz.gd" id="1_desafio"]
-[ext_resource type="PackedScene" uid="uid://kjki824rk1x3" path="res://fases/rua_3/feixe_rua.tscn" id="2_feixe"]
+[ext_resource type="Script" uid="uid://kpf2xvpocbqb" path="res://fases/rua_3/inimigos/desafio_luz/desafio_luz.gd" id="1_desafio"]
+[ext_resource type="PackedScene" uid="uid://kjki824rk1x3" path="res://fases/rua_3/inimigos/desafio_luz/feixe_rua.tscn" id="2_feixe"]
 [ext_resource type="Texture2D" uid="uid://cryc6gi72c8uj" path="res://fases/rua_3/sprites/pilar_luz_animacoes.png" id="3_animacoes"]
-[ext_resource type="PackedScene" uid="uid://br6vatxh3lfen" path="res://fases/rua_3/barra_vida_pilar.tscn" id="4_barra"]
+[ext_resource type="PackedScene" uid="uid://br6vatxh3lfen" path="res://fases/rua_3/inimigos/desafio_luz/barra_vida_pilar.tscn" id="4_barra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_base"]
 size = Vector2(34, 16)

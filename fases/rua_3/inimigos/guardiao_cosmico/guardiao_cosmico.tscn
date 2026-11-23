@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://4it3cmfb26ve"]
 
 [ext_resource type="PackedScene" uid="uid://cveoxj6cty0lj" path="res://inimigos/base/inimigo.tscn" id="1_base"]
-[ext_resource type="Script" uid="uid://bhywbrtvrqx3h" path="res://fases/rua_3/guardiao_cosmico.gd" id="2_guardiao"]
+[ext_resource type="Script" uid="uid://bhywbrtvrqx3h" path="res://fases/rua_3/inimigos/guardiao_cosmico/guardiao_cosmico.gd" id="2_guardiao"]
 [ext_resource type="SpriteFrames" uid="uid://yrme0gva8wah" path="res://fases/rua_3/sprites/guardiao_cosmico.tres" id="3_sprite"]
-[ext_resource type="PackedScene" uid="uid://chkjqb3eftg1m" path="res://fases/rua_3/aviso_circular_guardiao.tscn" id="4_explosao"]
-[ext_resource type="PackedScene" uid="uid://kjki824rk1x3" path="res://fases/rua_3/feixe_rua.tscn" id="5_feixe"]
+[ext_resource type="PackedScene" uid="uid://chkjqb3eftg1m" path="res://fases/rua_3/inimigos/guardiao_cosmico/aviso_circular_guardiao.tscn" id="4_explosao"]
+[ext_resource type="PackedScene" uid="uid://kjki824rk1x3" path="res://fases/rua_3/inimigos/desafio_luz/feixe_rua.tscn" id="5_feixe"]
 [ext_resource type="PackedScene" uid="uid://nsi2hqao5h61" path="res://ui/barra_vida_miniboss.tscn" id="6_barra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pes"]

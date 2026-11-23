@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _ao_atingir(corpo: Node2D) -> void:
-	if not corpo.is_in_group(grupo_alvos) and not corpo.is_in_group("caixotes"):
+	if not corpo.is_in_group(grupo_alvos) and not corpo.is_in_group("quebraveis"):
 		return
 	if _atingidos.size() >= limite_acertos or corpo.get("morto"):
 		return

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://kjki824rk1x3"]
 
-[ext_resource type="Script" uid="uid://bt2ys7ybijlnu" path="res://fases/rua_3/feixe_rua.gd" id="1_feixe"]
+[ext_resource type="Script" uid="uid://bt2ys7ybijlnu" path="res://fases/rua_3/inimigos/desafio_luz/feixe_rua.gd" id="1_feixe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feixe"]
 bg_color = Color(1, 0.82, 0.98, 0.86)
